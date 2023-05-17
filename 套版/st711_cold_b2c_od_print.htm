@@ -1,0 +1,43 @@
+<style>
+.admweb-v2-list-header-in-fixbottom{display:block;}
+table{margin-top: 65px;width: 100%;}
+@media screen and (min-width: 768px){
+.admweb-v2-list-header-in-fixbottom{display: none;}
+}
+@media print{
+    .admweb-v2-orderlist-header,.admweb-v2-list-header-in-fixbottom{ display: none;}
+}
+</style>
+
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+    </div>
+    <!-- status1:大宗寄件申請  status2:更新大宗寄件資訊 status3:查看大宗寄件申請資料 -->
+    <h2 class="admweb-v2-orderlist-header-title">寄件標籤</h2>
+</div>
+<div class="admweb-v2-list-header-in-fixbottom">
+    <div class="admweb-v2-list-fix-bottom">
+        <ul>
+            <li><a href="https://bbc.dev.ewebs.tw/iopen/">
+                    <i class="icons-line icon-line-home-bag"></i><p>商城首頁</p></a></li>
+            <li> <a href="admweb.main.php?action=order_control_pic">
+                    <i class="icons-line icon-line-paper-text"></i><p>我的訂單</p></a></li>
+            <li><a href="admweb.main.php?action=product_pic">
+                    <i class="icons-line icon-line-box-product"></i><p>我的商品</p></a></li>
+            <li><a href="admweb.main.php?action=website_page_pic">
+                    <i class="icons-line icon-line-lattice"></i> <p>商店佈置</p></a></li>
+            <li><a href="admweb.main.php?action=account_statement"><i class="icons-line icon-line-emoney-bold-02">
+                    </i><p>對帳單</p></a></li>
+            <li class="admweb-v2-list-btn-fixbottom-seller admweb-v2-list-logo-seller">
+                <a href="admweb.main.php"><p>賣家中心</p></a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(function() {
+        $('.admweb-v2-list-header').hide();
+    });
+</script>

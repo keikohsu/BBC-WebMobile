@@ -1,0 +1,1080 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">訂單批次作業</h2>
+  <div class="admweb-v2-orderlist-header-qrcode">
+    <i class="icons-line icon-social-messenger-01"></i>我的QRcode
+  </div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form">
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div
+          class="
+            admweb-v2-orderlist__form-head_search
+            js-orderlist__form-head_search
+          "
+        >
+          <select
+            name="search_type"
+            id=""
+            class="
+              pic-text-lnput pic-text-lnput-style
+              admweb-v2-orderlist-select
+            "
+          >
+            <option value="number">訂單編號</option>
+            <option value="">訂單編號</option>
+            <option value="">某某條件</option>
+            <option value="">某某條件</option>
+          </select>
+          <input
+            type="text"
+            placeholder="請輸入訂單編號"
+            class="pic-text-lnput pic-lnput-enter"
+          />
+          <button
+            type="submit"
+            class="
+              pic-BgText-color-green
+              admweb-v2-orderlist__form-head_search-btn
+              js-orderlist__form-head_search-btn
+            "
+          >
+            搜尋
+          </button>
+        </div>
+        <div class="admweb-v2-orderlist__form-item">
+          <label for="order-date">訂單日期</label>
+          <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+            <input
+              type="date"
+              class="
+                admweb-v2-orderlist__form-date
+                pic-text-lnput pic-lnput-enter
+              "
+            />
+            <span>-</span>
+            <input
+              type="date"
+              class="
+                admweb-v2-orderlist__form-date
+                pic-text-lnput pic-lnput-enter
+              "
+            />
+          </div>
+        </div>
+        <div class="admweb-v2-orderlist__form-item">
+          <label for="delivery">配送方式</label>
+          <select
+            name="delivery_type"
+            id=""
+            class="
+              pic-text-lnput pic-text-lnput-style
+              admweb-v2-orderlist-select
+            "
+          >
+            <option value="number">全部</option>
+            <option value="超商">超商</option>
+            <option value="宅配">宅配</option>
+          </select>
+        </div>
+        <div class="admweb-v2-orderlist__form-item">
+          <label for="shop-type">賣場類型</label>
+          <select
+            name="shop-type"
+            id="shop-type"
+            class="
+              pic-text-lnput pic-text-lnput-style
+              admweb-v2-orderlist-select
+            "
+          >
+            <option value="全部">全部</option>
+            <option value="一般賣場">一般賣場</option>
+            <option value="隱形賣場">隱形賣場</option>
+            <option value="團購賣場">團購賣場</option>
+            <option value="拚團賣場">拚團賣場</option>
+          </select>
+        </div>
+        <div class="admweb-v2-orderlist__form-item">
+          <label for="tempture_type">溫層類型</label>
+          <select
+            name="tempture_type"
+            id="tempture_type"
+            class="
+              pic-text-lnput pic-text-lnput-style
+              admweb-v2-orderlist-select
+            "
+          >
+            <option value="number">全部</option>
+            <option value="常溫">常溫</option>
+            <option value="冷藏">冷藏</option>
+            <option value="冷凍">冷凍</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="pic-BgText-color-green admweb-v2-orderlist__form-btn"
+        >
+          搜尋
+        </button>
+      </div>
+    </form>
+    <button
+      class="
+        pic-text-gray-30 pic-bg-green-5
+        admweb-v2-orderlist__form-toggle-btn
+      "
+      id="js-orderlist__form-toggle--btn"
+    >
+      更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+    </button>
+    <!-- nav -->
+    <div class="admweb-v2-orderlist__nav-outer">
+      <ul class="admweb-v2-orderlist__nav">
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#all" class="admweb-v2-orderlist__nav-link">全部</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type1" class="admweb-v2-orderlist__nav-link">帳款確認中</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type2" class="admweb-v2-orderlist__nav-link">待出貨</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type3" class="admweb-v2-orderlist__nav-link">出貨中</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type4" class="admweb-v2-orderlist__nav-link">已出貨</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type5" class="admweb-v2-orderlist__nav-link">貨到門市</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type6" class="admweb-v2-orderlist__nav-link">已送達</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type7" class="admweb-v2-orderlist__nav-link">訂單取消</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type8" class="admweb-v2-orderlist__nav-link"
+            >配送異常退回</a
+          >
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type9" class="admweb-v2-orderlist__nav-link">退貨申請中</a>
+        </li>
+        <li class="admweb-v2-orderlist__nav-item">
+          <a href="#type10" class="admweb-v2-orderlist__nav-link">物流驗退</a>
+        </li>
+      </ul>
+    </div>
+    <!-- 注意事項 -->
+    <div
+      class="
+        pic-bg-orange-10 pic-text-orange
+        admweb-v2-orderlist__notice--outer
+      "
+    >
+      <div class="admweb-v2-orderlist__notice" data-overflow>
+        <p data-expand-text class="admweb-v2-orderlist__notice--text">
+          10/1~10/31常溫店取寄件優惠運費優惠35元(離島費用依官網公告)、冷凍店取寄件運費優惠99元(僅限本島)。
+        </p>
+        <button
+          class="
+            pic-bg-orange-10 pic-text-orange
+            admweb-v2-orderlist__notice--btn
+          "
+        ></button>
+      </div>
+    </div>
+    <!-- 訂單列表 -->
+    <div>
+      <div class="admweb-v2-orderlist-overview">
+        <span>訂單日期：2022/09/05 ~ 2022/10/05</span>
+        <span>共190筆</span>
+      </div>
+      <ul class="admweb-v2-orderlist__list">
+        <!-- 配送類型：超商 -->
+        <li class="admweb-v2-orderlist__card">
+          <!-- 電腦版 -->
+          {{if !$mobileDeviceDirected}}
+          <table class="admweb-v2-orderlist__table">
+            <thead>
+              <tr class="admweb-v2-orderlist__table--head">
+                <th></th>
+                <th>訂單編號</th>
+                <th>訂單狀態</th>
+                <th>訂單時間</th>
+                <th>收件人</th>
+                <th>賣場類型</th>
+                <th>配送方式</th>
+                <th>付款方式</th>
+                <th>購買數量</th>
+                <th>購買總計<br />(含運費)</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="admweb-v2-orderlist__table--tr">
+                <td>
+                  <input
+                    class="
+                      js-admweb-v2--order-checkbox
+                      admweb-v2-ckbutton-green-checkbox
+                    "
+                    type="checkbox"
+                    id="500000011"
+                    value="500000011"
+                  />
+                  <label for="500000011" class="admweb-v2-ckbutton-green-label">
+                  </label>
+                </td>
+                <td>
+                  <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                  <a class="admweb-v2-orderlist--order_no">500000011</a>
+                </td>
+                <td>帳款確認中</td>
+                <td>2022/11/11 00:00:11</td>
+                <td>王小明</td>
+                <td>一般賣場</td>
+                <td>
+                  <span class="admweb-v2-orderlist-delivery--store">超商</span>
+                  <p class="admweb-v2-orderlist-delivery_no">L30631480864</p>
+                </td>
+                <td>ATM轉帳</td>
+                <td>10</td>
+                <td>$750</td>
+                <td>
+                  <a
+                    class="
+                      admweb-v2-orderlist__card-top_status-link
+                      pic-BgText-color-white-green
+                    "
+                  >
+                    訂單詳情
+                    <i class="icons-line icon-arrow-right-01"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+{{else}}
+          <!-- 手機版  -->
+          <!-- list top -->
+          <div class="admweb-v2-orderlist__card-top">
+            <div class="admweb-v2-checkbox-name">
+              <input
+                class="
+                  js-admweb-v2--order-checkbox
+                  admweb-v2-ckbutton-green-checkbox
+                "
+                type="checkbox"
+                id="500000011-1"
+                value="500000011-1"
+              />
+              <label for="500000011-1" class="admweb-v2-ckbutton-green-label">
+              </label>
+              <p>
+                <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                <span class="pic-text-gray">訂單編號</span>
+                <span>500000011</span>
+              </p>
+            </div>
+            <div class="admweb-v2-orderlist__card-top_status">
+              <span>帳款確認中</span>
+              <a
+                class="
+                  admweb-v2-orderlist__card-top_status-link
+                  pic-BgText-color-white-green pic-font-size-12
+                "
+              >
+                訂單詳情
+                <i class="icons-line icon-arrow-right-01"></i>
+              </a>
+            </div>
+          </div>
+{{/if}}
+
+
+          <!-- list bottom -->
+          <dl class="admweb-v2-orderlist__card-detail">
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">訂單時間</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">2022/10/05 20:04:18</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">收件人</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">王*明</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">賣場類型</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">一般賣場</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">配送方式</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                <!-- 超商:admweb-v2-orderlist-delivery--store /宅配:admweb-v2-orderlist-delivery--store -->
+                <span class="admweb-v2-orderlist-delivery--store">超商</span
+                >L30631480864
+              </dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">付款方式</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">ATM轉帳</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc--multi">
+              <dt class="admweb-v2-orderlist__card-desc-dt">購買數量</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">10</dd>
+              <dt class="admweb-v2-orderlist__card-desc-dt">
+                購買總計(含運費)
+              </dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                <strong class="pic-text-green">$750</strong>
+              </dd>
+            </div>
+          </dl>
+          <div class="admweb-v2-orderlist__progress-container">
+            <button
+              class="
+                pic-bg-green-5 pic-text-green
+                admweb-v2-orderlist__progress-btn
+              "
+              onClick="toggleProgressBar(this)"
+            >
+              訂單狀態：帳款確認中<i class="icons-line icon-arrow-down-01"></i>
+            </button>
+            <!-- 進度 -->
+            <div class="admweb-v2-orderlist__progress-outer" style="height: 0">
+              <div class="admweb-v2-orderlist__progress">
+                <!-- 進度具備處理時間時class加上admweb-v2-orderlist__progress-item--success -->
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">訂單成立</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">訂單處理中</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+                <div class="admweb-v2-orderlist__progress-item">
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">出貨中</p>
+                  <span class="admweb-v2-orderlist__progress-time"></span>
+                </div>
+                <div class="admweb-v2-orderlist__progress-item">
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">已出貨</p>
+                  <span class="admweb-v2-orderlist__progress-time"></span>
+                </div>
+                <div class="admweb-v2-orderlist__progress-item">
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">貨到門市</p>
+                  <span class="admweb-v2-orderlist__progress-time"></span>
+                </div>
+                <div class="admweb-v2-orderlist__progress-item">
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">已送達</p>
+                  <span class="admweb-v2-orderlist__progress-time"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- 配送類型：宅配 + 配送異常退回 -->
+        <li class="admweb-v2-orderlist__card">
+          <!-- 電腦版 -->
+          <table class="admweb-v2-orderlist__table">
+            <thead>
+              <tr class="admweb-v2-orderlist__table--head">
+                <th></th>
+                <th>訂單編號</th>
+                <th>訂單狀態</th>
+                <th>訂單時間</th>
+                <th>收件人</th>
+                <th>賣場類型</th>
+                <th>配送方式</th>
+                <th>付款方式</th>
+                <th>購買數量</th>
+                <th>購買總計<br />(含運費)</th>
+                <th>訂單處理</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="admweb-v2-orderlist__table--tr">
+                <td>
+                  <input
+                    class="
+                      js-admweb-v2--order-checkbox
+                      admweb-v2-ckbutton-green-checkbox
+                    "
+                    type="checkbox"
+                    id="500000012"
+                    value="500000012"
+                  />
+                  <label for="500000012" class="admweb-v2-ckbutton-green-label">
+                  </label>
+                </td>
+                <td>
+                  <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                  <a class="admweb-v2-orderlist--order_no">500000012</a>
+                </td>
+                <td>配送異常退回</td>
+                <td>2022/11/11 00:00:11</td>
+                <td>王小明</td>
+                <td>一般賣場</td>
+                <td>
+                  <span class="admweb-v2-orderlist-delivery--normal">宅配</span>
+                  <p class="admweb-v2-orderlist-delivery_no">J72233121434</p>
+                </td>
+                <td>ATM轉帳</td>
+                <td>10</td>
+                <td>$750</td>
+                <td class="admweb-v2-orderlist-process">
+                  您預設的退件門市已閉店，請重選門市
+                </td>
+                <td>
+                  <a
+                    class="
+                      admweb-v2-orderlist__card-top_status-link
+                      pic-BgText-color-white-green
+                    "
+                  >
+                    訂單詳情
+                    <i class="icons-line icon-arrow-right-01"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- list top -->
+          <div class="admweb-v2-orderlist__card-top">
+            <div class="admweb-v2-checkbox-name">
+              <input
+                class="
+                  js-admweb-v2--order-checkbox
+                  admweb-v2-ckbutton-green-checkbox
+                "
+                type="checkbox"
+                id="500000012-1"
+                value="500000012-1"
+              />
+              <label for="500000012-1" class="admweb-v2-ckbutton-green-label">
+              </label>
+              <p>
+                <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                <span class="pic-text-gray">訂單編號</span>
+                <span>500000012</span>
+              </p>
+            </div>
+
+            <div class="admweb-v2-orderlist__card-top_status">
+              <span>配送異常退回</span>
+              <a
+                class="
+                  admweb-v2-orderlist__card-top_status-link
+                  pic-BgText-color-white-green pic-font-size-12
+                "
+              >
+                訂單詳情
+                <i class="icons-line icon-arrow-right-01"></i>
+              </a>
+            </div>
+          </div>
+          <!-- list bottom -->
+          <dl class="admweb-v2-orderlist__card-detail">
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">訂單時間</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">2022/10/05 20:04:18</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">收件人</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">王*明</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">賣場類型</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">一般賣場</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">配送方式</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                <span class="admweb-v2-orderlist-delivery--normal">宅配</span
+                >J72233121434
+              </dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">付款方式</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">ATM轉帳</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc--multi">
+              <dt class="admweb-v2-orderlist__card-desc-dt">購買數量</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">10</dd>
+              <dt class="admweb-v2-orderlist__card-desc-dt">
+                購買總計(含運費)
+              </dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                <strong class="pic-text-green">$750</strong>
+              </dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">訂單處理</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                宅配退件(拒收/無人收)
+              </dd>
+            </div>
+          </dl>
+          <div class="admweb-v2-orderlist__progress-container">
+            <button
+              class="
+                pic-bg-green-5 pic-text-green
+                admweb-v2-orderlist__progress-btn
+              "
+              onClick="toggleProgressBar(this)"
+            >
+              訂單狀態：配送異常退回<i
+                class="icons-line icon-arrow-down-01"
+              ></i>
+            </button>
+            <!-- 進度 -->
+            <div class="admweb-v2-orderlist__progress-outer" style="height: 0">
+              <div class="admweb-v2-orderlist__progress">
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">訂單成立</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">訂單處理中</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">出貨中</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">已出貨</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">貨到門市</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+                <div
+                  class="
+                    admweb-v2-orderlist__progress-item
+                    admweb-v2-orderlist__progress-item--success
+                  "
+                >
+                  <span class="admweb-v2-orderlist__progress-circle"></span>
+                  <p class="admweb-v2-orderlist__progress-text">配送異常退回</p>
+                  <span class="admweb-v2-orderlist__progress-time"
+                    >09/06 20:04</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+        <!-- 訂單列表 無資料-->
+        <div class="admweb-v2-NoData">
+          <div class="admweb-v2-img-NoData"></div>
+          <span>目前無訂單資料</span>
+        </div>
+<div>
+
+</div>
+    <!-- 一頁以下 -->
+    <div class="pic-text-center">
+      <p class="pic-page-bottom-text">1 - 3 筆／共 3 筆</p>
+    </div>
+    <!-- 五頁以下 -->
+    <div class="pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+          <a class="admweb-v2-page-link-num" href="#">1</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-num" href="#">2</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-num" href="#">3</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-num" href="#">4</a>
+        </li>
+      </ul>
+      <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+    </div>
+    <!-- 五頁以上 -->
+    <div class="pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+            <span
+              class="admweb-v2-icon-page-left-first-arrows"
+              aria-hidden="true"
+            ></span>
+          </a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+            <span
+              class="admweb-v2-icon-black-left-arrows"
+              aria-hidden="true"
+            ></span>
+          </a>
+        </li>
+        <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+          <a class="admweb-v2-page-link-num" href="#">1</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-num" href="#">2</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-num" href="#">3</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-num" href="#">4</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-num" href="#">5</a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+            <span
+              class="admweb-v2-icon-black-right-arrows"
+              aria-hidden="true"
+            ></span>
+          </a>
+        </li>
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+            <span
+              class="admweb-v2-icon-page-right-last-arrows"
+              aria-hidden="true"
+            ></span>
+          </a>
+        </li>
+      </ul>
+      <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+    </div>
+  </div>
+  <div
+    class="js-admweb-v2--alert admweb-v2-orderlist--alert"
+    style="display: none"
+  >
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="pic-window-order">
+        <p class="pic-window-marge-box">text</p>
+        <div class="pic-window-button-box">
+          <button
+            class="pic-window-button-OneBtn pic-BgText-color-green"
+            onclick="closeAlert()"
+          >
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 置底按鈕:全部 -->
+  <div class="admweb-v2-orderlist__action" id="js-orderlist__action">
+    <div class="admweb-v2-orderlist__action-select_all">
+      <input
+        type="checkbox"
+        class="admweb-v2-ckbutton-green-checkbox"
+        id="selectAll"
+        value="all"
+        onchange="selectAllOrder()"
+      />
+      <label for="selectAll" class="admweb-v2-ckbutton-green-label"> </label>
+      <span>全選</span>
+    </div>
+
+    <button class="admweb-v2-orderlist__action-row_btn">
+      <i class="icons-line icon-line-paper-text"></i> 報表
+    </button>
+  </div>
+  <!-- 置底按鈕:待出貨 type2 -->
+  <div
+    class="admweb-v2-orderlist__action"
+    style="display: none"
+    id="js-orderlist__action#type2"
+  >
+    <div class="admweb-v2-orderlist__action-select_all">
+      <input
+        type="checkbox"
+        class="admweb-v2-ckbutton-green-checkbox"
+        id="selectAll"
+        value="all"
+        onchange="selectAllOrder()"
+      />
+      <label for="selectAll" class="admweb-v2-ckbutton-green-label"> </label>
+      <span>全選</span>
+    </div>
+    <button class="admweb-v2-orderlist__action-col_btn">
+      <i class="icons-line icon-line-paper-text"></i> 報表
+    </button>
+    <button class="admweb-v2-orderlist__action-col_btn">
+      <i class="icons-line icon-line-paper-text"></i>出貨單
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn--grow"
+      onclick="batchStoreShipment()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>超商整批出貨
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn--grow"
+      onclick="batchDeliveryShipment()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>宅配整批出貨
+    </button>
+  </div>
+  <!-- 置底按鈕:出貨中 type3-->
+  <div
+    class="admweb-v2-orderlist__action"
+    style="display: none"
+    id="js-orderlist__action#type3"
+  >
+    <div class="admweb-v2-orderlist__action-select_all">
+      <input
+        type="checkbox"
+        class="admweb-v2-ckbutton-green-checkbox"
+        id="selectAll"
+        value="all"
+        onchange="selectAllOrder()"
+      />
+      <label for="selectAll" class="admweb-v2-ckbutton-green-label"> </label>
+      <span>全選</span>
+    </div>
+    <button class="admweb-v2-orderlist__action-col_btn">
+      <i class="icons-line icon-line-paper-text"></i> 報表
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn"
+      onclick="printStoreLabel()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>超商標籤
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn"
+      onclick="printDeliveryLabel()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>宅配標籤
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn--grow"
+      onclick="sendQRcodeToMachine()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>我的QRcode
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    searchFormCollapse();
+    markCurrentNavLink();
+    hideMobileLayout();
+  })();
+  window.addEventListener('resize', () => {
+    searchFormCollapse();
+    checkNoticeOverflow();
+  });
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function toggleProgressBar(btn) {
+    const progressEleStyle = btn.nextElementSibling.style;
+    const eleHeight = btn.nextElementSibling.children[0].clientHeight;
+    if (
+      !progressEleStyle.height ||
+      progressEleStyle.height === `${eleHeight}px`
+    ) {
+      progressEleStyle.height = '0';
+      btn.querySelector('i').classList = 'icons-line icon-arrow-down-01';
+    } else {
+      progressEleStyle.height = `${eleHeight}px`;
+      btn.querySelector('i').classList = 'icons-line icon-arrow-top-01';
+    }
+  }
+  window.addEventListener('popstate', () => {
+    markCurrentNavLink();
+  });
+
+  function markCurrentNavLink() {
+    const targetHash = window.location.hash || '#all';
+    const targetEle = document.querySelector(`[href="${targetHash}"]`);
+    const linkEles = document.querySelectorAll(
+      '.admweb-v2-orderlist__nav-link'
+    );
+    scrollTabToCenter(`[href="${targetHash}"]`);
+    showActionBtns(targetHash);
+    linkEles.forEach((item) =>
+      item.classList.remove('admweb-v2-orderlist__nav-link--active')
+    );
+    targetEle.classList.add('admweb-v2-orderlist__nav-link--active');
+  }
+  function scrollTabToCenter(targetEle) {
+    let pos = $(targetEle)
+      .parent('.admweb-v2-orderlist__nav-item')
+      .position().left;
+    const eleWidth = $(targetEle).width();
+    const currentscroll = $('.admweb-v2-orderlist__nav').scrollLeft();
+    const divwidth = $('.admweb-v2-orderlist__nav').width();
+    pos = pos + currentscroll - divwidth / 2 + eleWidth / 2;
+    $('.admweb-v2-orderlist__nav').animate({
+      scrollLeft: pos
+    });
+  }
+  function showActionBtns(targetHash) {
+    const actionEles = document.querySelectorAll(
+      '.admweb-v2-orderlist__action'
+    );
+    actionEles.forEach((ele) => (ele.style.display = 'none'));
+    document.getElementById(
+      `js-orderlist__action${
+        targetHash === '#type2' || targetHash == '#type3' ? targetHash : ''
+      }`
+    ).style.display = 'flex';
+  }
+  function searchFormCollapse() {
+    const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const headBtn = document.getElementsByClassName(
+      'js-orderlist__form-head_search-btn'
+    )[0];
+    const wholeHeight = formEle.clientHeight;
+    formEle.style.height = `${defaultHeight}px`;
+    toggleBtn.addEventListener('click', () => {
+      //當前為收合
+      if (formEle.style.height === `${defaultHeight}px`) {
+        formEle.style.height = `${wholeHeight}px`;
+        toggleBtn.innerHTML =
+          '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+        headBtn.style.display = 'none';
+      } else {
+        ///當前為展開
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.innerHTML =
+          '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+        headBtn.style.display = 'block';
+      }
+    });
+  }
+
+  const expandableEles = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice'
+  );
+  const expandableBtns = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice--btn'
+  );
+  checkNoticeOverflow();
+  function checkNoticeOverflow() {
+    expandableEles.forEach((expandableEle) => {
+      if (expandableEle.classList.contains('expanded')) return;
+      const expandableText = expandableEle.querySelector(
+        '.admweb-v2-orderlist__notice--text'
+      );
+      const overflowing =
+        expandableText.scrollHeight > expandableEle.clientHeight;
+      expandableEle.dataset.overflow = overflowing;
+    });
+  }
+  expandableBtns.forEach((button) => {
+    button.addEventListener('click', toggleNoticeText);
+    setNoticeButtonText(button);
+  });
+  function toggleNoticeText(e) {
+    const expandableEle = e.target.closest('.admweb-v2-orderlist__notice');
+    expandableEle.classList.toggle('expanded');
+    setNoticeButtonText(e.target);
+  }
+
+  function setNoticeButtonText(button) {
+    const expandableEle = button.closest('.admweb-v2-orderlist__notice');
+    const expanded = expandableEle.classList.contains('expanded');
+    button.innerHTML = expanded
+      ? '<i class="icons-line icon-arrow-top-01"></i>運費/出貨說明收合'
+      : '<i class="icons-line icon-arrow-down-01"></i>運費/出貨說明展開';
+  }
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    alert.style.display = 'none';
+  }
+  function editAlertContent(content) {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    showAlert(alert);
+    alert.querySelector('.pic-window-marge-box').innerHTML = content;
+  }
+  //我的QRcode
+  function sendQRcodeToMachine() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無可上傳至我的QRcode，請重勾選訂單。`);
+      return;
+    }
+    //成功送出訂單後跳出提示
+    editAlertContent(
+      `傳送至【我的QRcode】成功，請按確定鍵，再點擊【我的QRcode】至ibon機台列印。<br>※提醒您，請確認已將APP更新至最新版本`
+    );
+  }
+  //超商標籤
+  function printStoreLabel() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【超商】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+    //列印超商標籤
+  }
+  //宅配標籤
+  function printDeliveryLabel() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【宅配】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+    //列印宅配標籤
+  }
+  //超商整批出貨
+  function batchStoreShipment() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【超商】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+    //do some action
+  }
+  //宅配整批出貨
+  function batchDeliveryShipment() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【宅配】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+    //do some action
+  }
+  function getSelectedCheckboxValue() {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+    let value = [];
+    eles.forEach((ele) => ele.checked && value.push(ele.value));
+    return Array.from(new Set(value));
+  }
+  //全選
+  function selectAllOrder() {
+    const isSelectedAll = document.getElementById('selectAll').checked;
+    const eles = document.querySelectorAll('.js-admweb-v2--order-checkbox');
+    eles.forEach((ele) =>
+      isSelectedAll ? (ele.checked = true) : (ele.checked = false)
+    );
+  }
+</script>

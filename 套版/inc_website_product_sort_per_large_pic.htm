@@ -1,0 +1,485 @@
+<style>
+    .product-sort-content{padding: 10px; display: block;}
+    .product-sort-content > tbody{ width: 100%; display: block;}
+    .product-sort-content > tbody > tr{display: -ms-box; display: -moz-webkit-flex; display: -webkit-flex; display: -ms-flexbox; display: flex;}
+    .product-sort-content > tbody > tr > td:first-of-type{ -webkit-box-flex: 0 70%; -moz-box-flex: 0 70%; -webkit-flex: 0 70%; -ms-flex: 0 70%; flex: 0 70%;}
+    .product-sort-content > tbody > tr > td:last-of-type{ -webkit-box-flex: 0 30%; -moz-box-flex: 0 30%; -webkit-flex: 0 30%; -ms-flex: 0 30%; flex: 0 30%;}
+    .widget-header-flat { display: flex; background: #f7f7f7; align-items: center; justify-content: end;}
+    textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] { border-radius: 8px!important; height: 40px; color: #858585; background-color: #fff; border: 1px solid var(--pic-color-grey-10); padding: 5px 4px; line-height: 1.2; font-size: 14px; font-family: inherit; -webkit-box-shadow: none!important; box-shadow: none!important; -webkit-transition-duration: .1s; transition-duration: .1s;}
+    .form-control, select { border-radius: 8px; -webkit-box-shadow: none!important; box-shadow: none!important; color: #858585; background-color: #fff; border: 1px solid var(--pic-color-grey-10); }
+    select { padding: 3px 4px; height: 40px; }
+    .admweb-v2-marketing-form-head_search-btn { display: inline-flex; align-items: center; padding: 7.25px 10px; cursor: pointer; border-radius: 8px; font-size: 16px;}
+    .pic-BgText-color-green { background: var(--pic-green); color: #fff; border: var(--pic-green) solid 1px; }
+    th, td, .table-bordered { border-radius: 0!important; }
+    .table-bordered { border: 1px solid #ddd; }
+    .table { width: 100%; margin-bottom: 20px; }
+    table { max-width: 100%; background-color: transparent; border-collapse: collapse; border-spacing: 0; }
+    .table thead tr { color: #707070; font-weight: normal; background: #f2f2f2; background-image: -webkit-gradient(linear, left 0, left 100%, from(#f8f8f8), to(#ececec)); background-image: -webkit-linear-gradient(top, #f8f8f8, 0%, #ececec, 100%); background-image: -moz-linear-gradient(top, #f8f8f8 0, #ececec 100%); background-image: linear-gradient(to bottom, #f8f8f8 0, #ececec 100%); background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', endColorstr='#ffececec', GradientType=0); }
+    caption, th { text-align: left; }
+    .table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td { padding: 8px; line-height: 20px; vertical-align: top; border-top: 1px solid #ddd; }
+    .table thead>tr>th { vertical-align: bottom; border-bottom: 2px solid #ddd; }
+    .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td { border: 1px solid #ddd; font-size: 15px;}
+    .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th { background-color: #f9f9f9; }
+    .table-striped>tbody>tr>td p{ display: block; font-size: 12px; color:#707070;}
+    .table thead tr th { border-color: #DDD; font-weight: bold; }
+    .table thead tr th:first-child { border-left-color: #f1f1f1; }
+    .table.table-bordered thead tr th { vertical-align: middle; }
+    .table caption+thead tr:first-child th, .table colgroup+thead tr:first-child th, .table thead:first-child tr:first-child th, .table caption+thead tr:first-child td, .table colgroup+thead tr:first-child td, .table thead:first-child tr:first-child td { border-top: 0; }
+    .table.table-bordered thead tr th:first-child { border-left-color: #DDD; }
+    .table .table { background-color: #fff; }
+    .descTitle { color: var(--pic-green); }
+    .admweb-v2-adjustment a { color: var(--pic-color-grey-100); text-decoration: none; }
+    .admweb-v2-adjustment a:hover,
+    .admweb-v2-adjustment a:focus { text-decoration: underline; }
+    .label { display: inline; font-size: 12px; line-height: 1.15; height: 20px;padding: 0.2em 0.6em 0.3em; font-size: 75%; font-weight: bold; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25em; border-radius: 0; text-shadow: none; font-weight: normal; display: inline-block; background-color: #abbac3;}
+    .label-warning { background-color: #f89406;}
+    .label-inverse, .badge-inverse { background-color: #333; }
+    .table tbody > tr.nodata-box > td{padding: 0;}
+    .table tbody > tr.nodata-box > td a{ color: var(--pic-red); text-decoration: underline;}
+    .nodata-title{ background-color: var(--pic-light-red-5); color:var(--pic-red); padding: 10px;}
+    .admweb-v2-NoData{margin: 40px auto;}
+</style>
+
+<script language="javascript">
+    const arrSortUid_0 = [];
+    const arrSortUid_1 = [];
+    const _arrSortMapping = [];
+    function _CS_checkAdd(_this){
+        if( $("input[name='prod_uid[]']:checked").length === 0 ){
+            alert('請勾選需分類之商品');
+            return false;
+        }
+
+        if( $("input[name='prod_sort_uid[]']:checked").length === 0 ){
+            alert('請勾選店家商品分類');
+            return false;
+        }
+
+        let param_chk = '{{$m_arrSystem.product_sort_to_last_layer}}';
+        if(param_chk === '1'){
+            var chk_prod_sort = prod_sort_chk();
+            if(!chk_prod_sort){
+                alert('分類請設定至最後一層'); return false;
+            }
+        }
+    }
+
+    function prod_sort_chk(){
+        var is_ok = true;
+        $("input[name='prod_sort_uid[]']:checked").each((index, tr)=> {
+            var trVal = tr.value;
+            var divId = 'sort_layer_' + trVal;
+            if (document.getElementById(divId)) {
+                var chk = false;
+                _arrSortMapping[trVal].forEach(function(value){
+                    if (document.querySelector("input[value='" + value + "']").checked) {
+                    chk = true;
+                    }
+                });
+                if (!chk) {
+                    is_ok = false;
+                    return false;
+                }
+            }
+        })
+        return is_ok;
+    }
+    $(document).ready(function(){
+        $("input[name='prod_sort_uid[]']").on("click", function(){
+            var _id = this.value;
+            //alert(_id);
+            var divId = 'sort_layer_' + _id;
+            if($("#"+divId).length){
+                if (document.getElementById(divId).style.display == 'none' && $(this).is(":checked")){
+                    _sort_layer( _id );
+                }
+                if(!$(this).is(":checked")){
+                    $("#"+divId).each((index, tr)=> {
+                        $(tr).find('input:checkbox').prop('checked', false);
+                    })
+                }
+            }
+        })
+
+        $("input[name='prod_sort_uid[]']:checked").each((index, tr)=> {
+            var _id = tr.value;
+            var divId = 'sort_layer_' + _id;
+            var iconId = 'icon_' + _id;
+            if($("#"+divId).length){
+                if (document.getElementById(divId).style.display == 'none'){
+                    ij_styleDisplay( divId, true );
+                    document.getElementById(iconId).src = '../images/icons/icon_202.gif';
+                }
+            }
+        })
+        IJ.addOnLoad(init);
+    });
+    var objFormA;
+    function init(){
+        objFormA = new FormControl( document.formA, document );
+        {{if $sys_arrWebsite.web_category == "4" && $m_arrSystem.prod_sort_to_mall == "1"}}
+        {{s_product_sortByWuidPuid prod_sort_p_uid=0 prod_sort_layer=1 in_web_uid="1"}}<!--{{*商城商品分類 Layer 1 *}}-->
+        {{else}}
+        {{s_product_sortByWuidPuid prod_sort_p_uid=0 prod_sort_layer=1}}<!--{{*商品分類 Layer 1 *}}-->
+        {{/if}}
+
+        {{section name=i_1 loop=$m_arrProductSort_1}}
+        _sort_layer({{$m_arrProductSort_1[i_1].prod_sort_uid}})
+        {{/section}}
+    }
+
+    function _sort_layer( _id, type ){
+        var divId = 'sort_layer_' + _id;
+        var iconId = 'icon_' + _id;
+
+        if(type){
+            ij_styleDisplay( divId, true );
+            document.getElementById(iconId).src = '../images/icons/icon_202.gif';
+        }else{
+            if (document.getElementById(divId).style.display == 'none'){
+                ij_styleDisplay( divId, true );
+                document.getElementById(iconId).src = '../images/icons/icon_202.gif';
+            }else{
+                ij_styleDisplay( divId, false );
+                document.getElementById(iconId).src = '../images/icons/icon_201.gif';
+            }
+        }
+    }
+
+    function _sort_layer_all( arrSortUid, type ){
+        for( var i=0 ; i < arrSortUid.length ; i++ ){
+            var divId = 'sort_layer_' + arrSortUid[i];
+            ij_styleDisplay( divId, type );
+
+            var iconId = 'icon_' +  arrSortUid[i];
+            if( type ){
+                document.getElementById(iconId).src = '../images/icons/icon_202.gif';
+            }else{
+                document.getElementById(iconId).src = '../images/icons/icon_201.gif';
+            }
+        }
+    }
+
+    function _check_all_prod(){
+        if(objFormA.form.check_all_prod.checked){
+            objFormA.setCheckedAll( 'prod_uid', true );
+        }else{
+            objFormA.setCheckedAll( 'prod_uid', false );
+        }
+    }
+
+    function chk_layer_totop(Ele,Layer){
+        //id -> chkbox___
+        var _ID = Ele.getAttribute('id');
+        if(Ele.checked){
+            for(var i=Layer; i>1 ;i--){
+                var _ID_temp = _ID.slice(0,(i+5));
+                document.getElementById(_ID_temp).checked = true;
+            }
+        }
+    }
+</script>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+
+    <!-- 右側內容 Start -->
+    <div class="pic-front-pages-right admweb-v2-adjustment">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <form method="post" action="{{$m_inURL}}">
+                    <td align="right" class="meatTxt">
+                        <div class="widget-header-flat" style="padding:10px; border-bottom:1px solid #DDD;">
+                            {{$lang.admweb.product.17}}<!--{{*商品名稱(貨號) *}}-->：
+                            <input name="s_prod_name" id="s_prod_name" type="text" size="20" class="FormTxt" value="" />
+                            &nbsp;&nbsp;
+                            {{$lang.admweb.product.29}}<!--{{*上架 *}}-->：
+                            <select name="s_prod_display" id="web_uid" class="FormTxt">
+                                <option value="">{{$lang.admin.basic.65}}<!--{{*全部 *}}--></option>
+                                <option value="1" {{if $m_arrSearch.s_prod_display == "1"}}selected{{/if}}>{{$lang.admin.basic.25}}<!--{{*是 *}}--></option>
+                                <option value="0" {{if $m_arrSearch.s_prod_display == "0"}}selected{{/if}}>{{$lang.admin.basic.26}}<!--{{*否 *}}--></option>
+                            </select>
+                            <button style="margin-left: 10px;" class="iopen-search pic-BgText-color-green admweb-v2-marketing-form-head_search-btn js-marketing-form-head-search-btn" name="Submit" type="submit" data-dismiss="modal">
+                                <i class="icon-search bigger-110"></i> {{$lang.admin.basic.16}}<!--{{*搜尋 *}}-->
+                            </button>
+                        </div>
+                    </td>
+                </form>
+            </tr>
+        </table>
+        <table class="product-sort-content" width="100%"  border="0" cellpadding="0" cellspacing="5">
+            <form name="formA" method="post" action="" enctype="multipart/form-data" onsubmit="return _CS_checkAdd(this);">
+                <tr>
+                    <td valign="top">
+                        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{$lang.admweb.product.9}}<!--{{*商品列表 *}}--></th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="160">&nbsp;{{$lang.admweb.product.4}}<!--{{*商品貨號 *}}--><!--{{* <br>&nbsp;{{$lang.admweb.product.5}}商品原始貨號 *}}--></th>
+                                                <th>&nbsp;{{$lang.admweb.product.3}}<!--{{*商品名稱 *}}--></th>
+                                                <th width="40">{{$lang.admweb.product.29}}<!--{{*上架 *}}--></th>
+                                                <th width="40"><input name="check_all_prod" id="check_all_prod" type="checkbox" value="1" onclick="javascript:_check_all_prod();"/></th>
+                                            </tr>
+                                        </thead>
+                                        {{section name=i loop=$m_arrProduct start=$m_arrPage.row_start max=$m_arrPage.rows_num step=$m_arrPage.cols_num}}
+                                        <tr>
+                                            <td>{{$m_arrProduct[i].prod_no}}<br>
+                                                <span class="descTitle">{{$m_arrProduct[i].prod_no_old}}</span>
+                                            </td>
+                                            <td>
+                                                <a href="{{$sys_arrWebsite.website_url}}index.php?action=product_detail&prod_no={{$m_arrProduct[i].prod_no}}" target="_blank">
+                                                    {{$m_arrProduct[i].prod_name}}
+                                                </a>
+                                                {{if $m_arrProduct[i].title|@count !=0}}
+                                                {{section name=k loop=$m_arrProduct[i].title}}
+                                                <p>{{$m_arrProduct[i].title[k]}}</p>
+                                                {{/section}}
+                                                {{else}}
+                                                <p>尚未分類</p>
+                                                {{/if}}
+                                            </td>
+                                            <td>
+                                                {{if $m_arrProduct[i].prod_display == 1}}
+                                                <span class="label label-warning">{{$lang.admin.basic.25}}<!--{{*是 *}}--></span>
+                                                {{else}}
+                                                <span class="label label-inverse">{{$lang.admin.basic.26}}<!--{{*否 *}}--></span>
+                                                {{/if}}
+                                            </td>
+                                            <td><input name="prod_uid[]" id="prod_uid" type="checkbox" value="{{$m_arrProduct[i].prod_uid}}" /></td>
+                                        </tr>
+                                        {{/section}}
+
+                                        {{if $m_arrProduct|@count == 0}}
+                                        <tr align="center">
+                                            <td height="80" colspan="6">{{$lang.admin.basic.11}}<!--{{*沒有資料 *}}--></td>
+                                        </tr>
+                                        {{else}}
+                                        <tr>
+                                            <td align="center" colspan="6">{{$m_arrPage.pager_prev}}
+                                                {{$m_arrPage.pager_numeric}}
+                                                {{$m_arrPage.pager_next}}</td>
+                                        </tr>
+                                        {{/if}}
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                    <!--- 商家分類表 ---------------------------------------->
+
+                    <td valign="top" style="padding-left:10px;">
+                        <table id="sample-table-3" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;店家商品分類設定
+                                        &nbsp;&nbsp;
+                                        <a href="javascript:_sort_layer_all(arrSortUid_1, true)"><img width="12" height="12" border="0" align="absmiddle" src="../images/icons/icon_201.gif" /></a>
+                                        <a href="javascript:_sort_layer_all(arrSortUid_1, false)"><img width="12" height="12" border="0" align="absmiddle" src="../images/icons/icon_202.gif" /></a></th>
+                                </tr>
+                            </thead>
+
+                            <tr>
+                                <td style="border:0;"><!--{{*商品分類 Layer 1 *}}-->
+                                    {{if $sys_arrWebsite.web_category == "4" && $m_arrSystem.prod_sort_to_mall == "1"}}
+                                    {{s_product_sortByWuidPuid prod_sort_p_uid=0 prod_sort_layer=1 in_web_uid="1"}}<!--{{*商城商品分類 Layer 1 *}}-->
+                                    {{else}}
+                                    {{s_product_sortByWuidPuid prod_sort_p_uid=0 prod_sort_layer=1}}<!--{{*商品分類 Layer 1 *}}-->
+                                    {{/if}}
+                                    {{if $m_arrProductSort_1|@count !=0}}
+                                    <table width="100%" border="0" cellpadding="1" cellspacing="1" class="meatTxt">
+                                        {{section name=i_1 loop=$m_arrProductSort_1}}
+                                        <tr bgcolor="#fcfcfc">
+                                            <td colspan="3">
+                                                {{if $sys_arrWebsite.web_category == "4" && $m_arrSystem.prod_sort_to_mall == "1"}}
+                                                {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_1[i_1].prod_sort_uid prod_sort_layer=2 in_web_uid=1}} <!--{{*商城商品分類 Layer 2 *}}-->
+                                                {{else}}
+                                                {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_1[i_1].prod_sort_uid prod_sort_layer=2}} <!--{{* Select Layer 2 *}}-->
+                                                {{/if}}
+
+                                                {{if $m_arrProductSort_2}}
+                                                <script>_arrSortMapping['{{$m_arrProductSort_1[i_1].prod_sort_uid}}'] = [];</script>
+                                                <a href="javascript:_sort_layer( '{{$m_arrProductSort_1[i_1].prod_sort_uid}}' )">
+                                                    <img id="icon_{{$m_arrProductSort_1[i_1].prod_sort_uid}}" width="12" height="12" border="0" align="absmiddle"
+                                                         src="../images/icons/icon_201.gif" /></a>
+                                                {{else}}
+                                                <img width="12" height="12" border="0" align="absmiddle" src="../images/no_img.gif" />
+                                                {{/if}}
+                                                <input name="prod_sort_uid[]" type="checkbox"
+                                                       id="chkbox{{$smarty.section.i_1.index}}" value="{{$m_arrProductSort_1[i_1].prod_sort_uid}}" />
+                                                {{$m_arrProductSort_1[i_1].prod_sort_name}}</td>
+                                        </tr>
+                                        <!--{{*商品分類 Layer 2 *}}-->
+                                        {{if $sys_arrWebsite.web_prod_sort_layer >= 2}}
+                                        {{if $m_arrProductSort_2}}
+                                        <script language="javascript">arrSortUid_1.push('{{$m_arrProductSort_1[i_1].prod_sort_uid}}');</script>
+                                        <tr id="sort_layer_{{$m_arrProductSort_1[i_1].prod_sort_uid}}" style="display:none">
+                                            <td width="20" bgcolor="#fcfcfc">&nbsp;</td>
+                                            <td><table width="100%" border="0" cellpadding="1" cellspacing="1" class="meatTxt">
+                                                {{section name=i_2 loop=$m_arrProductSort_2}}
+                                                <script> _arrSortMapping['{{$m_arrProductSort_1[i_1].prod_sort_uid}}'].push('{{$m_arrProductSort_2[i_2].prod_sort_uid}}'); </script>
+                                                <tr bgcolor="#CCCCFF">
+                                                    <td colspan="3">
+                                                        {{if $sys_arrWebsite.web_category == "4" && $m_arrSystem.prod_sort_to_mall == "1"}}
+                                                        {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_2[i_2].prod_sort_uid prod_sort_layer=3 in_web_uid=1}} <!--{{*商城商品分類 Layer 3 *}}-->
+                                                        {{else}}
+                                                        {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_2[i_2].prod_sort_uid prod_sort_layer=3}} <!--{{* Select Layer 3 *}}-->
+                                                        {{/if}}
+
+                                                        {{if $m_arrProductSort_3}}
+                                                        <script>_arrSortMapping['{{$m_arrProductSort_2[i_2].prod_sort_uid}}'] = [];</script>
+                                                        <a href="javascript:_sort_layer( '{{$m_arrProductSort_2[i_2].prod_sort_uid}}' )">
+                                                            <img id="icon_{{$m_arrProductSort_2[i_2].prod_sort_uid}}" width="12" height="12" border="0" align="absmiddle"
+                                                                 src="../images/icons/icon_201.gif" /></a>
+                                                        {{else}}
+                                                        <img width="12" height="12" border="0" align="absmiddle" src="../images/no_img.gif" />
+                                                        {{/if}}
+                                                        <input name="prod_sort_uid[]" type="checkbox"
+                                                               id="chkbox{{$smarty.section.i_1.index}}{{$smarty.section.i_2.index}}"
+                                                               value="{{$m_arrProductSort_2[i_2].prod_sort_uid}}" onchange="javascript:chk_layer_totop(this,2);"/>
+                                                        {{$m_arrProductSort_2[i_2].prod_sort_name}}</td>
+                                                </tr>
+                                                <!--{{*商品分類 Layer 3 *}}-->
+                                                {{if $sys_arrWebsite.web_prod_sort_layer >= 3}}
+                                                {{if $m_arrProductSort_3}}
+                                                <script language="javascript">arrSortUid_1.push('{{$m_arrProductSort_2[i_2].prod_sort_uid}}');</script>
+                                                <tr id="sort_layer_{{$m_arrProductSort_2[i_2].prod_sort_uid}}" style="display:none">
+                                                    <td width="20" bgcolor="#CCCCFF">&nbsp;</td>
+                                                    <td><table width="100%" border="0" cellpadding="1" cellspacing="1" class="meatTxt">
+                                                        {{section name=i_3 loop=$m_arrProductSort_3}}
+                                                        <script> _arrSortMapping['{{$m_arrProductSort_2[i_2].prod_sort_uid}}'].push('{{$m_arrProductSort_3[i_3].prod_sort_uid}}'); </script>
+                                                        <tr bgcolor="#fcfcfc">
+                                                            <td colspan="3">
+                                                                {{if $sys_arrWebsite.web_category == "4" && $m_arrSystem.prod_sort_to_mall == "1"}}
+                                                                {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_3[i_3].prod_sort_uid prod_sort_layer=4 in_web_uid=1}} <!--{{*商城商品分類 Layer 4 *}}-->
+                                                                {{else}}
+                                                                {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_3[i_3].prod_sort_uid prod_sort_layer=4}} <!--{{* Select Layer 4 *}}-->
+                                                                {{/if}}
+
+                                                                {{if $m_arrProductSort_4}}
+                                                                <script>_arrSortMapping['{{$m_arrProductSort_3[i_3].prod_sort_uid}}'] = [];</script>
+                                                                <a href="javascript:_sort_layer( '{{$m_arrProductSort_3[i_3].prod_sort_uid}}' )">
+                                                                    <img id="icon_{{$m_arrProductSort_3[i_3].prod_sort_uid}}" width="12" height="12" border="0" align="absmiddle"
+                                                                         src="../images/icons/icon_201.gif" /></a>
+                                                                {{else}}
+                                                                <img width="12" height="12" border="0" align="absmiddle" src="../images/no_img.gif" />
+                                                                {{/if}}
+                                                                <input name="prod_sort_uid[]" type="checkbox" id="chkbox{{$smarty.section.i_1.index}}{{$smarty.section.i_2.index}}{{$smarty.section.i_3.index}}"
+                                                                       value="{{$m_arrProductSort_3[i_3].prod_sort_uid}}" onchange="javascript:chk_layer_totop(this,3);"/>
+                                                                {{$m_arrProductSort_3[i_3].prod_sort_name}}</td>
+                                                        </tr>
+                                                        <!--{{*商品分類 Layer 4 *}}-->
+                                                        {{if $sys_arrWebsite.web_prod_sort_layer >= 4}}
+                                                        {{if $m_arrProductSort_4}}
+                                                        <script language="javascript">arrSortUid_1.push('{{$m_arrProductSort_3[i_3].prod_sort_uid}}');</script>
+                                                        <tr id="sort_layer_{{$m_arrProductSort_3[i_3].prod_sort_uid}}" style="display:none">
+                                                            <td width="20" bgcolor="#fcfcfc">&nbsp;</td>
+                                                            <td><table width="100%" border="0" cellpadding="1" cellspacing="1" class="meatTxt">
+                                                                {{section name=i_4 loop=$m_arrProductSort_4}}
+                                                                <script> _arrSortMapping['{{$m_arrProductSort_3[i_3].prod_sort_uid}}'].push('{{$m_arrProductSort_4[i_4].prod_sort_uid}}'); </script>
+                                                                <tr bgcolor="#CCCCFF">
+                                                                    <td colspan="3">
+                                                                        {{if $sys_arrWebsite.web_category == "4" && $m_arrSystem.prod_sort_to_mall == "1"}}
+                                                                        {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_4[i_4].prod_sort_uid prod_sort_layer=5 in_web_uid=1}} <!--{{*商城商品分類 Layer 5 *}}-->
+                                                                        {{else}}
+                                                                        {{s_product_sortByWuidPuid prod_sort_p_uid=$m_arrProductSort_4[i_4].prod_sort_uid prod_sort_layer=5}} <!--{{* Select Layer 5 *}}-->
+                                                                        {{/if}}
+
+                                                                        {{if $m_arrProductSort_5}}
+                                                                        <script>_arrSortMapping['{{$m_arrProductSort_4[i_4].prod_sort_uid}}'] = [];</script>
+                                                                        <a href="javascript:_sort_layer( '{{$m_arrProductSort_4[i_4].prod_sort_uid}}' )">
+                                                                            <img id="icon_{{$m_arrProductSort_4[i_4].prod_sort_uid}}" width="12" height="12" border="0" align="absmiddle"
+                                                                                 src="../images/icons/icon_201.gif" /></a>
+                                                                        {{else}}
+                                                                        <img width="12" height="12" border="0" align="absmiddle" src="../images/no_img.gif" />
+                                                                        {{/if}}
+                                                                        <input name="prod_sort_uid[]" type="checkbox" value="{{$m_arrProductSort_4[i_4].prod_sort_uid}}" />
+                                                                        {{$m_arrProductSort_4[i_4].prod_sort_name}}</td>
+                                                                </tr>
+                                                                <!--{{*商品分類 Layer 5 *}}-->
+                                                                {{if $sys_arrWebsite.web_prod_sort_layer >= 5}}
+                                                                {{if $m_arrProductSort_5}}
+                                                                <script language="javascript">arrSortUid_1.push('{{$m_arrProductSort_4[i_4].prod_sort_uid}}');</script>
+                                                                <tr id="sort_layer_{{$m_arrProductSort_4[i_4].prod_sort_uid}}" style="display:none">
+                                                                    <td width="20" bgcolor="#CCCCFF">&nbsp;</td>
+                                                                    <td><table width="100%" border="0" cellpadding="1" cellspacing="1" class="meatTxt">
+                                                                        {{section name=i_5 loop=$m_arrProductSort_5}}
+                                                                        <script> _arrSortMapping['{{$m_arrProductSort_4[i_4].prod_sort_uid}}'].push('{{$m_arrProductSort_5[i_5].prod_sort_uid}}'); </script>
+                                                                        <tr bgcolor="#fcfcfc">
+                                                                            <td colspan="3"><input name="prod_sort_uid[]" type="checkbox" value="{{$m_arrProductSort_5[i_5].prod_sort_uid}}" />
+                                                                                {{$m_arrProductSort_5[i_5].prod_sort_name}}</td>
+                                                                        </tr>
+                                                                        {{/section}}
+                                                                    </table></td>
+                                                                    <td width="20" bgcolor="#CCCCFF">&nbsp;</td>
+                                                                </tr>
+                                                                {{/if}}
+                                                                {{/if}}
+                                                                <!--{{*商品分類 Layer 5 END *}}-->
+                                                                {{/section}}
+                                                            </table></td>
+                                                            <td width="20" bgcolor="#fcfcfc">&nbsp;</td>
+                                                        </tr>
+                                                        {{/if}}
+                                                        {{/if}}
+                                                        <!--{{*商品分類 Layer 4 END *}}-->
+                                                        {{/section}}
+                                                    </table></td>
+                                                    <td width="20" bgcolor="#CCCCFF">&nbsp;</td>
+                                                </tr>
+                                                {{/if}}
+                                                {{/if}}
+                                                <!--{{*商品分類 Layer 3 END *}}-->
+                                                {{/section}}
+                                            </table></td>
+                                            <td width="20" bgcolor="#fcfcfc">&nbsp;</td>
+                                        </tr>
+                                        {{/if}}
+                                        {{/if}}
+                                        <!--{{*商品分類 Layer 2 END *}}-->
+                                        {{/section}}
+                                    </table>
+                                    <!--{{*商品分類 Layer 1 END *}}-->
+                                    {{else}}
+                                    <!-- 無資料時顯示Start -->
+                                    <table width="100%" border="0" cellpadding="1" cellspacing="1" class="meatTxt">
+                                        <tr class="nodata-box">
+                                            <td>
+                                                <div class="nodata-title">註:如需新增店家商品分類，請至<a href="admweb.main.php?action=product_sort_pic" alt="我的店家分類功能" title="我的店家分類功能">我的店家分類功能</a>設定。</div>
+                                                <div class="admweb-v2-NoData">
+                                                    <div class="admweb-v2-img-BlacklistNoData"></div>
+                                                    <span>目前無店家商品分類</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- 無資料時顯示End -->
+                                    {{/if}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td align="center">
+                                    <button class="pic-BgText-color-green admweb-v2-marketing-form-head_search-btn js-marketing-form-head-search-btn" name="btn_submit" type="submit" id="btn_submit" data-dismiss="modal">{{$lang.admin.basic.33}}<!--{{*設定 *}}--></button>
+                                    <input name="myAct" type="hidden" value="COMMAND_EDIT" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <!--- 商家分類表 END ---------------------------------------->
+                </tr>
+            </form>
+        </table>
+    </div>
+    <!-- 右側內容 End-->
+</div>

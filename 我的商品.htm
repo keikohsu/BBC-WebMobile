@@ -1,0 +1,540 @@
+<link rel="stylesheet" href="admweb_pic.css">
+<style>
+
+  
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--tr{border-bottom: 0px solid #EAEAEA;height: 116px;}
+  
+  .admweb-v2-adjustment .pic-common-navbarbox .selected {font-weight: 300;font-size: 14px;color:#2F2F2F;}
+  
+  /* 下拉 框 */
+  .admweb-v2-adjustment-DateBox .pic-text-lnput{width: 175px;    margin-left: 12px;}
+  .admweb-v2-adjustment-DropDown .admweb-v2-adjustment-DropDown-name{padding: 12px;}
+  .admweb-v2-adjustment .pic-window-list{left: 10px;top: 46px;}
+
+  .admweb-v2-adjustment-DropDown-content-1 .pic-window-list{left:0px;top: 0px;width: 175px;}
+  .admweb-v2-adjustment-DropDown-content-2 .pic-window-list{left:0px;top: 0px;width: 175px;}
+  .admweb-v2-adjustment-DropDown-content-3 .pic-window-list{left:0px;top: 0px;width: 175px;}
+
+  .admweb-v2-adjustment i.icons-line{font-weight:100;font-size: 16px;}
+  .admweb-v2-adjustment .admweb-v2-adjustment-DateBox .admweb-v2-orderlist__form-btn{width: 186px;}
+
+  .admweb-v2-adjustment-DateBox .admweb-v2-orderlist__form-btn{margin-left: 68px;}
+  .admweb-v2-adjustment .admweb-v2-adjustment-DateBox{    justify-content: space-between;}
+  /*  */
+  /*  */
+  .admweb-v2-orderlist__table--tr td{color: var(--pic-color-grey-100);}
+  .admweb-v2-orderlist__table--tr td img{width: 100px;height: 100px;border: 1px solid #EAEAEA;border-radius: 10px;}
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:first-child{display: flex;align-items: center;height: 100%;}
+  .admweb-v2-adjustment .admweb-v2-product-name{text-align: start;}
+  .admweb-v2-adjustment .admweb-v2-product-name h2{font-weight: 400;line-height: 20px;font-size: 14px;}
+
+/* 每個按鈕 */
+.admweb-v2-adjustment .pic-confirm-box i.icon-mem-tracelist{font-size: 22px;}
+
+.admweb-v2-orderlist__form-head_search-outer .admweb-v2-orderlist__form-last{ grid-template-columns: 102px 1fr;}
+/* 視窗 */
+
+/*不能放公用*/
+.pic-window-bg .pic-window{width: 333px;}
+.admweb-v2-window-container{    border-radius: 10px;background: #fff;}
+
+/*  */
+.admweb-v2-orderlist__table--head th{background: #F8F8F8;}
+.admweb-v2-window-container h3{    font-size: 17px;}
+.admweb-v2-orderlist i.icon-mem-tracelist{margin-right: 5px;font-size: 20px;}
+.admweb-v2-orderlist i.icon-line-X{ font-size: 12px; font-weight: bold; vertical-align: bottom; }
+
+</style>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+<div class="admweb-v2-adjustment">
+  <div class="admweb-v2-blacklist-form">
+    <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form">
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div class="
+            admweb-v2-orderlist__form-head_search
+            js-orderlist__form-head_search
+          " style="grid-template-columns: auto 1fr 84px;">
+
+          <select class="pic-text-lnput pic-text-lnput-style" style="width: 127px;">
+            <option value="商品名稱">商品名稱</option>
+            <option value="商品原始貨號">商品原始貨號</option>
+            <option value="商品規格">商品規格</option>
+        </select>
+
+
+
+          <input type="text" placeholder="請輸入商品名稱" class="pic-text-lnput pic-lnput-enter">
+          <button type="submit" class="iopen-search
+              pic-BgText-color-green
+              admweb-v2-orderlist__form-head_search-btn
+              js-orderlist__form-head_search-btn
+            " style="display: block;">
+            搜尋
+          </button>
+        </div>
+
+        <div class="admweb-v2-adjustment-DateBox">
+          <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+
+            <div class="pic-flex-center-between admweb-v2-adjustment-DropDown">
+              <div class="admweb-v2-orderlist__form-item">
+                <label for="order-date">銷售頻道</label>
+                <select class="pic-text-lnput pic-text-lnput-style">
+                  <option value="全部">全部</option>
+                  <option value="一般商品">一般商品</option>
+                  <option value="團購商品">團購商品</option>
+                  <option value="拚團商品">拚團商品</option>
+              </select>
+              </div>
+              <!-- <div class="admweb-v2-adjustment-DropDown-content-1">
+                <span id="admweb-v2-ShareProfit-1"   class="pic-text-lnput admweb-v2-orderlist-select">全部</span>
+              </div> -->
+
+              <div class="admweb-v2-orderlist__form-item">
+                <label for="order-date">商品溫層</label>
+                <select class="pic-text-lnput pic-text-lnput-style">
+                  <option value="全部">全部</option>
+                  <option value="常溫">常溫</option>
+                  <option value="冷藏">冷藏</option>
+                  <option value="冷凍">冷凍</option>
+              </select>
+              </div>
+    
+              <div class="admweb-v2-orderlist__form-item admweb-v2-orderlist__form-last">
+                <label for="order-date">是否為隱形商品</label>
+                <select class="pic-text-lnput pic-text-lnput-style">
+                  <option value="是">是</option>
+                  <option value="否">否</option>
+              </select>
+              </div>
+
+            </div>
+          </div>
+
+          <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-btn">
+            搜尋
+          </button>
+
+        </div>
+
+      </div>
+  
+  
+    <input type="hidden" name="csrf_token" value="MTY3NTMyMzczMUJkcVFRWTBOMXRjclQ0M0tuQkpwY0NvOVRqQUp2b2dj">
+  </form>
+            
+  <ul class="admweb-v2-top-list pic-window-list" style="display: none;">
+    <li class="pic-radio-list-store">
+      <input class="pic-rdobutton-radio" type="radio" id="radioIdStore1" name="store_type" value="0" checked="checked">
+      <label class=" pic-rdobutton-label-2" for="radioIdStore1">商品名稱</label>
+  </li>
+    <li class="pic-radio-list-store">
+        <input class="pic-rdobutton-radio" type="radio" id="radioIdStore2" name="store_type" value="1">
+        <label class=" pic-rdobutton-label-2" for="radioIdStore2">商品原始貨號</label>
+    </li>
+    <li class="pic-radio-list-store">
+        <input class="pic-rdobutton-radio" type="radio" id="radioIdStore3" name="store_type" value="1">
+        <label class="pic-rdobutton-label-2" for="radioIdStore3">商品規格</label>
+    </li>
+  </ul>
+
+  </div>
+  <button class="
+  pic-text-gray-30 pic-bg-green-5
+  admweb-v2-orderlist__form-toggle-btn
+" id="js-orderlist__form-toggle--btn">更多進階條件 <i class="icons-line icon-arrow-down-01"></i></button>
+
+<div class="pic-common-navbarbox pic-common-navbarbox-tow-width-50">
+  <div class="swiper-container pic-navbar" id="pic-navbar">
+      <div class="swiper-wrapper pic-nav-list">
+          <div id="swiper-tab-1" class="swiper-slide pic-nav-a" navid="0"><span>賣場設定</span></div>
+          <div id="swiper-tab-2" class="swiper-slide pic-nav-a" navid="1"><span>商品上架</span></div>
+          <div id="swiper-tab-2" class="swiper-slide pic-nav-a" navid="1"><span>商品上架</span></div>
+          <div id="swiper-tab-2" class="swiper-slide pic-nav-a" navid="1"><span>商品上架</span></div>
+      </div>
+  </div>
+</div>
+
+    <p class="admweb-v2-FewStrokes pic-margin-10">共180筆</p>
+  <ul class="admweb-v2-orderlist__list pic-margin-b20">
+    <!-- 配送類型：超商 -->
+    <li class="admweb-v2-orderlist__card">
+      <!-- 電腦版 -->
+      <table class="admweb-v2-orderlist__table">
+        <thead>
+          <tr class="admweb-v2-orderlist__table--head">
+            <th width="397px">商品名稱</th>
+            <th>商品類型</th>
+            <th>售價</th>
+            <th>規格</th>
+            <th>庫存</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>
+              <img class="pic-margin-r10" src="https://picsum.photos/300/200/?random=10">
+              <div class="admweb-v2-product-name">
+                <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                <h2>商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</h2>
+              </div>
+            </td>
+            <td><span class="admweb-v2-orderlist-delivery--store">一般商品</span></td>
+            <td>$423,100~423,500</td>
+            <td>共4種規格</td>
+            <td>100~399</td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <div class="pic-confirm-box pic-justify-content-flex-end pic-icon-margin-r pic-line-light15">
+                <a class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5" onclick="WindowOpenTwo()"><i class="icons-line icon-mem-tracelist"></i>收藏/貨到通知</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-edit"></i>編輯</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-eye"></i>預覽</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" onclick="WindowOpen()"><i class="icons-line icon-line-fire-2"></i>分享</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0);"><i class="icons-line icon-line-ArrowParper"></i>上架</a>
+            </div>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </li>
+
+
+    <li class="admweb-v2-orderlist__card">
+      <!-- 電腦版 -->
+      <table class="admweb-v2-orderlist__table">
+        <thead>
+          <tr class="admweb-v2-orderlist__table--head">
+            <th width="397px">商品名稱</th>
+            <th>商品類型</th>
+            <th>售價</th>
+            <th>規格</th>
+            <th>庫存</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>
+              <img class="pic-margin-r10" src="https://picsum.photos/300/200/?random=10">
+              <div class="admweb-v2-product-name">
+                <span class="admweb-v2-orderlist__badge--freezing">冷凍</span>
+                <h2>商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</h2>
+              </div>
+            </td>
+            <td><span class="admweb-v2-orderlist-merge--store">拼團商品</span></td>
+            <td>$423,100~423,500</td>
+            <td>共4種規格</td>
+            <td>100~399</td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <div class="pic-confirm-box pic-justify-content-flex-end pic-icon-margin-r pic-line-light15">
+                <a class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-mem-tracelist"></i>收藏/貨到通知</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-edit"></i>編輯</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-eye"></i>預覽</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-fire-2"></i>分享</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0);"><i class="icons-line icon-line-ArrowParper"></i>上架</a>
+            </div>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </li>
+
+    
+    <li class="admweb-v2-orderlist__card">
+      <!-- 電腦版 -->
+      <table class="admweb-v2-orderlist__table">
+        <thead>
+          <tr class="admweb-v2-orderlist__table--head">
+            <th width="397px">商品名稱</th>
+            <th>商品類型</th>
+            <th>售價</th>
+            <th>規格</th>
+            <th>庫存</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>
+              <img class="pic-margin-r10" src="https://picsum.photos/300/200/?random=10">
+              <div class="admweb-v2-product-name">
+                <span class="admweb-v2-orderlist__badge--refrigeration">冷藏</span>
+                <h2>商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</h2>
+              </div>
+            </td>
+            <td><span class="admweb-v2-orderlist-group--store">團購商品</span></td>
+            <td>$423,100~423,500</td>
+            <td>共4種規格</td>
+            <td>100~399</td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <div class="pic-confirm-box pic-justify-content-flex-end pic-icon-margin-r pic-line-light15">
+                <a class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-mem-tracelist"></i>收藏/貨到通知</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-edit"></i>編輯</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-eye"></i>預覽</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-fire-2"></i>分享</a>
+              <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0);"><i class="icons-line icon-line-ArrowParper"></i>上架</a>
+            </div>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </li>
+
+  </ul>
+<!--目前無會員資料  -->
+  <div class="admweb-v2-NoData">
+    <div class="admweb-v2-img-BlacklistNoData"></div>
+    <span>目前無會員資料</span>
+  </div>
+  <div class="pic-text-center">
+    <p class="pic-page-bottom-text">1 - 3 筆／共 3 筆</p>
+  </div>
+  
+  <div class="pic-flex-center pic-flex-center-column">
+    <ul class="admweb-v2-pagination">
+      <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+        <a class="admweb-v2-page-link-num" href="#">1</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">2</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">3</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">4</a>
+      </li>
+    </ul>
+    <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+  </div>
+  
+  <div class="pic-flex-center pic-flex-center-column">
+    <ul class="admweb-v2-pagination">
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+          <span class="admweb-v2-icon-page-left-first-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+          <span class="admweb-v2-icon-black-left-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+        <a class="admweb-v2-page-link-num" href="#">1</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">2</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">3</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">4</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">5</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+          <span class="admweb-v2-icon-black-right-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+          <span class="admweb-v2-icon-page-right-last-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+    </ul>
+    <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+  </div>
+
+  <div class="admweb-v2-orderlist__action" id="js-orderlist__action">
+    <button class="admweb-v2-orderlist__action-row_btn iopen-icon-white-add-front">
+ 新增商品
+    </button>
+  </div>
+
+  
+</div>
+
+
+<!-- 視窗 -->
+
+<div id="admweb-v2-window-content" class="pic-window-bg" style="display:none" >
+  <div class="pic-window">
+    <div class="admweb-v2-window-content">
+      <i class="icons-line icon-line-X admweb-v2-WindowClose-position"onclick="WindowClose()"></i>
+    <div class="pic-OrderCancel-window-close"></div>
+    <h2>分享商品</h2>
+    <span class="admweb-v2-window-text">分享商品給你的親朋好友</span>
+    <div>
+      <a class="pic-window-link admweb-v2-window-ShareLink" href="javascript:void(0);"></a>
+      <a class="pic-window-link admweb-v2-window-ShareLine" href="javascript:void(0);"></a>
+      <a class="pic-window-link admweb-v2-window-ShareFB" href="javascript:void(0);"></a>
+      <a class="pic-window-link admweb-v2-window-ShareIG" href="javascript:void(0);"></a>
+    </div>
+    </div> 
+        <div class="pic-window-button-box">
+          <a class="pic-window-button-TwoBtn pic-BgText-color-green pic-window-button-TwoBtn-r" onclick="WindowClose()" value="1">確定</a>
+     </div>
+ </div>
+</div>
+
+<div id="admweb-v2-ProductWindow" class="pic-window-bg admweb-v2-window-table" style="display:none">
+  <div class="admweb-v2-window-container">
+    <h2>
+      <i class="icons-line icon-mem-tracelist"></i>商品收藏及貨到通知數資訊<a class="pic-window-close"  onclick="WindowClose()"></a>
+    </h2>
+
+      <h3>商品名稱：大學T</h3>
+      <div class="admweb-v2-window-content-scroll pic-margin-t10">      
+        <table class="admweb-v2-orderlist__table">
+          <thead>
+            <tr class="admweb-v2-orderlist__table--head">
+              <th>規格</th>
+              <th>收藏數</th>
+              <th>貨到通知數</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="admweb-v2-orderlist__table--tr">
+              <td>-</td>
+              <td>5596</td>
+              <td>5596</td>
+            </tr>
+            <tr class="admweb-v2-orderlist__table--tr">
+              <td>綠色,L</td>
+              <td>5596</td>
+              <td>5596</td>
+            </tr>
+            <tr class="admweb-v2-orderlist__table--tr">
+              <td>白色,S</td>
+              <td>5596</td>
+              <td>5596</td>
+            </tr>
+            <tr class="admweb-v2-orderlist__table--tr">
+              <td>白色,S</td>
+              <td>5596</td>
+              <td>5596</td>
+            </tr>
+            <tr class="admweb-v2-orderlist__table--tr">
+              <td>白色,S</td>
+              <td>5596</td>
+              <td>5596</td>
+            </tr>
+            <tr class="admweb-v2-orderlist__table--tr">
+              <td>白色,S</td>
+              <td>5596</td>
+              <td>5596</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+  </div>
+
+</div>
+
+
+</div>
+
+<script>
+
+$("#admweb-v2-ShareProfit").click(function () {
+    $('.admweb-v2-adjustment .pic-window-list').toggle();
+    $('.admweb-v2-orderlist-select').toggleClass("admweb-v2-hide-images");
+  })
+
+  $("#admweb-v2-ShareProfit-1").click(function () {
+    $('.admweb-v2-adjustment-DropDown-content-1 .pic-window-list').toggle();
+    $('.admweb-v2-orderlist-select').toggleClass("admweb-v2-hide-images");
+  })
+
+  $("#admweb-v2-ShareProfit-2").click(function () {
+    $('.admweb-v2-adjustment-DropDown-content-2 .pic-window-list').toggle();
+    $('.admweb-v2-orderlist-select').toggleClass("admweb-v2-hide-images");
+  })
+
+  $("#admweb-v2-ShareProfit-3").click(function () {
+    $('.admweb-v2-adjustment-DropDown-content-3 .pic-window-list').toggle();
+    $('.admweb-v2-orderlist-select').toggleClass("admweb-v2-hide-images");
+  })
+
+  function WindowOpen() {
+    $("#admweb-v2-window-content").show()
+  }
+  function WindowOpenTwo() {
+    $("#admweb-v2-ProductWindow").show()
+  }
+  function WindowClose() {
+    $(".pic-window-bg").hide()
+  }
+  
+
+    $(function () {
+    var $switch = $('.admweb-v2-top-list li');
+    var $switch_top = $('.swiper-wrapper .swiper-slide');
+
+    $($switch.eq(0).addClass('active').find('li'));
+    $switch.click(function () {
+      $(this).addClass('active').siblings('.active').removeClass('active');
+    });
+
+    $($switch_top.eq(0).addClass('selected').find('swiper-slide'));
+    $switch_top.click(function () {
+      $(this).addClass('selected').siblings('.selected').removeClass('selected');
+    });
+  });
+  
+
+  (function () {
+    searchFormCollapse();
+    hideMobileLayout();
+    markCurrentNavLink();
+  })();
+  window.addEventListener('resize', () => {
+    searchFormCollapse();
+    checkNoticeOverflow();
+  });
+  
+  function searchFormCollapse() {
+    const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const headBtn = document.getElementsByClassName(
+      'js-orderlist__form-head_search-btn'
+    )[0];
+    const wholeHeight = formEle.clientHeight;
+    formEle.style.height = `${defaultHeight}px`;
+    toggleBtn.addEventListener('click', () => {
+      //當前為收合
+      if (formEle.style.height === `${defaultHeight}px`) {
+        formEle.style.height = `${wholeHeight}px`;
+        toggleBtn.innerHTML =
+          '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+        headBtn.style.display = 'none';
+      } else {
+        ///當前為展開
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.innerHTML =
+          '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+        headBtn.style.display = 'block';
+      }
+    });
+  }
+</script>

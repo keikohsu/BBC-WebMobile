@@ -1,0 +1,3225 @@
+{{if !$mobileDeviceDirected}}
+    <link href="{{$sys_arrWebsite.website_url}}css/normal_symbol.css?20230210" rel="stylesheet" type="text/css"/>
+    <!-- 電腦版公用元件CSS -->
+    <link href="{{$sys_arrWebsite.website_url}}templates/web_style/{{$arrStyle.wstl_folder}}/color_1/style.css" rel="stylesheet" type="text/css"/>
+    <!-- 商城共用版頭CSS -->
+    <link href="{{$sys_arrWebsite.website_url}}templates/web_style/iopen/color_1/authority_style.css?20210622" rel="stylesheet" type="text/css" />
+{{else}}
+    <link href="{{$sys_arrWebsite.website_url}}css/normal_symbol_mobile.css?20230210" rel="stylesheet" type="text/css"/>
+    <!-- 手機版公用元件CSS -->
+    <link href="{{$sys_arrWebsite.website_url}}templates/web_style/{{$arrStyleMbl.wstl_folder}}/color_1/style.css" rel="stylesheet" type="text/css"/>
+    <!-- 商城共用版頭CSS -->
+    <link href="{{$sys_arrWebsite.website_url}}templates/web_style/iopen_mobile/color_1/authority_style.css?20220126" rel="stylesheet" type="text/css" />
+{{/if}}
+<!---版型css-需載入所選版型的css-->
+
+<!--{{*base64.js*}}-->
+<script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.3/base64.min.js"></script>
+
+<style>
+.pic-default { background: unset !important;}
+/* 佈置 */
+.iopen-layout-center-content{ background: unset !important; padding-top:135px; height: initial; display: -ms-box; display: -moz-webkit-flex; display: -webkit-flex; display: -ms-flexbox; display: flex;}
+.pic-sort-frame{line-height: 30px;}
+.pic-sort a.iopen-outside-btn:active,.pic-sort a.iopen-outside-btn:hover{line-height: 14px;}
+/******左側選單******/
+.management_system{ position: fixed; top: 135px; left:0; transition: all .3s; z-index: 999; height: calc(100vh - 135px);}
+.management_system.ms_closed{left:-250px;}
+/* 左側選單-按鈕展開收起 */
+.management_system .ms_btn{position: absolute; right:-30px; top:50%; transform: translateY(-50%); width: 30px; height:60px; background-color: var(--pic-color-grey-20); -moz-border-radius: 0 10px 10px 0; -ms-border-radius: 0 10px 10px 0; -o-border-radius: 0 10px 10px 0; -webkit-border-radius: 0 10px 10px 0; border-radius: 0 10px 10px 0; cursor: pointer; transition: all .3s;}
+.management_system .ms_btn i{color:var(--pic-color-grey-100); font-size: 25px; line-height: 60px; font-weight: 600;}
+.management_system .ms_btn .ms_stbtn_closed{display: none;}
+.management_system .ms_btn .ms_clbtn_closed{display: none;}
+.management_system .backstage{ overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none; padding-bottom: 30px;}
+.management_system .backstage::-webkit-scrollbar { display: none;}
+/* 如果開啟驚嘆號記得刪掉0327 */
+.iopen-layout-lnput-DateStart{justify-content: center;}
+/* 佈置區塊 */
+.iopen-layout-center-content-inner{ transition: all .3s; position: relative; width: 100%;}
+.iopen-layout-center-content-inner.store-content-scroll{ margin-left: 250px;}
+{{if !$mobileDeviceDirected}}
+.iopen-layout-center-content-inner .iopen-layout-center-content-box{ overflow-x: auto; min-width:1200px;}
+{{/if}}
+.iopen-layout-center-content-inner .FOR_MAIN{ max-width:100%;}
+.pic-sort a.iopen-outside-btn{height:30px;padding:5px 5px}
+.pic-sort a.iopen-sm-btn{height: 30px;}
+.admweb-v2-EditItemBox .Page_Litem_title{margin-top:45px}
+.admweb-v2-HideItemBox{width:100%;max-width:1200px;margin:0 auto;text-align:center;font-size:20px;font-weight:500;background-color:var(--pic-color-grey-10);color:var(--pic-color-grey-100);padding:30px 0}
+.admweb-v2-EditItemBox{position:relative;width:100%;height:auto;cursor:pointer}
+.admweb-v2-EditItemBox.click_active{border:1px solid var(--pic-green)}
+.admweb-v2-EditItemBox::before{display:block;content:'';position:absolute;display: inline-block;top:5px;left:5px;width:30px;height:30px;border:1px solid var(--pic-green);background:url(../css/images/bbc/iopen-Icon-edit-green-2.svg) center no-repeat #fff;border-radius:5px;z-index:12}
+.admweb-v2-EditItemBox.click_active::after{display:block;content:'';top:0;left:0;position:absolute;width:100%;height:100%;background:rgba(0,128,98,0.2);z-index:9}
+.admweb-v2-list-header-in-fixbottom{display:none}
+.pic-btn-footer .pic-BgText-color-white-green{color:var(--pic-green)}
+.iopen-layout-lnput-date .iopen-layout-lnput-date-content{width: 100%;}
+a.admweb-v2-list-logo-title{font-size: 22px;color: #fff;}
+a.iopen-icon-green-add{color:var(--pic-green) ;}
+.iopen-window-layout-hover a.iopen-icon-white-add{color: #fff;font-size: 14px;}
+.admweb-v2-orderlist-header .admweb-v2-orderlist-header-qrcode {position: initial;}
+.admweb-v2-SettingBtn{margin-right:5px ;}
+.admweb-v2-HeaderBtnTwo{display: flex;}
+.disscroll {overflow-y:scroll;position: static;}
+.admweb-v2-layout-StoreSort-input a.pic-btn-newstore-100:active,.admweb-v2-layout-StoreSort-input a.pic-btn-newstore-100:hover{font-size: 16px;line-height: 25px;cursor: pointer;}
+a.admweb-v2-layout-edit-btn:hover{ color: #fff; font-size: 12px;}
+@media screen and (max-width: 768px) {
+    .admweb-v2-layout-head .admweb-v2-EditItemBox::before{z-index: 101;top: 72px;position: fixed;}
+    .iopen-layout-center-content{padding:0px}
+    .pic-btn-footer .icons-line{font-size:20px}
+    .pic-btn-footer .icons-line.icon-line-ArrowParper{font-size:16px}
+    .iopen-layout-SetUp-frame-SpaceRight .pic-commodity-details{margin-bottom:0px;padding-bottom: 0px;}
+    .iopen-layout-edit-commodity .pic-commodity-details-content p:last-child{line-height: 13px;}
+    .iopen-layout-center-content .header_box{z-index: 100;}
+    .admweb-v2-seller-front-left-box .header_box{z-index: 9;}
+    .admweb-v2-orderlist-header-actions a{text-decoration:none}
+    .admweb-v2-layout-StoreSort-input a.pic-btn-newstore-100:active{font-size: 16px;}
+    .admweb-v2-NewProduct-title span{font-size:16px;}
+    .admweb-v2-NewPageSort a{display: flex;align-items: center;justify-content: space-between;width: 100%;}
+    .admweb-v2-orderlist-header .admweb-v2-orderlist-header-title{margin-left: 38px;}
+    #admweb-v2-btn-footer-save.pic-btn-footer{z-index:100;}
+    #admweb-v2-btn-footer-SaveEdit.pic-btn-footer{z-index:99;}
+    .swiper-slide.selected{ color: var(--pic-green); border-bottom: 1px solid var(--pic-green);}
+}
+@media screen and (min-width: 768px) {
+    .iopen-select-WebStyle .pic-btn-footer {display: none;}
+}
+
+.item_edit { display: none; }
+</style>
+
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        {{if $m_arrSystem.is_app_mode}}
+        <a onclick="{
+            let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+            let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isAndroid) {
+                window.JavaScriptInterface.backToSellerCenter();
+            } else if (isiOS) {
+                window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+            }
+        }">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </a>
+        {{else}}
+            <a onclick="history.back()">
+                <i class="icons-line icon-arrow-left-01"></i>
+            </a>
+        {{/if}}
+
+        <a onclick="toggleMenuHandlertwo();">
+            <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+                <i class="icons-line icon-line-hamburger"></i>
+            </div>
+        </a>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">商店佈置</h2>
+    <div class="admweb-v2-HeaderBtnTwo">
+        <a  href="javascript: void(0);" class="admweb-v2-orderlist-header-qrcode admweb-v2-SettingBtn" onclick="WindowOpen();">
+            <i class="icons-line icon-line-Setting"></i>
+            <span>設定</span>
+        </a>
+        {{*<a href="javascript: void(0);" class="admweb-v2-orderlist-header-qrcode">
+            <i class="icons-line icon-line-Doubt"></i>
+            <span>幫助</span>
+        </a>*}}
+    </div>
+</div>
+
+<div class="pic-default{{if $mobileDeviceDirected}} pic-flex admweb-v2-orderlist{{/if}}">
+    {{if $mobileDeviceDirected}}
+        <!-- 左側選單 Start -->
+        <div class="admweb-v2-seller-front-left-box">
+            {{include file="admweb_2/admweb.main_menu.htm"}}
+        </div>
+        <!-- 左側選單 End -->
+
+        <!-- 右側內容 Start -->
+        <div class="pic-front-pages-right admweb-v2-adjustment">
+    {{/if}}
+    <div class="iopen-layout-top">
+        <ul class="pic-flex-align-items">
+            <li class="iopen-layout-top-title pic-line-right">
+                <i class="icons-line icon-line-lattice"></i> 商店佈置
+            </li>
+            <li class="admweb-v2-layout-UpdateTime pic-margin-l10">
+                <p class="pic-text-gray-50">最後儲存時間：{{$arrWebsitePageTemp.auto_date|date_format:"%Y-%m-%d %H:%M"}}</p>
+                <p class="pic-text-orange">最後發佈時間：{{$arrWebsitePageTemp.release_date|date_format:"%Y-%m-%d %H:%M"}}</p>
+            </li>
+        </ul>
+
+        <div class="pic-flex-align-items">
+            <ul class="pic-sort">
+                <li class="iopen-layout-top-title">進階設定</li>
+                <li class="pic-margin-lr10">
+                    <a class="iopen-outside-btn pic-BgText-color-white-green" style="cursor: pointer;"
+                       onclick="WindowOpen();"> 選擇網站風格</a>
+                </li>
+            </ul>
+
+            <ul class="pic-sort">
+                <li class="iopen-layout-top-title pic-line-left">頁面操作</li>
+                {{*<li><a class="iopen-sm-btn pic-BgText-color-white-green" href="javascript: void(0);"
+                       onclick="$('.preview_block').show();">預覽</a></li>*}}
+                <li><a class="iopen-sm-btn pic-BgText-color-white-green" href="javascript: void(0);" onclick="saveSettings('save');">儲存</a></li>
+                <li><a class="iopen-sm-btn pic-BgText-color-green" href="javascript: void(0);" onclick="saveSettings('release');">發佈</a></li>
+            </ul>
+
+            {{* 幫助先隱藏
+            <ul class="pic-sort" style="display: none;">
+                <li class="iopen-layout-top-title pic-line-left">幫助</li>
+                <li><a class="iopen-outside-btn pic-BgText-color-white-green" href="javascript: void(0);">頁面資訊</a></li>
+                <li><a class="iopen-outside-btn pic-BgText-color-white-green" href="javascript: void(0);">操作說明</a></li>
+            </ul>
+            *}}
+        </div>
+    </div>
+
+    <form id="myForm" method="post" action="">
+        <input name="myAct" type="hidden" value="">
+        <input name="jsonSettings" type="hidden" value="">
+    </form>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 中間內容區塊方這裡 開始 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="iopen-layout-center-content">
+        {{if !$mobileDeviceDirected}}
+        <div class="management_system ms_open">
+            <div class="ms_btn">
+                <i class="icons-line icon-arrow-left-01"></i>
+            </div>
+            <div id="stage" class="backstage admweb-v2-seller-front-left-box">
+                {{include file="admweb_2/admweb.main_menu.htm"}}
+            </div>
+        </div>
+        {{/if}}
+        <div class="iopen-layout-center-content-inner store-content-scroll">
+            <div class="iopen-layout-center-content-box">
+                <!-- 版頭 -->
+                <div class="FOR_TOP">
+                    <div class="item_edit admweb-v2-layout-head" id="index_head">
+                        <div class="admweb-v2-EditItemBox">
+                            <!--編輯狀態要加上click_active-->
+                            {{include file=$index_top_path}}
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- 元件 -->
+                <div class="FOR_MAIN">
+                    {{foreach from=$arrItem item=arrIt}}
+                        {{assign var=file_path value=$item_path|cat:'item_'|cat:$arrIt.witem_uid|cat:'/'|cat:$arrIt.wpitem_temp_path|cat:'/item_'|cat:$arrIt.witem_uid|cat:'.htm'}}
+                        {{if $arrIt.wsi_type == 'prod_sort'}}
+                            {{if $arrIt.wstl_uid == $m_arrSystem.default_wstl_uid}}
+                                <div class="item_edit disable_edit" id="{{$arrIt.wsi_type}}">
+                                    {{include file=$file_path}}
+                                </div>
+                            {{else}}
+                                <div class="item_edit disable_edit" id="{{$arrIt.wsi_type}}">
+                                    <div class="C_Box">
+                                        <div class="Page_Litem_title">
+                                            <h3 class="L_item_name">{{$arrSettings.prod_sort.item_title}}</h3>
+                                        </div>
+                                        <div class="C_padding">
+                                            {{include file=$file_path}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{elseif $arrIt.wsi_type == 'carousel'
+                        || $arrIt.wsi_type == 'rec_prod'
+                        || $arrIt.wsi_type == 'rec_sort_prod'}}
+                            <div class="item_edit" id="{{$arrIt.wsi_type}}">
+                                <div class="admweb-v2-EditItemBox {{if $mobileDeviceDirected}} admweb-v2-EditBtn{{/if}}">
+                                    {{include file=$file_path}}
+                                </div>
+                                <div class="admweb-v2-EditItemBox admweb-v2-HideItemBox" style="display: none;"></div>
+                            </div>
+                        {{else}}
+                            <div class="item_edit" id="{{$arrIt.wsi_type}}">
+                                <div class="admweb-v2-EditItemBox {{if $mobileDeviceDirected}} admweb-v2-EditBtn{{/if}}">
+                                    <div class="C_Box">
+                                        <div class="Page_Litem_title">
+                                            <h3 class="L_item_name"></h3>
+                                        </div>
+                                        <div class="C_padding">
+                                            {{include file=$file_path}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="admweb-v2-EditItemBox admweb-v2-HideItemBox" style="display: none;"></div>
+                            </div>
+                        {{/if}}
+                    {{/foreach}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 中間內容區塊方這裡 結束 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+    <div class="iopen-layout-SetUp-right-container" style="display: none;">
+        <!-- ================================== 版頭設定 ================================== -->
+        <div id="index_head_edit" class="iopen-layout-SetUp-content">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">版頭設定</h2>
+                <!--
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                    <div class="iopen-layout-btn-switch-white">
+                        <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5"
+                           href="javascript: void(0);">隱藏</a>
+                        <a class="pic-text-green iopen-icon-green-eye active" href="javascript: void(0);">顯示</a>
+                    </div>
+                </div>
+                -->
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+            </div>
+
+            <p class="iopen-layout-small-gray pic-margin-b10">您可以在版頭設定這邊，上傳網站logo及其他設定。</p>
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>電腦版Logo</p></span>
+                <p class="pic-text-warn">
+                    必須為 jpg, gif, png, svg 格式的圖片，Logo 建議尺寸為 {{$arrStyle.wstl_logo_w}} px * {{$arrStyle.wstl_logo_h}} px。
+                </p>
+                <div class="iopen-layout-edit-frame pic-margin-tm5">
+                    <a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit"
+                       onclick="fileClick('web_logo');"> 編輯圖片</a>
+                    <input name="web_logo" type="file" accept="image/jpg, image/gif, image/png, image/svg"
+                           style="display: none;"/>
+                    <img id="web_logo" src="{{$arrSettings.index_head.web_logo}}">
+                </div>
+            </div>
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>手機版Logo</p></span>
+                <p class="pic-text-warn">
+                    必須為 jpg, gif, png, svg 格式的圖片，Logo 建議尺寸為 {{$arrStyleMbl.wstl_logo_w}} px
+                    * {{$arrStyleMbl.wstl_logo_h}} px。
+                </p>
+                <div class="iopen-layout-edit-frame pic-margin-tm5">
+                    <a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit"
+                       onclick="fileClick('mbl_web_logo');"> 編輯圖片</a>
+                    <input name="mbl_web_logo" type="file" accept="image/jpg, image/gif, image/png, image/svg"
+                           style="display: none;"/>
+                    <img id="mbl_web_logo" src="{{$arrSettings.index_head.mbl_web_logo}}">
+                </div>
+            </div>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>小Logo</p></span>
+                <p class="pic-text-warn">
+                    必須為 jpg, gif, png, svg 格式的圖片，Logo 建議尺寸為 {{$arrStyle.wstl_small_logo_w}} px
+                    * {{$arrStyle.wstl_small_logo_h}} px。
+                </p>
+                {{if $arrSettings.index_head.web_logo_small}}
+                    <div class="iopen-layout-edit-frame pic-margin-tm5">
+                        <a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit"
+                           onclick="fileClick('web_logo_small');"> 編輯圖片</a>
+                        <input name="web_logo_small" type="file" accept="image/jpg, image/gif, image/png, image/svg"
+                               style="display: none;"/>
+                        <img id="web_logo_small" src="{{$arrSettings.index_head.web_logo_small}}">
+                    </div>
+                {{else}}
+                    <div class="iopen-layout-edit-frame pic-margin-tm5 iopen-layout-edit-upload">
+                        <a href="javascript: void(0);" class="iopen-icon-black-add"
+                           onclick="fileClick('web_logo_small');">上傳圖檔</a>
+                        <input name="web_logo_small" type="file" accept="image/jpg, image/gif, image/png, image/svg"
+                               style="display: none;"/>
+                        <img id="web_logo_small" src="" style="display: none;">
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+
+        <!-- ================================== 輪播看板 ================================== -->
+        {{assign var=arrCarousel value=$arrSettings.carousel}}
+        <div id="carousel_edit" class="iopen-layout-SetUp-content iopen-layout-SetUp-frame-space">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">輪播看板</h2>
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                    <div class="iopen-layout-btn-switch-white">
+                        <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5 {{if $arrCarousel.status === "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="0">隱藏</a>
+                        <a class="pic-text-green iopen-icon-green-eye {{if $arrCarousel.status !== "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="1">顯示</a>
+                    </div>
+                </div>
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+            </div>
+
+            <p class="iopen-layout-small-gray pic-margin-b10">您可以在輪播看板上放置您的賣場介紹、商品或促銷活動，輪播看板可以上傳1-10張圖片。</p>
+            <div id="carousel_div" class="iopen-layout-SetUp ">
+                <p class="iopen-edit-name">
+                    <span class="pic-text-red">*</span>上傳圖檔或影片
+                </p></span>
+                <p class="pic-text-warn">圖片： <br/>
+                    圖片檔案大小最大為 2.0 MB； 圖片解析度上限為 1920 x 720px 圖片需為 jpg, jpeg, png, gif 檔案。</p>
+
+                {{foreach from=$arrCarousel.contents key=key item=arrCar}}
+                    <div class="iopen-layout-SetUp-frame-SpaceRight pic-margin-tm5 carousel">
+                        {{if $arrCar.type == 1}}
+                            <div class="iopen-layout-edit-frame">
+                                <a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit"
+                                   onclick="fileClick('', $(this).next());">
+                                    編輯圖片</a>
+                                <input name="carousel_file[]" class="carousel_file" type="file"
+                                       accept="image/jpg, image/jpeg, image/png, image/gif" style="display: none;"/>
+                                <img class="carousel_img" src="{{$arrCar.image}}">
+                            </div>
+                            <div class="iopen-text-lnput pic-margin-t5">
+                                <input type="text" class="pic-text-lnput pic-lnput-enter carousel_title"
+                                       placeholder="填寫主標題" onchange="setCarouselTitle('title');"
+                                       value="{{$arrCar.title}}">
+                                <input type="text" class="pic-text-lnput pic-lnput-enter carousel_subtitle"
+                                       placeholder="填寫副標題" onchange="setCarouselTitle('subtitle');"
+                                       value="{{$arrCar.subtitle}}">
+                                <input type="text" class="pic-text-lnput pic-lnput-enter carousel_link"
+                                       placeholder="填寫圖片URL連結"
+                                       value="{{$arrCar.link}}">
+                            </div>
+                            <div class="iopen-layout-SetUp-radio">
+                                <h4>圖片URL連結開啟型態</h4>
+                                <div class="iopen-rdobutton-radio-box">
+                                    <label class="pic-rdobutton-label" for="target_{{$key}}_1">
+                                        <input id="target_{{$key}}_1" class="iopen-rdobutton-radio" type="radio"
+                                               name="target_{{$key}}" value=""
+                                               {{if !$arrCar.target}}checked{{/if}}>
+                                        同視窗開啟
+                                        <div class="iopen-label-check" style="left: 14px;"></div>
+                                    </label>
+                                </div>
+
+                                <div class="iopen-rdobutton-radio-box" style="margin-left: 11px;">
+                                    <label class="pic-rdobutton-label" for="target_{{$key}}_2"
+                                           style="margin-left: 40px;">
+                                        <input id="target_{{$key}}_2" class="iopen-rdobutton-radio" type="radio"
+                                               name="target_{{$key}}" value="_blank"
+                                               {{if $arrCar.target}}checked{{/if}}>
+                                        另開視窗
+                                        <div class="iopen-label-check"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        {{else}}
+                            {{*<div class="iopen-layout-edit-frame">*}}
+                            {{*<a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit">
+                                編輯圖片</a>*}}
+                            {{*<img src="https://picsum.photos/300/200/?random=10">*}}
+                            {{*</div>*}}
+                            <div class="iopen-text-lnput pic-margin-t5">
+                                <input type="text" class="pic-text-lnput pic-lnput-enter carousel_title"
+                                       placeholder="填寫主標題" onchange="setCarouselTitle('title');"
+                                       value="{{$arrCar.title}}">
+                                <input type="text" class="pic-text-lnput pic-lnput-enter carousel_subtitle"
+                                       placeholder="填寫副標題" onchange="setCarouselTitle('subtitle');"
+                                       value="{{$arrCar.subtitle}}">
+                                <input type="text" class="pic-text-lnput pic-lnput-enter carousel_url"
+                                       placeholder="填寫Youtube/FB網址連結" value="{{$arrCar.video}}" onchange="addVideo($(this));">
+                            </div>
+                        {{/if}}
+                        <div class="iopen-layout-lnput-date pic-margin-b5">
+                            <div class="iopen-layout-lnput-date-content">
+                                <span class="iopen-layout-lnput-DateStart">
+                                    起始
+                                    <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                                </span>
+                                <span class="iopen-icon-date pic-margin-r5">
+                                    <input id="datepicker_start_{{$key}}" class="pic-text-lnput datepicker start_date" type="text"
+                                           value="{{if $arrCar.start_date}}{{$arrCar.start_date}}{{else}}{{$df_start_date}}{{/if}}" readonly>
+                                </span>
+
+                                <select class="pic-text-lnput iopen-text-lnput-style start_hour">
+                                    {{section name=i loop=24 start=0}}
+                                        <option {{if $arrCar.start_hour == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                                <div style="margin:0 3px;">:</div>
+                                <select class="pic-text-lnput iopen-text-lnput-style start_min">
+                                    {{section name=i loop=60 start=0 step=5}}
+                                        <option {{if $arrCar.start_min == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="iopen-layout-lnput-date">
+                            <div class="iopen-layout-lnput-date-content">
+                            <span class="iopen-layout-lnput-DateStart">
+                                結束
+                                <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                            </span>
+                                <span class=" iopen-icon-date pic-margin-r5">
+                                <input id="datepicker_end_{{$key}}" class="pic-text-lnput datepicker end_date" type="text"
+                                       value="{{if $arrCar.end_date}}{{$arrCar.end_date}}{{else}}{{$df_end_date}}{{/if}}" readonly>
+                            </span>
+
+                                <select class="pic-text-lnput iopen-text-lnput-style end_hour">
+                                    {{section name=i loop=24 start=0}}
+                                        <option {{if $arrCar.end_hour == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                                <div style="margin:0 3px;">:</div>
+                                <select class="pic-text-lnput iopen-text-lnput-style end_min">
+                                    {{section name=i loop=60 start=0 step=5}}
+                                        <option {{if $arrCar.end_min == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                            </div>
+                        </div>
+
+                        <input class="carousel_no" type="hidden" value="{{$key}}">
+
+                        <div class="iopen-layout-icon-right">
+                            <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-up"
+                               onclick="moveCarousle('up', $(this));"></a>
+                            <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-down"
+                               onclick="moveCarousle('down', $(this));"></a>
+                            <a href="javascript: void(0);" class="iopen-icon-black-delete"
+                               onclick="removeCarousel($(this), 1);"></a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            </div>
+
+            <a class="iopen-add-btn-images iopen-icon-green-add addCarousel" href="javascript: void(0);"
+               onclick="newCarouselFile();">新增圖檔或影片(1/10)</a>
+        </div>
+
+        <!-- ================================== 影片 ================================== -->
+        {{assign var=arrVideo value=$arrSettings.video}}
+        <div id="video_edit" class="iopen-layout-SetUp-content iopen-layout-SetUp-frame-space">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">影片</h2>
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                    <div class="iopen-layout-btn-switch-white">
+                        <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5 {{if $arrVideo.status === "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="0">隱藏</a>
+                        <a class="pic-text-green iopen-icon-green-eye {{if $arrVideo.status !== "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="1">顯示</a>
+                    </div>
+                </div>
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+            </div>
+            <p class="iopen-layout-small-gray pic-margin-b10">新增品牌或商品影片吸引更多買家</p>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name pic-margin-b5"><span class="pic-text-red">*</span>標題
+                    <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                </p>
+                <div class="iopen-text-lnput pic-margin-t5">
+                    <input type="text" class="pic-text-lnput pic-lnput-enter item_title" placeholder="輸入標題文字"
+                           value="{{$arrVideo.item_title}}"
+                           onchange="changeTitle('video', 'L_item_name', $(this));">
+                </div>
+            </div>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>上傳影片</p></span>
+                <p class="pic-text-warn">在此處增加Youtube影片網址</p>
+
+                {{foreach from=$arrVideo.contents item=arrCont}}
+                    <div class="iopen-layout-SetUp-frame-SpaceRight pic-margin-tm5 video_edit">
+                        {{*<div class="iopen-layout-edit-frame">*}}
+                        {{*<a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit"> 編輯圖片</a>*}}
+                        {{*<img src="https://picsum.photos/300/400/?random=10">*}}
+                        {{*</div>*}}
+                        <div class="iopen-text-lnput pic-margin-t5">
+                            <input type="text" class="pic-text-lnput pic-lnput-enter video_title"
+                                   placeholder="填寫主標題" value="{{$arrCont.title}}"
+                                   onchange="changeVideo($(this), 'title');">
+                            <input type="text" class="pic-text-lnput pic-lnput-enter video_subtitle"
+                                   placeholder="填寫副標題" value="{{$arrCont.subtitle}}"
+                                   onchange="changeVideo($(this), 'subtitle');">
+                            <input type="text" class="pic-text-lnput pic-lnput-enter video_url"
+                                   placeholder="填寫Youtube/FB網址連結" value="{{$arrCont.video}}"
+                                   onchange="changeVideo($(this), 'video');">
+                            {{if $arrCont.image}}<input type="hidden" class="video_img" value="{{$arrCont.image}}">{{/if}}
+                        </div>
+                        <!-- 上下按鈕 -->
+                        <div class="iopen-layout-icon-right">
+                            <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-up"
+                               onclick="moveVideo('up', $(this));"></a>
+                            <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-down"
+                               onclick="moveVideo('down', $(this));"></a>
+                            <a href="javascript: void(0);" class="iopen-icon-black-delete"
+                               onclick="removeVideo($(this));"></a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            </div>
+
+            <a class="iopen-add-btn-images iopen-icon-green-add addVideo" href="javascript: void(0);"
+               onclick="addVideoEdit();">新增Youtube/FB影片網址(0/6)</a>
+        </div>
+
+
+        <!-- ================================== 熱銷商品 ================================== -->
+        {{assign var=arrHotProd value=$arrSettings.hot_prod}}
+        <div id="hot_prod_edit" class="iopen-layout-SetUp-content iopen-layout-SetUp-frame-space">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">熱銷商品</h2>
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                        <div class="iopen-layout-btn-switch-white">
+                            <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5 {{if $arrHotProd.status === "0"}}active{{/if}}"
+                               href="javascript: void(0);" status="0">隱藏</a>
+                            <a class="pic-text-green iopen-icon-green-eye {{if $arrHotProd.status !== "0"}}active{{/if}}"
+                               href="javascript: void(0);" status="1">顯示</a>
+                    </div>
+                </div>
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+            </div>
+            <p class="iopen-layout-small-gray pic-margin-b10">系統自動顯示七天內網站熱銷的商品</p>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name pic-margin-b5"><span class="pic-text-red">*</span>標題
+                    <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                </p>
+                <div class="iopen-text-lnput pic-margin-t5">
+                    <input type="text" class="pic-text-lnput pic-lnput-enter item_title" placeholder="輸入標題文字"
+                           value="{{$arrHotProd.item_title}}"
+                           onchange="changeTitle('hot_prod', 'L_item_name', $(this));">
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================== 個人化推薦商品 ================================== -->
+        {{assign var=arrPerRecProd value=$arrSettings.personal_rec_prod}}
+        <div id="personal_rec_prod_edit" class="iopen-layout-SetUp-content iopen-layout-SetUp-frame-space">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">個人化推薦商品</h2>
+
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                    <div class="iopen-layout-btn-switch-white">
+                        <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5 {{if $arrPerRecProd.status === "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="0">隱藏</a>
+                        <a class="pic-text-green iopen-icon-green-eye {{if $arrPerRecProd.status !== "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="1">顯示</a>
+                    </div>
+                </div>
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+
+            </div>
+
+            <p class="iopen-layout-small-gray pic-margin-b10">賣場首頁將會根據消費者喜好推薦商品</p>
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name pic-margin-b5"><span class="pic-text-red">*</span>標題
+                    <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                </p></span>
+                <div class="iopen-text-lnput pic-margin-t5">
+                    <input type="text" class="pic-text-lnput pic-lnput-enter item_title" placeholder="輸入標題文字"
+                           value="{{$arrPerRecProd.item_title}}"
+                           onchange="changeTitle('personal_rec_prod', 'L_item_name', $(this));">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================================== 主打商品 ================================== -->
+        {{assign var=arrRecProd value=$arrSettings.rec_prod}}
+        <div id="rec_prod_edit" class="iopen-layout-SetUp-content iopen-layout-SetUp-frame-space">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">主打商品</h2>
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                    <div class="iopen-layout-btn-switch-white">
+                        <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5 {{if $arrRecProd.status === "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="0">隱藏</a>
+                        <a class="pic-text-green iopen-icon-green-eye {{if $arrRecProd.status !== "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="1">顯示</a>
+                    </div>
+                </div>
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+            </div>
+            <p class="iopen-layout-small-gray pic-margin-b10">上傳圖片及選擇商品吸引消費者購買</p>
+
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name pic-margin-b5">
+                    <span class="pic-text-red">*</span>標題
+                    <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                </p>
+                <div class="iopen-text-lnput pic-margin-t5">
+                    <input type="text" class="pic-text-lnput pic-lnput-enter item_title" placeholder="輸入標題文字"
+                           value="{{$arrRecProd.item_title}}"
+                           onchange="changeTitle('rec_prod', 'title', $(this));">
+                </div>
+            </div>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>上傳圖檔</p></span>
+
+                <p class="pic-text-warn">圖片： <br>
+                    圖片檔案大小最大為 2.0 MB； 圖片解析度上限為 1920 x 1280px圖片需為 jpg, jpeg, png, gif 檔案。
+                </p>
+
+                <div class="iopen-layout-edit-frame pic-margin-tm5">
+                    <a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit"
+                       onclick="fileClick('rec_prod_bg');"> 編輯圖片</a>
+                    <input name="rec_prod_bg" type="file" accept="image/jpg, image/jpeg, image/png, image/gif"
+                           style="display: none;"/>
+                    <img id="rec_prod_bg" src="{{$arrRecProd.image}}">
+                </div>
+            </div>
+
+            <div class="iopen-layout-SetUp product_append">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>選擇商品</p></span>
+                <p class="pic-text-warn">請新增1-20個商品，系統將展示至多3個商品 </p>
+            </div>
+
+            <a class="iopen-add-btn-images iopen-icon-green-add select_product"
+               onclick="open_add_product_box('rec_prod');"
+               href="javascript: void(0);">選擇活動商品(0/20)</a>
+
+        </div>
+
+
+        <!-- ================================== 限時倒數活動商品 ================================== -->
+        {{assign var=arrLTP value=$arrSettings.limited_time_prod}}
+        <div id="limited_time_prod_edit" class="iopen-layout-SetUp-content iopen-layout-SetUp-frame-space">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">限時倒數活動商品</h2>
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                    <div class="iopen-layout-btn-switch-white">
+                        <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5 {{if $arrLTP.status === "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="0">隱藏</a>
+                        <a class="pic-text-green iopen-icon-green-eye {{if $arrLTP.status !== "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="1">顯示</a>
+                    </div>
+                </div>
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+            </div>
+
+            <p class="iopen-layout-small-gray pic-margin-b10">設定限時倒數活動及商品</p>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name pic-margin-b5"><span class="pic-text-red">*</span>標題
+                    <!-- <i class="icons-line icon-alert-circle-01"></i></p> -->
+                <div class="iopen-text-lnput pic-margin-t5">
+                    <input type="text" class="pic-text-lnput pic-lnput-enter item_title" placeholder="輸入標題文字"
+                           value="{{$arrLTP.item_title}}"
+                           onchange="changeTitle('limited_time_prod', 'L_item_name', $(this));">
+                </div>
+            </div>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>上傳圖檔</p></span>
+                <p class="pic-text-warn">
+                    圖片： <br>
+                    圖片檔案大小最大為 2.0 MB； 圖片解析度上限為 995 x 600px圖片需為 jpg, jpeg, png, gif 檔案。
+                </p>
+                <div class="iopen-layout-edit-frame pic-margin-tm5">
+                    <a href="javascript: void(0);" class="pic-sort-color-green iopen-icon-green-edit"
+                       onclick="fileClick('limited_time_prod_bg');"> 編輯圖片</a>
+                    <input name="limited_time_prod_bg" type="file" accept="image/jpg, image/jpeg, image/png, image/gif"
+                           style="display: none;"/>
+                    <img id="limited_time_prod_bg" src="{{$arrLTP.image}}">
+                </div>
+            </div>
+
+            <div class="iopen-layout-SetUp">
+                <p class="iopen-edit-name pic-margin-b5"><span class="pic-text-red">*</span>活動設定</p></span>
+                <div class="pic-margin-tm5">
+                    <div class="iopen-text-lnput pic-margin-t5">
+                        <input type="text" class="pic-text-lnput pic-lnput-enter title" placeholder="填寫主標題"
+                               value="{{$arrLTP.title}}"
+                               onchange="changeTitle('limited_time_prod', 'title', $(this));">
+                        <input type="text" class="pic-text-lnput pic-lnput-enter subtitle" placeholder="填寫副標題"
+                               value="{{$arrLTP.subtitle}}"
+                               onchange="changeTitle('limited_time_prod', 'subtitle', $(this));">
+                    </div>
+                    <div class="iopen-layout-lnput-date pic-margin-b5">
+                        <div class="iopen-layout-lnput-date-content">
+                            <span class="iopen-layout-lnput-DateStart">
+                                起始
+                                <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                            </span>
+                            <span class="iopen-icon-date pic-margin-r5">
+                                <input class="pic-text-lnput limit_start" type="text"
+                                       value="{{if $arrLTP.limit_start}}{{$arrLTP.limit_start}}{{else}}{{$df_start_date}}{{/if}}" readonly>
+                            </span>
+
+                            <select class="pic-text-lnput iopen-text-lnput-style start_hour">
+                                {{section name=i loop=24 start=0}}
+                                    <option {{if $arrLTP.start_hour == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                            <div style="margin:0 3px;">:</div>
+                            <select class="pic-text-lnput iopen-text-lnput-style start_min">
+                                {{section name=i loop=60 start=0 step=5}}
+                                    <option {{if $arrLTP.start_min == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="iopen-layout-lnput-date">
+                        <div class="iopen-layout-lnput-date-content">
+                            <span class="iopen-layout-lnput-DateStart">結束
+                                <!-- <i class="icons-line icon-alert-circle-01"></i> -->
+                            </span>
+                            <span class="iopen-icon-date pic-margin-r5">
+                                <input class="pic-text-lnput limit_end" type="text"
+                                       value="{{if $arrLTP.limit_end}}{{$arrLTP.limit_end}}{{else}}{{$df_limit_end}}{{/if}}" readonly>
+                            </span>
+
+                            <select class="pic-text-lnput iopen-text-lnput-style end_hour">
+                                {{section name=i loop=24 start=0}}
+                                    <option {{if $arrLTP.end_hour == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                            <div style="margin:0 3px;">:</div>
+                            <select class="pic-text-lnput iopen-text-lnput-style end_min">
+                                {{section name=i loop=60 start=0 step=5}}
+                                    <option {{if $arrLTP.end_min == $smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>{{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="iopen-layout-SetUp product_append">
+                <p class="iopen-edit-name"><span class="pic-text-red">*</span>選擇商品</p></span>
+                <p class="pic-text-warn">請新增1-20個商品，系統將展示至多3個商品 </p>
+            </div>
+
+            <a class="iopen-add-btn-images iopen-icon-green-add select_product"
+               onclick="open_add_product_box('limited_time_prod');"
+               href="javascript: void(0);">選擇活動商品(0/20)</a>
+        </div>
+
+        <!-- ================================== 分類熱門商品推薦 ================================== -->
+        {{assign var=arrRSP value=$arrSettings.rec_sort_prod}}
+        <div id="rec_sort_prod_edit" class="iopen-layout-SetUp-content iopen-layout-SetUp-frame-space">
+            <div class="iopen-layout-title-box">
+                <h2 class="edit_title">分類熱門商品推薦</h2>
+                <div class="iopen-layout-btn-switch pic-bg-green-20">
+                    <div class="iopen-layout-btn-switch-white">
+                        <a class="pic-text-green iopen-icon-white-eye-close pic-margin-r5 {{if $arrRSP.status === "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="0">隱藏</a>
+                        <a class="pic-text-green iopen-icon-green-eye {{if $arrRSP.status !== "0"}}active{{/if}}"
+                           href="javascript: void(0);" status="1">顯示</a>
+                    </div>
+                </div>
+                <a class="iopen-icon-black-sm-close" href="javascript: void(0);"></a>
+            </div>
+            <p class="iopen-layout-small-gray pic-margin-b10">自動顯示該分類的熱門商品，頁籤式呈現</p>
+
+            <p class="iopen-edit-name pic-margin-b10">
+                <span class="pic-text-red">*</span>選擇賣場分類
+            </p>
+
+            {{foreach from=$arrRSP.contents key=key item=arrRSP}}
+                <div class="admweb-v2-layout-StoreSort rec_sort_prod_edit">
+                    <div class="admweb-v2-layout-StoreSort-input">
+                        <div class="pic-flex-align-items">
+                            <span class="admweb-v2-order_delivery__badge-num prod_sort_num">{{math equation="x+1" x=$key}}</span>
+                            <input type="text" class="pic-text-lnput pic-lnput-enter title" placeholder="請輸入主標題"
+                                   value="{{$arrRSP.title}}" onchange="changeRecSortProdTitle($(this));">
+                        </div>
+
+                        <span class="admweb-v2-layout-StoreSort-name"
+                              {{if !$arrRSP.prod_sort_uid}}style="display: none;"{{/if}}>
+                            <span class="selectSortStr" prod_sort_uid="{{$arrRSP.prod_sort_uid}}"></span>
+                            <a class="admweb-v2-layout-edit-btn" onclick="setSelectProdSortWindow($(this));">
+                                <i class="icons-line icon-line-edit"></i>編輯
+                            </a>
+                        </span>
+                        <a class="pic-width-100  pic-btn-newstore-100 pic-BgText-color-green"
+                           onclick="setSelectProdSortWindow($(this));" {{if $arrRSP.prod_sort_uid}}style="display: none;"{{/if}}>
+                            <i class="icons-line icon-line-ArrowParper pic-margin-r5"></i>請選擇商品分類
+                        </a>
+                        {{*刪除按鈕 跑版需調整*}}
+                        <div class="iopen-layout-icon-right">
+                            <a href="javascript: void(0);" class="iopen-icon-black-delete"
+                               onclick="removeProdSort($(this));"></a>
+                        </div>
+                    </div>
+                </div>
+            {{/foreach}}
+
+            <a id="add_prod_sort" class="iopen-add-btn-images iopen-icon-green-add" href="javascript: void(0);"
+               onclick="addProdSort();">新增分類(0/4)</a>
+        </div>
+
+        <!-- 一個儲存 -->
+
+        <!-- <div class="pic-btn-footer pic-icon-margin-r">
+            <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check"
+               href="javascript:void(0);">儲存</a>
+        </div> -->
+
+        {{if $mobileDeviceDirected}}
+        <!-- 在編輯頁面時出現 的三排按紐-->
+            <div id="admweb-v2-btn-footer-save" class="pic-btn-footer pic-icon-margin-r">
+                {{*<a class="pic-btn-newstore-100 pic-BgText-color-green iopen-icon-preview" href="javascript:void(0);">預覽</a>*}}
+                <a class="pic-btn-newstore-100 pic-BgText-color-green pic-margin-lr5 pic-icon-white-check"
+                   href="javascript:void(0);" onclick="saveSettings('save');">儲存</a>
+                <!-- <a class="pic-btn-newstore-100 pic-BgText-color-green iopen-icon-ArrowParper"
+                   href="javascript:void(0);" onclick="saveSettings('release');">發佈</a> -->
+            </div>
+        {{/if}}
+
+    </div>
+
+    {{if $mobileDeviceDirected}}
+    <div id="admweb-v2-btn-footer-SaveEdit" class="pic-btn-footer pic-icon-margin-r">
+        {{*<a class="pic-btn-newstore-100 pic-BgText-color-green" href="javascript:void(0);"><i class="icons-line icon-line-Preview pic-margin-r5"></i>預覽</a>*}}
+        <a class="pic-btn-newstore-100 pic-BgText-color-green pic-margin-lr5"
+           href="javascript:void(0);" onclick="saveSettings('save');"><i class="icons-line icon-line-tick pic-margin-r5"></i>儲存</a>
+        <a class="pic-btn-newstore-100 pic-BgText-color-green"
+           href="javascript:void(0);" onclick="saveSettings('release');"><i class="icons-line icon-line-ArrowParper pic-margin-r5"></i>發佈</a>
+    </div>
+    {{/if}}
+
+
+    {{if $mobileDeviceDirected}}
+        </div>
+        <!-- 右側內容 End -->
+    {{/if}}
+</div>
+
+{{*挑選商品*}}
+{{include file="admweb_2/add_wmkt_product_pic.htm"}}
+
+{{*網站風格*}}
+<div id="iopen-WebStyleWindow" class="iopen-select-WebStyle" style="display:none;">
+    <div class="iopen-window-layout-container">
+        <h2>
+            <a class="iopen-icon-white-arrows-left" href="javascript: void(0);" onclick="WindowClose();"></a>
+            選擇網站風格 <span class="pic-window-close"></span>
+        </h2>
+        <div class="iopen-layout-window">
+            <ul class="iopen-layout-window-content">
+                {{foreach from=$arrWebStyle item=arrWS}}
+                    <li>
+                        <p>{{$arrWS.wstl_remarks}}</p>
+                        <img src="{{$root_url}}templates/web_style/{{$arrWS.wstl_folder}}/style.gif">
+                        <div class="iopen-window-layout-hover">
+                            <a class="pic-BgText-color-green iopen-icon-white-add" href="javascript: void(0);"
+                               onclick="changeStyle('{{$arrWS.wstl_uid}}');">選擇</a>
+                        </div>
+                        {{if $arrWS.wstl_uid == $arrStyle.wstl_uid}}
+                            <span>使用中</span>
+                        {{/if}}
+                    </li>
+                {{/foreach}}
+            </ul>
+        </div>
+
+        <div class="pic-btn-footer pic-icon-margin-r">
+            <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check"
+               href="javascript:void(0);">儲存</a>
+        </div>
+    </div>
+</div>
+
+
+{{if !$mobileDeviceDirected}}
+    <!-- 電腦版 點擊 商品分類 -->
+    <div id="selectProdSort" class="pic-window-bg" style="display: none;">
+        <div class="admweb-v2-window-container">
+            <h2>
+                <i class="icons-line icon-line-lattice  pic-margin-r5"></i>選擇商品分類
+                <a class="pic-window-close" onclick="WindowClose();"></a>
+            </h2>
+            <!-- <div class="admweb-v2-window-SelectProduct">
+            <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入賣場名稱(最多20字元)">
+            <a id="" class="iopen-search pic-BgText-color-green" href="javascript:void(0);">搜尋</a>
+          </div> -->
+            <h3>目前已選擇的：<span id="selectedSort">尚未選擇分類</span></h3>
+
+            <div class="admweb-v2-window pic-margin-b15">
+                <ul class="admweb-window-categories sort_layer sort_layer_1" layer="1">
+                    {{foreach from=$arrSort1 item=arrSort}}
+                        <li class="prod_sort_option" sort_uid="{{$arrSort.prod_sort_uid}}">
+                            <a href="javascript:void(0);">
+                                <span class="sort_name">{{$arrSort.prod_sort_name}}</span>
+                                {{if $arrSort.next_count}}<i class="icons-line icon-arrow-right-01"></i>{{/if}}
+                            </a>
+                        </li>
+                    {{/foreach}}
+                </ul>
+                <ul class="admweb-window-categories sort_layer sort_layer_2" layer="2">
+                    {{foreach from=$arrSort2 item=arrSort}}
+                        <li class="prod_sort_option sort_p_uid_{{$arrSort.prod_sort_p_uid}}" style="display: none;"
+                            sort_uid="{{$arrSort.prod_sort_uid}}" sort_p_uid="{{$arrSort.prod_sort_p_uid}}">
+                            <a href="javascript:void(0);">
+                                <span class="sort_name">{{$arrSort.prod_sort_name}}</span>
+                                {{if $arrSort.next_count}}<i class="icons-line icon-arrow-right-01"></i>{{/if}}
+                            </a>
+                        </li>
+                    {{/foreach}}
+                </ul>
+                <ul class="admweb-window-categories sort_layer sort_layer_3" layer="3">
+                    {{foreach from=$arrSort3 item=arrSort}}
+                        <li class="prod_sort_option sort_p_uid_{{$arrSort.prod_sort_p_uid}}" style="display: none;"
+                            sort_uid="{{$arrSort.prod_sort_uid}}" sort_p_uid="{{$arrSort.prod_sort_p_uid}}">
+                            <a href="javascript:void(0);">
+                                <span class="sort_name">{{$arrSort.prod_sort_name}}</span>
+                                {{if $arrSort.next_count}}<i class="icons-line icon-arrow-right-01"></i>{{/if}}
+                            </a>
+                        </li>
+                    {{/foreach}}
+                </ul>
+            </div>
+
+            <div class="pic-confirm-box-NoMargin pic-flex-center pic-icon-margin-r">
+                <a class="pic-btn-newstore-100 pic-BgText-color-white-green iopen-icon-green-close pic-margin-r5"
+                   href="javascript:void(0);" onclick="WindowClose();">取消</a>
+                <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check"
+                   href="javascript:void(0);" onclick="confirmSelectProdSort(1);">確認</a>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <!-- 手機版 點擊 商品分類-->
+    <div id="selectProdSort" class="pic-scroll admweb-v2-PageSort" style="display: none;">
+
+        <div class="admweb-v2-NewPage">
+            <h2 class="admweb-v2-phone-haed">
+                <a class="iopen-icon-white-arrows-left" href="javascript: void(0);" onclick="WindowClose();"></a>
+                <span prod_uid_main="">選擇商品分類</span>
+            </h2>
+            <!--選單-->
+            <div class="pic-common-navbarbox">
+                <div class="swiper-container pic-navbar">
+                    <div class="swiper-wrapper pic-nav-list">
+                        <div class="swiper-slide pic-nav-a selected" navid="0"><span>請選擇</span></div>
+                        <div class="swiper-slide pic-nav-a" navid="1" style="display: none;"><span></span></div>
+                        <div class="swiper-slide pic-nav-a" navid="2" style="display: none;"><span></span></div>
+                    </div>
+                </div>
+            </div>
+            <!--選單 end-->
+
+            <ul class="admweb-v2-NewPageSort sort_layer sort_layer_1" layer="1">
+                {{foreach from=$arrSort1 item=arrSort}}
+                    <li class="admweb-v2-NewProduct-title prod_sort_option sort_p_uid_{{$arrSort.prod_sort_p_uid}}"
+                        sort_uid="{{$arrSort.prod_sort_uid}}" sort_p_uid="{{$arrSort.prod_sort_p_uid}}">
+                        <h2 class="admweb-v2-SettingsTitle sort_name">{{$arrSort.prod_sort_name}}</h2>
+                        {{if $arrSort.next_count}}<i class="icons-line icon-arrow-right-01"></i>{{/if}}
+                    </li>
+                {{/foreach}}
+            </ul>
+
+            <ul class="admweb-v2-NewPageSort sort_layer sort_layer_2" layer="2">
+                {{foreach from=$arrSort2 item=arrSort}}
+                    <li class="admweb-v2-NewProduct-title prod_sort_option sort_p_uid_{{$arrSort.prod_sort_p_uid}}"
+                        sort_uid="{{$arrSort.prod_sort_uid}}" sort_p_uid="{{$arrSort.prod_sort_p_uid}}"
+                        style="display: none;">
+                        <a href="javascript:void(0);">
+                            <span class="admweb-v2-SettingsTitle sort_name">{{$arrSort.prod_sort_name}}</span>
+                            {{if $arrSort.next_count}}<i class="icons-line icon-arrow-right-01"></i>{{/if}}
+                        </a>
+                    </li>
+                {{/foreach}}
+            </ul>
+
+            <ul class="admweb-v2-NewPageSort sort_layer sort_layer_3" layer="3">
+                {{foreach from=$arrSort3 item=arrSort}}
+                    <li class="admweb-v2-NewProduct-title prod_sort_option sort_p_uid_{{$arrSort.prod_sort_p_uid}}"
+                        sort_uid="{{$arrSort.prod_sort_uid}}" sort_p_uid="{{$arrSort.prod_sort_p_uid}}"
+                        style="display: none;">
+                        <a href="javascript:void(0);">
+                            <span class="admweb-v2-SettingsTitle sort_name">{{$arrSort.prod_sort_name}}</span>
+                            {{if $arrSort.next_count}}<i class="icons-line icon-arrow-right-01"></i>{{/if}}
+                        </a>
+                    </li>
+                {{/foreach}}
+            </ul>
+        </div>
+
+        <div class="pic-btn-footer pic-icon-margin-r">
+            <a class="pic-btn-newstore-100 pic-BgText-color-white-green iopen-icon-green-close pic-margin-r5"
+               onclick="WindowClose();" href="javascript:void(0);">取消</a>
+            <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check"
+               href="javascript:void(0);" onclick="confirmSelectProdSort(1);">確認</a>
+            <!-- 灰綠二選一 -->
+            <!-- <a class="pic-btn-newstore-100 pic-BgText-color-gray pic-icon-white-check" href="javascript:void(0);">確認</a> -->
+        </div>
+    </div>
+{{/if}}
+
+<!-- 預覽選擇 -->
+<div class="admweb-v2-BackstageAlert alertaconfirm_mask pic-window-bg preview_block" style="display: none; z-index: 100000;">
+    <div class="alertaconfirm_box pic-window pic-window-animation-start">
+        <div class="alert_text pic-window-marge-box pic-text-center">欲預覽哪一個裝置呢？</div>
+        <ul class="confirm_btnbox pic-window-button-box">
+            <li class="confirm_cancel">
+                <a class="pic-window-button-TwoBtn pic-BgText-color-white pic-window-button-TwoBtn-l"
+                   href="javascript: void(0);" value="mobile">手機版</a>
+            </li>
+            <li class="jooshop_btn_color">
+                <a class="border_zero pic-window-button-TwoBtn pic-BgText-color-orange pic-window-button-TwoBtn-r"
+                   href="javascript: void(0);" value="web">電腦版</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<!-- Pintura 圖片編輯器 -->
+<link rel="stylesheet"
+      href="{{$sys_arrWebsite.website_url}}javascripts/pintura/presets/jquery/jquery-pintura/pintura.css"/>
+<script src="{{$sys_arrWebsite.website_url}}javascripts/pintura/presets/jquery/jquery.js"></script>
+<script src="{{$sys_arrWebsite.website_url}}javascripts/pintura/presets/jquery/jquery-pintura/pintura.js"></script>
+<script>
+    const all_carousel_no = {{if $arrCarousel.contents|@count > 0}}{{$arrCarousel.contents|@array_keys|@json_encode}}{{else}}{}{{/if}};
+        
+    $(function () {
+        //版頭
+        setEditor('web_logo', '', 0, '{{$arrStyle.wstl_logo_w}}', '{{$arrStyle.wstl_logo_h}}');
+        setEditor('mbl_web_logo', '', 0, '{{$arrStyleMbl.wstl_logo_w}}', '{{$arrStyleMbl.wstl_logo_h}}');
+        setEditor('web_logo_small', '', 0, '{{$arrStyle.wstl_small_logo_w}}', '{{$arrStyle.wstl_small_logo_h}}');
+
+        //輪播
+        $(".carousel_file").each(function () {
+            setEditor('carousel_img', $(this), 0, 1920, 720);
+        });
+
+        //限時商品
+        setEditor('limited_time_prod_bg', '', 0, 995, 600);
+
+        //rec_prod
+        setEditor('rec_prod_bg', '', 0, 1920, 1280);
+        
+    });
+
+    function setEditor(type, input, ratio, width, height) {
+        var {
+            openDefaultEditor,
+            createDefaultImageWriter
+        } = $.fn.pintura;
+
+        if (input) {
+            var fileInput = input;
+        } else {
+            var fileInput = $("input[name='" + type + "']");
+            input = fileInput;
+        }
+
+        fileInput.on('change', function () {
+            // Exit if no files selected
+            if (!fileInput[0].files.length) return;
+
+            // Edit the selected file
+            var settings = {
+                src: fileInput[0].files[0],
+                utils: [
+                    'crop'
+                ],
+                imageWriter: createDefaultImageWriter({ quality: 1 }),
+                locale: {
+                    labelButtonCancel: '取消',
+                    labelButtonUndo: '取消',
+                    labelButtonRedo: '重做',
+                    labelButtonRevert: '還原',
+                    labelButtonExport: '儲存',
+                    cropLabelButtonRotateLeft: '旋轉',
+                    cropLabelButtonFlipHorizontal: '水平翻轉'
+                }
+            };
+            if (width && height) {
+                width = parseInt(width);
+                height = parseInt(height);
+
+                settings.imageWriter = {
+                    targetSize: {
+                        width: width,
+                        height: height
+                    }
+                };
+                ratio = width / height;
+            }
+            if (ratio)
+                settings.imageCropAspectRatio = ratio;
+
+            var editor = openDefaultEditor(settings);
+
+            // When done, assign the resulting file to the file input
+            editor.on('process', function (event) {
+                const dest = event.dest;
+
+                // Create a files list
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(dest);
+
+                // Assign new files
+                fileInput[0].files = dataTransfer.files;
+                blob2base64(input, type);
+
+                // SyncImage(type, input.next(), URL.createObjectURL(dest));
+            });
+        });
+    }
+
+    function fileClick(name, ele) {
+        if (name)
+            $("input[name='" + name + "']").click();
+        else
+            ele.click();
+    }
+
+    function SyncImage(type, ele, file) {
+        switch (type) {
+            case 'web_logo_small':
+                var parent = ele.parent();
+                parent.removeClass("iopen-layout-edit-upload");
+                parent.find(".iopen-icon-black-add").attr("class", "pic-sort-color-green iopen-icon-green-edit").text("編輯圖片");
+                ele.attr('src', file).show();
+                web_logo_small_status = 1;
+                break;
+            case 'web_logo':
+                if (!'{{$mobileDeviceDirected}}')
+                    $("#index_head").find(".header_logo img").attr('src', file);
+
+                ele.attr('src', file);
+                web_logo_status = 1;
+                break;
+            case 'mbl_web_logo':
+                if ('{{$mobileDeviceDirected}}')
+                    $("#index_head").find(".header_logo img").attr('src', file);
+
+                ele.attr('src', file);
+                mbl_web_logo_status = 1;
+                break;
+            case 'carousel_img':            //輪播圖
+                var parent = ele.parent();
+                parent.removeClass("iopen-layout-edit-upload");
+                parent.find(".iopen-icon-black-add").attr("class", "pic-sort-color-green iopen-icon-green-edit").text("編輯圖片");
+                ele.attr('src', file).show();
+
+                //輪播圖片
+                var idx = $(".carousel").index(ele.closest(".carousel"));
+                $('.owl-item').not('.cloned').eq(idx).find('img').attr("src", file);
+                break;
+            case 'limited_time_prod_bg':    //限時倒數背景圖
+                ele.attr('src', file);
+                $("#limited_time_prod").find(".background").attr("style", "background: url(" + file + ") no-repeat center center; background-size:cover;");
+                break;
+            case 'rec_prod_bg':    //限時倒數背景圖
+                ele.attr('src', file);
+                $("#rec_prod").find(".background").attr("style", "background: url(" + file + ");");
+                break;
+            default:
+                ele.attr('src', file);
+                break;
+        }
+    }
+
+    function blob2base64(input, type) {
+        const file = input[0].files[0];
+        const reader = new FileReader();
+        // 轉換成 DataURL
+        reader.readAsDataURL(file);
+
+        reader.onload = function() {
+            SyncImage(type, input.next(), reader.result);
+        }
+    }
+</script>
+
+<script>
+    $(function () {
+        //設定預設顯示資料
+        defaultSettings();
+
+        //hot_prod
+        if ($("#hot_prod").length) {
+            if ($("#hot_prod_edit").find(".item_title").val())
+            changeTitle('hot_prod', 'L_item_name', $("#hot_prod_edit").find(".item_title"));
+        }
+
+        //limited_time_prod
+        if ($("#limited_time_prod").length) {
+            var limited_time_prod_edit = $("#limited_time_prod_edit");
+            if (limited_time_prod_edit.find(".title").val())
+                changeTitle('limited_time_prod', 'title', limited_time_prod_edit.find(".title"));
+            if (limited_time_prod_edit.find(".subtitle").val())
+                changeTitle('limited_time_prod', 'subtitle', limited_time_prod_edit.find(".subtitle"));
+            if (limited_time_prod_edit.find(".item_title").val())
+                changeTitle('limited_time_prod', 'L_item_name', limited_time_prod_edit.find(".item_title"));
+            $("#limited_time_prod").find(".background")
+                .attr("style", "background:url(" + $("#limited_time_prod_bg").attr("src") + ") no-repeat center center; background-size:cover;");
+        }
+
+        //rec_prod
+        if ($("#rec_prod").length) {
+            var rec_prod_edit = $("#rec_prod_edit");
+            if (rec_prod_edit.find(".item_title").val())
+                changeTitle('rec_prod', 'title', rec_prod_edit.find(".item_title"));
+            $("#rec_prod").find(".background").attr("style", "background-image: url(" + $("#rec_prod_bg").attr("src") + ");");
+        }
+
+        //rec_sort_prod
+        if ($("#rec_sort_prod").length) {
+            var rec_sort_prod_edit = $("#rec_sort_prod_edit");
+            rec_sort_prod_edit.find(".title").each(function(){
+                addRecSortProdTitle();             //新增標題頁籤
+                changeRecSortProdTitle($(this));    //同步頁籤標題
+            });
+        }
+
+        //video
+        if ($("#video").length) {
+            var video_edit = $("#video_edit");
+            if (video_edit.find(".item_title").val())
+                changeTitle('video', 'L_item_name', video_edit.find(".item_title"));
+            videoDispaly();
+        }
+
+        //personal_rec_prod
+        if ($("#personal_rec_prod").length) {
+            var personal_rec_prod_edit = $("#personal_rec_prod_edit");
+            if (personal_rec_prod_edit.find(".item_title").val())
+                changeTitle('personal_rec_prod', 'L_item_name', personal_rec_prod_edit.find(".item_title"));
+        }
+
+        //元件連結設無效
+        $(".iopen-layout-center-content-inner").find("a").attr("href", "javascript: void(0);");
+
+        //是否隱藏元件
+        $('.iopen-layout-btn-switch-white').find(".active").each(function(){
+            itemDisplay($(this));
+        });
+
+        //顯示元件
+        $(".item_edit").show();
+        $("#prod_sort").removeClass("item_edit");
+
+        //隱藏 / 顯示
+        var $switch = $('.iopen-layout-btn-switch-white a');
+        $switch.click(function () {
+            $(this).addClass('active').siblings('.active').removeClass('active');
+            itemDisplay($(this));
+        });
+
+        //輪播日曆
+        $(".datepicker").each(function () {
+            setDatepicker($(this), '{{$df_start_date}}');
+            var _carousel_no = $(this).closest(".carousel").find(".carousel_no").val();
+            if (all_carousel_no.indexOf(_carousel_no)>=0) {
+                    $("#datepicker_start_" + _carousel_no).datepicker("option", "onClose", function (dateText, inst) {
+                    $("#datepicker_end_" + _carousel_no).datepicker("option", "minDate", dateText);
+                });
+                    $("#datepicker_end_" + _carousel_no).datepicker("option", "onClose", function (dateText, inst) {
+                    $("#datepicker_start_" + _carousel_no).datepicker("option", "maxDate", dateText);
+                });
+            }
+        });
+
+        //限時商品日曆
+        setDatepicker($("#limited_time_prod_edit").find(".limit_start"), '{{$df_start_date}}');
+        setDatepicker($("#limited_time_prod_edit").find(".limit_end"), '{{$df_start_date}}');
+        $(".limit_start").datepicker("option", "onClose", function (dateText, inst) {
+            $(".limit_end").datepicker("option", "minDate", dateText);
+        });
+        $(".limit_end").datepicker("option", "onClose", function (dateText, inst) {
+            $(".limit_start").datepicker("option", "maxDate", dateText);
+        });
+
+        //點擊商品分類
+        $(".prod_sort_option").click(function(){
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var layer = $(this).closest(".sort_layer").attr("layer");
+            var p_uid = $(this).attr("sort_uid");
+            var next_layer = parseInt(layer) + 1;
+            var nextLayer = $("#selectProdSort").find(".sort_layer_" + next_layer);
+
+            nextLayer.children().hide();
+            nextLayer.find(".active").removeClass("active");
+            $(".sort_p_uid_" + p_uid).show();
+
+            //隱藏下兩層之後分類
+            $("#selectProdSort").find(".sort_layer").each(function(){
+                if (parseInt($(this).attr("layer")) > next_layer) {
+                    $(this).find(".prod_sort_option").hide().removeClass("active");
+                }
+            });
+
+            if ('{{$mobileDeviceDirected}}') {
+                var idx = parseInt(layer) - 1;
+                var tab = $("#selectProdSort").find(".pic-nav-a");
+                var thisTab = tab.eq(idx);
+                tab.removeClass("selected");
+                thisTab.addClass("selected").find("span").text($(this).find(".sort_name").text());
+                if (document.querySelectorAll(".sort_p_uid_" + p_uid).length > 0) {
+                    $("#selectProdSort").find(".sort_layer").hide();
+                    nextLayer.show();
+                    thisTab.next().show().find("span").text("請選擇").show();
+                }
+            }
+
+            setSelectSortString();
+            selectedPSUid = p_uid;
+        });
+
+        resetProdSortNumber();
+
+        $("#selectProdSort").find(".pic-nav-a").click(function(){
+            var layer = parseInt($(this).attr("navid")) + 1;
+
+            $("#selectProdSort").find(".pic-nav-a").removeClass("selected");
+            $(this).addClass("selected").nextAll().hide();
+
+            $("#selectProdSort").find(".sort_layer").hide();
+            $("#selectProdSort").find(".sort_layer_" + layer).show().nextAll().find(".active").removeClass("active");
+        });
+
+        // body新增index id
+        $('body').attr('id','index');
+
+        // 點擊左側按鈕，展開左側選單
+        if (!'{{$mobileDeviceDirected}}') {
+            $('.ms_btn').click(function(){
+                $('.management_system').toggleClass('ms_closed').toggleClass('ms_open');
+                $('.iopen-layout-center-content-inner').toggleClass('store-content-scroll');
+                $(this).find('i').toggleClass('icon-arrow-left-01').toggleClass('icon-arrow-right-01');
+            });
+        }
+    });
+
+    if ('{{$alertMsg}}') alert('{{$alertMsg}}');
+
+    // 頁面載入1秒後收合左側選單
+    if (!'{{$mobileDeviceDirected}}') {
+        setTimeout(function(){
+            $(".management_system").addClass('ms_closed');
+            $(".ms_btn i").removeClass('icon-arrow-left-01').addClass('icon-arrow-right-01');
+            $('.iopen-layout-center-content-inner').removeClass('store-content-scroll');
+        }, 1000);
+    }
+
+    $('.pic-window-close').click(function () {
+        $('.iopen-select-product').hide();
+        $('#iopen-WebStyleWindow').hide();
+    });
+
+    $('.admweb-v2-EditItemBox').click(function () {
+
+        $('body').addClass('disscroll');
+    });
+
+
+    $('.iopen-icon-black-sm-close').click(function () {
+        $('.iopen-layout-SetUp-right-container').hide();
+        $(".click_active").removeClass("click_active");
+        $("body").removeClass('disscroll');
+        if (typeof owl_carousel === 'object') {
+            owl_carousel.trigger('refresh.owl.carousel');
+        }
+    });
+
+    $(document).keyup(function (e) {
+        if (e.key === "Escape") {
+            $('.iopen-layout-SetUp-right-container').hide();
+            $(".click_active").removeClass("click_active");
+            $("body").removeClass('disscroll');
+            if (typeof owl_carousel === 'object') {
+                owl_carousel.trigger('refresh.owl.carousel');
+            }
+        }
+    });
+
+    //編輯元件
+    var edit_now;
+    $(".item_edit").not(".disable_edit").click(function () {
+        itemEdit($(this));
+    });
+
+    //取得熱銷商品
+    if ($("#hot_prod").length > 0) createProduct('hot_prod');
+    
+
+    //取得個人化商品推薦
+    if ($("#personal_rec_prod").length > 0) createProduct('personal_rec_prod');
+
+    //取得商品分類商品
+    if ($("#prod_sort").length > 0) createProduct('prod_sort');
+
+    function itemEdit(ele) {
+        edit_now = ele.attr("id");
+
+        $(".click_active").removeClass("click_active");
+        ele.find(".admweb-v2-EditItemBox").addClass("click_active");
+        $(".iopen-layout-SetUp-content").hide();
+        document.getElementById(edit_now + "_edit").style.display = "block";
+        $('.iopen-layout-SetUp-right-container').show();
+    }
+
+    //元件顯示/隱藏
+    function itemDisplay(ele) {
+        var status = parseInt(ele.attr("status"));
+        var edit = ele.closest(".iopen-layout-SetUp-content");
+        var id = edit.attr("id");
+        var target = id.replace("_edit", "");
+        target = $("#" + target);
+
+        if (status) {
+            //顯示
+            target.find(".admweb-v2-EditItemBox").not(".admweb-v2-HideItemBox").show();
+            target.find(".admweb-v2-HideItemBox").hide();
+        } else {
+            //隱藏文字
+            var hide_title = edit.find(".edit_title").text() + '(隱藏)';
+            //隱藏
+            target.find(".admweb-v2-EditItemBox").not(".admweb-v2-HideItemBox").hide();
+            target.find(".admweb-v2-HideItemBox").text(hide_title).show();
+        }
+    }
+
+    function WindowClose() {
+        $('.iopen-select-product').hide();
+        $('#iopen-WebStyleWindow').hide();
+        $('#selectProdSort').hide();
+    }
+
+    function WindowOpen() {
+        $('#iopen-WebStyleWindow').show();
+    }
+
+    $(".trigger").click(function(){
+        $("body").addClass('disscroll');
+    });
+
+    $(".admweb-v2-EditBtn").click(function(){
+        $("body").addClass('disscroll');
+    });
+
+    //datepicker
+    var weekName = ['日', '一', '二', '三', '四', '五', '六'];
+    var monthName = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+    function setDatepicker(ele, minDate, maxDate) {
+        var obj = {
+            dateFormat: 'yy/mm/dd',
+            changeYear: true,
+            changeMonth: true,
+            monthNamesShort: monthName,
+            dayNamesMin: weekName,
+            beforeShow: function () {
+                setTimeout(function () {
+                    var style = $('.ui-datepicker').attr("style") + ' z-index: 1000 !important;';
+                    $('.ui-datepicker').attr('style', style);
+                }, 0);
+            }
+        };
+
+        if (minDate) obj.minDate = minDate;
+        if (maxDate) obj.maxDate = maxDate;
+
+        ele.datepicker(obj);
+    }
+
+    var web_logo_status, mbl_web_logo_status, web_logo_small_status;
+    function defaultSettings() {
+        //index_head
+        if (!'{{$mobileDeviceDirected}}') {
+            var logo_src = $("#web_logo").attr("src");
+            var wstl_logo_w = parseInt('{{$arrStyle.wstl_logo_w}}');
+            var wstl_logo_h = parseInt('{{$arrStyle.wstl_logo_h}}');
+        } else {
+            var logo_src = $("#mbl_web_logo").attr("src");
+            var wstl_logo_w = parseInt('{{$arrStyleMbl.wstl_logo_w}}');
+            var wstl_logo_h = parseInt('{{$arrStyleMbl.wstl_logo_h}}');
+        }
+        if (logo_src) {
+            web_logo_status = 1;
+            mbl_web_logo_status = 1;
+            web_logo_small_status = 1;
+            $("#index_head").find("img").attr("src", logo_src);
+        } else {
+            web_logo_status = 0;
+            mbl_web_logo_status = 0;
+            web_logo_small_status = 0;
+            logo_src = $(".header_logo img").attr("src");
+            $("#web_logo").attr("src", logo_src);
+            $("#mbl_web_logo").attr("src", logo_src);
+        }
+        $("#index_head").find("img").attr("width", wstl_logo_w).attr("height", wstl_logo_h);
+
+        //carousel
+        if (typeof owl_carousel === 'object') {
+            //清空輪播
+            for (var i = 0; i < $("#carousel").find(".owl-item").length; i++) {
+                owl_carousel.trigger('remove.owl.carousel', 0).trigger('refresh.owl.carousel');
+            }
+
+            var i = 0;
+            $("#carousel_edit").find(".carousel").each(function(){
+                var type = $(this).find(".carousel_img").length ? 'image' : 'video';
+                addCarousel(type);
+                var item = $("#carousel").find(".owl-item").not('.cloned').eq(i);
+                if (type == 'image') {
+                    //圖片
+                    var src = $(this).find(".carousel_img").attr("src");
+                    item.find("img").attr("src", src);
+                } else {
+                    addVideo($(this).find(".carousel_url"));
+                }
+
+                if (i == 0) {
+                    var title = $(this).find(".carousel_title").val();
+                    var subtitle = $(this).find(".carousel_subtitle").val()
+
+                    $("#carousel").find(".carousel_title").text(title);
+                    $("#carousel").find(".carousel_subtitle").text(subtitle);
+                }
+                i++;
+            });
+            syncCarouselTitle();
+        }
+        setCarouselNumber();
+
+        if (obj_wmkt_prod) {
+            if (Object.keys(obj_wmkt_prod).length) {
+                //limited_time_prod
+                {{foreach from=$arrSettings.limited_time_prod.prod_uid item=prod_uid}}
+                if (typeof obj_wmkt_prod['{{$prod_uid}}'] !== 'undefined') limited_time_prod.push('{{$prod_uid}}');
+                {{/foreach}}
+                if (limited_time_prod.length > 0)
+                    confirm_product_checked('limited_time_prod');
+
+                //rec_prod
+                {{foreach from=$arrSettings.rec_prod.prod_uid item=prod_uid}}
+                if (typeof obj_wmkt_prod['{{$prod_uid}}'] !== 'undefined') rec_prod.push('{{$prod_uid}}');
+                {{/foreach}}
+                if (rec_prod.length > 0)
+                    confirm_product_checked('rec_prod');
+            }
+        }
+
+        //rec_sort_prod
+        $("#rec_sort_prod_edit").find(".selectSortStr").each(function(){
+            if ($(this).attr("prod_sort_uid")) {
+                setSelectProdSortWindow($(this), 1);
+                confirmSelectProdSort(0);
+            }
+        });
+
+        //video
+        setVideoNumber();
+    }
+
+    function syncCarouselTitle() {
+        owl_carousel.on('translate.owl.carousel', function (event) {
+            var idx = event.page.index;
+            var target = $(".carousel").eq(idx);
+            var title = target.find(".carousel_title").val();
+            var subtitle = target.find(".carousel_subtitle").val();
+
+            $("#carousel").find('.carousel_title').text(title);
+            $("#carousel").find('.carousel_subtitle').text(subtitle);
+        });
+    }
+
+    //新增圖檔或影片
+    var carousel_max = 10;
+    function newCarouselFile() {
+        var count = $(".carousel").length;
+
+        if (count < carousel_max) {
+            var html =
+                '<div class="iopen-layout-SetUp-frame-SpaceRight pic-margin-tm5 carousel newCarousel">\n' +
+                '   <div class="iopen-layout-edit-TwoUpload pic-flex-center">\n' +
+                '       <a href="javascript: void(0);" class="iopen-icon-black-add" onclick="newCarousel($(this), \'image\');">上傳圖檔</a>\n' +
+                '       <a href="javascript: void(0);" class="iopen-icon-black-add" onclick="newCarousel($(this), \'video\');">Youtube/FB網址連結</a>\n' +
+                '   </div>\n' +
+                '    <div class="iopen-layout-icon-right">\n' +
+                '       <a href="javascript: void(0);" class="iopen-icon-black-delete" onclick="removeCarousel($(this));"></a>\n' +
+                '   </div>\n' +
+                '</div>\n';
+
+            $("#carousel_div").append(html);
+            setCarouselNumber();
+        } else {
+            alert("新增則數已達上限");
+        }
+    }
+
+    var carousel_no = $(".carousel").length - 1;    //輪播編號
+    function newCarousel(ele, type) {
+        var jqParent = ele.closest(".carousel");    //jquery element
+        var parent = ele.get(0).closest(".carousel");   //javascript element
+        parent.innerHTML = "";
+        
+        carousel_no++;
+
+        if (type == 'image') {
+            //上傳圖檔
+            var div = document.createElement("div");
+            div.classList.add("iopen-layout-edit-frame", "pic-margin-tm5", "iopen-layout-edit-upload");
+
+            var a = document.createElement("a");
+            a.href = "javascript: void(0);";
+            a.classList.add("iopen-icon-black-add");
+            a.onclick = function() {
+                fileClick("", this.nextSibling);
+            };
+            a.textContent = "上傳圖檔";
+
+            var input = document.createElement("input");
+            input.name = "carousel_file[]";
+            input.classList.add("carousel_file");
+            input.type = "file";
+            input.accept = "image/jpg, image/jpeg, image/png, image/gif";
+            input.style.display = "none";
+
+            var img = document.createElement("img");
+            img.id = "carousel_img_" + carousel_no;
+            img.classList.add("carousel_img");
+            img.src = "";
+            img.style.display = "none";
+           
+            div.appendChild(a);
+            div.appendChild(input);
+            div.appendChild(img);
+            parent.appendChild(div);
+
+            var div = document.createElement('div');
+            div.classList.add('iopen-text-lnput', 'pic-margin-t5');
+
+            var input1 = document.createElement('input');
+            input1.type = 'text';
+            input1.classList.add('pic-text-lnput', 'pic-lnput-enter', 'carousel_title');
+            input1.placeholder = '填寫主標題';
+            input1.setAttribute('onchange', 'setCarouselTitle(\'title\');');
+            input1.value = '';
+
+            var input2 = document.createElement('input');
+            input2.type = 'text';
+            input2.classList.add('pic-text-lnput', 'pic-lnput-enter', 'carousel_subtitle');
+            input2.placeholder = '填寫副標題';
+            input2.setAttribute('onchange', 'setCarouselTitle(\'subtitle\');');
+            input2.value = '';
+
+            var input3 = document.createElement('input');
+            input3.type = 'text';
+            input3.classList.add('pic-text-lnput', 'pic-lnput-enter', 'carousel_link');
+            input3.placeholder = '填寫圖片URL連結';
+            input3.value = '';
+
+            div.appendChild(input1);
+            div.appendChild(input2);
+            div.appendChild(input3);
+            parent.appendChild(div);
+
+            var div = document.createElement('div');
+            div.className = "iopen-layout-SetUp-radio";
+
+            var h4 = document.createElement('h4');
+            h4.textContent = "圖片URL連結開啟型態";
+            div.appendChild(h4);
+
+            var radioBox1 = document.createElement('div');
+            radioBox1.className = "iopen-rdobutton-radio-box";
+            div.appendChild(radioBox1);
+
+            var label1 = document.createElement('label');
+            label1.className = "pic-rdobutton-label";
+            label1.setAttribute('for', "target_" + carousel_no + "_1");
+            radioBox1.appendChild(label1);
+
+            var input1 = document.createElement('input');
+            input1.className = "iopen-rdobutton-radio";
+            input1.type = "radio";
+            input1.name = "target_" + carousel_no;
+            input1.value = "";
+            input1.checked = true;
+            label1.appendChild(input1);
+
+            var text1 = document.createTextNode("同視窗開啟");
+            label1.appendChild(text1);
+
+            var checkDiv1 = document.createElement('div');
+            checkDiv1.className = "iopen-label-check";
+            checkDiv1.style.left = "14px";
+            label1.appendChild(checkDiv1);
+
+            var radioBox2 = document.createElement('div');
+            radioBox2.className = "iopen-rdobutton-radio-box";
+            radioBox2.style.marginLeft = "11px";
+            div.appendChild(radioBox2);
+
+            var label2 = document.createElement('label');
+            label2.className = "pic-rdobutton-label";
+            label2.setAttribute('for', "target_" + carousel_no + "_2");
+            label2.style.marginLeft = "40px";
+            radioBox2.appendChild(label2);
+
+            var input2 = document.createElement('input');
+            input2.className = "iopen-rdobutton-radio";
+            input2.type = "radio";
+            input2.name = "target_" + carousel_no;
+            input2.value = "_blank";
+            label2.appendChild(input2);
+
+            var text2 = document.createTextNode("另開視窗");
+            label2.appendChild(text2);
+
+            var checkDiv2 = document.createElement('div');
+            checkDiv2.className = "iopen-label-check";
+            label2.appendChild(checkDiv2);
+
+            parent.appendChild(div);
+
+        } else {
+            //Youtube/FB網址連結
+            var div = document.createElement('div');
+            div.className = 'iopen-text-lnput pic-margin-t5';
+
+            var input1 = document.createElement('input');
+            input1.type = 'text';
+            input1.className = 'pic-text-lnput pic-lnput-enter carousel_title';
+            input1.placeholder = '填寫主標題';
+            input1.setAttribute('onchange', 'setCarouselTitle(\'title\');');
+            input1.value = '';
+
+            var input2 = document.createElement('input');
+            input2.type = 'text';
+            input2.className = 'pic-text-lnput pic-lnput-enter carousel_subtitle';
+            input2.placeholder = '填寫副標題';
+            input2.setAttribute('onchange', 'setCarouselTitle(\'subtitle\');');
+            input2.value = '';
+
+            var input3 = document.createElement('input');
+            input3.type = 'text';
+            input3.className = 'pic-text-lnput pic-lnput-enter carousel_url';
+            input3.placeholder = '填寫Youtube/FB網址連結';
+            input3.setAttribute('onchange', 'addVideo($(this));');
+            input3.value = '';
+
+            div.appendChild(input1);
+            div.appendChild(input2);
+            div.appendChild(input3);
+
+            parent.appendChild(div);
+        }
+
+
+        var outerDiv = document.createElement('div');
+        outerDiv.classList.add('iopen-layout-lnput-date', 'pic-margin-b5');
+
+        var innerDiv = document.createElement('div');
+        innerDiv.classList.add('iopen-layout-lnput-date-content');
+
+        var span1 = document.createElement('span');
+        span1.classList.add('iopen-layout-lnput-DateStart');
+        span1.textContent = '起始';
+
+        var startIcon = document.createElement('i');
+        startIcon.classList.add('icons-line');
+
+        var iconSpan = document.createElement('span');
+        iconSpan.classList.add('iopen-icon-date', 'pic-margin-r5');
+
+        var datePickerInput = document.createElement('input');
+        datePickerInput.id = 'datepicker_start_' + carousel_no;
+        datePickerInput.classList.add('pic-text-lnput', 'datepicker', 'start_date');
+        datePickerInput.type = 'text';
+        datePickerInput.value = '{{$df_start_date}}';
+        datePickerInput.readOnly = true;
+
+        var hourSelect = document.createElement('select');
+        hourSelect.classList.add('pic-text-lnput', 'iopen-text-lnput-style', 'start_hour');
+
+        for (var i = 0; i < 24; i++) {
+            var option = document.createElement('option');
+            option.textContent = pad(i, 2);
+            hourSelect.appendChild(option);
+        }
+
+        var colonDiv = document.createElement('div');
+        colonDiv.textContent = ':';
+        colonDiv.style.margin = '0 3px';
+
+        var minuteSelect = document.createElement('select');
+        minuteSelect.classList.add('pic-text-lnput', 'iopen-text-lnput-style', 'start_min');
+
+        for (var i = 0; i < 60; i = i + 5) {
+            var option = document.createElement('option');
+            option.textContent = pad(i, 2);
+            minuteSelect.appendChild(option);
+        }
+
+        innerDiv.appendChild(span1);
+        span1.appendChild(startIcon);
+        iconSpan.appendChild(datePickerInput);
+        innerDiv.appendChild(iconSpan);
+        innerDiv.appendChild(hourSelect);
+        innerDiv.appendChild(colonDiv);
+        innerDiv.appendChild(minuteSelect);
+        outerDiv.appendChild(innerDiv);
+        parent.appendChild(outerDiv);
+
+        var outerDiv = document.createElement('div');
+        outerDiv.classList.add('iopen-layout-lnput-date');
+
+        var innerDiv = document.createElement('div');
+        innerDiv.classList.add('iopen-layout-lnput-date-content');
+
+        var span1 = document.createElement('span');
+        span1.classList.add('iopen-layout-lnput-DateStart');
+        var span1Text = document.createTextNode('結束');
+        span1.appendChild(span1Text);
+
+        var span2 = document.createElement('span');
+        span2.classList.add('iopen-icon-date', 'pic-margin-r5');
+
+        var input = document.createElement('input');
+        input.id = 'datepicker_end_' + carousel_no;
+        input.classList.add('pic-text-lnput', 'datepicker', 'end_date');
+        input.type = 'text';
+        input.value = '{{$df_end_date}}';
+        input.readOnly = true;
+
+        span2.appendChild(input);
+
+        var select1 = document.createElement('select');
+        select1.classList.add('pic-text-lnput', 'iopen-text-lnput-style', 'end_hour');
+
+        for (var i = 0; i < 24; i++) {
+            var option = document.createElement('option');
+            option.text = pad(i, 2);
+            select1.add(option);
+        }
+
+        var div = document.createElement('div');
+        div.textContent = ':';
+
+        var select2 = document.createElement('select');
+        select2.classList.add('pic-text-lnput', 'iopen-text-lnput-style', 'end_min');
+
+        for (var i = 0; i < 60; i = i + 5) {
+            var option = document.createElement('option');
+            option.text = pad(i, 2);
+            select2.add(option);
+        }
+
+        innerDiv.appendChild(span1);
+        innerDiv.appendChild(span2);
+        innerDiv.appendChild(select1);
+        innerDiv.appendChild(div);
+        innerDiv.appendChild(select2);
+        outerDiv.appendChild(innerDiv);
+        parent.appendChild(outerDiv);
+
+        var input = document.createElement('input');
+        input.classList.add('carousel_no');
+        input.type = 'hidden';
+        input.value = carousel_no;
+
+        var outerDiv = document.createElement('div');
+        outerDiv.classList.add('iopen-layout-icon-right');
+
+        var link1 = document.createElement('a');
+        link1.href = 'javascript: void(0);';
+        link1.classList.add('iopen-icon-black-ArrowsLong-up');
+        link1.onclick = function() { moveCarousle('up', $(this)); };
+
+        var link2 = document.createElement('a');
+        link2.href = 'javascript: void(0);';
+        link2.classList.add('iopen-icon-black-ArrowsLong-down');
+        link2.onclick = function() { moveCarousle('down', $(this)); };
+
+        var link3 = document.createElement('a');
+        link3.href = 'javascript: void(0);';
+        link3.classList.add('iopen-icon-black-delete');
+        link3.onclick = function() { removeCarousel($(this), 1); };
+
+        outerDiv.appendChild(link1);
+        outerDiv.appendChild(link2);
+        outerDiv.appendChild(link3);
+
+        parent.appendChild(input);
+        parent.appendChild(outerDiv);
+        parent.classList.remove("newCarousel");
+
+        
+        //pintura
+        if (type == 'image') {
+            setEditor('carousel_img', jqParent.find(".carousel_file"), 0, 1920, 720);
+        }
+
+        //輪播
+        addCarousel(type);
+
+        //日曆
+        jqParent.find(".datepicker").each(function () {
+            setDatepicker($(this), '{{$df_start_date}}');
+        });
+    }
+
+    function setCarouselTitle(type) {
+        var edit = $("#carousel_edit");
+        if (edit.find(".carousel").not(".newCarousel").length == 1) {
+            if (type == 'title') {
+                $("#carousel").find(".carousel_title").text(edit.find(".carousel_title").val());
+            } else {
+                $("#carousel").find(".carousel_subtitle").text(edit.find(".carousel_subtitle").val());
+            }
+        }
+    }
+
+    function pad(str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+    }
+
+    function addCarousel(type, position) {
+        if (type == 'image') {
+            var obj = $("#carousel").find(".img").clone();
+            var _class = "img";
+        } else {
+            var obj = $("#carousel").find(".iframe").clone();
+            var _class = "iframe";
+        }
+
+        if (typeof position !== 'number') {
+            owl_carousel.owlCarousel('add', obj).trigger('refresh.owl.carousel');
+        } else {
+            owl_carousel.trigger('add.owl.carousel', [obj, position]).trigger('refresh.owl.carousel');
+        }
+
+        $("#carousel").find(".owl-carousel").find(".item").removeClass(_class).show();
+    }
+
+    function removeCarousel(ele, _confirm) {
+        var target = ele.closest(".carousel");
+        if (_confirm) {
+            confirm("確定刪除輪播看板？").done(function () {
+                var position = $(".carousel").index(target);
+                owl_carousel.trigger('remove.owl.carousel', position).trigger('refresh.owl.carousel');
+                target.remove();
+
+                if ($(".carousel").length == 1) {
+                    var title = $(".carousel").find(".carousel_title").val();
+                    var subtitle = $(".carousel").find(".carousel_subtitle").val();
+                    $("#carousel").find(".carousel_title").text(title);
+                    $("#carousel").find(".carousel_subtitle").text(subtitle);
+                }
+                setCarouselNumber();
+            });
+        } else {
+            target.remove();
+            setCarouselNumber();
+        }
+    }
+
+    function addVideo(ele, target) {
+        if (ele.val()) {
+            var enablejsapi = '?enablejsapi=1';
+            var src = ele.val();
+            var new_src = src + enablejsapi;
+            if (!target) {
+                var idx = $(".carousel").index(ele.closest(".carousel"));
+                target = $('.owl-item').not('.cloned').eq(idx).find("iframe");
+            }
+            target.attr("data-src", new_src);
+
+            var error = 1;
+            if (/facebook|fb/.test(src)) {
+                src = "https://www.facebook.com/plugins/video.php?href=" + new_src + "&show_text=false&appId&width=320&height=478";
+                target.attr('src', src);
+                error = 0;
+            } else if (/www.youtube.com\/embed\//.test(src)) {
+                target.attr('src', new_src);
+                error = 0;
+            } else if (/watch\?v=/.test(src)) {
+                src = src.split("&")[0];
+                src = src.replace("watch?v=", "embed/") + enablejsapi;
+                target.attr('src', src);
+                error = 0;
+            } else if (/youtu.be/.test(src)) {
+                var id = src.split("/")[3];
+                id = id.split("?")[0];
+                src = "https://www.youtube.com/embed/" + id + enablejsapi;
+                target.attr('src', src);
+                error = 0;
+            }
+
+            if (error) {
+                ele.val('');
+                alert('連結格式有誤');
+            }
+        } else {
+            //預設圖片
+            var src = ele.next(".video_img").val();
+            if (src) {
+                target.attr('src', src);
+            } else {
+                if (typeof target !== 'undefined')
+                    target.attr('src', '');
+            }
+        }
+    }
+
+    function setCarouselNumber() {
+        var num = $("#carousel_edit").find(".carousel").length;
+        $("#carousel_edit").find(".addCarousel").text("新增圖檔或影片(" + num + "/10)");
+    }
+
+    //移動輪播看板
+    function moveCarousle(direction, ele) {
+        var parent = ele.closest(".carousel");
+        var position = $(".carousel").index(parent);
+        var type = parent.find(".carousel_img").length > 0 ? 'image' : 'video';
+
+        if (direction == 'up') {
+            var prevEle = parent.prev(".carousel").not(".newCarousel");
+            if (prevEle.length > 0) {
+                prevEle.before(parent);
+            } else {
+                return false;
+            }
+
+            var newPosition = position - 1;
+        } else {
+            var nextEle = parent.next(".carousel").not(".newCarousel");
+            if (nextEle.length > 0) {
+                nextEle.after(parent);
+            } else {
+                return false;
+            }
+
+            var newPosition = position + 1;
+        }
+
+        owl_carousel.trigger('remove.owl.carousel', position).trigger('refresh.owl.carousel');
+        if (!parent.next(".carousel").not(".newCarousel").length)
+            addCarousel(type);
+        else
+            addCarousel(type, newPosition);
+
+        //輪播圖片
+        if (type == 'image') {
+            var file = parent.find(".carousel_img").attr("src");
+            $('.owl-item').not('.cloned').eq(newPosition).find('img').attr("src", file);
+        } else {
+            addVideo(parent.find(".carousel_url"));
+        }
+    }
+
+    function changeTitle(type, target, _this) {
+        let ta = document.querySelector("#" + type + " ." + target);
+        ta.innerText = _this.val();
+    }
+
+    function changeRecSortProdTitle(_this) {
+        var parent = $("#rec_sort_prod_edit");
+        var editEle = _this.closest(".rec_sort_prod_edit");
+        var idx = parent.find(".rec_sort_prod_edit").index(editEle);
+        $("#rec_sort_prod").find(".title_block").find(".title").eq(idx).text(_this.val());
+    }
+
+    //組成商品
+    function createProduct(myAct, prod_sort_uid) {
+        $.ajax({
+            url: "{{$sys_arrWebsite.website_url}}api/api.website_page_get_product.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                myAct: myAct,
+                web_uid: '{{$sys_arrWebsite.web_uid}}',
+                prod_sort_uid: prod_sort_uid
+            }, success: function (r) {
+                var item = $("#" + myAct);
+                var prod_block = item.find(".product_block");   //商品外層
+
+                //輪播變數
+                var prodOC;
+                switch (myAct) {
+                    case 'hot_prod':
+                        if (typeof hot_prod_OC === 'object') {
+                            prodOC = hot_prod_OC;
+                            //清空輪播
+                            if (r.length) {
+                                prod_block.find(".owl-item").each(function () {
+                                    prodOC.trigger('remove.owl.carousel', 0);
+                                });
+                            }
+                        }
+                        break;
+                    case 'personal_rec_prod':
+                        if (typeof personal_rec_prod_OC === 'object') {
+                            prodOC = personal_rec_prod_OC;
+                            //清空輪播
+                            if (r.length) {
+                                prod_block.find(".owl-item").each(function () {
+                                    prodOC.trigger('remove.owl.carousel', 0);
+                                });
+                            }
+                        }
+                        break;
+                    case 'prod_sort':
+                        if (r.length)
+                            prod_block.html('');
+                        break;
+                    case 'rec_sort_prod':
+                        if (typeof rec_sort_prod_OC === 'object') {
+                            prodOC = rec_sort_prod_OC;
+                            //清空輪播
+                            if (r.length) {
+                                prod_block.find(".owl-item").each(function () {
+                                    prodOC.trigger('remove.owl.carousel', 0);
+                                });
+                            }
+                        } else if (r.length) {
+                            prod_block.html('');
+                        }
+                        break;
+                }
+
+                //新增商品
+                for (var i = 0; i < r.length; i++) {
+                    setProductValue(r[i], item, prodOC);
+                }
+
+                if (typeof prodOC === 'object')
+                    prodOC.trigger('refresh.owl.carousel'); //重置輪播
+
+            }, error: function (e) {
+                console.log(myAct, e);
+            }
+        });
+    }
+
+    //複製商品框架，並塞入資料
+    function setProductValue(objProd, item, prodOC, position) {
+        var ele = item.find(".product_clone").clone();  //複製商品元素
+        if (typeof prodOC === 'object') {
+            if (typeof position !== 'number')
+                prodOC.owlCarousel('add', ele);         //新增輪播
+            else
+                prodOC.trigger('add.owl.carousel', [ele, position]);
+        } else {
+            item.find(".product_block").append(ele);
+        }
+
+        var newProd = item.find(".product_block").find(".product_clone");    //商品元素
+
+        //缺貨
+        if (objProd.prod_stock - objProd.prod_safety_stock <= 0) {
+            newProd.find(".pic-shop-pds-stock").show();
+            newProd.find(".pic-pds-stock").show();
+        } else {
+            newProd.find(".pic-shop-pds-stock-block").removeClass("pic-shop-pds-stock-block");
+        }
+
+        //折數
+        if (objProd.discount_num) {
+            newProd.find(".pic_pds_discount_number").text(objProd.discount_num);
+            newProd.find(".pic_pds_discount_tag").show();
+        }
+
+        //商品圖
+        if (objProd.prod_file_1 || objProd.prod_file) {
+            var prod_file = '{{$m_arrSystem.uploads_product_url}}';
+            prod_file += objProd.prod_file_1 ? objProd.prod_file_1 : objProd.prod_file;
+        } else {
+            var prod_file = '{{$sys_arrWebsite.website_url}}images/no_picture.png';
+        }
+        newProd.find(".prod_file").attr("src", prod_file);
+
+        //商品名稱
+        newProd.find(".prod_name").text(objProd.prod_name);
+        newProd.find(".prod_file").attr("alt", objProd.prod_name);
+
+        //定價
+        if (objProd.prod_selling_price < objProd.prod_sticker_price)
+            var prod_sticker_price = '$' + numberFormat(objProd.prod_sticker_price);
+        else
+            var prod_sticker_price = '';
+        newProd.find(".sticker_price").text(prod_sticker_price);
+
+        //售價
+        newProd.find(".selling_price").html('<span>$</span>' + numberFormat(objProd.prod_selling_price));
+
+        newProd.removeClass("product_clone").show();
+    }
+
+    //價格格式化
+    function numberFormat(num) {
+        if (typeof num !== 'string')
+            num = String(num);
+
+        var str = '';
+        for (var i = num.length - 1, j = 1; i >= 0; i--, j++) {
+            if (j % 3 == 0 && i != 0) {
+                str = ',' + num[i] + str;
+                continue;
+            }
+            str = num[i] + str;
+        }
+        return str;
+    }
+
+    //新增編輯區塊商品
+    function appendProductEdit(objProd, target) {
+        if (objProd.prod_file) {
+            var prod_file = '{{$m_arrSystem.uploads_product_url}}' + objProd.prod_file;
+        } else {
+            var prod_file = '{{$sys_arrWebsite.website_url}}images/no_picture.png';
+        }
+        var selling_price = numberFormat(objProd.prod_selling_price);
+        var html =
+            '<div class="iopen-layout-SetUp-frame-SpaceRight pic-margin-tm5 product_edit" prod_uid="' + objProd.prod_uid + '">\n' +
+            '   <div class="iopen-layout-edit-commodity">\n' +
+            '       <div class="pic-commodity-details">\n' +
+            '           <img src="' + prod_file + '" alt="' + objProd.prod_name + '">\n' +
+            '           <div class="pic-commodity-details-content pic-margin-l5">\n' +
+            '               <p class="pic-OneRow-simplify">' + objProd.prod_name + '</p>\n' +
+            '               <p class="pic-OneRow-simplify pic-text-gray-40">' + objProd.prod_no_old + '</p>\n' +
+            '               <p class="pic-OneRow-simplify pic-text-gray-80">' + objProd.prod_spec_cus + '</p>\n' +
+            '               <p class="pic-commodity-price-end">$' + selling_price + '</p>\n' +
+            '           </div>\n' +
+            '       </div>\n' +
+            '   </div>\n' +
+            '   <div class="iopen-layout-icon-right">\n' +
+            '       <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-up" onclick="moveProduct(\'up\', $(this));"></a>\n' +
+            '       <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-down" onclick="moveProduct(\'down\', $(this));"></a>\n' +
+            '       <a href="javascript: void(0);" class="iopen-icon-black-delete" onclick="removeProduct($(this));"></a>\n' +
+            '   </div>\n' +
+            '</div>\n';
+
+        target.append(html);
+    }
+
+    //移動商品位置
+    function moveProduct(direction, _this) {
+        var parent = _this.closest(".iopen-layout-SetUp-content");
+        var prodEle = _this.closest(".product_edit");
+        var position = parent.find(".product_edit").index(prodEle);
+
+        //編輯區
+        if (direction == 'up') {
+            var prevEle = prodEle.prev(".product_edit");
+            if (prevEle.length > 0) {
+                prevEle.before(prodEle);
+            } else {
+                return false;
+            }
+            var newPosition = position - 1;
+        } else {
+            var nextEle = prodEle.next(".product_edit");
+            if (nextEle.length > 0) {
+                nextEle.after(prodEle);
+            } else {
+                return false;
+            }
+            var newPosition = position + 1;
+        }
+
+        //商品
+        var parentID = parent.attr("id");
+        switch (parentID) {
+            case 'limited_time_prod_edit':
+                var parentTarget = $("#limited_time_prod");
+                var target = parentTarget.find(".product_block").children().eq(position);
+                if (typeof limited_time_prod_OC === 'object')
+                    var prodOC = limited_time_prod_OC;
+
+                limited_time_prod = [];
+                parent.find(".product_edit").each(function(){
+                    limited_time_prod.push($(this).attr("prod_uid"))
+                });
+                break;
+            case 'rec_prod_edit':
+                var parentTarget = $("#rec_prod");
+                var target = parentTarget.find(".product_block").children().eq(position);
+                if (typeof rec_prod_OC === 'object')
+                    var prodOC = rec_prod_OC;
+
+                rec_prod = [];
+                parent.find(".product_edit").each(function(){
+                    rec_prod.push($(this).attr("prod_uid"))
+                });
+                break;
+        }
+
+        if (typeof prodOC === 'object') {    //有輪播物件
+            var prod_uid = prodEle.attr("prod_uid");
+            var objProd = obj_wmkt_prod[prod_uid];
+
+            prodOC.trigger('remove.owl.carousel', position).trigger('refresh.owl.carousel');
+            if (newPosition >= parent.find(".product_edit").length - 1)
+                setProductValue(objProd, parentTarget, prodOC);
+            else
+                setProductValue(objProd, parentTarget, prodOC, newPosition);
+            prodOC.trigger('refresh.owl.carousel');
+        } else {
+            if (direction == 'up') {
+                var prevEle = target.prev();
+                if (prevEle.length > 0) {
+                    prevEle.before(target);
+                }
+            } else {
+                var nextEle = target.next();
+                if (nextEle.length > 0) {
+                    nextEle.after(target);
+                }
+            }
+        }
+    }
+
+    //刪除所選商品
+    function removeProduct(_this) {
+        confirm("確定刪除商品？").done(function(){
+            var parent = _this.closest(".iopen-layout-SetUp-content");
+            var prodEle = _this.closest(".product_edit");
+            var position = parent.find(".product_edit").index(prodEle);
+            var prod_uid = prodEle.attr("prod_uid");
+
+            prodEle.remove();
+
+            var parentID = parent.attr("id");
+            switch (parentID) {
+                case 'limited_time_prod_edit':
+                    var parentTarget = $("#limited_time_prod");
+                    var target = parentTarget.find(".product_block").children().eq(position);
+                    if (typeof limited_time_prod_OC === 'object')
+                        var prodOC = limited_time_prod_OC;
+
+                    //刪除挑選商品
+                    for (var i = 0; i < limited_time_prod.length; i++) {
+                        if (limited_time_prod[i] == prod_uid)
+                            limited_time_prod.splice(i, 1);
+                    }
+                    break;
+                case 'rec_prod_edit':
+                    var parentTarget = $("#rec_prod");
+                    var target = parentTarget.find(".product_block").children().eq(position);
+                    if (typeof rec_prod_OC === 'object')
+                        var prodOC = rec_prod_OC;
+
+                    //刪除挑選商品
+                    for (var i = 0; i < rec_prod.length; i++) {
+                        if (rec_prod[i] == prod_uid)
+                            rec_prod.splice(i, 1);
+                    }
+                    break;
+            }
+
+            if (typeof prodOC === 'object') {    //有輪播物件
+                prodOC.trigger('remove.owl.carousel', position).trigger('refresh.owl.carousel');
+            } else {
+                target.remove();
+            }
+
+            parent.find(".select_product").text('選擇活動商品(' + parent.find(".product_edit").length + '/20)');
+        });
+    }
+
+    var limited_time_prod = []; //限時商品元件商品
+    var rec_prod = [];          //推薦商品元件商品
+    var select_type;
+    function open_add_product_box(type) {
+        select_type = type;
+        var checked_prod_uid = [];
+
+        prod_lightbox.find("input[type='checkbox']").prop("checked", false);    //清空checkbox
+        switch (select_type) {
+            case 'limited_time_prod':
+                checked_prod_uid = limited_time_prod;
+                break;
+            case 'rec_prod':
+                checked_prod_uid = rec_prod;
+                break;
+        }
+
+        if (checked_prod_uid.length > 0) {
+            checked_prod_uid.forEach(ele => {
+                check_puid_in_lightbox(ele);
+            })
+        }
+
+        prod_lightbox.show();   //挑選商品視窗
+    }
+
+    //挑選商品確認
+    var select_prod_max = 20;
+    function confirm_product_checked(type) {
+        var count = prod_lightbox.find("input[type=checkbox][name=prod_uid]:checked").length;
+
+        if (count > select_prod_max) {
+            $(this).prop("checked", false);
+            alert('最多可選擇 ' + select_prod_max + ' 個商品');
+        } else {
+            if (!type) {
+                var checked_prod_uid = [];
+                prod_lightbox.find("input[type=checkbox][name=prod_uid]:checked").each(function () {
+                    var prod_uid = $(this).attr('id').substr(5);
+                    checked_prod_uid.push(prod_uid);
+                });
+            } else {
+                select_type = type;
+            }
+
+            switch (select_type) {
+                case 'limited_time_prod':
+                    if (type)
+                        checked_prod_uid = limited_time_prod;
+                    else
+                        limited_time_prod = checked_prod_uid;
+
+                    var item = $("#limited_time_prod");
+                    var appendTarget = $("#limited_time_prod_edit").find(".product_append");
+
+                    if (typeof limited_time_prod_OC === 'object')
+                        var prodOC = limited_time_prod_OC;   //輪播物件
+
+                    $("#limited_time_prod_edit").find(".select_product").text('選擇活動商品(' + limited_time_prod.length + '/20)');
+                    break;
+                case 'rec_prod':
+                    if (type)
+                        checked_prod_uid = rec_prod;
+                    else
+                        rec_prod = checked_prod_uid;
+
+                    var item = $("#rec_prod");
+                    var appendTarget = $("#rec_prod_edit").find(".product_append");
+
+                    if (typeof rec_prod_OC === 'object')
+                        var prodOC = rec_prod_OC;   //輪播物件
+
+                    $("#rec_prod_edit").find(".select_product").text('選擇活動商品(' + rec_prod.length + '/20)');
+                    break;
+            }
+
+            if (typeof prodOC === 'object') {
+                //刪除輪播item
+                item.find(".owl-item").each(function () {
+                    prodOC.trigger('remove.owl.carousel', 0);
+                });
+            } else {
+                //刪除商品
+                item.find(".product_block").html('');
+            }
+
+            //編輯區塊商品清空
+            if (appendTarget)
+                appendTarget.find(".product_edit").remove();
+
+            //新增商品
+            checked_prod_uid.forEach(ele => {
+                if (typeof obj_wmkt_prod[ele] !== 'undefined') {
+                    setProductValue(obj_wmkt_prod[ele], item, prodOC);      //新增商品
+                    appendProductEdit(obj_wmkt_prod[ele], appendTarget);    //編輯區商品
+                }
+            });
+
+            //重置輪播
+            if (typeof prodOC === 'object')
+                prodOC.trigger('refresh.owl.carousel').trigger('to.owl.carousel', [0, 0]);
+
+            checked_prod_uid = JSON.stringify(checked_prod_uid);
+            sessionStorage.setItem('checked_prod_uid', checked_prod_uid);
+            prod_lightbox.hide();
+        }
+    }
+
+    //影片顯示
+    function videoDispaly() {
+        $("#video_edit").find(".video_edit").each(function(){
+            changeVideo($(this).find(".video_url"), 'video');
+            changeVideo($(this).find(".video_title"), 'title');
+            changeVideo($(this).find(".video_subtitle"), 'subtitle');
+        });
+        videoBlockCtrl();
+    }
+
+    //變更影片元件內容
+    function changeVideo(_this, type) {
+        var obj = getVideoEle(_this);
+        var value = _this.val();
+
+        switch (type) {
+            case 'title':
+                obj.targetTitle.text(value);
+                break;
+            case 'subtitle':
+                obj.targetSubtitle.text(value);
+                break;
+            case 'video':
+                addVideo(_this, obj.targetVideo);
+                break;
+        }
+    }
+
+    function videoBlockCtrl() {
+        var num = $("#video_edit").find(".video_edit").length;
+        $("#video").find(".container").children().hide();
+        $("#video").find(".video" + num).show();
+    }
+
+    //影片相關物件
+    function getVideoEle(_this) {
+        var objEle = {};
+        objEle.parentEdit = $("#video_edit");
+        objEle.videoEdit = _this.closest(".video_edit");
+        objEle.num = objEle.parentEdit.find(".video_edit").length;
+        objEle.idx = objEle.parentEdit.find(".video_edit").index(objEle.videoEdit);
+        objEle.parentVideo = $("#video");
+        objEle.target = objEle.parentVideo.find(".video"+objEle.num);
+
+        if ('{{$mobileDeviceDirected}}' && objEle.num > 5) {
+            var video_num = (objEle.idx + 1).toString();
+            var ele = objEle.target.find(".video_" + video_num);
+            objEle.targetTitle = ele.find(".title");
+            objEle.targetSubtitle = ele.find(".subtitle");
+            objEle.targetVideo = ele.find("iframe");
+        } else {
+            objEle.targetTitle = objEle.target.find(".title").eq(objEle.idx);
+            objEle.targetSubtitle = objEle.target.find(".subtitle").eq(objEle.idx);
+            objEle.targetVideo = objEle.target.find("iframe").eq(objEle.idx);
+        }
+
+        return objEle;
+    }
+
+    var video_max = 6;
+    function addVideoEdit() {
+        if ($("#video_edit").find(".video_edit").length >= video_max) {
+            alert("新增則數已達上限");
+            return false;
+        }
+
+        var html =
+            '<div class="iopen-layout-SetUp-frame-SpaceRight pic-margin-tm5 video_edit">\n' +
+            '   <div class="iopen-text-lnput pic-margin-t5">\n' +
+            '       <input type="text" class="pic-text-lnput pic-lnput-enter video_title"\n' +
+            '              placeholder="填寫主標題" value=""\n' +
+            '              onchange="changeVideo($(this), \'title\');">\n' +
+            '       <input type="text" class="pic-text-lnput pic-lnput-enter video_subtitle"\n' +
+            '              placeholder="填寫副標題" value=""\n' +
+            '              onchange="changeVideo($(this), \'subtitle\');">\n' +
+            '       <input type="text" class="pic-text-lnput pic-lnput-enter video_url"\n' +
+            '              placeholder="填寫Youtube/FB網址連結" value=""\n' +
+            '              onchange="changeVideo($(this), \'video\');">\n' +
+            '   </div>\n' +
+            '   <div class="iopen-layout-icon-right">\n' +
+            '       <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-up" onclick="moveVideo(\'up\', $(this));"></a>\n' +
+            '       <a href="javascript: void(0);" class="iopen-icon-black-ArrowsLong-down" onclick="moveVideo(\'down\', $(this));"></a>\n' +
+            '       <a href="javascript: void(0);" class="iopen-icon-black-delete" onclick="removeVideo($(this));"></a>\n' +
+            '    </div>\n' +
+            '</div>\n';
+
+        $("#video_edit").find(".video_edit:last").after(html);
+        setVideoNumber();
+        videoDispaly();
+    }
+
+    function setVideoNumber() {
+        var num = $("#video_edit").find(".video_edit").length;
+        $("#video_edit").find(".addVideo").html('新增Youtube/FB影片網址(' + num + '/' + video_max + ')');
+    }
+
+    //移動影片
+    function moveVideo(direction, _this) {
+        var videoEle = _this.closest(".video_edit");
+
+        //編輯區
+        if (direction == 'up') {
+            var prevEle = videoEle.prev(".video_edit");
+            if (prevEle.length > 0) {
+                prevEle.before(videoEle);
+            } else {
+                return false;
+            }
+        } else {
+            var nextEle = videoEle.next(".video_edit");
+            if (nextEle.length > 0) {
+                nextEle.after(videoEle);
+            } else {
+                return false;
+            }
+        }
+        videoDispaly();
+    }
+
+    //刪除影片
+    function removeVideo(_this) {
+        confirm("確定刪除影片？").done(function(){
+            // var obj = getVideoEle(_this);
+            // obj.targetVideo.attr("src", '').attr("data-src", '');
+            _this.closest(".video_edit").remove();
+            setVideoNumber();
+            videoDispaly();
+        });
+    }
+
+    var selectedStr, selectedPSUid;
+    function confirmSelectProdSort(mustChoose) {
+        if (!selectedPSUid && mustChoose) {
+            alert('請選擇商品分類');
+            return false;
+        }
+
+        sortSelectEle.html(selectedStr).attr("prod_sort_uid", selectedPSUid);
+        sortSelectEle.closest(".admweb-v2-layout-StoreSort-name").show().next().hide();
+
+        //第一個分類需替換商品
+        if ($("#rec_sort_prod_edit").find(".selectSortStr").index(sortSelectEle) == 0) {
+            createProduct('rec_sort_prod', selectedPSUid);
+        }
+
+        $("#selectProdSort").hide();
+    }
+
+    var sortSelectEle;
+    function setSelectProdSortWindow(_this, _hide) {
+        sortSelectEle = _this.closest(".rec_sort_prod_edit").find(".selectSortStr");
+
+        var sortWindow = $("#selectProdSort");
+        var sort_uid = sortSelectEle.attr("prod_sort_uid");
+        sortWindow.find(".active").removeClass("active");
+        sortWindow.find(".sort_layer").not(".sort_layer_1").children().hide();
+        if (sort_uid) {
+            //找到所選分類
+            var layer, sort_p_uid;
+            sortWindow.find(".prod_sort_option").each(function(){
+                if ($(this).attr("sort_uid") == sort_uid) {
+                    $(this).addClass("active");
+                    sort_p_uid = $(this).attr("sort_p_uid");
+                    sortWindow.find(".sort_p_uid_"+sort_p_uid).show();
+
+                    layer = parseInt($(this).closest(".sort_layer").attr("layer"));
+
+                    if ('{{$mobileDeviceDirected}}') {
+                        var idx = layer - 1;
+                        var tab = sortWindow.find(".pic-nav-a");
+                        var thisTab = tab.eq(idx);
+                        tab.removeClass("selected").hide();
+                        thisTab.addClass("selected").show().find("span").text($(this).find(".sort_name").text());
+                        sortWindow.find(".sort_layer").hide();
+                        $(this).closest(".sort_layer").show();
+                    }
+                }
+            });
+
+            //往上層搜尋該顯示及選擇之父分類
+            if (layer && sort_p_uid) {
+                while (layer > 1) {
+                    var prevLayer = (layer - 1).toString();
+                    sortWindow.find(".sort_layer_"+prevLayer).find(".prod_sort_option").each(function(){
+                        if ($(this).attr("sort_uid") == sort_p_uid) {
+                            $(this).addClass("active");
+                            sort_p_uid = $(this).attr("sort_p_uid");
+                            sortWindow.find(".sort_p_uid_"+sort_p_uid).show();
+
+                            layer = parseInt($(this).closest(".sort_layer").attr("layer"));
+
+                            if ('{{$mobileDeviceDirected}}') {
+                                var idx = layer - 1;
+                                var thisTab = sortWindow.find(".pic-nav-a").eq(idx);
+                                thisTab.show().find("span").text($(this).find(".sort_name").text());
+                            }
+                        }
+                    });
+                }
+            }
+        } else {
+            selectedPSUid = 0;
+            sortWindow.find(".sort_layer_1").show();
+            if ('{{$mobileDeviceDirected}}') {
+                let tab = sortWindow.find(".pic-nav-a");
+                tab.removeClass("selected").hide();
+                tab.eq(0).addClass("selected").show().find("span").text('請選擇');
+            }
+        }
+
+        setSelectSortString();
+
+        if (!_hide)
+            sortWindow.show();
+    }
+
+    function setSelectSortString() {
+        selectedStr = '';
+        $("#selectProdSort").find(".active").each(function(){
+            if (selectedStr)
+                selectedStr += ' > ';
+            selectedStr += $(this).find(".sort_name").text();
+        });
+
+        if (!selectedStr) selectedStr = '尚未選擇分類';
+
+        $("#selectedSort").text(selectedStr);
+    }
+
+    //新增挑選分類
+    function addProdSort() {
+        if ($(".rec_sort_prod_edit").length >= 4) {
+            alert("新增則數已達上限");
+            return false;
+        }
+
+        var html =
+            '<div class="admweb-v2-layout-StoreSort rec_sort_prod_edit">\n' +
+            '   <div class="admweb-v2-layout-StoreSort-input">\n' +
+            '       <div class="pic-flex-align-items">\n' +    
+            '           <span class="admweb-v2-order_delivery__badge-num prod_sort_num"></span>\n' +
+            '           <input type="text" class="pic-text-lnput pic-lnput-enter title" placeholder="請輸入主標題"\n' +
+            '              value="" onchange="changeRecSortProdTitle($(this));">\n' +
+            '       </div>\n' +
+            '       <span class="admweb-v2-layout-StoreSort-name" style="display: none;">\n' +
+            '           <span class="selectSortStr" prod_sort_uid=""></span>\n' +
+            '           <a class="admweb-v2-layout-edit-btn" onclick="setSelectProdSortWindow($(this));">\n' +
+            '               <i class="icons-line icon-line-edit"></i>編輯\n' +
+            '           </a>\n' +
+            '       </span>\n' +
+            '       <a class="pic-width-100  pic-btn-newstore-100 pic-BgText-color-green"\n' +
+            '          onclick="setSelectProdSortWindow($(this));">\n' +
+            '           <i class="icons-line icon-line-ArrowParper pic-margin-r5"></i>請選擇商品分類\n' +
+            '       </a>\n' +
+            '       <div class="iopen-layout-icon-right">\n' +
+            '           <a href="javascript: void(0);" class="iopen-icon-black-delete"\n' +
+            '              onclick="removeProdSort($(this));"></a>\n' +
+            '       </div>\n' +
+            '   </div>\n' +
+            '</div>';
+
+        $("#add_prod_sort").before(html);
+        resetProdSortNumber();
+        addRecSortProdTitle();
+    }
+
+    //新增標題
+    function addRecSortProdTitle() {
+        var cloneEle = $("#rec_sort_prod").find(".title_clone").clone();
+        $("#rec_sort_prod").find(".title_block").append(cloneEle);
+        $("#rec_sort_prod").find(".title_block").find(".title_clone").removeClass("title_clone").show();
+    }
+
+    //刪除選擇分類
+    function removeProdSort(_this) {
+        confirm("確定刪除分類？").done(function(){
+            var editEle = _this.closest(".rec_sort_prod_edit");
+            var idx = $("#rec_sort_prod_edit").find(".rec_sort_prod_edit").index(editEle);
+            $("#rec_sort_prod").find(".title_block").children().eq(idx).remove();
+            editEle.remove();
+            resetProdSortNumber();
+        });
+    }
+
+    //重設編號
+    function resetProdSortNumber() {
+        var num = 0;
+        $("#rec_sort_prod_edit").find(".prod_sort_num").each(function(){
+            num++;
+            $(this).text(num);
+
+            if (num == 1) {
+                var prod_sort_uid = $(this).closest(".rec_sort_prod_edit").find(".selectSortStr").attr("prod_sort_uid");
+                if (prod_sort_uid)
+                    createProduct('rec_sort_prod', prod_sort_uid);
+            }
+        });
+
+        $("#add_prod_sort").text('新增分類(' + num.toString() + '/4)');
+    }
+
+    //儲存
+    function saveSettings(myAct) {
+        var status = checkSettingsValue();
+        if (!status)
+            return false;
+
+        setSettingsValue();
+        $("input[name='myAct']").val(myAct);
+        $("#myForm").submit();
+    }
+
+    //整理資料
+    function setSettingsValue() {
+        var objData = {};
+
+        //index_head
+        var index_head = {};
+        index_head.web_logo = $("#web_logo").attr("src");
+        index_head.mbl_web_logo = $("#mbl_web_logo").attr("src");
+        index_head.web_logo_small = $("#web_logo_small").attr("src");
+        objData.index_head = index_head;
+
+        //carousel
+        objData.carousel = {};
+        objData.carousel.status = $("#carousel_edit").find(".iopen-layout-btn-switch-white").find(".active").attr("status");
+        var contents = [];
+        $("#carousel_edit").find(".carousel").not(".newCarousel").each(function(){
+            var carousel_no = $(this).find(".carousel_no").val();
+            var obj = {};
+            obj.type = $(this).find(".carousel_img").length > 0 ? 1 : 2;
+            obj.image = $(this).find(".carousel_img").attr("src");
+            obj.title = $(this).find(".carousel_title").val();
+            obj.subtitle = $(this).find(".carousel_subtitle").val();
+            obj.link = $(this).find(".carousel_link").val();
+            obj.video = Base64.encode($(this).find(".carousel_url").val());
+            obj.target = $(this).find("input[name='target_"+carousel_no+"']:checked").val();
+            obj.start_date = $(this).find(".start_date").val();
+            obj.start_hour = $(this).find(".start_hour").val();
+            obj.start_min = $(this).find(".start_min").val();
+            obj.end_date = $(this).find(".end_date").val();
+            obj.end_hour = $(this).find(".end_hour").val();
+            obj.end_min = $(this).find(".end_min").val();
+            contents.push(obj);
+        });
+        objData.carousel.contents = contents;
+
+        //hot_prod
+        var obj = {};
+        var edit = $("#hot_prod_edit");
+        obj.status = edit.find(".iopen-layout-btn-switch-white").find(".active").attr("status");
+        obj.item_title = edit.find(".item_title").val();
+        objData.hot_prod = obj;
+
+        //limited_time_prod
+        var obj = {};
+        var edit = $("#limited_time_prod_edit");
+        obj.status = edit.find(".iopen-layout-btn-switch-white").find(".active").attr("status");
+        obj.item_title = edit.find(".item_title").val();
+        obj.image = $("#limited_time_prod_bg").attr("src");
+        obj.title = edit.find(".title").val();
+        obj.subtitle = edit.find(".subtitle").val();
+        obj.limit_start = edit.find(".limit_start").val();
+        obj.start_hour = edit.find(".start_hour").val();
+        obj.start_min = edit.find(".start_min").val();
+        obj.limit_end = edit.find(".limit_end").val();
+        obj.end_hour = edit.find(".end_hour").val();
+        obj.end_min = edit.find(".end_min").val();
+        obj.prod_uid = limited_time_prod;
+        objData.limited_time_prod = obj;
+
+        //rec_prod
+        var obj = {};
+        var edit = $("#rec_prod_edit");
+        obj.status = edit.find(".iopen-layout-btn-switch-white").find(".active").attr("status");
+        obj.item_title = edit.find(".item_title").val();
+        obj.image = $("#rec_prod_bg").attr("src");
+        obj.prod_uid = rec_prod;
+        objData.rec_prod = obj;
+
+        //rec_sort_prod
+        var obj = {};
+        var edit = $("#rec_sort_prod_edit");
+        obj.status = edit.find(".iopen-layout-btn-switch-white").find(".active").attr("status");
+        var contents = [];
+        edit.find(".selectSortStr").each(function(){
+            var _obj = {};
+            _obj.title = $(this).closest(".rec_sort_prod_edit").find(".title").val();
+            _obj.prod_sort_uid = $(this).attr("prod_sort_uid");
+            contents.push(_obj);
+        });
+        obj.contents = contents;
+        objData.rec_sort_prod = obj;
+
+        //video
+        var obj = {};
+        var edit = $("#video_edit");
+        obj.status = edit.find(".iopen-layout-btn-switch-white").find(".active").attr("status");
+        obj.item_title = edit.find(".item_title").val();
+        var contents = [];
+        edit.find(".video_edit").each(function(){
+            var _obj = {};
+            _obj.title = $(this).find(".video_title").val();
+            _obj.subtitle = $(this).find(".video_subtitle").val();
+            _obj.video = Base64.encode($(this).find(".video_url").val());
+            contents.push(_obj);
+        });
+        obj.contents = contents;
+        objData.video = obj;
+
+        //personal_rec_prod
+        var obj = {};
+        var edit = $("#personal_rec_prod_edit");
+        obj.status = edit.find(".iopen-layout-btn-switch-white").find(".active").attr("status");
+        obj.item_title = edit.find(".item_title").val();
+        objData.personal_rec_prod = obj;
+
+        //prod_sort
+        objData.prod_sort = {
+            status: '1',
+            item_title: $("#prod_sort").find(".L_item_name").text()
+        };
+        
+        var jsonSettings = JSON.stringify(objData);
+        $("input[name='jsonSettings']").val(jsonSettings);
+    }
+
+    //檢查欄位
+    function checkSettingsValue() {
+        var status = 1;
+
+        //index_head
+        var ele = $("#index_head");
+        if (!web_logo_status) {
+            itemEdit(ele);
+            alert('請上傳 電腦版Logo');
+            return 0;
+        }
+        if (!mbl_web_logo_status) {
+            itemEdit(ele);
+            alert('請上傳 手機版Logo');
+            return 0;
+        }
+        if (!web_logo_small_status) {
+            itemEdit(ele);
+            alert('請上傳 小Logo');
+            return 0;
+        }
+
+        //carousel
+        var edit = $("#carousel_edit");
+        var ele = $("#carousel");
+        if (itemStatus(edit, ele)) {
+            if (edit.find(".carousel").length < 1) {
+                itemEdit(ele);
+                alert('輪播看板至少須有一個圖檔或影片');
+                return 0;
+            }
+            //圖片
+            edit.find(".carousel_img").each(function(){
+                var image = $(this).attr("src");
+                if (!image) {
+                    status = 0;
+                    return false;
+                }
+            });
+            if (!status) {
+                itemEdit(ele);
+                alert('請上傳輪播看板圖檔');
+                return 0;
+            }
+            //影片
+            edit.find(".carousel_url").each(function(){
+                if (!$(this).val()) {
+                    status = 0;
+                    return false;
+                }
+            });
+            if (!status) {
+                itemEdit(ele);
+                alert('請填寫輪播看板Youtube/FB網址連結');
+                return 0;
+            }
+        }
+
+        //hot_prod
+        var edit = $("#hot_prod_edit");
+        var ele = $("#hot_prod");
+        if (itemStatus(edit, ele)) {
+            if (!edit.find(".item_title").val()) {
+                itemEdit(ele);
+                alert('請輸入熱銷商品標題文字');
+                return 0;
+            }
+        }
+
+        //limited_time_prod
+        var edit = $("#limited_time_prod_edit");
+        var ele = $("#limited_time_prod");
+        if (itemStatus(edit, ele)) {
+            //標題
+            if (!edit.find(".item_title").val()) {
+                itemEdit(ele);
+                alert('請輸入限時倒數活動商品標題文字');
+                return 0;
+            }
+            //圖片
+            var image = $("#limited_time_prod_bg").attr("src");
+            if (!image) {
+                itemEdit(ele);
+                alert('請上傳限時倒數活動商品圖檔');
+                return 0;
+            }
+            //主標題
+            if (!edit.find(".title").val()) {
+                itemEdit(ele);
+                alert('請填寫限時倒數活動商品主標題');
+                return 0;
+            }
+            //副標題
+            if (!edit.find(".subtitle").val()) {
+                itemEdit(ele);
+                alert('請填寫限時倒數活動商品副標題');
+                return 0;
+            }
+            //起始日期
+            if (!edit.find(".limit_start").val()) {
+                itemEdit(ele);
+                alert('請選擇限時倒數活動商品起始日期');
+                return 0;
+            }
+            //結束日期
+            if (!edit.find(".limit_end").val()) {
+                itemEdit(ele);
+                alert('請選擇限時倒數活動商品結束日期');
+                return 0;
+            }
+            //選擇商品
+            /*
+            if (!edit.find(".product_edit").length) {
+                itemEdit(ele);
+                alert('請選擇活動商品');
+                return 0;
+            }
+            */
+        }
+
+        //rec_prod
+        var edit = $("#rec_prod_edit");
+        var ele = $("#rec_prod");
+        if (itemStatus(edit, ele)) {
+            //主標題
+            if (!edit.find(".item_title").val()) {
+                itemEdit(ele);
+                alert('請填寫主打商品主標題');
+                return 0;
+            }
+            //圖片
+            var image = $("#rec_prod_bg").attr("src");
+            if (!image) {
+                itemEdit(ele);
+                alert('請上傳主打商品圖檔');
+                return 0;
+            }
+            //選擇商品
+            /*
+            if (!edit.find(".product_edit").length) {
+                itemEdit(ele);
+                alert('請選擇活動商品');
+                return 0;
+            }
+            */
+        }
+
+        //rec_sort_prod
+        var edit = $("#rec_sort_prod_edit");
+        var ele = $("#rec_sort_prod");
+        if (itemStatus(edit, ele)) {
+            //主標題
+            edit.find(".title").each(function(){
+                if (!$(this).val()) {
+                    status = 0;
+                    return false;
+                }
+            });
+            if (!status) {
+                itemEdit(ele);
+                alert('請填寫分類熱門商品推薦主標題');
+                return 0;
+            }
+            //選擇分類
+            /*
+            edit.find(".selectSortStr").each(function(){
+                if (!$(this).attr("prod_sort_uid")) {
+                    status = 0;
+                    return false;
+                }
+            });
+            if (!status) {
+                itemEdit(ele);
+                alert('請選擇商品分類');
+                return 0;
+            }
+            */
+        }
+
+        //video
+        var edit = $("#video_edit");
+        var ele = $("#video");
+        if (itemStatus(edit, ele)) {
+            //主標題
+            if (!edit.find(".item_title").val()) {
+                itemEdit(ele);
+                alert('請填寫影片標題');
+                return 0;
+            }
+
+            //主標題
+            edit.find(".video_title").each(function(){
+                if (!$(this).val()) {
+                    status = 0;
+                    return false;
+                }
+            });
+            if (!status) {
+                itemEdit(ele);
+                alert('請影片主標題');
+                return 0;
+            }
+            //副標題
+            edit.find(".video_subtitle").each(function(){
+                if (!$(this).val()) {
+                    status = 0;
+                    return false;
+                }
+            });
+            if (!status) {
+                itemEdit(ele);
+                alert('請影片副標題');
+                return 0;
+            }
+            //影片
+            edit.find(".video_url").each(function(){
+                if (!$(this).val()) {
+                    status = 0;
+                    return false;
+                }
+            });
+            if (!status) {
+                itemEdit(ele);
+                alert('請填寫Youtube/FB網址連結');
+                return 0;
+            }
+        }
+
+        //personal_rec_prod
+        var edit = $("#personal_rec_prod_edit");
+        var ele = $("#personal_rec_prod");
+        if (itemStatus(edit, ele)) {
+            if (!edit.find(".item_title").val()) {
+                itemEdit(ele);
+                alert('請輸入個人化推薦商品標題文字');
+                return 0;
+            }
+        }
+
+        return 1;
+    }
+
+    function itemStatus(itemEdit, ele) {
+        if (ele.length)
+            return parseInt(itemEdit.find(".iopen-layout-btn-switch-white").find(".active").attr("status"));
+        else
+            return 0;
+    }
+
+    function changeStyle(wstl_uid) {
+        wstl_uid = parseInt(wstl_uid);
+        confirm('您即將更換網站風格，尚未儲存的資料將遺失').done(function(){
+            window.location.href = encodeURI('admweb.main.php?action={{$smarty.get.action}}&wstl_uid=' + wstl_uid);
+        })
+    }
+</script>
+
+
+<script>
+    function toggleMenuHandlertwo() {
+        document
+            .querySelector('.admweb-v2-seller-front-left-box')
+            .classList.toggle('pic-phone-open-menu');
+        const hamBtn = document
+            .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+            .querySelector('i');
+        if (hamBtn.classList.contains('icon-arrow-left-01')) {
+            document.querySelectorAll(
+                '.admweb-v2-orderlist-header-actions button'
+            )[0].style.display = 'block';
+        } else {
+            document.querySelectorAll(
+                '.admweb-v2-orderlist-header-actions button'
+            )[0].style.display = 'none';
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01');
+    }
+</script>

@@ -1,0 +1,1569 @@
+<style>
+  /* .admweb-v2-list-header-right{display: none;} */
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    {{if $m_arrSystem.is_app_mode}}
+      <button onclick="{
+        let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+        let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            window.JavaScriptInterface.backToSellerCenter();
+        } else if (isiOS) {
+            window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+        }
+      }">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{else}}
+      <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{/if}}
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">客服彙整</h2>
+  <div class="admweb-v2-orderlist-header-qrcode"></div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class=" admweb-v2-orderlist__inner admweb-v2-customer_qa__inner pic-text-gray-100" data-content>
+    <section>
+      <!-- form  -->
+      <section data-tab-actions style="display: none;">
+        <!-- form1 商品評論 -->
+        <div class="">
+          <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+            style="--custom-grid-width: 80px 1fr">
+            <div class="admweb-v2-orderlist__form-head_search-outer">
+              <div class="admweb-v2-search__form-head js-orderlist__form-head_search"
+                style="--custom-search-width: 1fr 84px">
+                <div class="admweb-v2-search__form-item">
+                  <label for="order-date">回覆狀態</label>
+                  <select name="delivery_type" id=""
+                    class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                    <option value="全部">全部</option>
+                    <option value="待回覆">待回覆</option>
+                    <option value="已回覆">已回覆</option>
+                  </select>
+                </div>
+
+                <button type="submit"
+                  class="pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn">
+                  搜尋
+                </button>
+              </div>
+              <div class="admweb-v2-search__form-item">
+                <label for="review">評價星等</label>
+                <select name="review" id="" class=" pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                  <option value="5星">5星</option>
+                  <option value="4星">4星</option>
+                  <option value="3星">3星</option>
+                  <option value="2星">2星</option>
+                  <option value="1星">1星</option>
+                </select>
+              </div>
+              <div class="admweb-v2-search__form-item admweb-v2-search__form-item--last">
+                <label for="review-date">評價日期</label>
+                <div class="admweb-v2-orderlist__form-range_date" id="review-date">
+                  <input type="date" class="admweb-v2-orderlist__form-datepic-text-lnput pic-lnput-enter" />
+                  <span>-</span>
+                  <input type="date" class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter" />
+                </div>
+              </div>
+
+              <button type="submit" class="pic-BgText-color-green admweb-v2-orderlist__form-btn">
+                搜尋
+              </button>
+            </div>
+          </form>
+          <button
+            class=" pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn js-orderlist__form-toggle--btn">
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <!-- form2 訂單問答 -->
+        <div class="">
+          <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+            style="--custom-grid-width: 80px 1fr">
+            <div class="admweb-v2-orderlist__form-head_search-outer">
+              <div class="admweb-v2-search__form-head js-orderlist__form-head_search"
+                style="--custom-search-width: 1fr 84px">
+                <div class="admweb-v2-search__form-item">
+                  <label for="order-date">回覆狀態</label>
+                  <select name="delivery_type" id=""
+                    class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                    <option value="全部">全部</option>
+                    <option value="待回覆">待回覆</option>
+                    <option value="已回覆">已回覆</option>
+                  </select>
+                </div>
+
+                <button type="submit"
+                  class="pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn">
+                  搜尋
+                </button>
+              </div>
+              <div class="admweb-v2-search__form-item">
+                <label for="review">問題類型</label>
+                <select name="review" id="" class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                  <option value="a">a</option>
+                  <option value="b">b</option>
+                  <option value="c">c</option>
+                  <option value="d">d</option>
+                  <option value="e">e</option>
+                </select>
+              </div>
+              <div class="admweb-v2-search__form-item admweb-v2-search__form-item--last">
+                <label for="review-date">詢問日期</label>
+                <div class="admweb-v2-orderlist__form-range_date" id="review-date">
+                  <input type="date" class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter" />
+                  <span>-</span>
+                  <input type="date" class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter" />
+                </div>
+              </div>
+
+              <button type="submit" class="pic-BgText-color-green admweb-v2-orderlist__form-btn">
+                搜尋
+              </button>
+            </div>
+          </form>
+          <button
+            class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn js-orderlist__form-toggle--btn">
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <!-- form3 商品問答 -->
+        <div class="">
+          <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+            style="--custom-grid-width: 80px 1fr">
+            <div class="admweb-v2-orderlist__form-head_search-outer">
+              <div class="admweb-v2-search__form-head js-orderlist__form-head_search"
+                style="--custom-search-width: 1fr 84px">
+                <div class="admweb-v2-search__form-item">
+                  <label for="order-date">回覆狀態</label>
+                  <select name="delivery_type" id=""
+                    class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                    <option value="全部">全部</option>
+                    <option value="待回覆">待回覆</option>
+                    <option value="已回覆">已回覆</option>
+                  </select>
+                </div>
+
+                <button type="submit"
+                  class="pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn">
+                  搜尋
+                </button>
+              </div>
+
+              <div class="admweb-v2-search__form-item admweb-v2-search__form-item--last">
+                <label for="review-date">詢問日期</label>
+                <div class="admweb-v2-orderlist__form-range_date" id="review-date">
+                  <input type="date" class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter" />
+                  <span>-</span>
+                  <input type="date" class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter" />
+                </div>
+              </div>
+              <button type="submit" class="pic-BgText-color-green admweb-v2-orderlist__form-btn">
+                搜尋
+              </button>
+            </div>
+          </form>
+          <button
+            class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn js-orderlist__form-toggle--btn">
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+      </section>
+      <!-- nav -->
+      <div class="admweb-v2-store_delivery__nav-list admweb-v2-nav--sp-scroll admweb-v2-CustomerService-nav"
+        data-tab-navs style="--custom-nav-width: calc(100% / 3)">
+        <a class="admweb-v2-store_delivery__nav-item" href="javascript:void(0)" onclick="set_nav('1')">
+          商品評論(<text class="tab_count_1">{{$tab_count.prod_comment_tag}}</text>)
+        </a>
+        <a class="admweb-v2-store_delivery__nav-item" href="javascript:void(0)" onclick="set_nav('2')">
+          訂單問答(<text class="tab_count_2">{{$tab_count.order_faq_tag}}</text>)
+        </a>
+        <a class="admweb-v2-store_delivery__nav-item" href="javascript:void(0)" onclick="set_nav('3')">
+          商品問答(<text class="tab_count_3">{{$tab_count.prod_qa_tag}}</text>)
+        </a>
+      </div>
+      <!-- 左列表 右對話框 -->
+      <section class="admweb-v2-customer_qa-layout js-admweb-v2-customer_qa-layout">
+        <!-- panels  -->
+        <div data-tab-panels class="admweb-v2-customer_qa-list" id="admweb-v2-customer_qa-list">
+          <section>
+            {{if $arr_list|@count > 0}}
+            <div class="admweb-v2-customer-content">
+              <div class="admweb-v2-orderlist-overview">
+                <span></span>
+                <span>共{{$tab_count.list_count}}筆</span>
+              </div>
+              <ul class="admweb-v2-orderlist__list">
+                {{foreach from=$arr_list item=reply_list}}
+                <li class="admweb-v2-customer_qa__card" data-card-target data-card-no="{{$reply_list.data_uid}}">
+                  <div class="admweb-v2-customer_qa__card-head">
+                    <div class="">
+                      <div class="admweb-v2-customer_qa-member-order">
+                        <i class="icons-line icon-line-member"></i><span
+                          class="pic-margin-l5">{{$reply_list.mem_account}}
+                          <!-- 已讀class加上read  -->
+                          {{if $reply_list.reply_status==1}}
+                          <span class="admweb-v2-customer_qa__card-satus read">已回覆</span>
+                          {{else}}
+                          <span class="admweb-v2-customer_qa__card-satus">未回覆</span>
+                          {{/if}}
+                        </span>
+                      </div>
+                    </div>
+                    {{if $qa_type==1}}
+                    <div class="comment_grade_star">
+                      <img width="94" src="{{$root_url}}css/images/pic_grade_star_0{{$reply_list.prod_comment_grade}}.svg"
+                        alt="comment_grade_star" />
+                    </div>
+                    {{elseif $qa_type==2}}
+                    <div class="pic-margin-l10 admweb-v2-customer_qa-member-OrderNum">
+                      訂單編號
+                      <p class="pic-text-gray-100">
+                        {{$reply_list.order_uid}}
+                      </p>
+                    </div>
+                    {{/if}}
+                  </div>
+                  {{if $qa_type!=2}}
+                  <div class="admweb-v2-customer_qa__card-product">
+                    <div>
+                      <img src="{{$reply_list.prod_file}}" alt="" class="admweb-v2-customer_qa__card-product-img" />
+                    </div>
+                    <div class="admweb-v2-customer_qa__card-product-info">
+                      <p class="admweb-v2-customer_qa__card-product-name">
+                        {{$reply_list.prod_name}}
+                      </p>
+                      {{foreach from=$reply_list.prod_spec item=spec}}
+                      <p class="pic-font-size-12">{{$spec}}</p>
+                      {{/foreach}}
+                    </div>
+                  </div>
+                  {{/if}}
+                  <!-- 賣家class需加上admweb-v2-order_detail__inquiry--seller -->
+                  <!-- 買家class需加上admweb-v2-order_detail__inquiry--buyer -->
+                  <div
+                    class="{{if $reply_list.reply_status}}admweb-v2-order_detail__inquiry--seller{{else}}admweb-v2-order_detail__inquiry--buyer{{/if}}">
+                    <div class="admweb-v2-customer_qa__card-inquiry">
+                      <div class="admweb-v2-order_detail__inquiry-img">
+                        {{if $reply_list.reply_status}}
+                        <i class="icons-line icon-line-Seller"></i>
+                        {{else}}
+                        <i class="icons-line icon-line-Buyer"></i>
+                        {{/if}}
+                      </div>
+                      <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                        <div class="admweb-v2-customer_qa__card-inquiry-title">
+                          <p class="admweb-v2-order_detail__inquiry-title">
+                            {{if $reply_list.reply_status}}
+                            賣家回覆
+                            {{else}}
+                            買家回覆
+                            {{if $qa_type==2}}
+                            <span class="admweb-v2-order_detail__inquiry-status">{{$reply_list.faq_type_text}}</span>
+                            {{/if}}
+                            {{/if}}
+                          </p>
+                          <p class="admweb-v2-customer_qa__card-inquiry-time">
+                            {{$reply_list.reply_date}}
+                          </p>
+                        </div>
+                        <p class="admweb-v2-customer_qa__card-inquiry-message">
+                          {{$reply_list.reply_content}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {{/foreach}}
+              </ul>
+            </div>
+            {{else}}
+            {{if $qa_type==1}}
+            <!-- 商品評論 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-Document"></i>
+              <span>目前無商品評論資料</span>
+            </div>
+            {{elseif $qa_type==2}}
+            <!-- 訂單問答 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-info-edit-bold-02"></i>
+              <span>目前無訂單問答資料</span>
+            </div>
+            {{else}}
+            <!-- 商品問答 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-box-product"></i>
+              <span>目前無商品問答資料</span>
+            </div>
+            {{/if}}
+            {{/if}}
+          </section>
+        </div>
+        <div class="admweb-v2-customer_qa__chat" data-card-container>
+          <div class="admweb-v2-orderlist-header admweb-v2-md-hidden">
+            <div class="admweb-v2-orderlist-header-actions">
+              <button onclick="closeChatDetail()">
+                <i class="icons-line icon-line-Arrow-left"></i>
+              </button>
+            </div>
+            <h2 class="admweb-v2-orderlist-header-title">賣家回覆</h2>
+            <span></span>
+          </div>
+          <!-- 內容  use js to render-->
+          <section data-chat-container>
+            <!-- 未有內容時 -->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-MamberID-None"></i>
+              <span>立即回覆</span>
+            </div>
+          </section>
+
+          <!-- 置底 打字框 -->
+          <section class="admweb-v2-customer_qa__chat-bottom js-admweb-v2-customer_qa__chat-bottom">
+            <!-- sp -->
+            <p class="admweb-v2-customer_qa__chat-warn admweb-v2-md-hidden pic-text-center">
+              您僅能回覆一次，送出後無法修改。
+            </p>
+            <!-- 僅商品評論顯示常用訊息  -->
+            <div class="admweb-v2-customer_qa__chat-example admweb-v2-md-hidden js-chat-example">
+              <div class="admweb-v2-customer_qa__chat-example-list-box">
+                <ul class="admweb-v2-customer_qa__chat-example-list">
+                  <!-- get example data  -->
+                </ul>
+              </div>
+              <button class="admweb-v2-customer_qa__chat-edit_btn" onclick="showMsgOverlay()">
+                <i class="icons-line icon-line-info-edit-bold-02"></i>
+              </button>
+            </div>
+            <div
+              class="admweb-v2-customer_qa__chat-input_box admweb-v2-md-hidden js-admweb-v2-customer_qa__chat-target">
+              <textarea id="reply_md" contenteditable="true" autocomplete="off" autocorrect="off" spellcheck="true"
+                aria-expanded="false" aria-autocomplete="list" aria-multiline="true" aria-label="Message" role="textbox"
+                class="admweb-v2-customer_qa__chat-textarea-sp js-contenteditable" name="user-input"
+                placeholder="請輸入回覆....." rows="1" style="font-size: 16px; line-height: 16px;"></textarea>
+              <button class="admweb-v2-customer_qa__chat-submit_btn " onclick="seller_reply($('#reply_md').val());">
+                <i class="icons-line icon-line-SendOut"></i>
+              </button>
+            </div>
+            <!-- pc -->
+            <div class="admweb-v2-customer_qa__chat-example admweb-v2-sp-hidden js-chat-example">
+              <button class="admweb-v2-customer_qa__chat-edit_btn" onclick="showModal()">
+                <i class="icons-line icon-line-info-edit-bold-02"></i>
+              </button>
+            </div>
+            <div class="admweb-v2-sp-hidden">
+              <textarea name="user-input" id="reply" placeholder="請輸入回覆....." rows="5"
+                class="admweb-v2-customer_qa__chat-textarea"></textarea>
+              <p class="admweb-v2-customer_qa__chat-warn admweb-v2-sp-hidden">
+                您僅能回覆一次，送出後無法修改。
+              </p>
+              <div class="admweb-v2-customer-SendOut-box">
+                <button class="admweb-v2-customer-SendOut pic-BgText-color-green"
+                  onclick="seller_reply($('#reply').val());" style="float: right;">
+                  送出
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </section>
+    <section style="display: none" class="admweb-v2_customer_qa__overlay">
+      <!-- msg overlay -->
+      <div class="js-admweb-v2_customer_qa__overlay">
+        <div class="admweb-v2-orderlist-header admweb-v2-md-hidden">
+          <div class="admweb-v2-orderlist-header-actions">
+            <button onclick="closeMsgOverlay()">
+              <i class="icons-line icon-line-Arrow-left"></i>
+            </button>
+          </div>
+          <h2 class="admweb-v2-orderlist-header-title">常用訊息</h2>
+          <span></span>
+        </div>
+        <ul class="admweb-v2_customer_qa__overlay-list">
+          <!--li-->
+        </ul>
+      </div>
+      <div class="admweb-v2-order_detail__action">
+        <button class="admweb-v2-order_detail__action-btn--outline admweb-v2-sp-hidden" onclick="closeMsgOverlay()">
+          <i class="icons-line icon-line-Arrow-left"></i>回上一頁
+        </button>
+        <button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row"
+          onclick="showModalMsg()">
+          <i class="icons-line icon-line-add"></i>建立常用訊息範本
+        </button>
+      </div>
+      <!-- 無資料 -->
+
+      <div class="admweb-v2-NoData no_common_message">
+        <div class="admweb-v2-img-BlacklistNoData"></div>
+        <span>目前無常用訊息資料</span>
+      </div>
+    </section>
+
+  </div>
+  <!-- pc modal 選擇常用訊息  -->
+  <div class="pic-window-bg js-admweb-v2__modal admweb-v2__modal-form" style="display: none">
+    <form class="admweb-v2__modal-lg_form-outer">
+      <div class="admweb-v2__modal-lg_form-header">
+        <p class="pic-flex-center">
+          <i class="icons-line icon-line-Query pic-margin-r5"></i>選擇常用訊息
+        </p>
+        <button class="admweb-v2__modal-form-close" type="button">
+          <i class="icons-line icon-line-X" onclick="closeModal()"></i>
+        </button>
+      </div>
+      <div class="admweb-v2__modal-form-content">
+        <ul class="admweb-v2-customer_qa__msg-list edit_common_message">
+          <!-- li -->
+        </ul>
+        <div class="admweb-v2-order_detail-actions edit_common_message">
+          <button class="pic-btn-newstore-100 pic-BgText-color-white-green pic-margin-r5" type="reset"
+            onclick="showMsgOverlay()">
+            <i class="icons-line icon-line-info-edit-bold-02 pic-margin-r5"></i>編輯常用訊息範本
+          </button>
+          <button class="pic-btn-newstore-100 pic-BgText-color-green js-admweb-v2--modal-submit" type="button"
+            onclick="chooseMsg()">
+            <i class="icons-line icon-line-tick pic-margin-r5"></i>選擇
+          </button>
+        </div>
+        <!-- 無資料  -->
+        <div class="admweb-v2-customer_qa__msg-empty no_common_message">
+          <i class="icons-line icon-line-MamberID-None"></i>
+          <span>目前無常用訊息資料</span>
+        </div>
+        <div class="admweb-v2-order_detail-actions no_common_message">
+          <button type="button" class="pic-btn-newstore-100 admweb-v2_customer_qa__msg-add-btn"
+            onclick="showModalMsg()">
+            <i class="icons-line icon-line-add pic-margin-r5"></i>新增常用訊息範本
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- modal 新增/編輯常用訊息  -->
+  <div class="pic-window-bg js-admweb-v2__modal-msg admweb-v2__modal-form admweb-v2_customer_qa__modal"
+    style="display: none">
+    <form class="admweb-v2_customer_qa__modal-outer">
+      <div class="admweb-v2_customer_qa__modal-header">
+        <button onclick="closeModalMsg()" class="admweb-v2-md-hidden admweb-v2_customer_qa__modal-back_btn"
+          type="button">
+          <i class="icons-line icon-line-Arrow-left"></i>
+        </button>
+        <p class="pic-flex-center admweb-v2_customer_qa__modal-title">
+          <i class="icons-line icon-line-Query admweb-v2-sp-hidden pic-margin-r5"></i>
+          <span class="js-admweb-v2__modal-msg-text">新增常用訊息</span>
+        </p>
+        <button class="admweb-v2__modal-form-close admweb-v2-sp-hidden" type="button">
+          <i class="icons-line icon-line-X" onclick="closeModalMsg()"></i>
+        </button>
+      </div>
+      <div class="admweb-v2_customer_qa__modal-content">
+        <div class="admweb-v2_customer_qa__modal-textarea_box">
+          <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" name="single-msg" id="input_mes"
+            placeholder="請輸入文字....."></textarea>
+        </div>
+
+        <div class="admweb-v2_customer_qa__modal-actions">
+          <button class="pic-btn-newstore-100 pic-BgText-color-green js-admweb-v2--modal-submit" type="button"
+            onclick="saveMsg()">
+            <i class="icons-line icon-line-tick pic-margin-r5"></i>儲存
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  var qa_type = "{{$qa_type}}";
+  // 輸入文字計算高度
+  var textarea = document.querySelector('textarea');
+
+  textarea.addEventListener('input', (e) => {
+    textarea.style.height = '15px';
+    textarea.style.height = e.target.scrollHeight + 'px';
+  });
+  // makeExpandingArea(textarea);
+
+  $(function () {
+    $('.js-admweb-v2-customer_qa__chat-bottom').hide();
+    // $('#reply').on('keydown', function(){
+    //   if (event.keyCode === 13 && event.shiftKey) {
+    //     // Shift+Enter key pressed
+    //     var value = $(this).val();
+    //     var caretPos = this.selectionStart;
+    //     var newValue = value.substring(0, caretPos) + "\n" + value.substring(caretPos);
+    //     $(this).val(newValue);
+    //     event.stopPropagation();
+    //     event.preventDefault();
+    //   }else if (event.keyCode === 13) {
+    //     // Enter key pressed
+    //     // console.log(value);
+    //     var value = $(this).val();
+    //     seller_reply(value);
+    //     // do something with the input value
+    //   }
+    // })
+    $(document).on('click', '[data-delete-btn]', function () {
+      let item = $(this);
+      confirm('確定要刪除?').done(function () {
+        $(item).parents('[data-msg-item]').remove();
+        edit_common_message();
+        get_common_message();
+      })
+    })
+
+    $(document).on('click', '[data-edit-btn]', function () {
+      showModalMsg('edit', $(this));
+    })
+
+    $(document).on('click', 'input[name="msg-sp"]', function () {
+      $('[name="user-input"]').val($(this).val())
+    })
+  })
+
+  window.addEventListener('resize', () => {
+    getPcSideMenuWidth();
+    chatDetailDisplay();
+  });
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-orderlist')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  // 預設搜尋表單高度
+  function initialFormHeight() {
+    const formEles = document.querySelectorAll('.js-orderlist__form');
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const wholeHeight = formEles.item(0).clientHeight;
+    formEles.forEach(
+      (formEle) => (formEle.style.height = `${defaultHeight}px`)
+    );
+  }
+  // 取得layout上距高度
+  function getLayoutOffsetTop() {
+    const pcTopFormEle = document.querySelector(
+      '.js-admweb-v2-customer_qa-layout'
+    );
+    const bottomEle = document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-bottom'
+    );
+    pcTopFormEle.style.setProperty(
+      '--layout-offset-top',
+      pcTopFormEle.getBoundingClientRect().top +
+      document.documentElement.scrollTop +
+      'px'
+    );
+  }
+  // 取得chatbox內head及bottom區塊高度
+  function getChatEleHeight() {
+    const pcTopFormEle = document.querySelector(
+      '.js-admweb-v2-customer_qa-layout'
+    );
+    const bottomEle = document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-bottom'
+    );
+    const headEle = document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-head'
+    );
+    pcTopFormEle.style.setProperty(
+      '--chat-bottom-height',
+      bottomEle.clientHeight + 'px'
+    );
+    pcTopFormEle.style.setProperty(
+      '--chat-head-height',
+      headEle.clientHeight + 'px'
+    );
+  }
+  // 取得視窗高度
+  function getInnerHeight() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const innerHeight = window.innerHeight;
+    document.body.style.setProperty(
+      '--inner-height',
+      isMobile ? innerHeight + 'px' : '100vh'
+    );
+  }
+  // 搜尋表單收合展開
+  const Selector = {
+    toggleBtns: document.querySelectorAll('.js-orderlist__form-toggle--btn'),
+    formEles: document.querySelectorAll('.js-orderlist__form'),
+    formHeadEles: document.querySelectorAll('.js-orderlist__form-head_search'),
+    headBtns: document.querySelectorAll('.js-orderlist__form-head_search-btn')
+  };
+  Selector.toggleBtns.forEach((button, i) =>
+    button.addEventListener('click', () => {
+      searchFormCollapse(button, i);
+    })
+  );
+  function searchFormCollapse(toggleBtn, i) {
+    const defaultHeight = Selector.formHeadEles.item(i).clientHeight;
+    const wholeHeight = Selector.formEles.item(i).children[0].clientHeight;
+    const currentStyle = Selector.formEles.item(i).style;
+    //當前為收合
+    if (currentStyle.height === `${defaultHeight}px`) {
+      currentStyle.height = `${wholeHeight}px`;
+      toggleBtn.innerHTML =
+        '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+      Selector.formHeadEles.item(i).style.gridTemplateColumns = '1fr';
+      Selector.headBtns.item(i).style.display = 'none';
+    } else {
+      ///當前為展開
+      currentStyle.height = `${defaultHeight}px`;
+      toggleBtn.innerHTML =
+        '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+      Selector.formHeadEles.item(i).style.gridTemplateColumns = '1fr 84px';
+      Selector.headBtns.item(i).style.display = 'block';
+    }
+  }
+
+  // pc modal 選擇常用訊息
+  function showModal() {
+    get_common_message();
+    const modal = document.querySelector('.js-admweb-v2__modal');
+    modal.style.display = 'flex';
+  }
+  function closeModal() {
+    const modal = document.querySelector('.js-admweb-v2__modal');
+    modal.style.display = 'none';
+  }
+  // modal 新增/編輯常用訊息
+  function closeModalMsg() {
+    const modal = document.querySelector('.js-admweb-v2__modal-msg');
+    modal.style.display = 'none';
+  }
+  function showModalMsg(type, event) {
+    const modal = document.querySelector('.js-admweb-v2__modal-msg');
+    modal.querySelector('.js-admweb-v2__modal-msg-text').innerHTML =
+      type === 'edit' ? '編輯常用訊息' : '新增常用訊息';
+    if (type) {
+      const value = $(event).parents('[data-msg-item]').find('p').text();
+      document.querySelector('textarea[name="single-msg"]').value = value;
+
+      let action = document.querySelector('.admweb-v2_customer_qa__modal-actions');
+      let button = action.querySelector('button');
+      let parent_li = $(event).parents('[data-msg-item]').get();
+      let msgId = parent_li[0].getAttribute('data-msg-id');
+      button.setAttribute('onclick', 'saveMsg(' + msgId + ')');
+    } else {
+      document.querySelector('textarea[name="single-msg"]').value = '';
+      $('.admweb-v2_customer_qa__modal-actions').find('button').attr('onclick', 'saveMsg()');
+    }
+    modal.style.display = 'flex';
+  }
+  // 儲存新增/編輯的常用訊息
+  function saveMsg(num) {
+    if ($('textarea[name="single-msg"]').val() != '') {
+      if (num) {
+        // console.log(num);
+        $('[data-msg-id=' + num + ']').find('p').text($('textarea[name="single-msg"]').val());
+      } else {
+        // console.log('add');
+        let msg_item_length = $('[data-msg-item]').length + 1;
+        let single_msg = document.querySelector('textarea[name="single-msg"]').value;
+
+        let li = document.createElement('li');
+        li.setAttribute('data-msg-item', '');
+        li.setAttribute('data-msg-id', msg_item_length);
+          let p = document.createElement('p');
+          p.setAttribute('style', 'white-space: nowrap;  overflow: hidden; text-overflow: ellipsis;');
+          p.innerText = single_msg;
+        li.appendChild(p);
+
+        let div_in_li = document.createElement('div');
+        div_in_li.setAttribute('style', 'white-space: nowrap;');
+        div_in_li.setAttribute('class', '');
+          let btn_delete = document.createElement('button');
+          btn_delete.classList.add('admweb-v2_customer_qa__delete-btn');
+          btn_delete.setAttribute('data-delete-btn', '');
+            let i_delete = `<i class="icons-line icon-line-ashbin"></i>刪除`;
+            btn_delete.innerHTML = i_delete;
+          div_in_li.appendChild(btn_delete);
+          let btn_edit = document.createElement('button');
+          btn_edit.classList.add('admweb-v2_customer_qa__edit-btn');
+          btn_edit.setAttribute('data-edit-btn', '');
+            let i_edit = `<i class="icons-line icon-line-edit"></i>編輯`;
+            btn_edit.innerHTML = i_edit;
+          div_in_li.appendChild(btn_edit);
+
+        li.appendChild(div_in_li);
+        // let html = "<li data-msg-item data-msg-id=\"" + ($('[data-msg-item]').length + 1) + "\">\n" +
+        //   "            <p style='white-space: nowrap;  overflow: hidden; text-overflow: ellipsis;'>" + $('textarea[name="single-msg"]').val() + "</p>\n" +
+        //   "            <div class=\"\" style='white-space: nowrap;'>\n" +
+        //   "              <button class=\"admweb-v2_customer_qa__delete-btn\" data-delete-btn>\n" +
+        //   "                <i class=\"icons-line icon-line-ashbin\"></i>刪除\n" +
+        //   "              </button>\n" +
+        //   "              <button class=\"admweb-v2_customer_qa__edit-btn\" data-edit-btn>\n" +
+        //   "                <i class=\"icons-line icon-line-edit\"></i>編輯\n" +
+        //   "              </button>\n" +
+        //   "            </div>\n" +
+        //   "          </li>";
+        document.querySelector('.admweb-v2_customer_qa__overlay-list').appendChild(li);
+      }
+      edit_common_message();
+      get_common_message();
+      // submit data
+      closeModalMsg();
+    } else {
+      alert('請輸入文字')
+    }
+  }
+
+  // Tab
+  const DOM = {
+    nav: document.querySelector('[data-tab-navs]'),
+    navItems: document.querySelectorAll('[data-tab-navs] > a'),
+    panels: document.querySelectorAll('[data-tab-panels] > section'),
+    actions: document.querySelectorAll('[data-tab-actions] > div'),
+    exampleBtns: document.querySelectorAll('.js-chat-example')
+  };
+  function setActivePanel(activeIndex) {
+    DOM.panels.forEach((ele) => (ele.style.display = 'none'));
+    DOM.panels[activeIndex].style.display = 'block';
+  }
+  function setActiveNav(activeIndex) {
+    DOM.navItems.forEach((ele) => ele.classList.remove('active'));
+    DOM.navItems[activeIndex].classList.add('active');
+  }
+  function setActiveAction(activeIndex) {
+    DOM.actions.forEach((ele) => (ele.style.display = 'none'));
+    if (!DOM.actions[activeIndex]) return;
+    DOM.actions[activeIndex].style.display = 'block';
+  }
+  (function () {
+    // setActivePanel(qa_type - 1);
+    setActiveNav(qa_type - 1);
+    setActiveAction(qa_type - 1);
+    if (qa_type - 1 == '0') {
+      DOM.exampleBtns.forEach((ele) => (ele.style.display = 'flex'));
+    } else {
+      DOM.exampleBtns.forEach((ele) => (ele.style.display = 'none'));
+    }
+  })();
+  // 顯示對話內容
+  const CARD_DOM = {
+    cards: document.querySelectorAll('[data-card-target]'),
+    container: document.querySelector('[data-card-container]')
+  };
+  CARD_DOM.cards.forEach((card) =>
+    card.addEventListener('click', () => {
+      // can use data-card-no to get data from server
+      CARD_DOM.container.dataset.cardNo = card.dataset.cardNo;
+      createChat(card.dataset.cardNo);
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        CARD_DOM.container.style.display = 'block';
+        CARD_DOM.container.style.paddingTop = '60px';
+        document.body.style.overflow = 'hidden';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('[data-tab-panels]').style.display = 'none';
+      }
+      getChatEleHeight();
+    })
+  );
+  function closeChatDetail() {
+    CARD_DOM.container.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector('[data-tab-panels]').style.display = 'block';
+      delete CARD_DOM.container.dataset.cardNo;
+    }
+  }
+  function chatDetailDisplay() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      if (!CARD_DOM.container.dataset.cardNo) {
+        CARD_DOM.container.style.display = 'none';
+      }
+      CARD_DOM.container.style.paddingTop = '60px';
+    } else {
+      CARD_DOM.container.style.display = 'block';
+      CARD_DOM.container.style.paddingTop = '0';
+      document.querySelector('[data-tab-panels]').style.display = 'block';
+    }
+  }
+
+  // 顯示overlay區塊
+  const CONTENT_DOM = {
+    contents: document.querySelectorAll('[data-content] > section')
+  };
+  function setActiveContent(activeIndex) {
+    CONTENT_DOM.contents.forEach((ele) => (ele.style.display = 'none'));
+    CONTENT_DOM.contents[activeIndex].style.display = 'block';
+  }
+  // js-admweb-v2_customer_qa__overlay
+  function showMsgOverlay() {
+    setActiveContent(1);
+    closeModal();
+  }
+  function closeMsgOverlay() {
+    setActiveContent(0);
+  }
+
+  (function () {
+    hideMobileLayout();
+    initialFormHeight();
+    getPcSideMenuWidth();
+    getLayoutOffsetTop();
+    getInnerHeight();
+    // createChatExampleList();
+    get_common_message();
+  })();
+
+  // 產生對話內容
+  function createChat(cardNo) {
+    const Section = document.createElement('section');
+    Section.dataset.chatContainer = '';
+    // head -> content
+    Section.append(createChatHead(cardNo));
+    Section.append(createChatContent(cardNo));
+    const Target = document.querySelector('[data-chat-container]');
+    Target.replaceWith(Section);
+  }
+  function createChatHead(cardNo) {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__chat-head');
+    ele.classList.add('js-admweb-v2-customer_qa__chat-head');
+
+    // 取得具有特定 data-card-no 屬性的 li 元素
+    const li = document.querySelector(`li[data-card-no='${cardNo}']`);
+    // 取得具有 admweb-v2-customer_qa__card-head 類別的子元素
+    const cardHead = li.querySelector('.admweb-v2-customer_qa__card-head');
+    // 取得 cardHead 的 HTML 內容
+    const cardHeadHtml = cardHead.innerHTML;
+    // 設置目標元素的 innerHTML 為 cardHead 的 HTML 內容
+    ele.innerHTML = cardHeadHtml;
+
+    //ele.innerHTML = $('li[data-card-no=' + cardNo + ']').find('.admweb-v2-customer_qa__card-head').html();
+    return ele;
+  }
+  function createChatContent(cardNo) {
+    const Div = document.createElement('div');
+    Div.classList.add('admweb-v2-customer_qa__chat-content');
+    // 順序：product -> date -> dialog
+    $.ajax({
+      url: '',
+      type: 'POST',
+      dataType: 'json',
+      async: false,
+      data: {
+        'myAct': 'GET_CHAT_DATA',
+        'qa_type': qa_type,
+        'data_uid': cardNo
+      },
+      success: function (data) {
+        // console.log(data);
+        if (qa_type != '2') {
+          Div.append(createProduct(data.prod_data));
+          // Div.append(createProduct(data.prod_data));
+          Div.appendChild(createDate(data.date_data.comment_date));
+          Div.append(createBuyerDialog(data.buyer_data));
+          if (data.seller_data) {
+            if (data.date_data.comment_date != data.date_data.reply_date) {
+              Div.append(createDate(data.date_data.reply_date));
+            }
+            Div.append(createSellerDialog(data.seller_data))
+          }
+        } else {
+          let status = 1;
+          let comment_date = data[0].date_data.comment_date;
+          Div.append(createDate(comment_date));
+          data.forEach(function(ele){
+            if (ele.date_data.comment_date != comment_date) {
+              comment_date = ele.date_data.comment_date;
+              Div.append(createDate(ele.date_data.comment_date));
+            }
+            Div.append(createBuyerDialog(ele.buyer_data));
+            if (ele.seller_data) {
+              comment_date = ele.date_data.reply_date;
+              if (ele.date_data.reply_date != comment_date) {
+                Div.append(createDate(ele.date_data.reply_date));
+              }
+              Div.append(createSellerDialog(ele.seller_data))
+            }
+            status = ele.status;
+          })
+          data.status = status;
+        }
+
+        if('{{$mobileDeviceDirected}}'=='') {
+          $('[name="user-input"]').val('');
+        } else {
+          // $('[name="user-input"]').val('請輸入回覆.....');
+          $('#reply_md').css("color","#ACACAC");
+          $('#reply_md').val('請輸入回覆.....');
+        }
+        if (data.status == 1) $('.js-admweb-v2-customer_qa__chat-bottom').hide()
+        else $('.js-admweb-v2-customer_qa__chat-bottom').show()
+
+      }, error: function (e) { console.log(e) }
+    })
+    return Div;
+  }
+  function createProduct(prod_data) {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__card');
+    prod_data.prod_spec[0] = prod_data.prod_spec[0] ? prod_data.prod_spec[0] : '&nbsp'
+    prod_data.prod_spec[1] = prod_data.prod_spec[1] ? prod_data.prod_spec[1] : '&nbsp'
+
+    let html = `
+          <div class="admweb-v2-customer_qa__card-product">
+            <div>
+              <img
+                src="${filterScriptTags(prod_data.prod_file)}"
+                alt=""
+                class="admweb-v2-customer_qa__card-product-img"
+              />
+            </div>
+            <div class="admweb-v2-customer_qa__card-product-info">
+              <p class="admweb-v2-customer_qa__card-product-name">
+                ${filterScriptTags(prod_data.prod_name)}
+              </p>
+              <p class="pic-font-size-12 pic-flex-center-between">
+                ${filterScriptTags(prod_data.prod_spec[0])}`
+    if (qa_type == '1') {
+      html += `<span class="pic-text-green">X${filterScriptTags(prod_data.prod_qty)}</span>`
+    }
+    html += `</p>
+              <p class="pic-font-size-12 pic-flex-center-between">
+                ${filterScriptTags(prod_data.prod_spec[1])}`
+    if (qa_type == '1') {
+      html += `<span>單價：$${filterScriptTags(prod_data.prod_price)}</span>`
+    }
+    html += `</p>
+            </div>
+          </div>
+        `
+    ele.innerHTML = html;
+    return ele;
+  }
+  function createDate(date) {
+    const ele = document.createElement('div');
+    ele.classList.add('pic-text-center');
+    ele.classList.add('pic-margin-t10');
+    var span_badge_date = document.createElement('span');
+    span_badge_date.classList.add('admweb-v2-customer_qa-badge-date');
+    span_badge_date.innerText = date;
+    ele.appendChild(span_badge_date);
+    // ele.innerHTML = `
+    //       <span class="admweb-v2-customer_qa-badge-date">${date}</span>
+    //     `;
+    return ele;
+  }
+  function createBuyerDialog(buyer_data) {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__chat-item--outer');
+
+    //源掃
+    let div_inquiry_all = document.createElement('div');
+    let div_inquiry_conent = document.createElement('div');
+    let div_inquiry_title = document.createElement('div');
+    let p_inquiry_title = document.createElement('p');
+    let span_inquiry_status = document.createElement('span');
+    let p_inquiry_message = document.createElement('p');
+    let span_chat_item_time = document.createElement('span');
+    div_inquiry_all.classList.add('admweb-v2-order_detail__inquiry--buyer');
+    div_inquiry_all.classList.add('admweb-v2-customer_qa__chat-item');
+    div_inquiry_conent.classList.add('admweb-v2-customer_qa__card-inquiry-conent');
+    div_inquiry_title.classList.add('admweb-v2-customer_qa__card-inquiry-title');
+    p_inquiry_title.classList.add('admweb-v2-order_detail__inquiry-title');
+    p_inquiry_message.classList.add('admweb-v2-customer_qa__card-inquiry-message');
+    p_inquiry_title.innerText = '買家提問';
+    span_inquiry_status.classList.add('admweb-v2-order_detail__inquiry-status');
+    span_inquiry_status.classList.add('pic-margin-l5');
+    span_inquiry_status.innerText = buyer_data.faq_type_text;
+    p_inquiry_message.innerText = buyer_data.buyer_comment;
+    span_chat_item_time.classList.add('admweb-v2-customer_qa__chat-item-time');
+    span_chat_item_time.innerText = buyer_data.buyer_comment_time;
+    if (qa_type == '2') {
+      p_inquiry_title.appendChild(span_inquiry_status);
+    }
+    div_inquiry_title.appendChild(p_inquiry_title);
+    div_inquiry_conent.appendChild(div_inquiry_title);
+    div_inquiry_conent.appendChild(p_inquiry_message);
+    div_inquiry_all.appendChild(div_inquiry_conent);
+    ele.appendChild(div_inquiry_all);
+    ele.appendChild(span_chat_item_time);
+
+    // let html = `
+    //       <div class="admweb-v2-order_detail__inquiry--buyer admweb-v2-customer_qa__chat-item">
+    //         <div class="admweb-v2-customer_qa__card-inquiry-conent">
+    //           <div class="admweb-v2-customer_qa__card-inquiry-title">
+    //             <p class="admweb-v2-order_detail__inquiry-title">
+    //               買家回覆`;
+    // if (qa_type == '2') {
+    //   html += `<span class="admweb-v2-order_detail__inquiry-status pic-margin-l5">${buyer_data.faq_type_text}</span>`;
+    // }
+    // html += `   </p>
+    //           </div>
+    //           <p class="admweb-v2-customer_qa__card-inquiry-message">
+    //             ${buyer_data.buyer_comment}
+    //           </p>
+    //         </div>
+    //       </div>
+    //       <span class="admweb-v2-customer_qa__chat-item-time">${buyer_data.buyer_comment_time}</span>
+    //     `
+    // ele.innerHTML = html;
+    return ele;
+  }
+  function createSellerDialog(seller_data) {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__chat-item--outer');
+    
+    let span_seller_comment_time = document.createElement('span');
+    span_seller_comment_time.classList.add('admweb-v2-customer_qa__chat-item-time');
+    span_seller_comment_time.classList.add('pic-text-right');
+    span_seller_comment_time.innerText = seller_data.seller_comment_time;
+    let div_inquiry_all = document.createElement('div');
+    div_inquiry_all.classList.add('admweb-v2-order_detail__inquiry--seller');
+    div_inquiry_all.classList.add('admweb-v2-customer_qa__chat-item');
+    let div_inquiry_conent = document.createElement('div');
+    div_inquiry_conent.classList.add('admweb-v2-customer_qa__card-inquiry-conent');
+    let div_inquiry_title = document.createElement('div');
+    div_inquiry_title.classList.add('admweb-v2-customer_qa__card-inquiry-title');
+    div_inquiry_title.innerHTML = `
+      <p class="admweb-v2-order_detail__inquiry-title">
+        賣家回覆
+      </p>
+    `;
+    let p_inquiry_message = document.createElement('p');
+    p_inquiry_message.classList.add('admweb-v2-customer_qa__card-inquiry-message');
+    p_inquiry_message.innerHTML = filterScriptTags(seller_data.seller_comment);
+    div_inquiry_conent.appendChild(div_inquiry_title);
+    div_inquiry_conent.appendChild(p_inquiry_message);
+    div_inquiry_all.appendChild(div_inquiry_conent);
+    ele.appendChild(span_seller_comment_time);
+    ele.appendChild(div_inquiry_all);
+
+
+    // ele.innerHTML = `
+    //       <span class="admweb-v2-customer_qa__chat-item-time pic-text-right">${seller_data.seller_comment_time}</span>
+    //       <div class="admweb-v2-order_detail__inquiry--seller admweb-v2-customer_qa__chat-item">
+    //         <div class="admweb-v2-customer_qa__card-inquiry-conent">
+    //           <div class="admweb-v2-customer_qa__card-inquiry-title">
+    //             <p class="admweb-v2-order_detail__inquiry-title">
+    //               賣家回覆
+    //             </p>
+    //           </div>
+    //           <p class="admweb-v2-customer_qa__card-inquiry-message">
+    //             ${seller_data.seller_comment}
+    //           </p>
+    //         </div>
+    //       </div>
+    //     `;
+    return ele;
+  }
+  function createChatBottom() {
+    const Section = document.createElement('section');
+    Section.classList.add('admweb-v2-customer_qa__chat-bottom');
+    Section.classList.add('js-admweb-v2-customer_qa__chat-bottom');
+    Section.innerHTML = ``;
+  }
+  function createChatList(value, i) {
+    let item_length = $('[data-msg-item]').length + 1;
+
+    // let Li = document.createElement('li');
+    // Li.setAttribute('data-msg-item', '');
+    // Li.setAttribute('data-msg-id', item_length);
+    //   let p = document.createElement('p');
+    //   p.style.whiteSpace = 'nowrap';
+    //   p.style.overflow = 'hidden';
+    //   p.style.textOverflow = 'ellipsis';
+    //   p.innerText = value;
+    //   let div = document.createElement('div');
+    //   div.style.whiteSpace = 'nowrap';
+    //     let btn_delete = document.createElement('button');
+    //     btn_delete.classList.add('admweb-v2_customer_qa__delete-btn');
+    //     btn_delete.setAttribute('data-delete-btn', '');
+    //       let i_delete = `<i class="icons-line icon-line-ashbin"></i>刪除`
+    //       btn_delete.innerHTML = i_delete;
+    //     let btn_edit = document.createElement('button');
+    //     btn_edit.classList.add('admweb-v2_customer_qa__edit-btn');
+    //     btn_edit.setAttribute('data-edit-btn', '');
+    //       let i_edit = `<i class="icons-line icon-line-edit"></i>編輯`
+    //       btn_edit.innerHTML = i_edit;
+    //   div.appendChild(btn_delete);
+    //   div.appendChild(btn_edit);
+    // Li.appendChild(p);
+    // Li.appendChild(div);
+
+    const Li = "<li data-msg-item data-msg-id=\"" + ($('[data-msg-item]').length + 1) + "\">\n" +
+      "            <p style='white-space: nowrap;  overflow: hidden; text-overflow: ellipsis;'>" + filterScriptTags(value) + "</p>\n" +
+      "            <div style='white-space: nowrap;'>\n" +
+      "              <button class=\"admweb-v2_customer_qa__delete-btn\" data-delete-btn>\n" +
+      "                <i class=\"icons-line icon-line-ashbin\"></i>刪除\n" +
+      "              </button>\n" +
+      "              <button class=\"admweb-v2_customer_qa__edit-btn\" data-edit-btn>\n" +
+      "                <i class=\"icons-line icon-line-edit\"></i>編輯\n" +
+      "              </button>\n" +
+      "            </div>\n" +
+      "          </li>"
+    return Li;
+  }
+  function createChatExample(value, i) {
+    // 創建元素
+    const Li = document.createElement('li');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    const span = document.createElement('span');
+
+    // 設置屬性
+    label.setAttribute('for', `msg${i}-sp`);
+    input.setAttribute('type', 'radio');
+    input.setAttribute('value', value);
+    input.setAttribute('id', `msg${i}-sp`);
+    input.setAttribute('name', 'msg-sp');
+
+    span.innerText = value;
+
+    // 將input和span添加到label中
+    label.appendChild(input);
+    label.appendChild(span);
+    Li.appendChild(label);
+    // const Li = document.createElement('li');
+    // Li.innerHTML = `
+    //     <label for="msg${i}-sp">
+    //       <input type="radio" value="${value}" id="msg${i}-sp" name="msg-sp"/>
+    //       <span>${value}</span>
+    //     </label>
+    //     `;
+    return Li;
+  }
+  function createChatExample2(value, i) {
+    // 創建元素
+    const Li2 = document.createElement('li');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    const span = document.createElement('span');
+
+    // 設置屬性
+    label.setAttribute('for', `msg${i}`);
+    input.setAttribute('type', 'radio');
+    input.setAttribute('value', value);
+    input.setAttribute('id', `msg${i}`);
+    input.setAttribute('name', 'msg');
+
+    span.innerText = value;
+
+    // 將input和span添加到label中
+    label.appendChild(input);
+    label.appendChild(span);
+    Li2.appendChild(label);
+    // const Li = document.createElement('li');
+    // Li.innerHTML = `
+    //     <label htmlFor="msg${i}">
+    //       <input type="radio" value="${value}" id="msg${i}" name="msg"/>
+    //       <span>${value}</span>
+    //     </label>
+    //     `;
+    return Li2;
+  }
+  function createChatExampleList(data) {
+    $('.admweb-v2_customer_qa__overlay-list').html('')
+    $('.admweb-v2-customer_qa__chat-example-list').html('');
+    $('.admweb-v2-customer_qa__msg-list').html('');
+    if (data.length > 0) {
+      $('.edit_common_message').show();
+      $('.no_common_message').hide();
+      data.forEach((value, i) => {
+        document.querySelector('.admweb-v2_customer_qa__overlay-list').insertAdjacentHTML('beforeend', createChatList(value, i));
+        document.querySelector('.admweb-v2-customer_qa__chat-example-list').appendChild(createChatExample(value, i))
+        document.querySelector('.admweb-v2-customer_qa__msg-list').appendChild(createChatExample2(value, i));
+      });
+    } else {
+      $('.edit_common_message').hide();
+      $('.no_common_message').show();
+    }
+  }
+  // pc - choose msg form modal list
+  function chooseMsg() {
+    const msgEle = document.querySelector('input[name="msg"]:checked');
+    updateMsgToInput(msgEle.value);
+    closeModal();
+  }
+  function updateMsgToInput(msg) {
+    const userInputs = document.querySelectorAll('textarea[name="user-input"]');
+    userInputs.forEach((input) => (input.value = msg));
+  }
+  // 送出框button對齊
+  const EDITABLE_DOM = {
+    contenteditEle: document.querySelector('.js-contenteditable'),
+    contentTarget: document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-target'
+    )
+  };
+  EDITABLE_DOM.contenteditEle.addEventListener('input', (e) => {
+    if (e.target.clientHeight > 40) {
+      EDITABLE_DOM.contentTarget.classList.add('multiline');
+    } else {
+      EDITABLE_DOM.contentTarget.classList.remove('multiline');
+    }
+  });
+
+  function seller_reply(reply_msg) {
+    if(reply_msg == '請輸入回覆.....' || reply_msg == ''){
+      alert('請輸入回覆');
+      return false;
+    }
+
+    let cardNo = document.querySelector('.admweb-v2-customer_qa__chat').getAttribute('data-card-no'); 
+    //$('.admweb-v2-customer_qa__chat').attr('data-card-no');
+    
+    $.ajax({
+      url: '',
+      type: 'POST',
+      async: false,
+      data: {
+        'myAct': 'SELLER_REPLY',
+        'qa_type': qa_type,
+        'data_uid': cardNo,
+        'reply_msg': reply_msg
+      },
+      success: function () {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = ('0' + (now.getMonth() + 1)).slice(-2);
+        var day = ('0' + now.getDate()).slice(-2);
+        var hours = ('0' + now.getHours()).slice(-2);
+        var minutes = ('0' + now.getMinutes()).slice(-2);
+        var seconds = ('0' + now.getSeconds()).slice(-2);
+        var formattedTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        var cards = document.querySelectorAll('li[data-card-no="' + cardNo + '"]');
+        cards.forEach(function(card) {
+          var status = card.querySelector('.admweb-v2-customer_qa__card-satus');
+          status.classList.add('read');
+          status.textContent = '已回覆';
+
+          var inquiry = card.querySelector('.admweb-v2-order_detail__inquiry--buyer');
+          inquiry.classList.remove('admweb-v2-order_detail__inquiry--buyer');
+          inquiry.classList.add('admweb-v2-order_detail__inquiry--seller');
+
+          var title = card.querySelector('.admweb-v2-order_detail__inquiry-title');
+          title.textContent = '賣家回覆';
+
+          var time = card.querySelector('.admweb-v2-customer_qa__card-inquiry-time');
+          time.textContent = formattedTime;
+
+          var message = card.querySelector('.admweb-v2-customer_qa__card-inquiry-message');
+          message.textContent = reply_msg;
+        });
+
+        $('.tab_count_' + qa_type).text(($('.tab_count_' + qa_type).text() - 1));
+        createChat(cardNo);
+      }
+    })
+  }
+
+  function edit_common_message() {
+    let common_msg = $('[data-msg-item]').find('p').map(function () {
+      return $(this).text()
+    }).get();
+    $.ajax({
+      url: '',
+      type: 'POST',
+      async: false,
+      data: {
+        'myAct': 'edit_common_message',
+        'common_msg': JSON.stringify(common_msg)
+      }
+    })
+  }
+
+  function get_common_message() {
+    $.ajax({
+      url: '',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        'myAct': 'get_common_message'
+      },
+      success: function (data) {
+        // console.log(JSON.parse(data));
+        let data_array = JSON.parse(data);
+        createChatExampleList(data_array);
+      }
+    })
+  }
+
+  
+  $(function (){
+    $('#reply_md').on('focus', function (){
+      if($('#reply_md').val()=='請輸入回覆.....') {
+        $('#reply_md').val('').css('color', '#000');
+      }
+    })
+
+    $('#reply_md').on('blur', function (){
+      if($('#reply_md').val()=='') {
+        $('#reply_md').val('請輸入回覆.....').css('color', '#ACACAC');
+      }
+    })
+    
+
+    $('.admweb-v2-customer_qa__chat-example-list').click(function(){
+      $('.admweb-v2-customer_qa__chat-textarea-sp').css("color","#000");
+    });
+
+  })
+
+  function set_nav(nav){
+    qa_type = nav;
+    setActiveNav(qa_type - 1);
+    setActiveAction(qa_type - 1);
+    if (qa_type - 1 == '0') {
+      DOM.exampleBtns.forEach((ele) => (ele.style.display = 'flex'));
+    } else {
+      DOM.exampleBtns.forEach((ele) => (ele.style.display = 'none'));
+    }
+
+    $.ajax({
+      url: '',
+      type: 'POST',
+      dataType: 'json',
+      async: false,
+      data: {
+        'myAct': 'get_page_data',
+        qa_type: qa_type
+      },
+      success: function (data) {
+        $('.js-admweb-v2-customer_qa__chat-bottom').hide()
+        document.querySelector('[data-chat-container]').innerHTML = `
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-MamberID-None"></i>
+              <span>立即回覆</span>
+            </div>`;
+        let arr_list = data.arr_list;
+        let tab_count = data.tab_count;
+        $('.tab_count_1').text(tab_count.prod_comment_tag);
+        $('.tab_count_2').text(tab_count.order_faq_tag);
+        $('.tab_count_3').text(tab_count.prod_qa_tag);
+        let html = '';
+        html = `<section>`;
+        if (arr_list.length > 0){
+          html += `
+            <div class="admweb-v2-customer-content">
+              <div class="admweb-v2-orderlist-overview">
+                <span></span>
+                <span>共${filterScriptTags(tab_count.list_count)}筆</span>
+              </div>
+              <ul class="admweb-v2-orderlist__list">`
+          arr_list.forEach(function (reply_list) {
+            html += `    
+                  <li class="admweb-v2-customer_qa__card" data-card-target data-card-no="${filterScriptTags(reply_list.data_uid)}">
+                    <div class="admweb-v2-customer_qa__card-head">
+                      <div class="">
+                        <div class="admweb-v2-customer_qa-member-order">
+                          <i class="icons-line icon-line-member"></i><span
+                            class="pic-margin-l5">${filterScriptTags(reply_list.mem_account)}`;
+            if(reply_list.reply_status == 1){
+              html +=`
+                            <span class="admweb-v2-customer_qa__card-satus read">已回覆</span>`;
+            } else {
+              html +=` 
+                             <span class="admweb-v2-customer_qa__card-satus">未回覆</span>`;
+            }
+            html += ` 
+                          </span>
+                        </div>
+                      </div> `;
+            if (qa_type == 1) {
+              html += `
+                        <div class="comment_grade_star">
+                          <img width="94" src="{{$root_url}}css/images/pic_grade_star_0${filterScriptTags(reply_list.prod_comment_grade)}.svg"
+                            alt="comment_grade_star" />
+                        </div>`
+            } else if (qa_type == 2) {
+              html += `
+                        <div class="pic-margin-l10 admweb-v2-customer_qa-member-OrderNum">
+                          訂單編號
+                          <p class="pic-text-gray-100">
+                            ${filterScriptTags(reply_list.order_uid)}
+                          </p>
+                        </div>`
+            }
+            html += ` </div>`;
+            if(qa_type != '2'){
+              html += `
+                      <div class="admweb-v2-customer_qa__card-product">
+                        <div>
+                          <img src="${filterScriptTags(reply_list.prod_file)}" alt="" class="admweb-v2-customer_qa__card-product-img" />
+                        </div>
+                        <div class="admweb-v2-customer_qa__card-product-info">
+                          <p class="admweb-v2-customer_qa__card-product-name">
+                            ${filterScriptTags(reply_list.prod_name)}
+                          </p>`;
+              if (typeof reply_list.prod_spec !== 'undefined' && reply_list.prod_spec !== null) {
+                reply_list.prod_spec.forEach(function (spec) {
+                  html += `
+                            <p class="pic-font-size-12">${filterScriptTags(spec)}</p>`
+                })
+              }
+              html += `
+                        </div>
+                      </div>`
+            }
+            if(reply_list.reply_status){
+              html += `
+                      <div class="admweb-v2-order_detail__inquiry--seller">`
+            } else {
+              html += ` 
+                      <div class="admweb-v2-order_detail__inquiry--buyer">`
+            }
+            html += `
+                      <div class="admweb-v2-customer_qa__card-inquiry">
+                        <div class="admweb-v2-order_detail__inquiry-img">`
+            if(reply_list.reply_status){
+              html += `
+                            <i class="icons-line icon-line-Seller"></i>`
+            } else {
+              html += `
+                            <i class="icons-line icon-line-Buyer"></i>`
+            }
+            html += `
+                        </div>
+                        <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                          <div class="admweb-v2-customer_qa__card-inquiry-title">
+                            <p class="admweb-v2-order_detail__inquiry-title">`
+            if(reply_list.reply_status){
+              html += `
+                                賣家回覆`
+            } else {
+              html += `
+                                買家回覆`
+              if(qa_type == '2'){
+                html += `
+                                  <span class="admweb-v2-order_detail__inquiry-status">${filterScriptTags(reply_list.faq_type_text)}</span>`
+              }
+            }
+            html += `
+                            </p>
+                            <p class="admweb-v2-customer_qa__card-inquiry-time">
+                              ${filterScriptTags(reply_list.reply_date)}
+                            </p>
+                          </div>
+                          <p class="admweb-v2-customer_qa__card-inquiry-message">
+                            ${filterScriptTags(reply_list.reply_content)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>`
+          });
+
+            html += 
+            `  </ul>
+              </div>`;
+        } else {
+          if(qa_type == '1'){
+            html += 
+            ` <!-- 商品評論 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-Document"></i>
+              <span>目前無商品評論資料</span>
+            </div>`;
+          } else if(qa_type == '2') {
+            html += 
+            `<!-- 訂單問答 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-info-edit-bold-02"></i>
+              <span>目前無訂單問答資料</span>
+            </div>`;
+          } else {
+            html += 
+            `<!-- 商品問答 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-box-product"></i>
+              <span>目前無商品問答資料</span>
+            </div>`;
+          }
+        }
+        html += `</section>`;
+        document.getElementById('admweb-v2-customer_qa-list').innerHTML = html;
+        
+        // 顯示對話內容
+        const CARD_DOM = {
+          cards: document.querySelectorAll('[data-card-target]'),
+          container: document.querySelector('[data-card-container]')
+        };
+        CARD_DOM.cards.forEach((card) =>
+          card.addEventListener('click', () => {
+            // can use data-card-no to get data from server
+            CARD_DOM.container.dataset.cardNo = card.dataset.cardNo;
+            createChat(filterScriptTags(card.dataset.cardNo));
+            if (window.matchMedia('(max-width: 768px)').matches) {
+              CARD_DOM.container.style.display = 'block';
+              CARD_DOM.container.style.paddingTop = '60px';
+              document.body.style.overflow = 'hidden';
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              document.querySelector('[data-tab-panels]').style.display = 'none';
+            }
+            getChatEleHeight();
+          })
+        );
+      }
+    })
+  }
+  
+  function filterScriptTags(input) {
+      if (typeof input === 'string') {
+          // 如果是字串，過濾 script 標籤及其內容
+          return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+      } else if (Array.isArray(input)) {
+          // 如果是陣列，遞迴處理每個元素
+          return input.map(filterScriptTags);
+      } else if (typeof input === 'object') {
+          // 如果是物件，遞迴處理每個屬性值
+          const sanitizedObject = {};
+          for (const key in input) {
+              sanitizedObject[key] = filterScriptTags(input[key]);
+          }
+          return sanitizedObject;
+      } else {
+          // 其他型態直接回傳
+          return input;
+      }
+  }
+</script>

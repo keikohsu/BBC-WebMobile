@@ -1,0 +1,305 @@
+<style>
+  .admweb-v2-list-header-in-fixbottom {
+    display: none;
+  }
+
+  .admweb-v2-NewProduct-title {padding-bottom: 10px;}
+
+  .admweb-v2-ImgEditBtn i.icon-line-Look {
+    font-size: 17px;
+    margin-right: 5px;
+  }
+
+  .admweb-v2-orderlist__table--tr td {
+    white-space: initial;
+  }
+
+  .admweb-v2-orderlist__list {
+    background: #fff;
+  }
+
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--head th:first-child {
+    width: 200px;
+  }
+
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--head th:nth-child(3) {
+    width: 260px;
+  }
+
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--head th:last-child {
+    width: 200px;
+  }
+
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:first-child {
+    justify-content: center;
+  }
+
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:nth-child(2) {
+    text-align: start;
+  }
+
+  .admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:nth-child(3) {
+    white-space: nowrap;
+    text-align: center;
+  }
+
+
+
+
+  .admweb-v2-ImgEditBtn {
+    padding: 5px 6px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .admweb-v2-orderlist__card-detail{margin-top: 0px;}
+    .admweb-v2-orderlist__card-desc-dt {
+      font-size: 14px;
+    }
+
+    .admweb-v2-orderlist__card-desc-dd {
+      font-size: 14px;
+      line-height: 20px;
+      padding: 8px 0;
+    }
+
+    .admweb-v2-store_delivery__badge--success {
+      margin-left: 0px;
+    }
+
+    .admweb-v2-orderlist__list {
+      background: transparent;
+    }
+
+    .admweb-v2-ImgEditBtn {
+      width: auto;
+    }
+
+    .admweb-v2-orderlist__card {
+      padding: 8px 10px;
+    }
+
+    .icon-line-Look {
+      width: auto;
+      ;
+      font-size: 15px;
+    }
+
+    .admweb-v2-orderlist__card-desc {
+      grid-template-columns: 88px 1fr;
+    }
+
+    .admweb-v2-orderlist__card-desc-dt {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .admweb-v2-orderlist__card-desc:first-child .admweb-v2-orderlist__card-desc-dt {
+      border-radius: 10px 0 0 0;
+    }
+
+    .admweb-v2-orderlist__card-desc:last-child .admweb-v2-orderlist__card-desc-dt {
+      border-radius: 0 0 0 10px;
+    }
+
+    .admweb-v2-orderlist__card-desc:first-child {
+      border-radius: 10px 10px 0 0;
+    }
+
+    .admweb-v2-orderlist__card-desc:last-child {
+      border-radius: 0 0 10px 10px;
+      border-bottom-width: 1px;
+    }
+
+    .admweb-v2-orderlist__card-actions {
+      padding: 5px 0px 0px 5px;
+    }
+  }
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <!-- 左側選單 Start -->
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <!-- 左側選單 End -->
+
+  <div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+      {{if $m_arrSystem.is_app_mode}}
+        <button onclick="{
+          let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+          let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+          if (isAndroid) {
+              window.JavaScriptInterface.backToSellerCenter();
+          } else if (isiOS) {
+              window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+          }
+        }">
+          <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+      {{else}}
+        <button onclick="history.back()">
+          <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+      {{/if}}
+
+      <button onclick="toggleMenuHandler()">
+        <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu">
+          <i class="icons-line icon-line-hamburger"></i>
+        </div>
+      </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">聯繫商城客服</h2>
+    <div class="admweb-v2-orderlist-header-qrcode">
+    </div>
+  </div>
+  <!-- 右側內容 Start -->
+  <div class="pic-front-pages-right admweb-v2-adjustment">
+    {{if $arr_QAQues|@count>0}}
+    {{if !$mobileDeviceDirected}}
+    <div id="manager_list_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10" style="display: block;">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>聯繫商城客服</h2>
+      </div>
+      <ul class="admweb-v2-orderlist__list admweb-v2-manager__list" style="padding:0;">
+        <li class="">
+          <!-- 電腦版 -->
+          <table class="admweb-v2-orderlist__table">
+            <thead>
+              <tr class="admweb-v2-orderlist__table--head">
+                <th>問題類型</th>
+                <th>問題描述</th>
+                <th>詢問時間</th>
+                <th>狀態</th>
+              </tr>
+            </thead>
+            <tbody>
+            {{foreach from=$arr_QAQues item=q}}
+              <tr class="admweb-v2-orderlist__table--tr">
+                <td><span class="admweb-v2-store_delivery__badge--success">{{$q.qaq_category_type}}</span></td>
+                <td>
+                  <p>{{$q.qaq_contents}}</p>
+                </td>
+                <td>{{$q.create_date}}</td>
+                <td>
+                  <a class="admweb-v2-ImgEditBtn {{if $q.qaq_status==1}}pic-BgText-color-green{{else}}pic-BgText-color-orange{{/if}}" href="admweb.main.php?action=contact_iopenteam_a_pic&qaq_uid={{$q.qaq_uid}}">
+                    <i class="icons-line icon-line-Look"></i>
+                    {{if $q.qaq_status==1}}待回覆查看明細{{else}}已回覆查看回覆{{/if}}
+                  </a>
+                </td>
+              </tr>
+            {{/foreach}}
+            </tbody>
+          </table>
+        </li>
+      </ul>
+    </div>
+    {{else}}
+    <ul id="manager_list_sec_mob" class="ind_sec admweb-v2-orderlist__list admweb-v2-manager__list-m"
+      style="display: block;">
+      {{foreach from=$arr_QAQues item=q}}
+      <li class="admweb-v2-orderlist__card">
+        <dl class="admweb-v2-orderlist__card-detail">
+          <div class="admweb-v2-orderlist__card-desc">
+            <dt class="admweb-v2-orderlist__card-desc-dt">問題類型</dt>
+            <dd class="admweb-v2-orderlist__card-desc-dd"><span
+                    class="admweb-v2-store_delivery__badge--success">{{$q.qaq_category_type}}</span></dd>
+          </div>
+          <div class="admweb-v2-orderlist__card-desc">
+            <dt class="admweb-v2-orderlist__card-desc-dt">問題描述</dt>
+            <dd class="admweb-v2-orderlist__card-desc-dd">{{$q.qaq_contents}}</dd>
+          </div>
+
+          <div class="admweb-v2-orderlist__card-desc">
+            <dt class="admweb-v2-orderlist__card-desc-dt">詢問時間</dt>
+            <dd class="admweb-v2-orderlist__card-desc-dd">{{$q.create_date}}</dd>
+          </div>
+        </dl>
+        <div class="admweb-v2-orderlist__card-bottom">
+          <div class="admweb-v2-orderlist__card-actions">
+            <a class="admweb-v2-ImgEditBtn {{if $q.qaq_status==1}}pic-BgText-color-green{{else}}pic-BgText-color-orange{{/if}}" href="admweb.main.php?action=contact_iopenteam_a_pic&qaq_uid={{$q.qaq_uid}}">
+              <i class="icons-line icon-line-Look"></i>
+              {{if $q.qaq_status==1}}待回覆查看明細{{else}}已回覆查看回覆{{/if}}
+            </a>
+          </div>
+        </div>
+      </li>
+      {{/foreach}}
+    </ul>
+    {{/if}}
+
+    <!---頁碼--->
+    {{if $arr_QAQuesTotal<=$argument.items_per_page}}
+    <!-- 頁碼a -->
+    <div class="pic-text-center">
+      <p class="pic-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$arr_QAQuesTotal}} 筆</p>
+    </div>
+    {{elseif $arr_QAQuesTotal<=($argument.items_per_page*5)}}
+    <!-- 頁碼b -->
+    <div class="pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        {{$m_arrPage.pager_numeric}}
+      </ul>
+      <p class="admweb-v2-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$arr_QAQuesTotal}} 筆</p>
+    </div>
+    {{else}}
+    <!-- 頁碼c -->
+    <div class="pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        {{$m_arrPage.pager_prev}}
+        {{$m_arrPage.pager_numeric}}
+        {{$m_arrPage.pager_next}}
+      </ul>
+      <p class="admweb-v2-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$arr_QAQuesTotal}} 筆</p>
+    </div>
+    {{/if}}
+    <!---頁碼end--->
+    {{else}}
+    <div class="admweb-v2_customer_qa-empty">
+      <i class="icons-line icon-line-info-edit-bold-02"></i>
+      <span>目前無問答資料</span>
+    </div>
+    {{/if}}
+
+    <div class="admweb-v2-orderlist__action admweb-v2-BulkUpload-bottom-btn">
+      <!-- 綠色按鈕 CSS:pic-BgText-color-green 灰色按鈕 CSS:pic-BgText-color-gray -->
+      <!-- 按鈕 -->
+      <a class="admweb-v2-I-Btn pic-BgText-color-green" href="admweb.main.php?action=contact_iopenteam_q_pic">
+        <i class="icons-line icon-line-earphone"></i>聯絡客服
+      </a>
+    </div>
+  </div>
+<!-- 右側內容 End-->
+
+</div>
+
+<script>
+  // 漢堡函式
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+
+
+  var HtmlCommonTitle = $('.admweb-v2-orderlist-header-title').html()
+	$('.admweb-v2-orderlist-header .icon-line-hamburger').on('click', function() {
+    FunctionMenuName = !FunctionMenuName;
+		$(".admweb-v2-orderlist-header-title").text(FunctionMenuName ? '賣家功能選單' : HtmlCommonTitle);
+});
+
+</script>

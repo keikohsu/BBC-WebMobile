@@ -1,0 +1,729 @@
+<style>
+  .admweb-v2-list-header-in-fixbottom{display: none;}
+
+
+  .admweb-v2-orderlist-header{justify-content: unset;}
+
+
+.admweb-v2-blacklist .admweb-v2-orderlist__card-desc-dd {margin-left: 7px;color: var(--pic-color-grey-100);-webkit-text-fill-color: var(--pic-color-grey-100);}
+.admweb-v2-blacklist .admweb-v2-orderlist__card-bottom .icons-line{margin-right: 3px;}
+.admweb-v2-blacklist .admweb-v2-orderlist__form-head_search-btn{padding: 0px;display: flex;align-items: center;justify-content: center;}
+
+.admweb-v2-checkbox-name p{font-size: 14px;color:var(--pic-color-grey-100);-webkit-text-fill-color:var(--pic-color-grey-100);}
+.admweb-v2-checkbox-name .pic-sort-color-green{color: var(--pic-green);-webkit-text-fill-color:var(--pic-green);}
+.admweb-v2-blacklist .admweb-v2-checkbox-name{position: relative;}
+.admweb-v2-blacklist .admweb-v2-checkbox-name .pic-sort-color-green{position: absolute;right: -3px;}
+
+.admweb-v2-blacklist-InputBox .pic-text-lnput{padding: 0px 12px;width: 130px;}
+.admweb-v2-hide-images{background-image:none;}
+
+.admweb-v2-blacklist .admweb-v2-top-list{position: absolute;width: 136px;top: 103px;left: 11px;top: 44px;}
+.admweb-v2-input-date-content .admweb-v2-DateBox{position: relative;width: 50%;}
+.admweb-v2-orderlist__form-item .pic-text-lnput{width:100%;}
+
+.admweb-v2-blacklist .iopen-search::before {width: 23px;height: 16px;background-size: cover;}
+
+.admweb-v2-blacklist .admweb-v2-orderlist__card .admweb-v2-checkbox-name i.icons-line{font-size: 17px;font-weight: 500;vertical-align: bottom;margin-right: 7px;}
+.admweb-v2-orderlist__card .admweb-v2-checkbox-name p{display: flex;align-items: center;margin-left: 0px;height: 24px;}
+.admweb-v2-blacklist .admweb-v2-orderlist__card{padding: 8px 10px;}
+/* 表格 */
+.admweb-v2-blacklist .admweb-v2-orderlist__card-desc--multi { grid-template-columns: 41px 1.5fr 72px 2fr;}
+.admweb-v2-blacklist .admweb-v2-orderlist__card-desc{grid-template-columns: 99px 1fr;}
+
+/* 底部按鈕 */
+.admweb-v2-orderlist__action{padding-bottom: 5px;}
+.admweb-v2-orderlist__action>button{height: 40px;font-size: 16px;}
+.admweb-v2-orderlist__action i.icon-line-ArrowParper{font-size: 18px;font-weight: 100;}
+
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    {{if $m_arrSystem.is_app_mode}}
+      <a onclick="{
+        let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+        let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            window.JavaScriptInterface.backToSellerCenter();
+        } else if (isiOS) {
+            window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+        }
+      }">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </a>
+    {{else}}
+      <a onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </a>
+    {{/if}}
+      
+    <a onclick="toggleMenuHandler()">
+    <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+      <i class="icons-line icon-line-hamburger"></i>
+    </div>
+    </a>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">會員清單</h2>
+  <div class="admweb-v2-orderlist-header-qrcode">
+  </div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist admweb-v2-blacklist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class=" admweb-v2-orderlist__inner pic-text-gray-100">
+    <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" id="searchFrom" action="{{$m_inURL}}" method="post">
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div class=" admweb-v2-orderlist__form-head_search js-orderlist__form-head_search">
+          <div class="admweb-v2-blacklist-InputBox">
+            <!-- <span id="admweb-v2-ShareProfit" class="pic-text-lnput admweb-v2-orderlist-select">會員帳號</span> -->
+            <select id="search_condition" name="search_condition" class="pic-text-lnput pic-text-lnput-style">
+              <option value="mem_account">會員帳號</option>
+              <option value="mem_name">姓名</option>
+              <option value="mem_telcellphone">行動電話</option>
+              <option value="mem_email">E-mail</option>
+          </select>
+          </div>
+
+          <input id="search_value" name="search_value" type="text" placeholder="請輸入會員帳號" class="pic-text-lnput pic-lnput-enter" value="{{$m_arrSearch.search_value}}">
+          <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn">
+            搜尋
+          </button>
+          <input type="hidden" name="myAct" value="COMMAND_SEARCH_CONDITIONS">
+        </div>
+
+        <div class="admweb-v2-orderlist__form-item">
+          <label for="order-date">註冊日期</label>
+          <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+            <div class="admweb-v2-input-date-content">
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="member_create_sdate" id="member_create_sdate" class="pic-text-lnput datepicker" type="text" value="{{$m_arrSearch.member_create_sdate}}">
+              </span>
+              <span class="pic-margin-r5">-</span>
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="member_create_edate" id="member_create_edate" class="pic-text-lnput datepicker" type="text" value="{{$m_arrSearch.member_create_edate}}">
+              </span>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-btn">
+          搜尋
+        </button>
+      </div>
+    </form>
+    <button
+      class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn" id="js-orderlist__form-toggle--btn">
+      更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+    </button>
+
+    <div id="list_box" class="">
+      <div class="admweb-v2-orderlist-overview">
+          {{if $m_arrSearch.member_create_sdate or $m_arrSearch.member_create_edate}}<span>註冊日期：{{$m_arrSearch.member_create_sdate}} ~ {{$m_arrSearch.member_create_edate}}</span>{{/if}}
+          <span>共&nbsp;{{$memberCount|default:0}}&nbsp;筆</span>
+      </div>
+
+
+      <!-- 會員資料 -->
+      {{if $m_arrMember|@count > 0 }}
+      {{section name=i loop=$m_arrMember}}
+      <ul class="admweb-v2-orderlist__list">
+        <!-- 配送類型：超商 -->
+        <li class="admweb-v2-orderlist__card pic-margin-b10">
+          <!-- list top -->
+            <div class="admweb-v2-checkbox-name">
+              <p><i class="icons-line icon-line-member"></i>{{$m_arrMember[i].mem_account}}{{if $m_arrMember[i].web_mem_buy_max >= 0}}
+                <span class="pic-sort-color-green pic-sort-frame">黑名單</span>{{/if}}</p>
+            </div>
+
+          <!-- list bottom -->
+          <dl class="admweb-v2-orderlist__card-detail">
+
+            <div class="admweb-v2-orderlist__card-desc--multi">
+              <dt class="admweb-v2-orderlist__card-desc-dt" style="width: 44px;">姓名</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMember[i].mem_name}}</dd>
+              <dt class="admweb-v2-orderlist__card-desc-dt">行動電話 </dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMember[i].mem_telcellphone}}</dd>
+            </div>
+
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">E-mail</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMember[i].mem_email}}</dd>
+            </div>
+
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">註冊日期</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">&nbsp;{{$m_arrMember[i].register_auto_date|@default:$lang.admweb.member.46}}</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc"style="border-bottom: 1px solid  #F8F8F8;">
+              <dt class="admweb-v2-orderlist__card-desc-dt">累積購物金額</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">&nbsp;${{$m_arrMember[i].order_total_amount|formatMoney}}</dd>
+            </div>
+
+            <div class="admweb-v2-orderlist__card-bottom">
+              <div class="admweb-v2-orderlist__card-delivery_info">
+              </div>
+              <div class="admweb-v2-orderlist__card-actions">
+                {{if $m_arrMember[i].web_mem_buy_max < 0}}
+                <button class="admweb-v2-orderlist__card-actions--btn" onclick="blacklist_member('{{$m_arrMember[i].mem_uid}}')">
+                  <i class="icons-line icon-remove-01"></i>設為黑名單
+                </button>
+                {{/if}}
+              </div>
+            </div>
+
+          </dl>
+        </li>
+      </ul>
+      {{/section}}
+      {{/if}}
+      <!-- 會員資料 END-->
+
+      <!-- 目前無會員資料 -->
+      {{if !$m_arrMember}}
+      <div class="admweb-v2-NoData">
+        <div class="admweb-v2-img-BlacklistNoData"></div>
+        <span>目前無會員資料</span>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+
+  <div
+    class="js-admweb-v2--alert admweb-v2-orderlist--alert"
+    style="display: none"
+  >
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="pic-window-order">
+        <p class="pic-window-marge-box">text</p>
+        <div class="pic-window-button-box">
+          <button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert()">
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 置底按鈕:全部 -->
+  <div class="admweb-v2-orderlist__action" id="js-orderlist__action" style="display: none">
+    <button class="admweb-v2-orderlist__action-row_btn">
+      <i class="icons-line icon-line-ArrowParper"></i> 匯出
+    </button>
+  </div>
+  <!-- 置底按鈕:待出貨 type2 -->
+  <div
+    class="admweb-v2-orderlist__action"
+    style="display: none"
+    id="js-orderlist__action#type2"
+  >
+    <div class="admweb-v2-orderlist__action-select_all">
+      <input
+        type="checkbox"
+        class="admweb-v2-ckbutton-green-checkbox"
+        id="selectAll"
+        value="all"
+        onchange="selectAllOrder()"
+      />
+      <label for="selectAll" class="admweb-v2-ckbutton-green-label"> </label>
+      <span>全選</span>
+    </div>
+    <button class="admweb-v2-orderlist__action-col_btn">
+      <i class="icons-line icon-line-paper-text"></i> 報表
+    </button>
+    <button class="admweb-v2-orderlist__action-col_btn">
+      <i class="icons-line icon-line-paper-text"></i>出貨單
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn--grow"
+      onclick="batchStoreShipment()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>超商整批出貨
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn--grow"
+      onclick="batchDeliveryShipment()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>宅配整批出貨
+    </button>
+  </div>
+  <!-- 置底按鈕:出貨中 type3-->
+  <div
+    class="admweb-v2-orderlist__action"
+    style="display: none"
+    id="js-orderlist__action#type3"
+  >
+    <div class="admweb-v2-orderlist__action-select_all">
+      <input
+        type="checkbox"
+        class="admweb-v2-ckbutton-green-checkbox"
+        id="selectAll"
+        value="all"
+        onchange="selectAllOrder()"
+      />
+      <label for="selectAll" class="admweb-v2-ckbutton-green-label"> </label>
+      <span>全選</span>
+    </div>
+    <button class="admweb-v2-orderlist__action-col_btn">
+      <i class="icons-line icon-line-paper-text"></i> 報表
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn"
+      onclick="printStoreLabel()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>超商標籤
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn"
+      onclick="printDeliveryLabel()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>宅配標籤
+    </button>
+    <button
+      class="admweb-v2-orderlist__action-col_btn--grow"
+      onclick="sendQRcodeToMachine()"
+    >
+      <i class="icons-line icon-line-paper-text"></i>我的QRcode
+    </button>
+  </div>
+
+</div>
+
+<script>
+  $("#admweb-v2-ShareProfit").click(function () {
+    $('.admweb-v2-blacklist .pic-window-list').toggle();
+  })
+</script>
+
+<script>
+  $( document ).ready(function() {
+    $(".datepicker").datepicker({
+      dateFormat: 'yy/mm/dd',
+      changeYear: true,
+      changeMonth: true,
+      monthNamesShort: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+      dayNamesMin: ['日','一','二','三','四','五','六'],
+      minDate: null
+    }).attr('size', 10);
+
+    $("#member_create_sdate").datepicker("option","onClose",function(dateText,inst){
+      $("#member_create_edate").datepicker("option","minDate",dateText);
+    });
+    $("#member_create_edate").datepicker("option","onClose",function(dateText,inst){
+      $("#member_create_sdate").datepicker("option","maxDate",dateText);
+    });
+
+    var o = '{{$m_arrSearch.search_condition}}';
+    $('#search_condition').val(o);
+    switch(o){
+      case 'mem_account':
+        $('#search_value').attr('placeholder', '請輸入會員帳號');
+        break;
+      case 'mem_name':
+        $('#search_value').attr('placeholder', '請輸入會員姓名');
+        break;
+      case 'mem_telcellphone':
+      $('#search_value').attr('placeholder', '請輸入會員電話');
+        break;
+      case 'mem_email':
+        $('#search_value').attr('placeholder', '請輸入會員信箱');
+        break;
+      }
+
+    {{if $m_arrSearch.member_create_sdate or $m_arrSearch.member_create_edate}}
+    $('#js-orderlist__form-toggle--btn').click();
+    {{/if}}
+
+  });
+
+  document.getElementById('search_condition').addEventListener('change', function () {
+      switch(this.value){
+      case 'mem_account':
+        $('#search_value').attr('placeholder', '請輸入會員帳號');
+        break;
+      case 'mem_name':
+        $('#search_value').attr('placeholder', '請輸入會員姓名');
+        break;
+      case 'mem_telcellphone':
+      $('#search_value').attr('placeholder', '請輸入會員電話');
+        break;
+      case 'mem_email':
+        $('#search_value').attr('placeholder', '請輸入會員信箱');
+        break;
+      }
+  })
+
+  </script>
+
+  <script>
+    let s_value = document.getElementById('search_value').value;
+    let s_condition = $('#search_condition').value;
+    function blacklist_member($mem_uid){
+      confirm('確認會員設成黑名單後，該會員將無法進行購買。').done(function () {
+        $.ajax({
+          url: '{{$m_inURL}}',
+          type: 'POST',
+          data: {
+            ban_member: $mem_uid,
+            myAct: 'COMMAND_ADD_BLACKLIST',
+            search_value:s_value,
+            search_condition:s_condition
+          },
+          success: function(response){
+            console.log('success');
+            location.reload();
+          },
+          error: function (){
+            console.log('ajax error.');
+          }
+        })
+      })
+    }
+
+    let needPage = 2;                           //需載入頁面
+    let needLoad = true;                        //載入開關
+    $(window).scroll(function(){
+      var ToTop = $(this).scrollTop();          //到頂部距離
+      var TotalHeight = $(document).height();   //頁面高度
+      var CurrentHeight = $(this).height();     //可視範圍頁面高度
+      if(ToTop + CurrentHeight >= TotalHeight){
+        if(needLoad){
+          needLoad = false;
+          //頁面暫停
+          unableScroll();
+
+          $.ajax({
+            url: '{{$m_inURL}}',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              myAct:  'COMMAND_SEARCH_MORE',
+              inPage:  needPage,
+              search_value: s_value,
+              search_condition: s_condition
+            },
+            success: function (res) {
+              if(res.length == 0){
+                console.log('No_Data');
+                needLoad= false;
+                enableScroll();
+              }
+              else{
+                console.log('page ',needPage,' loaded.');
+                needPage=needPage+1;
+                needLoad = true;
+                enableScroll();
+                let html_all="";
+                for(var i=0; i<res.length; i++){
+                  var str = "<ul class=\"admweb-v2-orderlist__list\">\n" +
+                          "        <li class=\"admweb-v2-orderlist__card pic-margin-b10\">\n" +
+                          "            <div class=\"admweb-v2-checkbox-name\">\n" +
+                          "              <p><i class=\"icons-line icon-line-member\"></i>"+res[i].mem_account;
+                          if(res[i].web_mem_buy_max >= 0) {
+                            str = str+"<span class=\"pic-sort-color-green pic-sort-frame\">黑名單</span>";
+                          }
+                          str = str + "</p>\n"+
+                          "            </div>\n" +
+                          "\n" +
+                          "          <dl class=\"admweb-v2-orderlist__card-detail\">\n" +
+                          "\n" +
+                          "            <div class=\"admweb-v2-orderlist__card-desc--multi\">\n" +
+                          "              <dt class=\"admweb-v2-orderlist__card-desc-dt\" style=\"width: 44px;\">姓名</dt>\n" +
+                          "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+res[i].mem_name+"</dd>\n" +
+                          "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">行動電話 </dt>\n" +
+                          "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+res[i].mem_telcellphone+"</dd>\n" +
+                          "            </div>\n" +
+                          "\n" +
+                          "            <div class=\"admweb-v2-orderlist__card-desc\">\n" +
+                          "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">E-mail</dt>\n" +
+                          "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+res[i].mem_email+"</dd>\n" +
+                          "            </div>\n" +
+                          "\n" +
+                          "            <div class=\"admweb-v2-orderlist__card-desc\">\n" +
+                          "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">註冊日期</dt>\n" +
+                          "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">&nbsp;"+res[i].register_auto_date+"</dd>\n" +
+                          "            </div>\n" +
+                          "            <div class=\"admweb-v2-orderlist__card-desc\"style=\"border-bottom: 1px solid  #F8F8F8;\">\n" +
+                          "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">累積購物金額</dt>\n" +
+                          "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">&nbsp;"+res[i].order_total_amount+"</dd>\n" +
+                          "            </div>\n" +
+                          "\n" +
+                          "            <div class=\"admweb-v2-orderlist__card-bottom\">\n" +
+                          "              <div class=\"admweb-v2-orderlist__card-delivery_info\">\n" +
+                          "              </div>\n" +
+                          "              <div class=\"admweb-v2-orderlist__card-actions\">\n";
+                          if(res[i].web_mem_buy_max < 0) {
+                          str = str +
+                          "                <button class=\"admweb-v2-orderlist__card-actions--btn\" onclick=\"blacklist_member('" + res[i].mem_uid + "')\">\n" +
+                          "                  <i class=\"icons-line icon-remove-01\"></i>設為黑名單\n" +
+                          "                </button>\n";
+                          }
+                          str = str +
+                          "              </div>\n" +
+                          "            </div>\n" +
+                          "\n" +
+                          "          </dl>\n" +
+                          "        </li>\n" +
+                          "      </ul>";
+                  html_all = html_all+str;
+                }
+                $('#list_box').append(html_all);
+              }
+            },
+            error: function (e){
+              setTimeout('enableScroll()',1000);
+              console.log('ajax error!')
+            }
+          });
+        }
+      }
+
+    })
+
+    function unableScroll() {
+      var top = $(document).scrollTop();
+      $(document).on('scroll.unable',function (e) {
+        $(document).scrollTop(top);
+      })
+    }
+
+    function enableScroll() {
+      $(document).unbind("scroll.unable");
+    }
+  </script>
+
+  <script>
+  (function () {
+    searchFormCollapse();
+    markCurrentNavLink();
+    hideMobileLayout();
+  })();
+  window.addEventListener('resize', () => {
+    searchFormCollapse();
+    checkNoticeOverflow();
+  });
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function toggleProgressBar(btn) {
+    const progressEleStyle = btn.nextElementSibling.style;
+    const eleHeight = btn.nextElementSibling.children[0].clientHeight;
+    if (
+      !progressEleStyle.height ||
+      progressEleStyle.height === `${eleHeight}px`
+    ) {
+      progressEleStyle.height = '0';
+      btn.querySelector('i').classList = 'icons-line icon-arrow-down-01';
+    } else {
+      progressEleStyle.height = `${eleHeight}px`;
+      btn.querySelector('i').classList = 'icons-line icon-arrow-top-01';
+    }
+  }
+  window.addEventListener('popstate', () => {
+    markCurrentNavLink();
+  });
+
+  function markCurrentNavLink() {
+    const targetHash = window.location.hash || '#all';
+    const targetEle = document.querySelector(`[href="${targetHash}"]`);
+    const linkEles = document.querySelectorAll(
+      '.admweb-v2-orderlist__nav-link'
+    );
+    scrollTabToCenter(targetHash);
+    showActionBtns(targetHash);
+    linkEles.forEach((item) =>
+      item.classList.remove('admweb-v2-orderlist__nav-link--active')
+    );
+    targetEle.classList.add('admweb-v2-orderlist__nav-link--active');
+  }
+  function scrollTabToCenter(targetHash){
+    const targetEle = document.querySelector(`[href="${targetHash}"]`);
+    let pos = targetEle.parentNode.offsetLeft;
+    const eleWidth = targetEle.clientWidth;
+    const currentscroll = $('.admweb-v2-orderlist__nav').scrollLeft();
+    const divwidth = $('.admweb-v2-orderlist__nav').width();
+    pos = pos + currentscroll - divwidth / 2 + eleWidth / 2;
+    $('.admweb-v2-orderlist__nav').animate({
+      scrollLeft: pos
+    });
+  }
+  function showActionBtns(targetHash) {
+    const actionEles = document.querySelectorAll(
+      '.admweb-v2-orderlist__action'
+    );
+    actionEles.forEach((ele) => (ele.style.display = 'none'));
+    document.getElementById(
+      `js-orderlist__action${
+        targetHash === '#type2' || targetHash == '#type3' ? targetHash : ''
+      }`
+    ).style.display = 'flex';
+  }
+  function searchFormCollapse() {
+    const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const headBtn = document.getElementsByClassName(
+      'js-orderlist__form-head_search-btn'
+    )[0];
+    const wholeHeight = formEle.clientHeight;
+    formEle.style.height = `${defaultHeight}px`;
+    toggleBtn.addEventListener('click', () => {
+      //當前為收合
+      if (formEle.style.height === `${defaultHeight}px`) {
+        formEle.style.height = `${wholeHeight}px`;
+        toggleBtn.innerHTML =
+          '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+        headBtn.style.display = 'none';
+      } else {
+        ///當前為展開
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.innerHTML =
+          '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+        headBtn.style.display = 'block';
+      }
+    });
+  }
+
+  const expandableEles = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice'
+  );
+  const expandableBtns = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice--btn'
+  );
+  checkNoticeOverflow();
+  function checkNoticeOverflow() {
+    expandableEles.forEach((expandableEle) => {
+      if (expandableEle.classList.contains('expanded')) return;
+      const expandableText = expandableEle.querySelector(
+        '.admweb-v2-orderlist__notice--text'
+      );
+      const overflowing =
+        expandableText.scrollHeight > expandableEle.clientHeight;
+      expandableEle.dataset.overflow = overflowing;
+    });
+  }
+  expandableBtns.forEach((button) => {
+    button.addEventListener('click', toggleNoticeText);
+    setNoticeButtonText(button);
+  });
+  function toggleNoticeText(e) {
+    const expandableEle = e.target.closest('.admweb-v2-orderlist__notice');
+    expandableEle.classList.toggle('expanded');
+    setNoticeButtonText(e.target);
+  }
+
+  function setNoticeButtonText(button) {
+    const expandableEle = button.closest('.admweb-v2-orderlist__notice');
+    const expanded = expandableEle.classList.contains('expanded');
+    button.innerHTML = expanded
+      ? '<i class="icons-line icon-arrow-top-01"></i>運費/出貨說明收合'
+      : '<i class="icons-line icon-arrow-down-01"></i>運費/出貨說明展開';
+  }
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    alert.style.display = 'none';
+  }
+  function editAlertContent(content) {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    showAlert(alert);
+    alert.querySelector('.pic-window-marge-box').innerHTML = content;
+  }
+  //我的QRcode
+  function sendQRcodeToMachine() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無可上傳至我的QRcode，請重勾選訂單。`);
+      return;
+    }
+    //成功送出訂單後跳出提示
+    editAlertContent(
+      `傳送至【我的QRcode】成功，請按確定鍵，再點擊【我的QRcode】至ibon機台列印。<br>※提醒您，請確認已將APP更新至最新版本`
+    );
+  }
+  //超商標籤
+  function printStoreLabel() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【超商】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+    //列印超商標籤
+  }
+  //宅配標籤
+  function printDeliveryLabel() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【宅配】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+    //列印宅配標籤
+  }
+  //超商整批出貨
+  function batchStoreShipment() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【超商】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+    //do some action
+  }
+  //宅配整批出貨
+  function batchDeliveryShipment() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【宅配】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+    //do some action
+  }
+  function getSelectedCheckboxValue() {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+    let value = [];
+    eles.forEach((ele) => ele.checked && value.push(ele.value));
+    return Array.from(new Set(value));
+  }
+  //全選
+  function selectAllOrder() {
+    const isSelectedAll = document.getElementById('selectAll').checked;
+    const eles = document.querySelectorAll('.js-admweb-v2--order-checkbox');
+    eles.forEach((ele) =>
+      isSelectedAll ? (ele.checked = true) : (ele.checked = false)
+    );
+  }
+
+</script>

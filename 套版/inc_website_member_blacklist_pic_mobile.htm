@@ -1,0 +1,634 @@
+<style>
+  .admweb-v2-list-header-in-fixbottom{display: none;}
+
+  .admweb-v2-orderlist-header-actions{margin-left: 10px;gap:0;}
+  .admweb-v2-orderlist-header-actions i{color: #fff;}
+  .admweb-v2-orderlist-header{justify-content: unset;}
+
+  .pic-radio-list-store.active{color:var(--pic-green);}
+  .admweb-v2-orderlist__card-detail {margin-top: 8px;}
+
+  .admweb-v2-blacklist .admweb-v2-orderlist-overview{justify-content: flex-end;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-desc-dd {margin-left: 4px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-bottom .icons-line{font-size: 12px; margin-right: 3px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__form-head_search-btn{padding: 0px;    display: flex;align-items: center;justify-content: center;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__form{padding-bottom: 10px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card{padding: 8px 10px;}
+
+
+  .admweb-v2-blacklist .admweb-v2-checkbox-name p{font-size: 14px;color:var(--pic-color-grey-100);-webkit-text-fill-color:var(--pic-color-grey-100);}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-bottom{padding-top:10px;}
+  .admweb-v2-blacklist .admweb-v2-checkbox-name{position: relative;margin-bottom:0px;}
+  .admweb-v2-blacklist .admweb-v2-checkbox-name .pic-sort-color-green{position: absolute;right: -3px;}
+
+  .admweb-v2-blacklist-InputBox .pic-text-lnput {padding: 0px 12px;width: 136px;}
+  .admweb-v2-hide-images{background-image:none;}
+
+  /*top: 103px;*/
+  .admweb-v2-blacklist .admweb-v2-top-list{position: absolute;font-size: 14px;width: 136px;left: 4px; z-index: 99;top: 45px;left: 11px;;}
+  .admweb-v2-blacklist .admweb-v2-input-date-content .admweb-v2-DateBox{position: relative;width: 50%;}
+  .admweb-v2-orderlist__form-item .pic-text-lnput{width:100%;}
+
+
+
+  .admweb-v2-blacklist .admweb-v2-orderlist__card .admweb-v2-checkbox-name i.icons-line{font-size: 17px;font-weight: 500;vertical-align: bottom;margin-right: 7px;}
+  .admweb-v2-blacklist  .admweb-v2-orderlist__card .admweb-v2-checkbox-name p{display: flex;align-items: center;margin-left: 0px;height: 19px;}
+
+  /* 表格 */
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-desc--multi {grid-template-columns: 108px 1.5fr 78px 2fr;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-desc{grid-template-columns: 99px 1fr;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-desc--multi-1{grid-template-columns: 47px 1.4fr 77px 1fr;}
+
+  /* 底部按鈕 */
+  .admweb-v2-blacklist .admweb-v2-orderlist__action{padding-bottom: 5px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist button ,.admweb-v2-orderlist__card-actions--btn{font-size: 12px !important;    padding:5px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__action>button{height: 40px;font-size: 16px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__action i.icon-line-ArrowParper{font-size: 18px;font-weight: 100;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-actions{padding: 0px;}
+
+  .admweb-v2-orderlist__card-actions .pic-icon-white-close::before {width: 12px;height: 10px;background-size: contain;}
+
+  @media screen and (max-width: 375px) {
+    .admweb-v2-list-hamburger-menu .icon-line-hamburger{margin: 0 0px 0 9px;}
+
+    .admweb-v2-blacklist .admweb-v2-orderlist__card-desc--multi {grid-template-columns: 109px 1fr 86px 2fr;}
+    .admweb-v2-blacklist .admweb-v2-orderlist__card-desc--multi-1 {grid-template-columns: 47px 2.1fr 86px 1.9fr;}
+    .admweb-v2-orderlist__card-desc-dt{ padding: 3px;}
+    .admweb-v2-blacklist .admweb-v2-orderlist__card {padding: 8px 7px;}
+    .admweb-v2-orderlist__list{ padding: 0 5px;}
+    .admweb-v2-orderlist__card-desc-dt{font-size: 12px;}
+
+  }
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    {{if $m_arrSystem.is_app_mode}}
+      <a onclick="{
+        let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+        let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            window.JavaScriptInterface.backToSellerCenter();
+        } else if (isiOS) {
+            window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+        }
+      }">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </a>
+    {{else}}
+      <a onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </a>
+    {{/if}}
+
+    <a onclick="toggleMenuHandler()">
+      <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+        <i class="icons-line icon-line-hamburger"></i>
+      </div>
+    </a>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">會員黑名單</h2>
+  <div class="admweb-v2-orderlist-header-qrcode">
+  </div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist admweb-v2-blacklist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class=" admweb-v2-orderlist__inner pic-text-gray-100">
+    <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" method="post" id="searchForm">
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div class=" admweb-v2-orderlist__form-head_search js-orderlist__form-head_search">
+          <div class="admweb-v2-blacklist-InputBox">
+            <select id="search_condition" name="search_condition" class="pic-text-lnput pic-text-lnput-style">
+              <option value="mem_account">會員帳號</option>
+              <option value="mem_name">姓名</option>
+          </select>
+          </div>
+
+          <input type="text" name="search_value" class="pic-text-lnput pic-lnput-enter" id="search_value" placeholder="請輸入會員帳號" value="{{$m_arrSearch.search_value}}">
+          <input name="myAct" type="hidden" value="COMMAND_SEARCH">
+          <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn" href="javascript:void(0);">
+            搜尋
+          </button>
+        </div>
+
+      </div>
+
+    </form>
+
+    <div id="list_box" class="">
+      <div class="admweb-v2-orderlist-overview">
+        <span>共&nbsp;{{$total_count.0}}&nbsp;筆</span>
+      </div>
+
+      <!-- 會員資料 -->
+      {{if $m_arrMemBlack|@count != 0}}
+      {{section name=i loop=$m_arrMemBlack}}
+      <ul class="admweb-v2-orderlist__list">
+        <!-- 配送類型：超商 -->
+        <li class="admweb-v2-orderlist__card pic-margin-b10">
+          <!-- list top -->
+          <div class="admweb-v2-checkbox-name">
+            <p><i class="icons-line icon-mem-editinfo"></i>{{$m_arrMemBlack[i].mem_account}}</p>
+          </div>
+
+          <!-- list bottom -->
+          <dl class="admweb-v2-orderlist__card-detail">
+
+            <div class="admweb-v2-orderlist__card-desc--multi admweb-v2-orderlist__card-desc--multi-1">
+              <dt class="admweb-v2-orderlist__card-desc-dt" style="width: 44px;">姓名</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMemBlack[i].mem_name}}</dd>
+              <dt class="admweb-v2-orderlist__card-desc-dt">訂單總數</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMemBlack[i].order_count_all}}</dd>
+            </div>
+
+            <div class="admweb-v2-orderlist__card-desc--multi">
+              <dt class="admweb-v2-orderlist__card-desc-dt">訂單取消數(次)</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMemBlack[i].order_count_31}}</dd>
+              <dt class="admweb-v2-orderlist__card-desc-dt">取消數(%)</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMemBlack[i].order_count_31_pct}}%</dd>
+            </div>
+
+            <div class="admweb-v2-orderlist__card-desc--multi">
+              <dt class="admweb-v2-orderlist__card-desc-dt">訂單退貨數(次)</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMemBlack[i].order_count_41}}</dd>
+              <dt class="admweb-v2-orderlist__card-desc-dt">退貨數(%)</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrMemBlack[i].order_count_41_pct}}%</dd>
+            </div>
+
+            <div class="admweb-v2-orderlist__card-bottom">
+              <div class="admweb-v2-orderlist__card-delivery_info">
+              </div>
+              <div class="admweb-v2-orderlist__card-actions">
+                <button class="admweb-v2-orderlist__card-actions--btn pic-icon-white-close" onclick="delete_member('{{$m_arrMemBlack[i].mem_uid}}')">
+                  取消黑名單設定
+                </button>
+              </div>
+            </div>
+          </dl>
+        </li>
+      </ul>
+      {{/section}}
+
+      <!-- 會員資料 END-->
+      {{else}}
+      <!-- 目前無會員資料 -->
+      <div class="admweb-v2-NoData">
+        <div class="admweb-v2-img-BlacklistNoData"></div>
+        <span>目前無會員資料</span>
+      </div>
+      {{/if}}
+
+    </div>
+  </div>
+  <div
+          class="js-admweb-v2--alert admweb-v2-orderlist--alert"
+          style="display: none">
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="pic-window-order">
+        <p class="pic-window-marge-box">text</p>
+        <div class="pic-window-button-box">
+          <button
+                  class="pic-window-button-OneBtn pic-BgText-color-green"
+                  onclick="closeAlert()">
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 置底按鈕:全部 -->
+  <!--  <div class="admweb-v2-orderlist__action" id="js-orderlist__action">-->
+  <!--    <button class="admweb-v2-orderlist__action-row_btn">-->
+  <!--      <i class="icons-line icon-line-ArrowParper"></i> 匯出-->
+  <!--    </button>-->
+  <!--  </div>-->
+  <!-- 置底按鈕:待出貨 type2 -->
+  <!-- 置底按鈕:出貨中 type3-->
+
+</div>
+
+<script>
+  $( document ).ready(function() {
+    var o = '{{$m_arrSearch.search_condition}}';
+    $('#search_condition').val(o);
+    switch(o){
+    case 'mem_account':
+      $('#search_value').attr('placeholder', '請輸入會員帳號');
+      break;
+    case 'mem_name':
+      $('#search_value').attr('placeholder', '請輸入會員姓名');
+      break;
+    }
+  });
+
+  document.getElementById('search_condition').addEventListener('change', function () {
+    switch(this.value){
+    case 'mem_account':
+      $('#search_value').attr('placeholder', '請輸入會員帳號');
+      break;
+    case 'mem_name':
+      $('#search_value').attr('placeholder', '請輸入會員姓名');
+      break;
+    }
+  })
+
+  let s_value = document.getElementById('search_value').value;
+  let s_condition = $('#search_condition').value;
+
+  function delete_member($mem_uid){
+    confirm('確認取消黑名單設定？').done(function () {
+      $.ajax({
+        url: '{{$m_inURL}}',
+        type: 'POST',
+        data: {
+          ban_member_cancel: $mem_uid,
+          myAct: 'COMMAND_DELETE',
+          search_value: s_value,
+          search_condition: s_condition
+        },
+        success: function(response){
+          // console.log('success');
+          location.reload();
+        },
+        error: function (){
+          // console.log('ajax error.');
+        }
+      })
+    })
+  }
+
+
+  let needPage = 2;                           //需載入頁面
+  var needLoad = true;                        //載入開關
+  $(window).scroll(function(){
+    var ToTop = $(this).scrollTop();          //到頂部距離
+    var TotalHeight = $(document).height();   //頁面高度
+    var CurrentHeight = $(this).height();     //可視範圍頁面高度
+
+    if(ToTop + CurrentHeight >= TotalHeight){
+      if(needLoad){
+        needLoad = false;
+        //頁面暫停
+        unableScroll();
+
+        $.ajax({
+          url: '{{$m_inURL}}',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            myAct: 'SEARCH_MORE',
+            inPage: needPage,
+            search_condition: s_condition,
+            search_value: s_value
+          },
+          success: function (res) {
+            if(res.length == 0){
+              // console.log('No_Data');
+              needLoad= false;
+              enableScroll();
+            }
+            else{
+              // console.log(res);
+              // console.log('page ',needPage,' loaded.');
+              needPage=needPage+1;
+              needLoad = true;
+              enableScroll();
+              let html_all="";
+              for(var i=0; i<res.data_num; i++){
+                var str = "<ul class=\"admweb-v2-orderlist__list\">\n" +
+                        "        <li class=\"admweb-v2-orderlist__card pic-margin-b10\">\n" +
+                        "            <div class=\"admweb-v2-checkbox-name\">\n" +
+                        "              <p><i class=\"icons-line icon-mem-editinfo\"></i>"+filterScriptTags(res[i].mem_account)+"</p>\n" +
+                        "            </div>\n" +
+                        "\n" +
+                        "          <dl class=\"admweb-v2-orderlist__card-detail\">\n" +
+                        "\n" +
+                        "            <div class=\"admweb-v2-orderlist__card-desc--multi admweb-v2-orderlist__card-desc--multi-1\">\n" +
+                        "              <dt class=\"admweb-v2-orderlist__card-desc-dt\" style=\"width: 44px;\">姓名</dt>\n" +
+                        "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(res[i].mem_name)+"</dd>\n" +
+                        "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">訂單總數</dt>\n" +
+                        "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(res[i].order_count_all)+"</dd>\n" +
+                        "            </div>\n" +
+                        "\n" +
+                        "            <div class=\"admweb-v2-orderlist__card-desc--multi\">\n" +
+                        "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">訂單取消數(次)</dt>\n" +
+                        "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(res[i].order_count_31)+"</dd>\n" +
+                        "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">取消數(%)</dt>\n" +
+                        "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(res[i].order_count_31_pct)+"%</dd>\n" +
+                        "            </div>\n" +
+                        "\n" +
+                        "            <div class=\"admweb-v2-orderlist__card-desc--multi\">\n" +
+                        "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">訂單退貨數(次)</dt>\n" +
+                        "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(res[i].order_count_41)+"</dd>\n" +
+                        "              <dt class=\"admweb-v2-orderlist__card-desc-dt\">退貨數(%)</dt>\n" +
+                        "              <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(res[i].order_count_41_pct)+"%</dd>\n" +
+                        "            </div>\n" +
+                        "\n" +
+                        "            <div class=\"admweb-v2-orderlist__card-bottom\">\n" +
+                        "              <div class=\"admweb-v2-orderlist__card-delivery_info\">\n" +
+                        "              </div>\n" +
+                        "              <div class=\"admweb-v2-orderlist__card-actions\">\n" +
+                        "                <button class=\"admweb-v2-orderlist__card-actions--btn pic-icon-white-close\" onclick=\"delete_member('"+filterScriptTags(res[i].mem_uid)+"')\">\n" +
+                        "                  取消黑名單設定\n" +
+                        "                </button>\n" +
+                        "              </div>\n" +
+                        "            </div>\n" +
+                        "          </dl>\n" +
+                        "        </li>\n" +
+                        "      </ul>";
+                html_all = html_all+str;
+              }
+              //console.log(html_all);
+              document.getElementById('list_box').innerHTML = html_all;
+            }
+          },
+          error: function (e){
+            setTimeout('enableScroll()',1000);
+          }
+        });
+      }
+    }
+  })
+
+  function unableScroll() {
+    var top = $(document).scrollTop();
+    $(document).on('scroll.unable',function (e) {
+      $(document).scrollTop(top);
+    })
+  }
+
+  function enableScroll() {
+    $(document).unbind("scroll.unable");
+  }
+</script>
+
+<script>
+  (function () {
+    //searchFormCollapse();
+    markCurrentNavLink();
+    hideMobileLayout();
+  })();
+  window.addEventListener('resize', () => {
+    //searchFormCollapse();
+    checkNoticeOverflow();
+  });
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+              '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  function toggleMenuHandler() {
+    document
+            .querySelector('.admweb-v2-seller-front-left-box')
+            .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+            .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+            .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+              '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+              '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function toggleProgressBar(btn) {
+    const progressEleStyle = btn.nextElementSibling.style;
+    const eleHeight = btn.nextElementSibling.children[0].clientHeight;
+    if (
+            !progressEleStyle.height ||
+            progressEleStyle.height === `${eleHeight}px`
+    ) {
+      progressEleStyle.height = '0';
+      btn.querySelector('i').classList = 'icons-line icon-arrow-down-01';
+    } else {
+      progressEleStyle.height = `${eleHeight}px`;
+      btn.querySelector('i').classList = 'icons-line icon-arrow-top-01';
+    }
+  }
+  window.addEventListener('popstate', () => {
+    markCurrentNavLink();
+  });
+
+  function markCurrentNavLink() {
+    const targetHash = window.location.hash || '#all';
+    const targetEle = document.querySelector(`[href="${targetHash}"]`);
+    const linkEles = document.querySelectorAll(
+            '.admweb-v2-orderlist__nav-link'
+    );
+    scrollTabToCenter(targetHash);
+    showActionBtns(targetHash);
+    linkEles.forEach((item) =>
+            item.classList.remove('admweb-v2-orderlist__nav-link--active')
+    );
+    targetEle.classList.add('admweb-v2-orderlist__nav-link--active');
+  }
+  function scrollTabToCenter(targetHash) {
+    const targetEle = document.querySelector(`[href="${targetHash}"]`);
+    let pos = targetEle.parentNode.offsetLeft;
+    const eleWidth = targetEle.clientWidth;
+    const currentscroll = $('.admweb-v2-orderlist__nav').scrollLeft();
+    const divwidth = $('.admweb-v2-orderlist__nav').width();
+    pos = pos + currentscroll - divwidth / 2 + eleWidth / 2;
+    $('.admweb-v2-orderlist__nav').animate({
+      scrollLeft: pos
+    });
+  }
+  function showActionBtns(targetHash) {
+    const actionEles = document.querySelectorAll(
+            '.admweb-v2-orderlist__action'
+    );
+    actionEles.forEach((ele) => (ele.style.display = 'none'));
+    document.getElementById(
+            `js-orderlist__action${
+                    targetHash === '#type2' || targetHash == '#type3' ? targetHash : ''
+            }`
+    ).style.display = 'flex';
+  }
+  // function searchFormCollapse() {
+  //   const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+  //   const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+  //   const formHeadEle = document.getElementsByClassName(
+  //           'js-orderlist__form-head_search'
+  //   )[0];
+  //   const defaultHeight = formHeadEle.clientHeight;
+  //   const headBtn = document.getElementsByClassName(
+  //           'js-orderlist__form-head_search-btn'
+  //   )[0];
+  //   const wholeHeight = formEle.clientHeight;
+  //   formEle.style.height = `${defaultHeight}px`;
+  //   toggleBtn.addEventListener('click', () => {
+  //     //當前為收合
+  //     if (formEle.style.height === `${defaultHeight}px`) {
+  //       formEle.style.height = `${wholeHeight}px`;
+  //       toggleBtn.innerHTML =
+  //               '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+  //       formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+  //       headBtn.style.display = 'none';
+  //     } else {
+  //       ///當前為展開
+  //       formEle.style.height = `${defaultHeight}px`;
+  //       toggleBtn.innerHTML =
+  //               '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+  //       formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+  //       headBtn.style.display = 'block';
+  //     }
+  //   });
+  // }
+
+  const expandableEles = document.querySelectorAll(
+          '.admweb-v2-orderlist__notice'
+  );
+  const expandableBtns = document.querySelectorAll(
+          '.admweb-v2-orderlist__notice--btn'
+  );
+  checkNoticeOverflow();
+  function checkNoticeOverflow() {
+    expandableEles.forEach((expandableEle) => {
+      if (expandableEle.classList.contains('expanded')) return;
+      const expandableText = expandableEle.querySelector(
+              '.admweb-v2-orderlist__notice--text'
+      );
+      const overflowing =
+              expandableText.scrollHeight > expandableEle.clientHeight;
+      expandableEle.dataset.overflow = overflowing;
+    });
+  }
+  expandableBtns.forEach((button) => {
+    button.addEventListener('click', toggleNoticeText);
+    setNoticeButtonText(button);
+  });
+  function toggleNoticeText(e) {
+    const expandableEle = e.target.closest('.admweb-v2-orderlist__notice');
+    expandableEle.classList.toggle('expanded');
+    setNoticeButtonText(e.target);
+  }
+
+  function setNoticeButtonText(button) {
+    const expandableEle = button.closest('.admweb-v2-orderlist__notice');
+    const expanded = expandableEle.classList.contains('expanded');
+    button.innerHTML = expanded
+            ? '<i class="icons-line icon-arrow-top-01"></i>運費/出貨說明收合'
+            : '<i class="icons-line icon-arrow-down-01"></i>運費/出貨說明展開';
+  }
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    alert.style.display = 'none';
+  }
+  function editAlertContent(content) {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    showAlert(alert);
+    alert.querySelector('.pic-window-marge-box').innerHTML = content;
+  }
+  //我的QRcode
+  function sendQRcodeToMachine() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無可上傳至我的QRcode，請重勾選訂單。`);
+      return;
+    }
+    //成功送出訂單後跳出提示
+    editAlertContent(
+            `傳送至【我的QRcode】成功，請按確定鍵，再點擊【我的QRcode】至ibon機台列印。<br>※提醒您，請確認已將APP更新至最新版本`
+    );
+  }
+  //超商標籤
+  function printStoreLabel() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【超商】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+    //列印超商標籤
+  }
+  //宅配標籤
+  function printDeliveryLabel() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【宅配】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+    //列印宅配標籤
+  }
+  //超商整批出貨
+  function batchStoreShipment() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【超商】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+    //do some action
+  }
+  //宅配整批出貨
+  function batchDeliveryShipment() {
+    //檢查已選擇訂單
+    const checkboxVals = getSelectedCheckboxValue();
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選之訂單無【宅配】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+    //do some action
+  }
+  function getSelectedCheckboxValue() {
+    const eles = document.querySelectorAll(
+            '.js-admweb-v2--order-checkbox:checked'
+    );
+    let value = [];
+    eles.forEach((ele) => ele.checked && value.push(ele.value));
+    return Array.from(new Set(value));
+  }
+  //全選
+  function selectAllOrder() {
+    const isSelectedAll = document.getElementById('selectAll').checked;
+    const eles = document.querySelectorAll('.js-admweb-v2--order-checkbox');
+    eles.forEach((ele) =>
+            isSelectedAll ? (ele.checked = true) : (ele.checked = false)
+    );
+  }
+
+  function filterScriptTags(input) {
+    if (typeof input === 'string') {
+        // 如果是字串，過濾 script 標籤及其內容
+        return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    } else if (Array.isArray(input)) {
+        // 如果是陣列，遞迴處理每個元素
+        return input.map(filterScriptTags);
+    } else if (typeof input === 'object') {
+        // 如果是物件，遞迴處理每個屬性值
+        const sanitizedObject = {};
+        for (const key in input) {
+            sanitizedObject[key] = filterScriptTags(input[key]);
+        }
+        return sanitizedObject;
+    } else {
+        // 其他型態直接回傳
+        return input;
+    }
+  }
+</script>
+
+<script>
+
+  $(function () {
+    var $switch = $('.admweb-v2-top-list li');
+    $($switch.eq(0).addClass('active').find('li'));
+    $switch.click(function () {
+      $(this).addClass('active').siblings('.active').removeClass('active');
+    });
+  });
+
+</script>

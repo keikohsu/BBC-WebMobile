@@ -1,0 +1,432 @@
+<!-- {{* XLS 套件*}} -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!--{{*slim cropper*}}-->
+<link href="{{$sys_arrWebsite.website_url}}libs/slim-image-cropper/slim/slim.min.css" rel="stylesheet">
+<script src="{{$sys_arrWebsite.website_url}}libs/slim-image-cropper/slim/slim.jquery.min.js"></script>
+
+<!--{{*base64.js*}}-->
+<script src="/website/javascripts/base64.js"></script>
+
+<style>
+	.admweb-v2-phone-haed{display: none;}
+	#bbc_mass_upload_input .admweb-v2-BulkUpload-data .admweb-v2-file-name{width: 312px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display:block;}
+		@media screen and (max-width:768px){
+		.admweb-v2-orderlist i.icon-arrow-left-01{font-size: 24px;}
+		.admweb-v2-orderlist i.icon-line-hamburger{ font-size: 15px;}
+		.admweb-v2-phone-haed{display: block;}
+		.admweb-v2-phone-haed{height: 48px;}
+		.admweb-v2-list-header-in-fixbottom,.admweb-v2-list-header{display: none;}
+		.admweb-v2-SettingsTitle{margin-bottom: 10px;}
+		.admweb-v2-settings-frame .admweb-v2-outside-white-box .admweb-v2-edit-name:first-child {margin-top: 0px;}
+		#bbc_mass_upload_input .admweb-v2-BulkUpload-data .admweb-v2-file-name{width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display:block;}
+	}
+	
+    /* 遮罩閃爍效果 */
+    .blink {
+        animation: blink-animation 1s linear infinite;
+        -webkit-animation: blink-animation 1s infinite;
+        background-color: #EFEFEF;
+    }
+    @keyframes blink-animation {
+        to {
+            background-color: #FFF;
+        }
+    }
+    @-webkit-keyframes blink-animation {
+        to {
+            background-color: #FFF;
+        }
+    }
+
+	/* slim preview */
+	.slim>img{
+		width: 120px !important;
+		height: 120px !important;
+	}
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+	<!-- 左側選單 Start -->
+	<div class="admweb-v2-seller-front-left-box">
+		{{include file="admweb_2/admweb.main_menu.htm"}}
+	</div>
+	<!-- 左側選單 End -->
+
+	<!-- 右側內容 Start -->
+	<div class="admweb-v2-orderlist-header">
+		<div class="admweb-v2-orderlist-header-actions">
+			<a onclick="history.back()">
+				<i class="icons-line icon-arrow-left-01"></i>
+			</a>
+			<a onclick="toggleMenuHandlertwo()">
+				<div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+					<i class="icons-line icon-line-hamburger"></i>
+				</div>
+			</a>
+		</div>
+		<h2 class="admweb-v2-orderlist-header-title">商品大量上傳</h2>
+		<div class="admweb-v2-orderlist-header-qrcode">
+		</div>
+	</div>
+
+	<div class="pic-front-pages-right admweb-v2-adjustment">
+		<!-- 選擇 上傳方式 START -->
+		<div class="admweb-v2-settings-frame pic-margin-10"  id="upload_type">
+			<div class="admweb-v2-NewProduct-title" onclick="open_bbc_upload()">
+				<h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-box-product"></i>商品大量上傳</h2>
+			</div>
+			<p class="pic-padding-10 pic-margin-b10 pic-text-orange pic-bg-orange-10 pic-font-size-12 ">選擇您想上傳商品的方式</p>
+			<!-- 選擇 上傳方式 -->
+			<ul class="admweb-v2-outside-white-box">
+				<li class="admweb-v2-edit-name">
+					<p>商品大量上傳</p>
+				</li>
+				<li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+					<div class="admweb-v2-BulkUpload-btn pic-flex" onclick="show_bbc_mass_input()">
+						<a href="javascript:void(0)" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+							商品大量上傳<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+						</a>
+					</div>
+					<p class="pic-text-warn">※提供iOPEN商城商品範例檔案，依照規範格式上傳您的商品。</p>
+				</li>
+			</ul>
+			<ul class="admweb-v2-outside-white-box">
+				<li class="admweb-v2-edit-name">
+					<p>蝦皮商品大量上傳</p>
+				</li>
+				<li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+					<div class="admweb-v2-BulkUpload-btn pic-flex">
+						<a href="javascript:void(0)" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+							蝦皮商品大量上傳<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+						</a>
+					</div>
+					<p class="pic-text-warn">※於蝦皮匯出您的商品資料，將蝦皮商品檔案上傳至iOPEN商城。<br />
+						※注意：不支援大量上傳圖片，匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。</p>
+				</li>
+			</ul>
+			<ul class="admweb-v2-outside-white-box">
+				<li class="admweb-v2-edit-name">
+					<p>搬家賣貨便商品</p>
+				</li>
+				<li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+					<div class="admweb-v2-BulkUpload-btn pic-flex">
+						<a href="javascript:void(0)" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+							搬家賣貨便商品<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+						</a>
+					</div>
+					<p class="pic-text-warn">※提供您一次性將賣貨便的商品快速搬家至iOPEN商城。<br />
+						※注意：賣貨便部分商品資料無法搬家至iOPEN商城，匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。</p>
+				</li>
+			</ul>
+		</div>
+		<!-- 選擇 上傳方式 END -->
+		<!--========================== 商品大量上傳 START==========================-->
+		<div class="admweb-v2-settings-frame pic-margin-10" id="bbc_mass_upload_input" style="display: none;">
+			<div class="admweb-v2-NewProduct-title">
+				<h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-box-product"></i>商品大量上傳</h2>
+			</div>
+			<!-- <form action="" method="post" enctype="multipart/form-data" id="bbc_prod_form"> -->
+			<form action="" method="post" enctype="multipart/form-data" id="bbc_prod_form">
+			<ul class="admweb-v2-outside-white-box">
+				<li class="admweb-v2-edit-name">
+					<p><span class="pic-text-red">*</span>上傳商品資料檔案</p>
+				</li>
+				<li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+					<div class="admweb-v2-BulkUpload-data">
+						<span class="admweb-v2-file-name pic-bg-gray-10" id="xls_name" style="display: none;"></span>
+						<input type="file" id="prod_xls_input" name="prod_xls_input" style="display: none;" accept=".xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx">
+						<a id="btn_import_prod_xls" href="javascript:void(0)" class="pic-BgText-color-green admweb-v2-categories-btn ">
+							<i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>
+							請選擇檔案
+						</a>
+						{{*配合app下載 必須寫死連結*}}
+						<a href="https://mall.iopenmall.tw/website/uploads/templates/iOpen_ProductImport_Template.xlsm" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+							<i class="icons-line icon-line-Save  pic-margin-r5"></i>
+							下載範例檔案
+						</a>
+					</div>
+					<p class="pic-text-warn">※圖檔可透過外部連結抓取或者上傳圖檔<a class="admweb-v2-href-style" href="admweb.main.php?action=product_gallery_pic">(前往上傳圖檔功能)</a></p>
+					<p class="pic-text-warn">※若檔案內的商品圖欄位為填寫檔名，請先前往<a class="admweb-v2-href-style" href="admweb.main.php?action=product_gallery_pic">上傳圖檔</a>功能，上傳圖檔完成後再上傳商品資料檔案。</p>
+					<p class="pic-text-warn">※請使用範例檔案匯出的Excel檔，勿做修改，避免上傳失敗。</p>
+				</li>
+			</ul>
+			<input type="hidden" name="myAct" value="ajax">
+			</form>
+		</div>
+		<!--========================== 商品大量上傳 END==========================-->
+
+		<!--========================== 上傳後的商品資訊 ==========================-->
+		<div class="admweb-v2-settings-frame pic-margin-10 admweb-v2-settings-last" id="bbc_mass_upload_info" style="display: none;">
+			<div class="admweb-v2-NewProduct-title">
+				<h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-box-product"></i>商品資訊</h2>
+			</div>
+			<p class="pic-text-center pic-padding-10 pic-text-orange pic-bg-orange-10 pic-font-size-12" id="prod_upload_count"></p>
+			<div class="admweb-v2-BulkUpload-pd-detail err_form" style="display: none;">
+				{{if !$mobileDeviceDirected}}
+				<table class="admweb-v2-order_detail__product-table">
+					<thead>
+						<tr class="admweb-v2-order_detail__product-info">
+							<th>商品狀態</th>
+							<th>商品名稱/規格</th>
+							<th style="width:35%">失敗原因</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				{{/if}}
+			</div>
+		</div>
+		<!--========================== 商品資訊 END ==========================-->
+
+		<!--========================== 遮罩 START==========================-->
+		<div class="pic-window-bg" style="display: none;" id="sh_loading_mask">
+			<!-- LOGO 加載 -->
+			<div class="admweb-v2-mask-img blink">
+				<span>畫面讀取中...</span>
+			</div>
+		</div>
+		<!--========================== 遮罩 END==========================-->
+
+		<!--置底按鈕 START-->
+		<div class="admweb-v2-orderlist__action admweb-v2-BulkUpload-bottom-btn">
+			<a class="admweb-v2-I-Btn pic-BgText-color-gray" href="javascript:void(0)" style="display: none; cursor: auto;" id="btn_upload">
+				<i class="icons-line icon-line-ArrowParper"></i>匯入商品資料
+			</a>
+			<a class="admweb-v2-I-Btn pic-BgText-color-green" href="admweb.main.php?action=product_pic" style="display: none;" id="to_edit_prod">
+				<i class="icons-line icon-line-info-edit-bold-02"></i>前往編輯商品
+			</a>
+		</div>
+		<!--置底按鈕 END-->
+	</div>
+	<!-- 右側內容 End-->
+</div>
+
+<script>
+	$(".admweb-v2-commodity-block h2").click(function () {
+		$(this).find(".pic-icon-black-arrows-rotate-up").toggleClass("pic-arrows-rotate");
+		$(this).next(".admweb-v2-slideToggle").slideToggle();
+		$(".admweb-v2-NewProduct-title").toggleClass("pic-padding-0")
+	})
+</script>
+
+<script>
+	show_bbc_mass_input();
+
+	$('#btn_import_prod_xls').click(function (e) { 
+		$('#prod_xls_input').click();
+	});
+
+	$('#prod_xls_input').change(function (e) { 
+		e.preventDefault();
+		if($(this).val() !== '') validate_xls_rules();
+		else init_xls_file();
+	});
+
+	function init_xls_file(){
+		$('#xls_name').text('');
+		$('#xls_name').hide();
+		$('#prod_xls_input').val('');
+		$('#btn_import_prod_xls').show();
+	}
+		
+	function show_bbc_mass_input(){
+		$('#upload_type').hide();
+		$('#bbc_mass_upload_input').show();
+		$('#btn_upload').show();
+	}
+
+	// 抓change event, 驗證失敗時，記得清空value！！！ 不然下次重複輸入相同錯誤元素，驗證會失效
+	function set_btn_upload(re){
+		if(re) $('#btn_upload').addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('cursor','pointer').attr('href',`javascript:confirm_data_upload();`);
+		else $('#btn_upload').addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('cursor','auto').attr('href','javascript:void(0);');
+	}
+
+	// ----------------------------------- 讀Excel START -----------------------------------
+	// 判別：檔名，頁籤數量，商品數量
+	var analysis_xls = (file)=>{
+		return new Promise((resolve, reject) => {
+			if(!file) reject(`未能正確讀取檔案，請檢查檔案是否有誤。`);
+			else{
+				let file_name = file.name;
+
+				// 判別檔名！！！！！！！！！！
+				if(file_name.indexOf('iOpen_ProductImport') < 0) reject('檔案名稱不正確，請使用範例檔案匯出的Excel檔，勿做修改，避免上傳失敗。');
+				else{
+					const reader = new FileReader()
+					reader.readAsArrayBuffer(file);					
+					reader.onload = function(e) {
+						var data = new Uint8Array(e.target.result);
+						var workbook = XLSX.read(data, {type: 'array'});
+						var first_sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+						// 判別頁籤數量！！！！！！！！！
+						if(workbook.SheetNames.length > 1) reject('頁籤不正確，請使用範例檔案匯出的Excel檔，勿做修改，避免上傳失敗。')
+						else{
+							var sheet_to_json = XLSX.utils.sheet_to_json(first_sheet, {range: {s:{c:0, r:0}, e:{c:35, r:503}}});            
+							if(sheet_to_json.length > 501) reject('商品數量，上限500筆，請確認上傳商品數量。')
+							else{
+								let result = {
+									data: sheet_to_json,
+									file_name: file_name
+								}
+								resolve(result);
+							}
+						}
+					}
+				}
+			}
+		});
+	};
+
+	function validate_xls_rules(){
+		let xls = $('#prod_xls_input')[0].files[0];
+		if(xls==null) return false;
+
+		analysis_xls(xls).
+		then((re)=>{
+			// console.log(411,'analysis_xls => then resolve', re);
+			$('#xls_name').html(`${re.file_name}<a href="javascript:init_xls_file()" class="iopen-icon-black-delete">`).show();
+			$('#btn_import_prod_xls').hide();
+			set_btn_upload(true);
+			return true;
+		}).catch((err)=>{
+			// console.log(416,'analysis_xls => catch reject',err);
+			init_xls_file();
+			alert(err);
+			return false;
+		});
+	}
+	// ----------------------------------- 讀Excel END -----------------------------------
+	
+	$('#bbc_prod_form').submit(function (e) { 
+		e.preventDefault();
+		console.log('請勿使用錯誤方式傳送資料！')
+	});
+
+	// 待優化：寫一個判別
+	// 如果開始傳輸 中間要離開頁面 alert 會中斷執行内容 下次執行同檔案 可能造成商品主檔重複處理
+	function confirm_data_upload(){
+		$('#sh_loading_mask').show();
+		$('#xls_name .iopen-icon-black-delete').remove();
+		$('#bbc_prod_form input').prop('disabled','disabled');
+
+		set_btn_upload(false);
+
+		var form_data = new FormData($('#bbc_prod_form')[0]);
+		
+		form_data.append("prod_xls_input", $('#prod_xls_input')[0].files[0]);
+		form_data.append("myAct", 'ajax');
+		
+		$.ajax({
+			url: '',
+			type: 'POST',
+			data: form_data,
+			mimeType: "multipart/form-data",
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: "json",
+			success: function(re) {
+				// console.log('confirm_data_upload','success',re)
+				if(re.action == 'finished'){
+					handle_ajax_response(re);
+				}else{
+					alert('操作不正常中斷，請洽工程人員');
+				}
+			},
+			error: function(re) {
+				// console.log('confirm_data_upload','error',re,re.responseText)
+				
+				if(re.status == 413) alert('傳輸資料檔案尺寸超過系統上限');
+				// else if(re.status == 422) alert(re.responseText);
+				// else if(re.status == 504) alert('504！！'+re.responseText);
+				// else if(re.status == 404) alert('404！！'+re.responseText);
+				else alert('操作不正常中斷，請洽工程人員');
+
+				$('#sh_loading_mask').hide();
+			}
+		});
+	}
+
+	function handle_ajax_response(re) {
+		let suc_count = re.success.length;		
+		let re_str = '';
+		if(re.fail.length > 0) {
+			re_str = `匯入完成，成功共${suc_count}筆，錯誤共${re.fail.length}筆`;
+			$('#bbc_mass_upload_info .err_form').show();
+
+			for (let i = 0; i < re.fail.length; i++) {
+				let htm = '';
+				let err_str = '';
+				let spec_str = '';
+				const row = re.fail[i];
+
+				for (const key in row['err']) {
+					if (Object.hasOwnProperty.call(row['err'], key)) {
+						const element = row['err'][key];
+						err_str += element;
+					}
+				}
+				
+				if(row.product.prod_color_name.length > 0) spec_str = spec_str + row.product.prod_color_name;						
+				if(row.product.prod_size != undefined && row.product.prod_size.length > 0) spec_str = spec_str + `, ${row.product.prod_size}`;
+				if(spec_str.length > 0) spec_str = `<br>規格：${spec_str}`;
+
+				{{if $mobileDeviceDirected}}
+				htm = `
+				<div class="pic-commodity-details">
+					<div class="pic-commodity-details-content pic-margin-lr5">
+						<span class="admweb-v2-Manager-icon-style admweb-v2-Manager-state-o">失敗</span>
+						<span class="admweb-v2-pd-text-warn">${err_str}</span>
+						<p class="pic-OneRow-simplify-2 pic-commodity-details-pd-title">商品名稱：${row.product.prod_name}(第${row.row}列)${spec_str}</p>
+					</div>
+				</div>`;
+				
+				$('#bbc_mass_upload_info .err_form').append(htm);
+				{{else}}						
+				htm = `
+				<tr class="admweb-v2-order_detail__product-item">
+					<td class=""><span class="admweb-v2-Manager-icon-style admweb-v2-Manager-state-o">失敗</span></td>
+					<td class="admweb-v2-order_detail__product-title">
+						<p class="admweb-v2-order_detail__product-name">商品名稱：${row.product.prod_name}(第${row.row}列)${spec_str}</p>
+					</td>
+					<td class="admweb-v2-order_detail__product-price pic-text-red">${err_str}</td>
+				</tr>`;
+
+				$('#bbc_mass_upload_info .err_form tbody').append(htm);
+				{{/if}}
+			}	
+		}else{
+			re_str = `匯入成功，共${suc_count}筆商品`;
+		}
+
+		$('#prod_upload_count').text(re_str);				
+		$('#bbc_mass_upload_info').show();
+
+		$('#sh_loading_mask').hide();
+		$('#btn_upload').hide();
+		$('#to_edit_prod').show();
+	}
+
+	function toggleMenuHandlertwo() {
+		document
+			.querySelector('.admweb-v2-seller-front-left-box')
+			.classList.toggle('pic-phone-open-menu');
+		const hamBtn = document
+			.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+			.querySelector('i');
+		if (hamBtn.classList.contains('icon-arrow-left-01')) {
+			document.querySelectorAll(
+				'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'block';
+		} else {
+			document.querySelectorAll(
+				'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'none';
+		}
+		hamBtn.classList.toggle('icon-arrow-left-01');
+	}
+</script>
+

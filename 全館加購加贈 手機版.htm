@@ -1,0 +1,458 @@
+<style>
+    .pic-window-bg .pic-window { width: 333px;}
+    .pic-window-button-box > a,
+    .admweb-v2-I-Btn{ cursor: pointer;}
+    .admweb-v2-marketing{ padding-top: 60px;}
+    .admweb-v2-marketing .admweb-v2-marketing-inner{ font-size: 14px; overflow-x: auto; flex-grow: 1; background: var(--pic-color-grey-10); position: relative;color: var(--pic-color-grey-100); min-height: calc(100vh - 60px - 62px);}
+    
+    /* 搜尋 */
+    .admweb-v2-marketing .admweb-v2-marketing-form { background: var(--pic-light-green-5); padding: 10px; padding-bottom: 0; overflow: hidden; margin-bottom: 0; transition: height 0.3s ease-in-out; box-sizing: content-box; }
+    .admweb-v2-marketing .admweb-v2-input-date-content .admweb-v2-DateBox{ width: calc(100% / 2);}
+    .admweb-v2-marketing .admweb-v2-marketing-form-item{ display: grid; grid-template-columns: 60px 1fr; align-items: center; gap: 5px; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-item:last-of-type{ grid-column-end: 4; grid-column-start: 1;}
+    .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn { width: 100%; border: none; display: block; padding: 6px; cursor: pointer; margin: 0;}
+    .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn i {font-size: 20px; vertical-align: bottom;}
+    .admweb-v2-marketing .admweb-v2-marketing-form-head_search { display: grid; grid-template-columns: auto 1fr 84px; gap: 5px; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-head_search-btn { padding: 10px; cursor: pointer; border-radius: 8px; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-btn { border-radius: 8px; display: block; width: 100%; height: 40px; cursor: pointer; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-head-search-outer > div{ margin-bottom: 5px;}
+  
+    /* 清單 */
+    .admweb-v2-marketing .admweb-v2-marketing-list{ background: var(--pic-color-grey-10); list-style: none; padding: 0 10px; }
+    .admweb-v2-marketing .admweb-v2-marketing-card{ background: #FFFFFF; border-radius: 10px; padding: 10px;}
+    .admweb-v2-marketing .admweb-v2-marketing-card + .admweb-v2-marketing-card { margin: 10px 0; }
+  
+    .admweb-v2-orderlist__card___last-child{ border-bottom: 1px solid var(--pic-color-grey-5);}
+    .admweb-v2-orderlist__card-detail{ margin-top: 0;}
+    .admweb-v2-orderlist__card-actions button{ font-size: 14px;}
+  
+   
+    @media screen and (min-width: 768px){
+        .admweb-v2-marketing .admweb-v2-marketing-table{ display: table; }
+        .admweb-v2-marketing .admweb-v2-marketing-card-top,
+        .admweb-v2-marketing .admweb-v2-marketing-card-detail{ display: none;}
+    }
+  
+    /* tag */
+    .admweb-v2-marketing-tag-marketing-type{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+    .admweb-v2-marketing-tag-marketing-type i.icons-line{ font-size: 16px; font-weight: normal; margin-right: 2px;}
+    .admweb-v2-marketing-tag-status-valid{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+    .admweb-v2-marketing-tag-status-invalid{ background:var(--pic-color-grey-5); border: 1px solid var(--pic-color-grey-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-color-grey-30); font-size: 12px; display: inline-block;}
+  
+    /* 置底按鈕 */
+    .pic-confirm-box{ margin: 0;}
+  </style>
+  
+  <div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        <button onclick="toggleMenuHandler()">
+            <i class="icons-line icon-line-hamburger"></i>
+        </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">商品任選專區</h2>
+    <span></span>
+  </div>
+  <div class="pic-default pic-flex admweb-v2-marketing">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+  
+    <!-- 右側內容 Start -->
+    <div class="admweb-v2-adjustment">
+        <div class="admweb-v2-marketing-inner">
+            <!-- 搜尋 -->
+            <form class="admweb-v2-marketing-form js-marketing-form">
+                <div class="admweb-v2-marketing-form-head-search-outer">
+                    <div class="admweb-v2-marketing-form-head_search js-marketing-form-head-search" style="grid-template-columns: auto 1fr 84px;">
+                        <select name="keyword_type" class="pic-text-lnput pic-text-lnput-style" style="width: 127px;">
+                            <option value="活動名稱">活動名稱</option>
+                            <option value="商品名稱">商品名稱</option>
+                        </select>
+                        <input type="text" placeholder="請輸入活動名稱" class="pic-text-lnput pic-lnput-enter">
+                        <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-marketing-form-head_search-btn js-marketing-form-head-search-btn" style="display: block;"> 搜尋 </button>
+                    </div>
+                    <div class="admweb-v2-marketing-form-item">
+                        <label for="order-date">活動時間</label>
+                        <div class="admweb-v2-input-date-content">
+                            <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                                <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+                            </span>
+                            <span class="pic-margin-r5">-</span>
+                            <span class="admweb-v2-DateBox iopen-icon-date">
+                                <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="admweb-v2-marketing-form-item">
+                        <label for="order-date">活動類型</label>
+                        <select class="pic-text-lnput pic-text-lnput-style">
+                            <option value="全部">全部</option>
+                            <option value="滿件折價">滿件折價</option>
+                            <option value="滿件折扣">滿件折扣</option>
+                            <option value="滿額折價">滿額折價</option>
+                            <option value="滿額折扣">滿額折扣</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-marketing-form-btn">搜尋</button>
+                </div>
+                <input type="hidden" name="csrf_token" value="MTY3NTMyMzczMUJkcVFRWTBOMXRjclQ0M0tuQkpwY0NvOVRqQUp2b2dj">
+            </form>
+            <button class=" pic-text-gray-30 pic-bg-green-5 admweb-v2-marketing-form-toggle-btn" id="js-marketing-form-toggle--btn">更多進階條件 <i class="icons-line icon-arrow-down-01"></i></button>
+            <!-- 頁籤 -->
+            <div class="pic-common-navbarbox pic-common-navbarbox-tow-width-50">
+                <div class="swiper-container pic-navbar" id="pic-navbar">
+                    <div class="swiper-wrapper pic-nav-list">
+                        <div id="swiper-tab-1" class="swiper-slide pic-nav-a" navid="0"><span>進行中</span></div>
+                        <div id="swiper-tab-2" class="swiper-slide pic-nav-a" navid="1"><span>即將開始</span></div>
+                        <div id="swiper-tab-2" class="swiper-slide pic-nav-a" navid="1"><span>已結束</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 清單 -->
+            <div class="admweb-v2-orderlist-overview">
+                <span>活動日期：2022/09/01 ~2022/09/30</span>
+                <span>共3筆</span>
+              </div>
+            <ul class="admweb-v2-marketing-list pic-margin-b20">
+                <li class="admweb-v2-marketing-card">
+                    <dl class="admweb-v2-orderlist__card-detail">
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動名稱</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">活動名稱活動名稱活動名稱活動名稱</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動類型</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-marketing-type"><i class="icons-line icon-line-emoney-bold-02"></i>滿額折扣</span><sapn class="pic-margin-l10">消費滿1,000元 可享8折</sapn></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動時間</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">2022/12/28 08:00~2022/12/28 23:00</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc admweb-v2-orderlist__card___last-child">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">狀態</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-status-invalid">無效</span></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-bottom">
+                            <div class="admweb-v2-orderlist__card-delivery_info">
+                            </div>
+                            <div class="admweb-v2-orderlist__card-actions">
+                              <button class="admweb-v2-orderlist__card-actions--btn" onclick="">
+                                <i class="icons-line icon-line-edit"></i>編輯
+                              </button>
+                              <!-- <button class="admweb-v2-orderlist__card-actions--btn" onclick="WindowOpen()">
+                                <i class="icons-line icon-remove-01"></i>分享
+                              </button> -->
+                            </div>
+                          </div>
+                      </dl>
+                </li>
+                <li class="admweb-v2-marketing-card">
+                    <dl class="admweb-v2-orderlist__card-detail">
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動名稱</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">活動名稱活動名稱活動名稱活動名稱</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動類型</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-marketing-type"><i class="icons-line icon-line-emoney-bold-02"></i>滿額折扣</span><sapn class="pic-margin-l10">消費滿1,000元 可享8折</sapn></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動時間</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">2022/12/28 08:00~2022/12/28 23:00</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc admweb-v2-orderlist__card___last-child">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">狀態</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-status-invalid">無效</span></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-bottom">
+                            <div class="admweb-v2-orderlist__card-delivery_info">
+                            </div>
+                            <div class="admweb-v2-orderlist__card-actions">
+                              <button class="admweb-v2-orderlist__card-actions--btn" onclick="">
+                                <i class="icons-line icon-line-edit"></i>編輯
+                              </button>
+                              <!-- <button class="admweb-v2-orderlist__card-actions--btn" onclick="WindowOpen()">
+                                <i class="icons-line icon-remove-01"></i>分享
+                              </button> -->
+                            </div>
+                          </div>
+                      </dl>
+                </li>
+                <li class="admweb-v2-marketing-card">
+                    <dl class="admweb-v2-orderlist__card-detail">
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動名稱</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">活動名稱活動名稱活動名稱活動名稱</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動類型</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-marketing-type"><i class="icons-line icon-line-emoney-bold-02"></i>滿額折扣</span><sapn class="pic-margin-l10">消費滿1,000元 可享8折</sapn></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動時間</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">2022/12/28 08:00~2022/12/28 23:00</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc admweb-v2-orderlist__card___last-child">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">狀態</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-status-valid">有效</span></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-bottom">
+                            <div class="admweb-v2-orderlist__card-delivery_info">
+                            </div>
+                            <div class="admweb-v2-orderlist__card-actions">
+                              <button class="admweb-v2-orderlist__card-actions--btn" onclick="">
+                                <i class="icons-line icon-line-edit"></i>編輯
+                              </button>
+                              <!-- <button class="admweb-v2-orderlist__card-actions--btn" onclick="WindowOpen()">
+                                <i class="icons-line icon-remove-01"></i>分享
+                              </button> -->
+                            </div>
+                          </div>
+                      </dl>
+                </li>
+                <li class="admweb-v2-marketing-card">
+                    <dl class="admweb-v2-orderlist__card-detail">
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動名稱</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">活動名稱活動名稱活動名稱活動名稱</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動類型</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-marketing-type"><i class="icons-line icon-line-emoney-bold-02"></i>滿額折扣</span><sapn class="pic-margin-l10">消費滿1,000元 可享8折</sapn></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動時間</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">2022/12/28 08:00~2022/12/28 23:00</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc admweb-v2-orderlist__card___last-child">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">狀態</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-status-valid">有效</span></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-bottom">
+                            <div class="admweb-v2-orderlist__card-delivery_info">
+                            </div>
+                            <div class="admweb-v2-orderlist__card-actions">
+                              <button class="admweb-v2-orderlist__card-actions--btn" onclick="">
+                                <i class="icons-line icon-line-edit"></i>編輯
+                              </button>
+                              <!-- <button class="admweb-v2-orderlist__card-actions--btn" onclick="WindowOpen()">
+                                <i class="icons-line icon-remove-01"></i>分享
+                              </button> -->
+                            </div>
+                          </div>
+                      </dl>
+                </li>
+                <li class="admweb-v2-marketing-card">
+                    <dl class="admweb-v2-orderlist__card-detail">
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動名稱</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">活動名稱活動名稱活動名稱活動名稱</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動類型</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-marketing-type"><i class="icons-line icon-line-emoney-bold-02"></i>滿額折扣</span><sapn class="pic-margin-l10">消費滿1,000元 可享8折</sapn></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動時間</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">2022/12/28 08:00~2022/12/28 23:00</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc admweb-v2-orderlist__card___last-child">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">狀態</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd"><span class="admweb-v2-marketing-tag-status-valid">有效</span></dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-bottom">
+                            <div class="admweb-v2-orderlist__card-delivery_info">
+                            </div>
+                            <div class="admweb-v2-orderlist__card-actions">
+                              <button class="admweb-v2-orderlist__card-actions--btn" onclick="">
+                                <i class="icons-line icon-line-edit"></i>編輯
+                              </button>
+                              <!-- <button class="admweb-v2-orderlist__card-actions--btn" onclick="WindowOpen()">
+                                <i class="icons-line icon-remove-01"></i>分享
+                              </button> -->
+                            </div>
+                          </div>
+                      </dl>
+                </li>
+                
+            </ul>
+            <!-- 清單目前無活動資料 -->
+            <div class="admweb-v2-NoData">
+                <div class="admweb-v2-img-BlacklistNoData"></div>
+                <span>目前無活動資料</span>
+            </div>
+            <!-- 頁碼a -->
+            <div class="pic-text-center">
+                <p class="pic-page-bottom-text">1 - 3 筆／共 3 筆</p>
+            </div>
+            <!-- 頁碼b -->
+            <div class="pic-flex-center pic-flex-center-column">
+                <ul class="admweb-v2-pagination">
+                <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+                    <a class="admweb-v2-page-link-num" href="#">1</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-num" href="#">2</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-num" href="#">3</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-num" href="#">4</a>
+                </li>
+                </ul>
+                <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+            </div>
+            <!-- 頁碼c -->
+            <div class="pic-flex-center pic-flex-center-column">
+                <ul class="admweb-v2-pagination">
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+                    <span class="admweb-v2-icon-page-left-first-arrows" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+                    <span class="admweb-v2-icon-black-left-arrows" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+                    <a class="admweb-v2-page-link-num" href="#">1</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-num" href="#">2</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-num" href="#">3</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-num" href="#">4</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-num" href="#">5</a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+                    <span class="admweb-v2-icon-black-right-arrows" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li class="admweb-v2-page-num-box">
+                    <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+                    <span class="admweb-v2-icon-page-right-last-arrows" aria-hidden="true"></span>
+                    </a>
+                </li>
+                </ul>
+                <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+            </div>
+        </div>
+        <!-- 置底按鈕 -->
+        <div class="pic-btn-footer pic-icon-margin-r">
+            <a class="pic-btn-newstore-100 pic-BgText-color-green iopen-icon-white-add-front" href="javascript:void(0);">新增活動</a>
+        </div>
+    </div>
+    <!-- 右側內容 End-->
+  </div>
+  
+  <!-- 視窗 -->
+  <div id="admweb-v2-window-content" class="pic-window-bg" style="display:none" >
+    <div class="pic-window">
+        <div class="admweb-v2-window-content">
+            <i class="icons-line icon-line-X admweb-v2-WindowClose-position"onclick="WindowClose()"></i>
+        <div class="pic-OrderCancel-window-close"></div>
+        <h2>分享商品</h2>
+        <span class="admweb-v2-window-text">分享商品給你的親朋好友</span>
+        <div>
+            <a class="pic-window-link admweb-v2-window-ShareLink" href="javascript:void(0);"></a>
+            <a class="pic-window-link admweb-v2-window-ShareLine" href="javascript:void(0);"></a>
+            <a class="pic-window-link admweb-v2-window-ShareFB" href="javascript:void(0);"></a>
+            <a class="pic-window-link admweb-v2-window-ShareIG" href="javascript:void(0);"></a>
+        </div>
+        </div> 
+            <div class="pic-window-button-box">
+                <a class="pic-window-button-TwoBtn pic-BgText-color-green pic-window-button-TwoBtn-r" onclick="WindowClose()" value="1">確定</a>
+        </div>
+    </div>
+  </div>
+  
+  <script>
+    // 分享lightbox-開啟
+    function WindowOpen() {
+        $("#admweb-v2-window-content").show()
+    }
+    // 分享lightbox-關閉
+    function WindowClose() {
+        $(".pic-window-bg").hide()
+    }
+  
+    $(function (){
+        // 頁籤套件
+        var $switch_top = $('.swiper-wrapper .swiper-slide');
+        $($switch_top.eq(0).addClass('selected').find('swiper-slide'));
+        $switch_top.click(function () {
+            $(this).addClass('selected').siblings('.selected').removeClass('selected');
+        });
+        
+        // 呼叫函式
+        searchFormCollapse();
+        hideMobileLayout();
+    });
+    
+    // 搜尋函式
+    function searchFormCollapse() {
+        const toggleBtn = document.getElementById('js-marketing-form-toggle--btn');
+        const formEle = document.getElementsByClassName('js-marketing-form')[0];
+        const formHeadEle = document.getElementsByClassName(
+            'js-marketing-form-head-search'
+        )[0];
+        const defaultHeight = formHeadEle.clientHeight;
+        const headBtn = document.getElementsByClassName(
+            'js-marketing-form-head-search-btn'
+        )[0];
+        const wholeHeight = formEle.clientHeight;
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.addEventListener('click', () => {
+            //當前為收合
+            if (formEle.style.height === `${defaultHeight}px`) {
+            formEle.style.height = `${wholeHeight}px`;
+            toggleBtn.innerHTML =
+                '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+            formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+            headBtn.style.display = 'none';
+            } else {
+            ///當前為展開
+            formEle.style.height = `${defaultHeight}px`;
+            toggleBtn.innerHTML =
+                '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+            formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+            headBtn.style.display = 'block';
+            }
+        });
+    }
+  
+    // 隱藏手機原版頭函式
+    function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        document.querySelector(
+            '.admweb-v2-list-header-in-fixbottom'
+        ).style.display = 'none';
+        document.querySelector('.admweb-v2-list-header').style.display = 'none';
+        }
+    }
+  
+    // 漢堡函式
+    function toggleMenuHandler(){
+        document.querySelector('.admweb-v2-seller-front-left-box').classList.toggle('pic-phone-open-menu')
+        const hamBtn = document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1].querySelector('i')
+        if(hamBtn.classList.contains('icon-arrow-left-01')){
+        document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block'
+        }else{
+        document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none'
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01')
+    }
+  </script>

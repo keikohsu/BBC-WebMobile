@@ -1,0 +1,299 @@
+<style>
+  .admweb-v2-Edit-download-btn a{ justify-content: center; line-height: 40px; height: 40px;}
+  .admweb-v2-settings-BottomBtn{ left: 0;}
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">基本頁面設定</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+      <!------------------------------------ 基本頁面設定 start -------------------------------------->
+      <div class="admweb-v2-settings-frame pic-margin-10">
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>頁面設定</h2>
+          <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+        </div>
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>店家簡介</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large">
+                <img src="https://picsum.photos/300/200/?random=10">
+                <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i class="icons-line icon-line-edit"></i>編輯</a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i class="icons-line icon-line-ashbin"></i>刪除</a>
+                </div>
+              </div>
+             <!-- <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>-->
+            </div>
+            <p class="pic-text-warn">圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+            <div style="width: 100%; height: 120px; background: #f2f2f2;"></div>
+            <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>店家簡介</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+            <div style="width: 100%; height: 120px; background: #f2f2f2;"></div>
+            <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>網站公告</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+            <div style="width: 100%; height: 120px; background: #f2f2f2;"></div>
+            <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>服務條款</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+            <div style="width: 100%; height: 120px; background: #f2f2f2;"></div>
+            <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>退貨政策</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+            <div style="width: 100%; height: 120px; background: #f2f2f2;"></div>
+            <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+        </ul>
+
+              <!--常見問答-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name admweb-v2-edit-name-start">
+          <p>常見問答</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+
+          <div class="admweb-v2-adjustment-QA-outside pic-margin-b10">
+            <div class="admweb-v2-NewProduct-title admweb-v2-CommodityAskTitle">
+              <h2 class="admweb-v2-SettingsTitle admweb-v2-CommodityAskTitle">商品問答</h2>
+              <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+            </div>
+
+            <div class="admweb-v2-specification admweb-v2-adjustment-CommodityAsk">
+              <div class="pic-bg-gray-10 admweb-v2-SetUp-frame-space pic-margin-b10">
+                <div class="admweb-v2-CommodityAsk-TopText">
+                  <h4><span class="admweb-v2-num-green">1</span>問題分類： </h4>
+                  <select name="prod_type" class="pic-text-lnput pic-text-lnput-style">
+                    <option value="1" selected="">商品問答</option>
+                    <option value="2">訂單問答</option>
+                    <option value="3">付款問答</option>
+                    <option value="4">配送問答</option>
+                    <option value="5">退貨退款問答</option>
+                  </select>
+                </div>
+                <div class="admweb-v2-CommodityAsk-textarea">
+                  <span>問:</span>
+                  <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" placeholder="請輸入文字說明..."
+                    required=""></textarea>
+                </div>
+
+                <div class="admweb-v2-CommodityAsk-textarea">
+                  <span>答:</span>
+                  <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" placeholder="請輸入文字說明..."
+                    required=""></textarea>
+                </div>
+                <div class="admweb-v2-CommodityAsk-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic-margin-r10" href="#"><i
+                      class="icons-line icon-line-edit"></i></a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i
+                      class="icons-line icon-line-ashbin"></i></a>
+                </div>
+              </div>
+              <!-- QA 2-->
+              <div class="admweb-v2-specification admweb-v2-adjustment-CommodityAsk">
+                <div class="admweb-v2-CommodityAsk-QA-box pic-bg-gray-10 admweb-v2-SetUp-frame-space pic-margin-b10">
+                  <div class="admweb-v2-CommodityAsk-TopText">
+                    <span class="admweb-v2-num-green">2</span>
+                    <div class="admweb-v2-CommodityAsk-QA">
+                      <span class="pic-text-green pic-margin-b5">問：我們的商品產地?</span>
+                      <span>答：產地自產自銷</span>
+                    </div>
+                  </div>
+                  <div class="admweb-v2-CommodityAsk-btn">
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic-margin-r10" href="#"><i
+                        class="icons-line icon-line-edit"></i></a>
+                    <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i
+                        class="icons-line icon-line-ashbin"></i></a>
+                  </div>
+                </div>
+              </div>
+              <!-- QA 3 -->
+              <div class="admweb-v2-specification admweb-v2-adjustment-CommodityAsk">
+                <div class="admweb-v2-CommodityAsk-QA-box pic-bg-gray-10 admweb-v2-SetUp-frame-space">
+                  <div class="admweb-v2-CommodityAsk-TopText">
+                    <span class="admweb-v2-num-green">3</span>
+                    <div class="admweb-v2-CommodityAsk-QA">
+                      <span class="pic-text-green pic-margin-b5">問：我們的商品產地?</span>
+                      <span>答：產地自產自銷</span>
+                    </div>
+                  </div>
+                  <div class="admweb-v2-CommodityAsk-btn">
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic-margin-r10" href="#"><i
+                        class="icons-line icon-line-edit"></i></a>
+                    <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i
+                        class="icons-line icon-line-ashbin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 新增問答 -->
+          <div class="admweb-v2-specification admweb-v2-adjustment-CommodityAsk admweb-v2-adjustment-AddAnswer">
+            <div class="pic-bg-gray-10 admweb-v2-SetUp-frame-space pic-margin-b10">
+              <div class="admweb-v2-CommodityAsk-TopText">
+                <h4>問題分類： </h4>
+                <select name="prod_type" class="pic-text-lnput pic-text-lnput-style">
+                  <option value="0" selected="">請選擇</option>
+                  <option value="1">商品問答</option>
+                  <option value="2">訂單問答</option>
+                  <option value="3">付款問答</option>
+                  <option value="4">配送問答</option>
+                  <option value="5">退貨退款問答</option>
+                </select>
+              </div>
+              <div class="admweb-v2-CommodityAsk-textarea">
+                <span>問:</span>
+                <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" placeholder="請輸入文字說明..."
+                  required=""></textarea>
+              </div>
+
+              <div class="admweb-v2-CommodityAsk-textarea">
+                <span>答:</span>
+                <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" placeholder="請輸入文字說明..."
+                  required=""></textarea>
+              </div>
+              <div class="admweb-v2-CommodityAsk-btn">
+                <a class="pic-BgText-color-green" href="#"><i class="icons-line icon-line-add"></i>新增問答</a>
+              </div>
+            </div>
+          </div>
+
+        </li>
+      </ul>
+
+      </div>
+      <!------------------------------------ 基本頁面設定 end -------------------------------------->
+     
+      <div class="admweb-v2-orderlist__action admweb-v2-settings-BottomBtn">
+        <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+          <!-- 灰色 按鈕字 -->
+          <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-white-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-X"></i>取消</a>
+          <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-green pic-margin-l5" href="javascript:void(0);"><i class="icons-line icon-line-tick"></i>儲存</a>
+        </div>
+      </div>
+    
+
+    
+
+  </div>
+
+
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+
+  //區塊收合
+    $(".admweb-v2-settings-frame .admweb-v2-NewProduct-title > span").click(function(){
+      $(this).toggleClass("pic-arrows-rotate");
+      $(this).parent(".admweb-v2-NewProduct-title").next("ul").slideToggle();
+    });
+
+    //頁籤切換
+    $(function () {
+      var $switch = $('.admweb-v2-top-list li');
+      var $switch_top = $('.swiper-wrapper .swiper-slide');
+
+      $($switch.eq(0).addClass('active').find('li'));
+      $switch.click(function () {
+        $(this).addClass('active').siblings('.active').removeClass('active');
+      });
+
+      $($switch_top.eq(0).addClass('selected').find('swiper-slide'));
+      $switch_top.click(function () {
+        $(this).addClass('selected').siblings('.selected').removeClass('selected');
+      });
+    });
+
+    //有效無效開關
+    $(".admweb-v2-SortBtn").click(function () {
+      $(".admweb-v2-phone-WindowBox").slideToggle();
+      $(".pic-window-bg").show();
+    });
+    $(".pic-confirm-box").click(function () {
+      $(".admweb-v2-phone-WindowBox").slideToggle();
+      $(".pic-window-bg").hide();
+    });
+
+
+    $(".admweb-v2-CommodityAskTitle").click(function () {
+    $(this).find(".pic-icon-black-arrows-rotate-up").toggleClass("pic-arrows-rotate");
+    $(this).next(".admweb-v2-adjustment-CommodityAsk").slideToggle();
+    $(".admweb-v2-NewProduct-title").toggleClass("pic-padding-0")
+  })
+</script>
+

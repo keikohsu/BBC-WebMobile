@@ -1,0 +1,482 @@
+<style>
+.admweb-v2-orderlist-delivery--store,.admweb-v2-orderlist-delivery--normal{ min-height: 28.5px; line-height: 17px;}
+@media screen and (max-width:768px){
+  .admweb-v2-order_detail__action-btn{font-size: 16px;flex-direction: row;}
+  .admweb-v2-order_detail__action form{width: 50%;}
+  .admweb-v2-order_detail__action form button{width: 100%;}
+}
+
+</style>
+
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">對帳單詳情</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <div class="admweb-v2-order_detail__content">
+      <!-- 對帳單資訊 -->
+      <section class="admweb-v2-order_detail__card" data-folder-container>
+        <div class="admweb-v2-order_detail__card--title">
+          <h3>
+            <i class="icons-line icon-line-paper-text pic-margin-r5"></i>對帳單資訊
+          </h3>
+          <button
+            data-folder-btn
+            class="admweb-v2-order_detail__card-folder-btn"
+          >
+            <i class="icons-line icon-arrow-top-01"></i>
+          </button>
+        </div>
+        <div data-folder-target>
+          <div class="pic-padding-t10">
+            <dl class="admweb-v2-account__info">
+              <div style="--custom-grid-width: 82px">
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">對帳單編號</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">{{$arrBillingList.mf.wbilm_no}}</dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">批號</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">{{$arrBillingList.mf.wbilm_batch_no}}</dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">對帳單位</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">
+                    <span class="{{$arrBillingList.mf.billing_org_class}}">{{$arrBillingList.mf.billing_org_name}}</span>
+                  </dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">對帳單日期</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">{{$arrBillingList.mf.wbilm_add_date}}</dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">對帳區間</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">{{$arrBillingList.mf.billing_range}}</dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">匯款時間</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">{{$arrBillingList.mf.remittance_date}}</dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">狀態</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">
+                    <span class="pic-sort-frame {{$arrBillingList.mf.r_status_class}}">{{$arrBillingList.mf.r_status_desc}}</span>
+                  </dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">應撥款金額</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">
+                    <span class="pic-text-green">{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.mf.wbil_payable_amt|formatMoney}}</span>
+                  </dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">跨行匯費</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">
+                    <span class="pic-text-green">{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.mf.remittance_fee_amt|formatMoney}}</span>
+                  </dd>
+                </div>
+              </div>
+              <div
+                style="--custom-grid-width: 105px"
+                class="admweb-v2-border-t-grey-5"
+              >
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">實際撥款金額</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">
+                    <span class="pic-text-green">{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.mf.actual_payable_amt|formatMoney}}</span>
+                  </dd>
+                </div>
+                <div class="admweb-v2-order_detail__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt">匯款銀行-帳號</dt>
+                  <dd class="admweb-v2-order_detail__info-desc-dd">{{$arrBillingList.mf.remittance_bank}}</dd>
+                </div>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- 本期對帳單金額統計 -->
+      <section class="admweb-v2-order_detail__card" data-folder-container>
+        <div class="admweb-v2-order_detail__card--title">
+          <h3>
+            <i class="icons-line icon-line-paper-text pic-margin-r5"></i>本期對帳單金額統計
+          </h3>
+          <button
+            data-folder-btn
+            class="admweb-v2-order_detail__card-folder-btn"
+          >
+            <i class="icons-line icon-arrow-top-01"></i>
+          </button>
+        </div>
+        <div data-folder-target>
+          <dl class="admweb-v2-account__info">
+            <div style="--custom-grid-width: 140px">
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">訂單金額(1)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.delivery_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">不成立金額(2)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.cancel_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">退款金額(3)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.return_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">判賠金額(4)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.compensation_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">行銷補貼(5)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.mkt_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">物流處理費(6)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.delivery_fee_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">金流手續費(7)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.payment_fee_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">買家退款手續費(8)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.refund_fee_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">成交服務費(9)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.deal_service_amt|formatMoney|default:0}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-account__info-desc-dt">跨行匯費(10)</dt>
+                <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.mf.remittance_fee_amt|formatMoney}}</dd>
+              </div>
+              <div class="admweb-v2-account__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">實際撥款金額</dt>
+                <dd class="admweb-v2-account__info-desc-dd">
+                  <div class="pic-flex-center-between">
+                    <button onclick="openAlert();">
+<!--                      <span class="pic-td-icon-merge"></span>-->
+                    </button>
+                    <strong class="admweb-v2-order_detail__total_price">{{getWebColsName idx='prod_currency_unit'}}{{$arrBillingList.total.payable_amt|formatMoney}}</strong>
+                  </div>
+                </dd>
+              </div>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- 對帳單明細 -->
+      <section class="admweb-v2-order_detail__card" data-folder-container>
+        <div class="admweb-v2-order_detail__card--title">
+          <h3>
+            <i class="icons-line icon-line-paper-text pic-margin-r5"></i>對帳單明細
+          </h3>
+          <button
+            data-folder-btn
+            class="admweb-v2-order_detail__card-folder-btn"
+          >
+            <i class="icons-line icon-arrow-top-01"></i>
+          </button>
+        </div>
+        <div data-folder-target>
+          <div class="admweb-v2-account__list">
+            {{foreach from=$arrBillingList.df item=m_billing}}
+            <dl
+              class="admweb-v2-account__info"
+              style="--custom-grid-width: 100px"
+            >
+              <div class="" data-folder-container>
+                <div
+                  class="admweb-v2-account__info-desc"
+                  style="--custom-grid-width: 82px"
+                >
+                  <dt class="admweb-v2-order_detail__info-desc-dt">訂單編號</dt>
+                  <dd class="admweb-v2-account__info-desc-dd">
+                    <div class="pic-text-green">{{$m_billing.order_uid}}</div>
+                  </dd>
+                </div>
+                <div data-folder-target data-folded="true">
+                  <div>
+                    <div
+                      class="
+                        admweb-v2-account__info-desc
+                        admweb-v2-border-t-grey-5
+                      "
+                      style="--custom-grid-width: 82px"
+                    >
+                      <dt class="admweb-v2-order_detail__info-desc-dt">配送單編號</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">
+                        <div class="pic-text-green">{{$m_billing.delivery_case_no}}</div>
+                      </dd>
+                    </div>
+                    <div
+                      class="admweb-v2-account__info-desc"
+                      style="--custom-grid-width: 82px"
+                    >
+                      <dt class="admweb-v2-order_detail__info-desc-dt">帳別</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">{{$m_billing.billing_type_name}}</dd>
+                    </div>
+                    <div
+                      class="admweb-v2-account__info-desc"
+                      style="--custom-grid-width: 82px"
+                    >
+                      <dt class="admweb-v2-order_detail__info-desc-dt">結帳基準日</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">{{$m_billing.checkout_date}}</dd>
+                    </div>
+                    <div
+                      class="admweb-v2-account__info-desc"
+                      style="--custom-grid-width: 82px"
+                    >
+                      <dt class="admweb-v2-order_detail__info-desc-dt">付款方式</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">{{$m_billing.payment_title}}</dd>
+                    </div>
+                    <div
+                      class="admweb-v2-account__info-desc"
+                      style="--custom-grid-width: 82px"
+                    >
+                      <dt class="admweb-v2-order_detail__info-desc-dt">運送方式</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">
+                        <span class="{{$m_billing.delivery_type_class}}">{{$m_billing.delivery_type_desc}}</span>
+                      </dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">訂單金額(1)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.delivery_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">不成立金額(2)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.cancel_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">退款金額(3)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.return_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">判賠金額(4)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.compensation_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">行銷補貼(5)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.mkt_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">物流處理費(6)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.delivery_fee_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">金流手續費(7)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.payment_fee_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">賣家退款手續費(8)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.refund_fee_amt|formatMoney}}</dd>
+                    </div>
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 140px">
+                      <dt class="admweb-v2-account__info-desc-dt">成交服務費(9)</dt>
+                      <dd class="admweb-v2-account__info-desc-dd">-{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.deal_service_amt|formatMoney|default:0}}</dd>
+                    </div>
+                    <!--
+                    <div class="admweb-v2-account__info-desc" style="--custom-grid-width: 100%">
+                      <dt class="admweb-v2-account__info-desc-dt">應撥款金額=(1)-(2)-(3)+(4)+(5)-(6)-(7)-(8)-(9)</dt>
+                    </div>
+                    -->
+                  </div>
+                </div>
+
+                <div class="admweb-v2-account__info-desc">
+                  <dt class="admweb-v2-order_detail__info-desc-dt" style="width: 82px;">撥款金額</dt>
+                  <dd class="admweb-v2-account__info-desc-dd">
+                    <div class="pic-flex-center-between" style="justify-content:right;">
+                      <strong class="admweb-v2-order_detail__total_price">{{getWebColsName idx='prod_currency_unit'}}{{$m_billing.payable_amt|formatMoney}}</strong>
+                    </div>
+                  </dd>
+                </div>
+                <button
+                  class="
+                    pic-bg-green-5 pic-text-green
+                    admweb-v2-orderlist__progress-btn
+                  "
+                  data-folder-btn
+                >
+                  <span data-folder-text>展開</span>訂單金額明細<i class="icons-line icon-arrow-down-01"></i>
+                </button>
+              </div>
+            </dl>
+            {{/foreach}}
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="admweb-v2-order_delivery__actions">
+      <div class="admweb-v2-order_detail__action">
+        <button class="admweb-v2-order_detail__action-btn admweb-v2-orderlist__action-row_btn" type='button' onclick="location.href='{{$pre_url}}';">
+          <i class="icons-line icon-arrow-left-01 admweb-v2__icon-xs" style="font-weight: bold;"></i> 回上一頁
+        </button>
+        <form id="formExport" name="formExport" method="post" action="" target="_blank">
+          <button type="submit" class="
+            admweb-v2-order_detail__action-btn
+            admweb-v2-order_detail__action-btn--sp-row
+          ">
+            <i class="icons-line icon-line-paper-text admweb-v2__icon-xs"></i>匯出報表
+          </button>
+          <input type="hidden" name="myAct" value="COMMAND_EXPORT">
+        </form>
+      </div>
+    </div>
+    
+  </div>
+  <div class="js-admweb-v2__alert" style="display: none">
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="admweb-v2__alert-content">
+        <p class="admweb-v2__alert-text js-admweb-v2__alert-text">text</p>
+        <div class="admweb-v2__alert-action js-admweb-v2__alert-action">
+          <button
+            class="pic-window-button-OneBtn pic-BgText-color-green"
+            onclick="closeAlert()"
+          >
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  // js-admweb-v2__alert
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2__alert');
+    alert.style.display = 'none';
+  }
+  function editAlertContent({ text, actions }) {
+    const alertEle = document.querySelector('.js-admweb-v2__alert');
+    alertEle.querySelector('.js-admweb-v2__alert-text').innerText = text;
+    const defaultBtn = `<button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert()" > 確認 </button>`;
+    alertEle.querySelector('.js-admweb-v2__alert-action').innerHTML = actions
+      ? actions
+      : defaultBtn;
+    showAlert(alertEle);
+  }
+  function openAlert(type) {
+    let content;
+    switch (type) {
+      default:
+        content = {
+          text: '(A)=(1)-(2)-(3)+(4)+(5)-(6)-(7)-(8)-(9)-(10)'
+        };
+    }
+    editAlertContent(content);
+  }
+  // 收合展開 start
+  const toggleBtns = document.querySelectorAll('[data-folder-btn]');
+  toggleBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+      toggleFolderHandler(button);
+    });
+  });
+
+  function toggleFolderHandler(button) {
+    const targetEle = button
+      .closest('[data-folder-container]')
+      .querySelector('[data-folder-target]');
+    const targetStyle = targetEle.style;
+    const eleHeight = targetEle.children[0].clientHeight;
+    const defaultFolded = targetEle.dataset.folded;
+    const toFold =
+      !defaultFolded ||
+      defaultFolded === 'false' ||
+      targetStyle.height === `${eleHeight}px`;
+    const btnTextEle = button.querySelector('[data-folder-text]');
+    const param = { toFold, targetEle, button, eleHeight, btnTextEle };
+    updateOuterFolderContainer(param);
+    updateFolderTarget(param);
+    updateToggleBtnText(param);
+  }
+  function updateOuterFolderContainer({
+    toFold,
+    targetEle,
+    button,
+    eleHeight
+  }) {
+    const rootTargetEle = button
+      .closest('section[data-folder-container]')
+      .querySelector('[data-folder-target]');
+    const height = rootTargetEle.children[0].clientHeight;
+    const differBtn = rootTargetEle !== targetEle;
+    if (toFold && differBtn) {
+      rootTargetEle.style.height = height - eleHeight + 'px';
+    } else if (differBtn) {
+      rootTargetEle.style.height = height + eleHeight + 'px';
+    }
+  }
+  function updateFolderTarget({ toFold, targetEle, button, eleHeight }) {
+    if (toFold) {
+      targetEle.style.height = '0';
+      button.querySelector('i').classList = 'icons-line icon-arrow-down-01';
+      targetEle.dataset.folded = true;
+    } else {
+      targetEle.style.height = `${eleHeight}px`;
+      button.querySelector('i').classList = 'icons-line icon-arrow-top-01';
+      targetEle.dataset.folded = false;
+    }
+  }
+  function updateToggleBtnText({ toFold, btnTextEle }) {
+    if (toFold && btnTextEle) {
+      btnTextEle.innerText = '展開';
+    } else if (btnTextEle) {
+      btnTextEle.innerText = '收合';
+    }
+  }
+
+
+  (function () {
+    hideMobileLayout();
+  })();
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+</script>

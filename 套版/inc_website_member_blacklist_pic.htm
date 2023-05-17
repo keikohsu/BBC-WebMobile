@@ -1,0 +1,175 @@
+<style>
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-top_status-link i.icon-line-X{font-size: 12px;font-weight: 100;margin-right: 10px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__card-top_status-link{padding: 10px 0;width: 170px;font-size: 16px;line-height: 20px;}
+  .admweb-v2-blacklist{width: 100%;background: var(--pic-color-grey-10);}
+
+  .admweb-v2-blacklist .admweb-v2-orderlist__form-head_search{grid-template-columns: 136px 1fr 235px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__form-head_search-btn{padding: 0px;}
+
+  .admweb-v2-blacklist .admweb-v2-window-SelectProduct .pic-BgText-color-green{width: 235px;font-size: 16px;}
+
+
+  .admweb-v2-blacklist .admweb-v2-FewStrokes{font-size: 14px;color: #2F2F2F;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__table--tr{height: 64px;border-bottom: 1px solid #EAEAEA;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__table--tr:last-child{border-bottom: 0px solid #EAEAEA;}
+
+  .admweb-v2-blacklist .admweb-v2-orderlist__table--head th:last-child{border-radius: 0px 8px 0px 0px;}
+  .admweb-v2-blacklist .admweb-v2-orderlist__table--head th:first-child{padding: 12px 0;}
+
+  /* 下拉視窗 */
+  .admweb-v2-blacklist .admweb-v2-orderlist__form-head_search{position: relative;}
+  .admweb-v2-window-SelectProduct .pic-text-lnput{padding: 0px 12px;}
+  .admweb-v2-blacklist .pic-window-list{position: absolute;width: 136px;margin: 0px;top: 35px;    border-radius:0px 0px 10px 10px;}
+
+  .admweb-v2-blacklist .admweb-v2-orderlist-select{width: 136px;}
+  .admweb-v2-blacklist .pic-radio-list-store{font-size: 14px;}
+
+  .admweb-v2-blacklist .iopen-search::before{margin-right: 3px;}
+  .admweb-v2-hide-images{background-image:none;}
+  .pic-radio-list-store.active{color:var(--pic-green);}
+  /* 底部按鈕 */
+  .admweb-v2-blacklist .admweb-v2-orderlist__action{padding:10px;padding-right: 259px;    justify-content: flex-end;}
+  .admweb-v2-orderlist__action>button{width: 130px;}
+
+
+</style>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+<div class="admweb-v2-blacklist">
+  <form method="post" id="searchForm">
+  <div class="admweb-v2-window-SelectProduct admweb-v2-orderlist__form-head_search-outer">
+    <div class="admweb-v2-orderlist__form-head_search">
+      <select id="search_condition" name="search_condition" class="pic-text-lnput pic-text-lnput-style">
+        <option value="mem_account">會員帳號</option>
+        <option value="mem_name">姓名</option>
+      </select>
+        <input type="text" name="search_value" class="pic-text-lnput pic-lnput-enter" id="search_value" placeholder="請輸入會員帳號" value="{{$m_arrSearch.search_value}}">
+        <input name="myAct" type="hidden" value="COMMAND_SEARCH">
+        <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn" href="javascript:void(0);">搜尋</button>
+    </div>
+  </div>
+  </form>
+    <p class="admweb-v2-FewStrokes pic-margin-10">共&nbsp;{{$total_count}}&nbsp;筆</p>
+  <ul class="admweb-v2-orderlist__list pic-margin-b20">
+    <!-- 配送類型：超商 -->
+    <li class="admweb-v2-orderlist__card">
+      <!-- 電腦版 -->
+      <table class="admweb-v2-orderlist__table">
+        <form id="ListForm" name="ListForm" method="post" action="">
+        <thead>
+          <tr class="admweb-v2-orderlist__table--head">
+            <th>會員帳號</th>
+            <th>姓名</th>
+            <th>訂單總數</th>
+            <th>訂單取消數(次)</th>
+            <th>取消率(%)</th>
+            <th>訂單退貨數(次)</th>
+            <th>退貨率(%)</th>
+            <th width="50px">編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{if $m_arrMemBlack|@count > 0}}
+          {{section name=i loop=$m_arrMemBlack}}
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>{{$m_arrMemBlack[i].mem_account}}</td>
+            <td>{{$m_arrMemBlack[i].mem_name}}</td>
+            <td>{{$m_arrMemBlack[i].order_count_all}}</td>
+            <td>{{$m_arrMemBlack[i].order_count_31}}&nbsp;</td> <!--取消數-->
+            <td>{{$m_arrMemBlack[i].order_count_31_pct}}</td>
+            <td>{{$m_arrMemBlack[i].order_count_41}}&nbsp;</td> <!--退貨數-->
+            <td>{{$m_arrMemBlack[i].order_count_41_pct}}</td>
+            <td>
+              <a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center" onclick="delete_member('{{$m_arrMemBlack[i].mem_uid}}')">
+              <i class="icons-line icon-line-X"></i>取消黑名單設定</a></td>
+          </tr>
+          {{/section}}
+          {{/if}}
+        </tbody>
+        </form>
+      </table>
+
+    </li>
+
+  </ul>
+  {{if !$m_arrMemBlack}}
+  <!--目前無會員資料  -->
+  <div class="admweb-v2-NoData">
+    <div class="admweb-v2-img-BlacklistNoData"></div>
+    <span>目前無會員資料</span>
+  </div>
+  {{/if}}
+  <div class="pic-flex-center pic-flex-center-column">
+    {{if $total_count > 0}}
+    <ul class="admweb-v2-pagination">
+      {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_prev}}{{/if}}
+      {{$m_arrPage.pager_numeric}}
+      {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_next}}{{/if}}
+    </ul>
+    <p class="admweb-v2-page-bottom-text">{{$listMemberGet.start}}{{if $total_count > 1}} - {{$listMemberGet.end}}{{/if}} 筆／共 {{$total_count}} 筆</p>
+    {{/if}}
+  </div>
+<!--  匯出按鈕  -->
+<!--  <div class="admweb-v2-orderlist__action" id="js-orderlist__action" style="">-->
+<!--    <button id="Export" class="admweb-v2-orderlist__action-row_btn" type="submit">-->
+<!--      <i class="icons-line icon-line-ArrowParper"></i> 匯出-->
+<!--    </button>-->
+<!--  </div>-->
+
+</div>
+
+</div>
+
+<script>
+
+$( document ).ready(function() {
+  var o = '{{$m_arrSearch.search_condition}}';
+  $('#search_condition').val(o);
+  switch(o){
+    case 'mem_account':
+      $('#search_value').attr('placeholder', '請輸入會員帳號');
+      break;
+    case 'mem_name':
+      $('#search_value').attr('placeholder', '請輸入會員姓名');
+      break;
+  }
+
+});
+
+document.getElementById('search_condition').addEventListener('change', function () {
+  switch(this.value){
+  case 'mem_account':
+    $('#search_value').attr('placeholder', '請輸入會員帳號');
+    break;
+  case 'mem_name':
+    $('#search_value').attr('placeholder', '請輸入會員姓名');
+    break;
+  }
+})
+
+let s_value = document.getElementById('search_value').value;
+let s_condition = $('#search_condition').value;
+
+function delete_member($mem_uid){
+  confirm('確認取消黑名單設定？').done(function () {
+    $.ajax({
+      url: '{{$m_inURL}}',
+      type: 'POST',
+      data: {
+        ban_member_cancel: $mem_uid,
+        myAct: 'COMMAND_DELETE'
+      },
+      success: function(response){
+        console.log('success');
+        location.reload();
+      },
+      error: function (){
+        console.log('ajax error.');
+      }
+    })
+  })
+}
+
+</script>

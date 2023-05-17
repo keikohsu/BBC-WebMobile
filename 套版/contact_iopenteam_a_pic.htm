@@ -1,0 +1,209 @@
+<style>
+  .admweb-v2-list-header-in-fixbottom{display: none;}
+.admweb-v2-orderlist__table--tr td {
+  text-align: start;
+}
+
+
+.admweb-v2-orderlist__table--tr td {
+  white-space: initial;
+}
+
+.admweb-v2-orderlist__list {
+  background: #fff;
+}
+
+.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:first-child {
+  justify-content: center;
+}
+
+.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:nth-child(2) {
+  text-align: start;
+}
+
+.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.admweb-v2-ImgEditBtn {
+  padding: 5px 6px;
+}
+.admweb-v2-settings-frame .admweb-v2-SettingsTitle i.icons-line{font-size:28px;}
+.admweb-v2-orderlist__card-desc{grid-template-columns: 112px 1fr;}
+.admweb-v2-orderlist__card-desc-dd{display: flex;align-items: center;height: 100%;font-size: 14px;}
+.admweb-v2-orderlist__card-desc-dt{height: 100%;font-size: 14px;display: flex;justify-content: center;align-items: center;}
+.admweb-v2-orderlist__card-detail-StyleGreen .admweb-v2-orderlist__card-desc-dt{background: var(--pic-green);color:#fff;padding: 6px;    justify-content: center;}
+.admweb-v2-orderlist__card-detail-StyleGreen .admweb-v2-orderlist__card-desc{border: 1px solid var(--pic-green);border-bottom: 0;}
+.admweb-v2-orderlist__card-detail-StyleGreen .admweb-v2-orderlist__card-desc:last-child{border-bottom: 1px solid var(--pic-green);}
+.admweb-v2-orderlist__card-detail-StyleGreen .admweb-v2-orderlist__card-desc-dd{color:var(--pic-green) ;font-size: 14px;}
+.admweb-v2-orderlist__card-top, .admweb-v2-orderlist__card-detail{display: block;}
+.admweb-v2-NewProduct-title{ padding-bottom: 0px;}
+
+.admweb-v2-orderlist__card-desc:first-child .admweb-v2-orderlist__card-desc-dt{border-radius: 5px 0 0 0;}
+   .admweb-v2-orderlist__card-desc:last-child .admweb-v2-orderlist__card-desc-dt{border-radius: 0 0 0 5px;}
+   .admweb-v2-orderlist__card-desc:first-child{border-radius: 5px 5px 0 0;}
+   .admweb-v2-orderlist__card-desc:last-child{border-radius: 0 0  5px 5px;border-bottom-width: 1px;}
+   .admweb-v2-adjustment-file-name a .icon-line-Download{color:var(--pic-color-grey-100); font-size: 14px;}
+   .admweb-v2-adjustment-file-name{line-height: 28px;margin: 5px 5px 5px 0px;   height: 40px;}
+   /* .admweb-v2-file-name{  position: relative;  display: -webkit-box;    padding: 10px 25px 10px 10px;}
+   .admweb-v2-file-name a{    display:block;position: absolute;right:10px;margin: 0;} */
+   .admweb-v2-file-name{ position: relative;  display: -webkit-box;padding: 6px 49px 2px 10px;}
+   .admweb-v2-file-name a{display:block;position: absolute;right:10px;margin: 0; padding-top: 2px;top: 11px;} 
+@media screen and (max-width: 768px) {
+  /* 檔案名稱 */
+  .admweb-v2-adjustment-file-name{line-height: 28px;margin:0px 0;width: 100%;}
+   .admweb-v2-file-name{ position: relative;  display: -webkit-box;padding: 6px 49px 2px 10px;}
+   .admweb-v2-file-name a{display:block;position: absolute;right:10px;margin: 0; padding-top: 2px;top: 11px;} 
+
+  .admweb-v2-NewProduct-title{ padding-bottom: 5px;border-bottom: 1px solid #F8F8F8;}
+  .admweb-v2-orderlist__card-detail{    margin-top: 8px;}
+  .admweb-v2-orderlist__card-desc-dd{font-size: 14px;line-height: 20px;padding: 8px 5px;margin-left: 0px;}
+  .admweb-v2-store_delivery__badge--success{ margin-left: 0px;}
+  .admweb-v2-orderlist__list {background: transparent;}
+  .admweb-v2-ImgEditBtn{width: auto;}
+  .admweb-v2-orderlist__card{padding: 8px 10px;}
+   .admweb-v2-orderlist__card-desc{grid-template-columns: 97px 1fr;}
+   .admweb-v2-orderlist__card-desc-dt{display: flex;font-size: 14px;align-items: center;justify-content: center;height: 100%;}
+
+   .admweb-v2-orderlist__card-actions{padding: 5px 0px 0px 5px;}
+}
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <!-- 左側選單 Start -->
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <!-- 左側選單 End -->
+
+  <div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+      <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+
+      <button  onclick="toggleMenuHandler()">
+        <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu">
+          <i class="icons-line icon-line-hamburger"></i>
+        </div>
+      </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">商城客服回覆</h2>
+    <div class="admweb-v2-orderlist-header-qrcode">
+    </div>
+  </div>
+  <!-- 右側內容 Start -->
+  <div class="pic-front-pages-right admweb-v2-adjustment">
+    <div class="admweb-v2-settings-frame pic-margin-10">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-Comment"></i>商城客服回覆</h2>
+      </div>
+      <!-- 手機版 -->
+      <ul id="manager_list_sec" class="ind_sec admweb-v2-manager__list-m">
+        <li>
+          <dl class="admweb-v2-orderlist__card-detail">
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">問題編號</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                {{$arr_QAQues.qaq_case_no}}</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">提出問題時間</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                {{$arr_QAQues.create_date}}</dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">問題類型</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$arr_QAQues.qaq_category_type}}</dd>
+            </div>
+  
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">問題內容</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">{{$arr_QAQues.qaq_contents}}</dd>
+            </div>
+
+            {{if $arr_QAQues.qaq_files}}
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">上傳附件</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                <!--<span class="admweb-v2-file-name admweb-v2-adjustment-file-name pic-bg-gray-10 pic-OneRow-simplify">下載附件
+                  <a href="javascript:void(0)">
+                    <i class="icons-line icon-line-Download"></i>
+                  </a>
+                </span>-->
+                <img src="{{$m_arrSystem.uploads_url}}qaq_files/{{$arr_QAQues.qaq_files}}" width="90%">
+              </dd>
+            </div>
+            {{/if}}
+          </dl>
+        </li>
+      </ul>
+
+      <ul id="manager_list_sec_2" class="ind_sec admweb-v2-manager__list-m">
+        <li>
+          <dl class="admweb-v2-orderlist__card-detail admweb-v2-orderlist__card-detail-StyleGreen">
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">回覆時間</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                {{if $arr_QAAns}}
+                {{$arr_QAAns.replay_date}}
+                {{else}}
+                未回覆
+                {{/if}}
+              </dd>
+            </div>
+            <div class="admweb-v2-orderlist__card-desc">
+              <dt class="admweb-v2-orderlist__card-desc-dt">回覆內容</dt>
+              <dd class="admweb-v2-orderlist__card-desc-dd">
+                {{if $arr_QAAns}}
+                {{$arr_QAAns.qaa_contents}}
+                {{else}}
+                未回覆
+                {{/if}}
+              </dd>
+            </div>
+          </dl>
+  
+        </li>
+      </ul>
+    </div>
+
+<div class="admweb-v2-orderlist__action admweb-v2-BulkUpload-bottom-btn">
+  <!-- 按鈕 -->
+  <a class="admweb-v2-I-Btn pic-BgText-color-white-green" href="admweb.main.php?action=contact_iopenteam_pic">
+    <i class="icons-line icon-line-Arrow-left"></i>回上一頁
+  </a>
+</div>
+
+<script>
+  // 漢堡函式
+  function toggleMenuHandler() {
+    document
+            .querySelector('.admweb-v2-seller-front-left-box')
+            .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+            .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+            .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+              '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+              '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+
+var FunctionMenuName1 = false;
+var HtmlHeaderTitle = $('.admweb-v2-orderlist-header-title').html()
+
+$('.admweb-v2-orderlist-header-actions .icon-line-hamburger').on('click', function() {
+    FunctionMenuName1 = !FunctionMenuName1;
+		$(".admweb-v2-orderlist-header-title").text(FunctionMenuName1 ? '賣家功能選單' : HtmlHeaderTitle);
+		$("body").toggleClass('disscroll');
+		$(".admweb-v2-orderlist-header-qrcode").toggle();
+});
+
+</script>

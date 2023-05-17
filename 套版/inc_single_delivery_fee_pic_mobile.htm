@@ -1,0 +1,430 @@
+<style>
+  .pic-window-bg .pic-window { width: 333px;}
+  .pic-window-button-box > a,
+  .admweb-v2-I-Btn{ cursor: pointer;}
+  .admweb-v2-marketing{ padding-top: 60px;}
+  .admweb-v2-marketing .admweb-v2-marketing-inner{ font-size: 14px; overflow-x: auto; flex-grow: 1; background: var(--pic-color-grey-10); position: relative;color: var(--pic-color-grey-100); min-height: calc(100vh - 60px - 62px);}
+  
+  /* 搜尋 */
+  .admweb-v2-marketing .admweb-v2-marketing-form { background: var(--pic-light-green-5); padding: 10px; padding-bottom: 0; overflow: hidden; margin-bottom: 0; transition: height 0.3s ease-in-out; box-sizing: content-box; }
+  .admweb-v2-marketing .admweb-v2-input-date-content .admweb-v2-DateBox{ width: calc(100% / 2);}
+  .admweb-v2-marketing .admweb-v2-marketing-form-item{ display: grid; grid-template-columns: 60px 1fr; align-items: center; gap: 5px; }
+  .admweb-v2-marketing .admweb-v2-marketing-form-item:last-of-type{ grid-column-end: 4; grid-column-start: 1;}
+  .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn { width: 100%; border: none; display: block; padding: 6px; cursor: pointer; margin: 0;}
+  .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn i {font-size: 20px; vertical-align: bottom;}
+  .admweb-v2-marketing .admweb-v2-marketing-form-head_search { display: grid; grid-template-columns: auto 1fr 84px; gap: 5px; }
+  .admweb-v2-marketing .admweb-v2-marketing-form-head_search-btn { padding: 10px; cursor: pointer; border-radius: 8px; }
+  .admweb-v2-marketing .admweb-v2-marketing-form-btn { border-radius: 8px; display: block; width: 100%; height: 40px; cursor: pointer; }
+  .admweb-v2-marketing .admweb-v2-marketing-form-head-search-outer > div{ margin-bottom: 5px;}
+
+  /* 清單 */
+  .admweb-v2-marketing .admweb-v2-marketing-list{ background: var(--pic-color-grey-10); list-style: none; padding: 0 10px; }
+  .admweb-v2-marketing .admweb-v2-marketing-card{ background: #FFFFFF; border-radius: 10px; padding: 10px;}
+  .admweb-v2-marketing .admweb-v2-marketing-card + .admweb-v2-marketing-card { margin: 10px 0; }
+
+  .admweb-v2-orderlist__card___last-child{ border-bottom: 1px solid var(--pic-color-grey-5);}
+  .admweb-v2-orderlist__card-detail{ margin-top: 0;}
+  .admweb-v2-orderlist__card-actions button{ font-size: 14px;}
+
+ 
+  @media screen and (min-width: 768px){
+      .admweb-v2-marketing .admweb-v2-marketing-table{ display: table; }
+      .admweb-v2-marketing .admweb-v2-marketing-card-top,
+      .admweb-v2-marketing .admweb-v2-marketing-card-detail{ display: none;}
+  }
+
+  /* tag */
+  .admweb-v2-marketing-tag-marketing-type{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+  .admweb-v2-marketing-tag-marketing-type i.icons-line{ font-size: 16px; font-weight: normal; margin-right: 2px;}
+  .admweb-v2-marketing-tag-status-valid{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+  .admweb-v2-marketing-tag-status-invalid{ background:var(--pic-color-grey-5); border: 1px solid var(--pic-color-grey-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-color-grey-30); font-size: 12px; display: inline-block;}
+
+  /* 置底按鈕 */
+  .pic-confirm-box{ margin: 0;}
+</style>
+
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+      {{if $m_arrSystem.is_app_mode}}
+          <button onclick="{
+             let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+             let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+             if (isAndroid) {
+                 window.JavaScriptInterface.backToSellerCenter();
+             } else if (isiOS) {
+                 window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+             }
+          }">
+             <i class="icons-line icon-arrow-left-01"></i>
+          </button>
+      {{else}}
+          <button onclick="history.back()">
+              <i class="icons-line icon-arrow-left-01"></i>
+          </button>
+      {{/if}}
+      <button onclick="toggleMenuHandler()">
+          <i class="icons-line icon-line-hamburger"></i>
+      </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">單品免運</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-marketing">
+  <!-- 左側選單 Start -->
+  <div class="admweb-v2-seller-front-left-box">
+      {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <!-- 左側選單 End -->
+
+  <!-- 右側內容 Start -->
+  <div class="admweb-v2-adjustment">
+      <div class="admweb-v2-marketing-inner">
+          <!-- 搜尋 -->
+          <!--<form class="admweb-v2-marketing-form js-marketing-form">
+              <div class="admweb-v2-marketing-form-head-search-outer">
+                  <div class="admweb-v2-marketing-form-head_search js-marketing-form-head-search" style="grid-template-columns: auto 1fr 84px;">
+                      <select name="keyword_type" class="pic-text-lnput pic-text-lnput-style" style="width: 127px;">
+                          <option value="活動名稱">活動名稱</option>
+                          <option value="商品名稱">商品名稱</option>
+                      </select>
+                      <input type="text" placeholder="請輸入活動名稱" class="pic-text-lnput pic-lnput-enter">
+                      <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-marketing-form-head_search-btn js-marketing-form-head-search-btn" style="display: block;"> 搜尋 </button>
+                  </div>
+                  <div class="admweb-v2-marketing-form-item">
+                      <label for="order-date">活動時間</label>
+                      <div class="admweb-v2-input-date-content">
+                          <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                              <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+                          </span>
+                          <span class="pic-margin-r5">-</span>
+                          <span class="admweb-v2-DateBox iopen-icon-date">
+                              <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+                          </span>
+                      </div>
+                  </div>
+                  <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-marketing-form-btn">搜尋</button>
+              </div>
+              <input type="hidden" name="csrf_token" value="MTY3NTMyMzczMUJkcVFRWTBOMXRjclQ0M0tuQkpwY0NvOVRqQUp2b2dj">
+          </form>
+          <button class=" pic-text-gray-30 pic-bg-green-5 admweb-v2-marketing-form-toggle-btn" id="js-marketing-form-toggle--btn">更多進階條件 <i class="icons-line icon-arrow-down-01"></i></button>
+        -->
+          <!-- 頁籤 -->
+          <div class="pic-common-navbarbox pic-common-navbarbox-tow-width-50">
+              <div class="swiper-container pic-navbar" id="pic-navbar">
+                  <div class="swiper-wrapper pic-nav-list">
+                      <div id="swiper-tab-1" class="swiper-slide pic-nav-a" timeCheck="1"><span>進行中</span></div>
+                      <div id="swiper-tab-2" class="swiper-slide pic-nav-a" timeCheck="2"><span>即將開始</span></div>
+                      <div id="swiper-tab-3" class="swiper-slide pic-nav-a" timeCheck="3"><span>已結束</span></div>
+                  </div>
+              </div>
+          </div>
+          <!-- 清單 -->
+          <div class="pic-bg-orange-10 pic-text-orange admweb-v2-orderlist__notice--outer">
+            <div class="admweb-v2-orderlist__notice">
+              <p>消費者購物車內只要有加入"免運商品"且購物車金額達免運門檻，整筆訂單即免運。</p>
+            </div>
+          </div>
+          <div class="admweb-v2-orderlist-overview">
+                <span>
+                    <text class="event_date" style="display: none;">活動日期：2022/09/05 ~ 2022/10/05</text>
+                </span>
+              <span id="total">共{{$m_arrWebsiteDeliveryFreeEventTotal}}筆</span>
+            </div>
+          <ul class="admweb-v2-marketing-list pic-margin-b20">
+              {{if $m_arrWebsiteDeliveryFreeEvent|@count > 0}}
+              {{foreach from=$m_arrWebsiteDeliveryFreeEvent item=m_arrWDFE}}
+              <li class="admweb-v2-marketing-card">
+                  <dl class="admweb-v2-orderlist__card-detail">
+                      <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動名稱</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrWDFE.webdvr_evt_title}}</dd>
+                      </div>
+                      <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">運送溫層</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">
+                              {{if $m_arrWDFE.prod_type == 3}}
+                              <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                              {{elseif $m_arrWDFE.prod_type == 10}}
+                              <span class="admweb-v2-orderlist__badge--refrigeration">冷藏</span>
+                              {{else}}
+                              <span class="admweb-v2-orderlist__badge--freezing">冷凍</span>
+                              {{/if}}
+                          </dd>
+                      </div>
+                      <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">運送方式</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrWDFE.delivery_title}}</dd>
+                      </div>
+                      <div class="admweb-v2-orderlist__card-desc">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">活動時間</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">{{$m_arrWDFE.webdvr_evt_sdate}}~{{$m_arrWDFE.webdvr_evt_edate}}</dd>
+                      </div>
+                      <div class="admweb-v2-orderlist__card-desc admweb-v2-orderlist__card___last-child">
+                          <dt class="admweb-v2-orderlist__card-desc-dt">狀態</dt>
+                          <dd class="admweb-v2-orderlist__card-desc-dd">
+                              {{if $m_arrWDFE.webdvr_evt_status == 1}}
+                              <span class="admweb-v2-marketing-tag-status-valid">有效</span>
+                              {{else}}
+                              <span class="admweb-v2-marketing-tag-status-invalid">無效</span>
+                              {{/if}}
+                          </dd>
+                      </div>
+                      <div class="admweb-v2-orderlist__card-bottom">
+                          <div class="admweb-v2-orderlist__card-delivery_info"></div>
+                          <div class="admweb-v2-orderlist__card-actions">
+                              <button class="admweb-v2-orderlist__card-actions--btn"
+                                      onclick="window.location.href = encodeURI('admweb.main.php?action=single_delivery_fee_edit_pic&timeCheck={{$m_arrSearch.timeCheck}}&webdvr_evt_uid={{$m_arrWDFE.webdvr_evt_uid}}')">
+                                  <i class="icons-line icon-line-edit"></i>編輯
+                                  {{* Checkmarkx Client DOM XSS *}}
+                              </button>
+                          </div>
+                      </div>
+                  </dl>
+              </li>
+              {{/foreach}}
+              {{if $m_arrWebsiteDeliveryFreeEventTotal<=$argument.items_per_page}}
+              <!-- 頁碼a -->
+              <div class="pic-text-center">
+                  <p class="pic-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$m_arrWebsiteDeliveryFreeEventTotal}} 筆</p>
+              </div>
+              {{elseif $m_arrWebsiteDeliveryFreeEventTotal<=($argument.items_per_page*5)}}
+              <!-- 頁碼b -->
+              <div class="pic-flex-center pic-flex-center-column">
+                  <ul class="admweb-v2-pagination">
+                      {{$m_arrPage.pager_numeric}}
+                  </ul>
+                  <p class="admweb-v2-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$m_arrWebsiteDeliveryFreeEventTotal}} 筆</p>
+              </div>
+              {{else}}
+              <!-- 頁碼c -->
+              <div class="pic-flex-center pic-flex-center-column">
+                  <ul class="admweb-v2-pagination">
+                      {{$m_arrPage.pager_prev}}
+                      {{$m_arrPage.pager_numeric}}
+                      {{$m_arrPage.pager_next}}
+                  </ul>
+                  <p class="admweb-v2-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$m_arrWebsiteDeliveryFreeEventTotal}} 筆</p>
+              </div>
+              {{/if}}
+              {{else}}
+              <!-- 清單目前無活動資料 -->
+              <div class="admweb-v2-NoData">
+                  <div class="admweb-v2-img-BlacklistNoData"></div>
+                  <span>目前無活動資料</span>
+              </div>
+              {{/if}}
+          </ul>
+      </div>
+      <!-- 置底按鈕 -->
+      <div class="pic-btn-footer pic-icon-margin-r">
+          <a class="pic-btn-newstore-100 pic-BgText-color-green iopen-icon-white-add-front"
+             href="admweb.main.php?action=single_delivery_fee_edit_pic&add_wdfe=1">新增活動</a>
+      </div>
+  </div>
+  <!-- 右側內容 End-->
+</div>
+
+
+
+<script>
+
+    $(function (){
+        // 頁籤套件
+        var $switch_top = $('.swiper-wrapper .swiper-slide');
+        $($switch_top.eq('{{$m_arrSearch.timeCheck-1}}').addClass('selected').find('swiper-slide'));
+        $switch_top.click(function () {
+            $(this).addClass('selected').siblings('.selected').removeClass('selected');
+            changePage($(this).attr('timeCheck'));
+        });
+
+        // 呼叫函式
+        // searchFormCollapse();
+        hideMobileLayout();
+
+        $(".event_date").hide();
+    });
+  
+  // 搜尋函式
+  function searchFormCollapse() {
+      const toggleBtn = document.getElementById('js-marketing-form-toggle--btn');
+      const formEle = document.getElementsByClassName('js-marketing-form')[0];
+      const formHeadEle = document.getElementsByClassName(
+          'js-marketing-form-head-search'
+      )[0];
+      const defaultHeight = formHeadEle.clientHeight;
+      const headBtn = document.getElementsByClassName(
+          'js-marketing-form-head-search-btn'
+      )[0];
+      const wholeHeight = formEle.clientHeight;
+      formEle.style.height = `${defaultHeight}px`;
+      toggleBtn.addEventListener('click', () => {
+          //當前為收合
+          if (formEle.style.height === `${defaultHeight}px`) {
+          formEle.style.height = `${wholeHeight}px`;
+          toggleBtn.innerHTML =
+              '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+          formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+          headBtn.style.display = 'none';
+          } else {
+          ///當前為展開
+          formEle.style.height = `${defaultHeight}px`;
+          toggleBtn.innerHTML =
+              '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+          formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+          headBtn.style.display = 'block';
+          }
+      });
+  }
+
+  // 隱藏手機原版頭函式
+  function hideMobileLayout() {
+  if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+          '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+      }
+  }
+
+  // 漢堡函式
+  function toggleMenuHandler(){
+      document.querySelector('.admweb-v2-seller-front-left-box').classList.toggle('pic-phone-open-menu')
+      const hamBtn = document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1].querySelector('i')
+      if(hamBtn.classList.contains('icon-arrow-left-01')){
+      document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block'
+      }else{
+      document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none'
+      }
+      hamBtn.classList.toggle('icon-arrow-left-01')
+  }
+
+    function changePage(timeCheck){
+        $(".admweb-v2-marketing-list").html('');
+        $(".pic-text-center").remove();
+        $(".pic-flex-center").remove();
+        $.ajax({
+            url:"",
+            dataType:"json",
+            type:"POST",
+            async:false,
+            data:{
+                "myAct": "COMMAND_SEARCH",
+                "timeCheck": timeCheck
+            },
+            success: function (result){
+                $("#total").text("共"+result.m_arrWebsiteDeliveryFreeEventTotal+"筆");
+                var html;
+                if(result.m_arrWebsiteDeliveryFreeEventTotal>0) {
+                    result.m_arrWebsiteDeliveryFreeEvent.forEach(function (m_arrWDFE, i) {
+                        html = "\n" +
+                            "              <li class=\"admweb-v2-marketing-card\">\n" +
+                            "                  <dl class=\"admweb-v2-orderlist__card-detail\">\n" +
+                            "                      <div class=\"admweb-v2-orderlist__card-desc\">\n" +
+                            "                          <dt class=\"admweb-v2-orderlist__card-desc-dt\">活動名稱</dt>\n" +
+                            "                          <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(m_arrWDFE.webdvr_evt_title)+"</dd>\n" +
+                            "                      </div>\n" +
+                            "                      <div class=\"admweb-v2-orderlist__card-desc\">\n" +
+                            "                          <dt class=\"admweb-v2-orderlist__card-desc-dt\">運送溫層</dt>\n" +
+                            "                          <dd class=\"admweb-v2-orderlist__card-desc-dd\">\n";
+                        if (m_arrWDFE.prod_type == 3) {
+                            html +=
+                                "                              <span class=\"admweb-v2-orderlist__badge--normal\">常溫</span>\n";
+                        } else if (m_arrWDFE.prod_type == 10) {
+                            html +=
+                                "                              <span class=\"admweb-v2-orderlist__badge--refrigeration\">冷藏</span>\n";
+                        } else {
+                            html +=
+                                "                              <span class=\"admweb-v2-orderlist__badge--freezing\">冷凍</span>\n";
+                        }
+                        html+=
+                            "                          </dd>\n" +
+                            "                      </div>\n" +
+                            "                      <div class=\"admweb-v2-orderlist__card-desc\">\n" +
+                            "                          <dt class=\"admweb-v2-orderlist__card-desc-dt\">運送方式</dt>\n" +
+                            "                          <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(m_arrWDFE.delivery_title)+"</dd>\n" +
+                            "                      </div>\n" +
+                            "                      <div class=\"admweb-v2-orderlist__card-desc\">\n" +
+                            "                          <dt class=\"admweb-v2-orderlist__card-desc-dt\">活動時間</dt>\n" +
+                            "                          <dd class=\"admweb-v2-orderlist__card-desc-dd\">"+filterScriptTags(m_arrWDFE.webdvr_evt_sdate)+"~"+filterScriptTags(m_arrWDFE.webdvr_evt_edate)+"</dd>\n" +
+                            "                      </div>\n" +
+                            "                      <div class=\"admweb-v2-orderlist__card-desc admweb-v2-orderlist__card___last-child\">\n" +
+                            "                          <dt class=\"admweb-v2-orderlist__card-desc-dt\">狀態</dt>\n" +
+                            "                          <dd class=\"admweb-v2-orderlist__card-desc-dd\">\n";
+                        if(m_arrWDFE.webdvr_evt_status == 1) {
+                            html+=
+                                "                              <span class=\"admweb-v2-marketing-tag-status-valid\">有效</span>\n";
+                        } else {
+                            html+=
+                                "                              <span class=\"admweb-v2-marketing-tag-status-invalid\">無效</span>\n";
+                        }
+                        html+=
+                            "                          </dd>\n" +
+                            "                      </div>\n" +
+                            "                      <div class=\"admweb-v2-orderlist__card-bottom\">\n" +
+                            "                          <div class=\"admweb-v2-orderlist__card-delivery_info\"></div>\n" +
+                            "                          <div class=\"admweb-v2-orderlist__card-actions\">\n" +
+                            "                              <button class=\"admweb-v2-orderlist__card-actions--btn\"\n" +
+                            "                                      onclick=\"window.location.href = encodeURI('admweb.main.php?action=single_delivery_fee_edit_pic&timeCheck="+filterScriptTags(timeCheck)+"&webdvr_evt_uid="+filterScriptTags(m_arrWDFE.webdvr_evt_uid)+"')\">\n" +
+                            "                                  <i class=\"icons-line icon-line-edit\"></i>編輯\n" +
+                            "                              </button>\n" +
+                            "                          </div>\n" +
+                            "                      </div>\n" +
+                            "                  </dl>\n" +
+                            "              </li>";
+                        $(".admweb-v2-marketing-list").append(html);
+                    }) //forEach
+
+                    var pageHtml;
+                    if (parseInt(result.m_arrWebsiteDeliveryFreeEventTotal) <= parseInt('{{$argument.items_per_page}}')) {
+                        pageHtml = "<div class=\"pic-text-center\">\n" +
+                            "    <p class=\"pic-page-bottom-text\">1- " + filterScriptTags(result.m_arrWebsiteDeliveryFreeEvent.length) + " 筆／共 " + filterScriptTags(result.m_arrWebsiteDeliveryFreeEventTotal) + " 筆</p>\n" +
+                            "</div>"
+                    } else if (parseInt(result.m_arrWebsiteDeliveryFreeEventTotal) <= parseInt('{{$argument.items_per_page*5}}')) {
+                        pageHtml = "<div class=\"pic-flex-center pic-flex-center-column\">\n" +
+                            "        <ul class=\"admweb-v2-pagination\">\n" +
+                            "        " + filterScriptTags(result.m_arrPage.pager_numeric) + "\n" +
+                            "        </ul>\n" +
+                            "    <p class=\"admweb-v2-page-bottom-text\">1- " + filterScriptTags(result.m_arrWebsiteDeliveryFreeEvent.length) + " 筆／共 " + filterScriptTags(result.m_arrWebsiteDeliveryFreeEventTotal) + " 筆</p>\n" +
+                            "</div>";
+                    } else {
+                        pageHtml = "<div class=\"pic-flex-center pic-flex-center-column\">\n" +
+                            "    <ul class=\"admweb-v2-pagination\">\n" +
+                            "        " + filterScriptTags(result.m_arrPage.pager_prev) + "\n" +
+                            "        " + filterScriptTags(result.m_arrPage.pager_numeric) + "\n" +
+                            "        " + filterScriptTags(result.m_arrPage.pager_next) + "\n" +
+                            "    </ul>\n" +
+                            "    <p class=\"admweb-v2-page-bottom-text\">1- " + filterScriptTags(result.m_arrWebsiteDeliveryFreeEvent.length) + " 筆／共 " + filterScriptTags(result.m_arrWebsiteDeliveryFreeEventTotal) + " 筆</p>\n" +
+                            "</div>";
+                    }
+                    $(".admweb-v2-marketing-list").after(pageHtml);
+                } else {
+                    html = "                <div class=\"admweb-v2-NoData\">\n" +
+                        "                    <div class=\"admweb-v2-img-BlacklistNoData\"></div>\n" +
+                        "                    <span>目前無活動資料</span>\n" +
+                        "                </div>"
+                    $(".admweb-v2-marketing-list").append(html);
+                }
+            }
+        })
+    }
+
+    function filterScriptTags(input) {
+        if (typeof input === 'string') {
+            // 如果是字串，過濾 script 標籤及其內容
+            return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        } else if (Array.isArray(input)) {
+            // 如果是陣列，遞迴處理每個元素
+            return input.map(filterScriptTags);
+        } else if (typeof input === 'object') {
+            // 如果是物件，遞迴處理每個屬性值
+            const sanitizedObject = {};
+            for (const key in input) {
+                sanitizedObject[key] = filterScriptTags(input[key]);
+            }
+            return sanitizedObject;
+        } else {
+            // 其他型態直接回傳
+            return input;
+        }
+    }
+</script>

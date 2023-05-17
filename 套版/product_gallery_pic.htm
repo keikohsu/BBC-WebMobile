@@ -1,0 +1,487 @@
+<!--{{*slim cropper*}}-->
+<link href="{{$sys_arrWebsite.website_url}}libs/slim-image-cropper/slim/slim.min.css" rel="stylesheet">
+<script src="{{$sys_arrWebsite.website_url}}libs/slim-image-cropper/slim/slim.jquery.min.js"></script>
+
+<!--{{*base64.js*}}-->
+<script src="/website/javascripts/base64.js"></script>
+
+<style>
+	.admweb-v2-phone-haed{display: none;}
+		@media screen and (max-width:768px){
+		.admweb-v2-orderlist i.icon-arrow-left-01{font-size: 24px;}
+		.admweb-v2-orderlist i.icon-line-hamburger{ font-size: 15px;}
+		.admweb-v2-phone-haed{display: block;}
+		.admweb-v2-phone-haed{height: 48px;}
+		.admweb-v2-list-header-in-fixbottom,.admweb-v2-list-header{display: none;}
+		.admweb-v2-SettingsTitle{margin-bottom: 10px;}
+		.admweb-v2-settings-frame .admweb-v2-outside-white-box .admweb-v2-edit-name:first-child {margin-top: 0px;}
+	}
+	
+    /* 遮罩閃爍效果 */
+    .blink {
+        animation: blink-animation 1s linear infinite;
+        -webkit-animation: blink-animation 1s infinite;
+        background-color: #EFEFEF;
+    }
+    @keyframes blink-animation {
+        to {
+            background-color: #FFF;
+        }
+    }
+    @-webkit-keyframes blink-animation {
+        to {
+            background-color: #FFF;
+        }
+    }
+
+	/* slim preview */
+	.slim>img{
+		width: 120px !important;
+		height: 120px !important;
+	}
+
+	.in {
+		width: 120px !important;
+		height: 120px !important;
+	}
+
+	.slim[data-ratio="1:1"]>img {
+		margin-bottom: 0% !important;
+		
+	}
+
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+	<!-- 左側選單 Start -->
+	<div class="admweb-v2-seller-front-left-box">
+		{{include file="admweb_2/admweb.main_menu.htm"}}
+	</div>
+	<!-- 左側選單 End -->
+
+	<!-- 右側內容 Start -->
+	<div class="admweb-v2-orderlist-header">
+		<div class="admweb-v2-orderlist-header-actions">
+			<a onclick="history.back()">
+				<i class="icons-line icon-arrow-left-01"></i>
+			</a>
+			<a onclick="toggleMenuHandlertwo()">
+				<div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+					<i class="icons-line icon-line-hamburger"></i>
+				</div>
+			</a>
+		</div>
+		<h2 class="admweb-v2-orderlist-header-title">商品圖片上傳</h2>
+		<div class="admweb-v2-orderlist-header-qrcode">
+		</div>
+	</div>
+
+	<div class="pic-front-pages-right admweb-v2-adjustment">
+		<!--========================== 商品大量上傳 START==========================-->
+		<div class="admweb-v2-settings-frame pic-margin-10" id="bbc_mass_upload_input" style="display: none;">
+			<!-- <form action="" method="post" enctype="multipart/form-data" id="bbc_prod_form"> -->
+			<div class="admweb-v2-NewProduct-title">
+				<h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-box-product"></i>商品圖片上傳</h2>
+			</div>
+
+			<ul class="admweb-v2-outside-white-box">
+				<li class="admweb-v2-edit-name">
+					<p><span class="pic-text-red">*</span>商品圖片上傳</p>
+				</li>
+
+				
+				<li class="admweb-v2-content-enter">
+					<a class="pic-AddImag" href="javascript:void(0)" id="add_prod_files" onclick="click_bbc_prod_files()"><i class="icons-line icon-line-add"></i>加入圖片</a>
+					<p class="pic-text-warn">※每張圖片檔案大小不得超過5MB。</p>
+					<p class="pic-text-warn">※檔案格式僅支援jpg、jpeg、png、gif。</p>
+					<p class="pic-text-warn">※圖庫內相同名稱的檔案將會被覆蓋。</p>
+					<p class="pic-text-warn">※圖片張數上限為20張。</p>
+					<input type="file" id="bbc_prod_files" name="bbc_prod_files[]" multiple style="display: none;" accept="image/jpg, image/jpeg, image/png, image/gif">
+					<!-- 已上傳的圖檔 -->
+					<div class="admweb-v2-commodity-block" id="preview_img_block" style="display: none;">
+						<h2>已上傳的圖檔<span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span></h2>
+						<div class="admweb-v2-PdImg admweb-v2-slideToggle">
+							<!-- 一組圖檔 -->
+							<!-- <div class="admweb-v2-PdImg-EditDelete">
+								<img src="https://picsum.photos/300/200/?random=10">
+							</div> -->
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!--========================== 商品大量上傳 END==========================-->
+
+		<!--========================== 上傳後的商品資訊 ==========================-->
+		<div class="admweb-v2-settings-frame pic-margin-10 admweb-v2-settings-last" id="bbc_mass_upload_info" style="display: none;">
+			<div class="admweb-v2-NewProduct-title">
+				<h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-box-product"></i>上傳結果</h2>
+			</div>
+			<p class="pic-text-center pic-padding-10 pic-text-orange pic-bg-orange-10 pic-font-size-12" id="prod_upload_count"></p>
+			<div class="admweb-v2-BulkUpload-pd-detail err_form" style="display: none;">
+				{{if !$mobileDeviceDirected}}
+				<table class="admweb-v2-order_detail__product-table">
+					<thead>
+						<tr class="admweb-v2-order_detail__product-info">
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				{{/if}}
+			</div>
+		</div>
+		<!--========================== 商品資訊 END ==========================-->
+
+		<!--========================== 遮罩 START==========================-->
+		<div class="pic-window-bg" style="display: none;" id="sh_loading_mask">
+			<!-- LOGO 加載 -->
+			<div class="admweb-v2-mask-img blink">
+				<span>畫面讀取中...</span>
+			</div>
+		</div>
+		<!--========================== 遮罩 END==========================-->
+
+		<!--置底按鈕 START-->
+		<div class="admweb-v2-orderlist__action admweb-v2-BulkUpload-bottom-btn">
+		
+			<a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:window.location.reload();" style="display: none;" id="upload_again">
+				<i class="icons-line icon-line-ArrowParper"></i>繼續上傳
+			</a>
+			<a class="admweb-v2-I-Btn pic-BgText-color-gray" href="javascript:void(0)" style="display: none; cursor: auto;" id="btn_upload">
+				<i class="icons-line icon-line-ArrowParper"></i>上傳商品圖片
+			</a>
+			<a class="admweb-v2-I-Btn pic-BgText-color-green" href="admweb.main.php?action=product_csv2data_bbc_pic" style="display: none;" id="to_edit_prod">
+				<i class="icons-line icon-line-info-edit-bold-02"></i>匯入商品資料
+			</a>
+			
+		</div>
+		<!--置底按鈕 END-->
+	</div>
+	<!-- 右側內容 End-->
+</div>
+
+<script>
+	$(".admweb-v2-commodity-block h2").click(function () {
+		$(this).find(".pic-icon-black-arrows-rotate-up").toggleClass("pic-arrows-rotate");
+		$(this).next(".admweb-v2-slideToggle").slideToggle();
+		$(".admweb-v2-NewProduct-title").toggleClass("pic-padding-0")
+	})
+</script>
+
+<script>
+	show_bbc_mass_input();
+
+	const preview_img = $('#preview_img_block');
+	const prod_files_string = $('.bbc_prod_files_string').eq(0);
+	var arr_prod_files = []; // 要上傳到伺服器的商品圖檔
+	const arr_type = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+	sessionStorage.setItem('file_name', JSON.stringify([]));
+
+	function click_bbc_prod_files(params) {		
+		$('#bbc_prod_files').click();
+	}
+
+	function init_img_files(){
+		$('#preview_img_block .admweb-v2-PdImg').empty().parent().hide();
+		set_btn_upload(false);
+	}
+		
+	function show_bbc_mass_input(){
+		$('#bbc_mass_upload_input').show();
+		$('#btn_upload').show();
+	}
+
+	// 抓change event, 驗證失敗時，記得清空value！！！ 不然下次重複輸入相同錯誤元素，驗證會失效
+	function set_btn_upload(re){
+		if(re) $('#btn_upload').addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('cursor','pointer').attr('href',`javascript:confirm_data_upload();`);
+		else $('#btn_upload').addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('cursor','auto').attr('href','javascript:void(0);');
+	}
+
+	// ----------------------------------- 圖片處理 START -----------------------------------
+	// 判別：圖片張數
+	function validate_image_rules(){
+		let files = $('#bbc_prod_files')[0].files
+		arr_prod_files =  Array.from(files);
+		if(files.length > 20){
+			alert('最多可上傳20張圖片！');
+			return false;
+		}
+		if(files.length == 0 && $('div.admweb-v2-PdImg-EditDelete').length == 0){
+			alert('必須上傳商品圖！');
+			return false;
+		}
+		else return true;
+	}		
+
+	function readAsDataURL(idx, file) {	
+		return new Promise((resolve, reject) => {
+			var err = false;
+			var re = [];
+	
+			// 判別圖檔尺寸
+			if (file.size > 5*1024*1024) {
+				err = true;
+				reject(new Error(`圖片${file.name}，檔案大小${file.size}，超過5.0MB限制。`));
+			}
+			
+			// 判別圖檔類型
+			if (arr_type.indexOf(file.type)<0) {
+				err = true;
+				reject(new Error(`圖片${file.name}，檔案類型${file.type}，非允許上傳的圖檔類型。`));
+			}
+			
+			// 判別是否已經有提交過這個檔名，若檔名重複就不處理
+			
+			let file_name = JSON.parse(sessionStorage.getItem('file_name'));
+			if (file_name.indexOf(file.name) >= 0) {
+				err = true;
+				reject(new Error(`圖片${file.name}，檔案名稱重複，將儲存同檔名第一次提交的檔案。請勿提供重複檔名的圖檔。`));
+			}
+
+			// 沒有錯誤就會到這段
+			if(!err){
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.addEventListener("load", function (e) {
+					var img = new Image();
+					var canvas  = document.createElement("canvas");
+					var drawer  = canvas.getContext("2d");
+					var width   = 1000;			//圖片resize寬度
+					var height  = 1000;			//圖片resize高度
+					var quality = 0.8;			//質量
+					var type = "image/jpeg";	//圖片類型
+					var convertImg = null;
+					var htm='';
+					img.onload = function(){
+						return new Promise((resolve, reject) => {
+							//計算size
+							if (img.width >= img.height) {
+								canvas.width = width;
+								canvas.height = width * (img.height / img.width);
+							} else {
+								canvas.width = height * (img.width / img.height);
+								canvas.height = height;
+							}
+							//繪製圖片
+							drawer.drawImage(img, 0, 0, canvas.width, canvas.height);
+							//轉換成base64
+							convertImg = canvas.toDataURL(type, quality);
+							htm = `
+							<div class="admweb-v2-PdImg-EditDelete" data-fname="${file.name}">
+								<img src="${convertImg}">
+								<input type="file" name="slim[]" style="display: none;" accept="image/jpg, image/jpeg, image/png, image/gif">
+							</div>`;
+							resolve(convertImg); // reutrn to promise
+							$('#preview_img_block .admweb-v2-PdImg').append(htm);
+			
+							ta = $('#preview_img_block .admweb-v2-PdImg').find('img').last();
+
+							setGoodsImage(ta); // init slim Object
+						})
+					}
+					img.src = e.target.result;
+
+					// 到最後一個slim物件完成時 才能隱藏mask
+					// 然後才是$('#preview_img_block').show();
+					// 目前還沒開發出來  所以會看到未完全顯示的圖片
+				
+					resolve(file.name);  // reutrn to promise
+				});
+			}
+		});
+	}
+
+	function preview_files() {
+		var files = document.querySelector('#bbc_prod_files').files;
+		var arr_promises = [];
+		let exit_file_length = $('.admweb-v2-PdImg-EditDelete').length;
+		let max_langth = ((20-exit_file_length)<files.length)?(20-exit_file_length):files.length;
+		if(max_langth > 0 ){
+			for (let i = 0; i < max_langth; i++) {
+				const file = files[i];
+				arr_promises.push(readAsDataURL(i,file));
+			}
+
+			Promise.allSettled(arr_promises)
+			.then(
+				(results) =>{
+					let err = '';
+
+					results.forEach(
+						(result) => {
+	
+							if(result.status === 'fulfilled') {
+								// 將file_name 儲存到sessionStorage
+								let file_name = JSON.parse(sessionStorage.getItem('file_name'));
+								file_name.push(result.value);
+								file_name = JSON.stringify(file_name);
+								sessionStorage.setItem('file_name', file_name);
+
+								// 到最後一個slim物件完成時 才能隱藏mask
+								// 然後才是$('#preview_img_block').show();
+								// 目前還沒開發出來  所以會看到未完全顯示的圖片
+
+								$('#preview_img_block').show();
+							}
+
+							if(result.status === 'rejected') {
+								err += result.reason.message;
+								err += '<br>';
+							}
+						}
+					);
+
+					$('#sh_loading_mask').hide();
+					
+					if(err!=''){
+						alert(err)
+					}else{
+						if((20-exit_file_length)<files.length) alert('上傳圖檔已達上限20張！');
+					}
+				}
+			);
+		}else{
+			$('#sh_loading_mask').hide();
+			alert('上傳圖檔已達上限20張！');
+		}
+	}
+
+
+	// 點擊加入圖片
+	$('#bbc_prod_files').change(function (e) {
+		let re = validate_image_rules();
+		set_btn_upload(re);
+		// 要上傳到伺服器的商品圖檔
+		if(re){
+			let f_len = $('#bbc_prod_files')[0].files.length;
+			if(f_len > 0){
+				$('#sh_loading_mask').show();
+				preview_files();
+			}
+		}
+	});
+
+	$('#bbc_prod_form').submit(function (e) { 
+		e.preventDefault();
+		console.log('請勿使用錯誤方式傳送資料！')
+	});
+
+	function confirm_data_upload(){
+		$('#sh_loading_mask').show();
+		$('#bbc_prod_form input').prop('disabled','disabled');
+		$('#add_prod_files').css('cursor','default').attr('onclick','javascript: void(0)')
+
+		set_btn_upload(false);
+
+		var form_data;
+		let prod_file_name = sessionStorage.getItem('file_name');
+		form_data = prod_file_name;
+		$.ajax({
+			url: '',
+			type: 'POST',
+			data: {
+				prod_file_name: prod_file_name
+			},
+			dataType: "json",
+			success: function(re) {
+				if(re.action == 'upload_prod_files'){
+					let data = {};
+					re.prod_file_name.forEach(fname => {
+						let base64_str = document.querySelector('.admweb-v2-PdImg-EditDelete[data-fname="'+fname+'"] .slim input').value;
+						data[fname]	=JSON.parse(base64_str);
+					});
+					//上傳 START
+					$.ajax({
+						url: '',
+						type: 'POST',
+						data: {
+							action: 'upload_prod_files',
+							base64_str: data
+						},
+						dataType: "json",
+						success: function(re) {
+							console.log(re)
+							handle_ajax_response(re);
+						},
+						error: function(re) {
+							if(re.status == 504) alert('504！！'+re.responseText);
+							else if(re.status == 404) alert('404！！'+re.responseText);
+							else alert(re.responseText);
+
+							$('#sh_loading_mask').hide();
+						}
+					});
+					//上傳 END
+				} 
+
+				if(re.action == 'finished'){
+					handle_ajax_response(re,true);
+				}
+			},
+			error: function(re) {
+				//console.log('confirm_data_upload','error',re, re.responseText)
+				if(re.status == 413) alert('傳輸資料檔案尺寸超過系統上限');
+				else if(re.status == 422) alert(re.responseText);
+				else if(re.status == 504) alert('504！！'+re.responseText);
+				else if(re.status == 404) alert('404！！'+re.responseText);
+				else alert(re.responseText);
+
+				$('#sh_loading_mask').hide();
+			}
+		});
+	}
+
+	function handle_ajax_response(re,flag) {
+		let re_str = '';
+		re_str = `上傳成功，共${re.length}張圖`;
+		$('#prod_upload_count').text(re_str);				
+		$('#bbc_mass_upload_info').show();
+		$('#btn_upload').hide();
+		$('#to_edit_prod').show();
+		$('#sh_loading_mask').hide();
+		$('#upload_again').show();
+	}
+
+	// slim cropper image
+	// init slim will generate 4 img tag
+	// 1st img is the original image
+    function setGoodsImage(ele) {
+        ele.slim({
+			ratio: '1:1',
+            size: "120,120", // 顯示的尺寸
+			forceSize: "1000,1000", //強制輸出 Size
+            maxFileSize: 5,
+            statusFileSize: '圖檔須小於 5 MB',
+            download: false,
+            label: '加入圖片',
+            labelLoading: '',
+            buttonEditTitle: '編輯',
+            buttonRemoveTitle: '刪除',
+            buttonConfirmLabel: '確認',
+            buttonConfirmTitle: '確認',
+            buttonCancelLabel: '取消',
+            buttonCancelTitle: '取消',
+        });
+    }
+
+	function toggleMenuHandlertwo() {
+		document
+			.querySelector('.admweb-v2-seller-front-left-box')
+			.classList.toggle('pic-phone-open-menu');
+		const hamBtn = document
+			.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+			.querySelector('i');
+		if (hamBtn.classList.contains('icon-arrow-left-01')) {
+			document.querySelectorAll(
+				'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'block';
+		} else {
+			document.querySelectorAll(
+				'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'none';
+		}
+		hamBtn.classList.toggle('icon-arrow-left-01');
+	}
+</script>
+

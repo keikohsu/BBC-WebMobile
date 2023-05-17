@@ -1,0 +1,137 @@
+<style>
+  .admweb-v2-phone-haed{display: none;}
+  	@media screen and (max-width:768px){
+      .admweb-v2-orderlist i.icon-arrow-left-01{font-size: 24px;}
+      .admweb-v2-orderlist i.icon-line-hamburger{ font-size: 15px;}
+      .admweb-v2-phone-haed{display: block;}
+      .admweb-v2-phone-haed{height: 48px;}
+      .admweb-v2-list-header-in-fixbottom,.admweb-v2-list-header{display: none;}
+      .admweb-v2-SettingsTitle{margin-bottom: 10px;}
+      .admweb-v2-settings-frame .admweb-v2-outside-white-box .admweb-v2-edit-name:first-child {margin-top: 0px;}
+    }
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <!-- 左側選單 Start -->
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+    <!-- 左側選單 End -->
+
+  <!-- 右側內容 Start -->
+  <div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+      {{if $m_arrSystem.is_app_mode}}
+          <a onclick="{
+              let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+              let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+              if (isAndroid) {
+                  window.JavaScriptInterface.backToSellerCenter();
+              } else if (isiOS) {
+                  window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+              }
+          }">
+              <i class="icons-line icon-arrow-left-01"></i>
+          </a>
+      {{else}}
+          <a onclick="history.back()">
+              <i class="icons-line icon-arrow-left-01"></i>
+          </a>
+      {{/if}}
+
+      <a onclick="toggleMenuHandlertwo()">
+          <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+              <i class="icons-line icon-line-hamburger"></i>
+          </div>
+      </a>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">商品大量上傳</h2>
+    <div class="admweb-v2-orderlist-header-qrcode">
+    </div>
+  </div>
+
+  <div class="pic-front-pages-right admweb-v2-adjustment">
+    <div class="admweb-v2-settings-frame pic-margin-10">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-box-product"></i>商品大量上傳</h2>
+      </div>
+
+      <p class="pic-padding-10 pic-margin-b10 pic-text-orange pic-bg-orange-10 pic-font-size-12 ">選擇您想上傳商品的方式</p>
+
+      <!-- 選擇 上傳方式 -->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p>商品大量上傳</p>
+        </li>
+        <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+          <div class="admweb-v2-BulkUpload-btn pic-flex">
+              <a href="admweb.main.php?action=product_csv2data_bbc_pic" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+                商品大量上傳<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+              </a>
+          </div>
+            <p class="pic-text-warn">※提供iOPEN Mall商品範例檔案，依照規範格式上傳您的商品。</p>
+        </li>
+      </ul>
+
+      <!-- <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p>他台商品大量上傳</p>
+        </li>
+        <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+          <div class="admweb-v2-BulkUpload-btn pic-flex">
+              <a href="admweb.main.php?action=product_csv2data_shopee_pic" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+                他台商品大量上傳<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+              </a>
+          </div>
+            <p class="pic-text-warn">※於他台匯出您的商品資料(如：蝦X)，將商品檔案上傳至iOPEN Mall。<br/> ※注意：匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。
+            </p>
+        </li>
+      </ul> -->
+
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p>賣貨便商品搬家</p>
+        </li>
+        <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+          {{if $is_used_myship}}
+          <div class="admweb-v2-BulkUpload-btn pic-flex">
+            <a href="javascript:alert('您已搬家過賣貨便商品，謝謝。');" class="pic-BgText-color-gray admweb-v2-categories-btn" disabled="true">
+              賣貨便商品搬家<i class="icons-line icon-line-Arrow-Right pic-margin-l5"></i>
+            </a>
+          </div>
+          {{else}}
+          <div class="admweb-v2-BulkUpload-btn pic-flex">
+            <a href="admweb.main.php?action=product_csv2data_myship_pic" class="pic-BgText-color-white-green admweb-v2-categories-btn">
+              賣貨便商品搬家<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+            </a>
+          </div>
+
+          <p class="pic-text-warn">※提供您一次性將賣貨便的商品快速搬家至iOPEN Mall。<br/> ※注意：賣貨便部分商品資料無法搬家至iOPEN Mall，匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。</p>
+          {{/if}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- 右側內容 End-->
+</div>
+
+<script>
+  function toggleMenuHandlertwo() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  </script>

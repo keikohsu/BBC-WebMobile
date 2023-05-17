@@ -1,0 +1,238 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">
+    <!-- type1：顯示 多筆列印出貨單 type2：顯示 多筆列印標籤  -->
+    {{$header_title}}
+  </h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-order_delivery__inner pic-text-gray-100">
+    {{if $print_single}}
+    {{$pHtml}}
+
+    {{else}}
+    <ol class="admweb-v2-order_detail__content">
+      <li class="admweb-v2-order_detail__card">
+        <!-- type1：顯示 多筆列印出貨單 type2：顯示 多筆列印標籤  -->
+        <h3 class="admweb-v2-order_delivery__title">
+          <i class="icons-line icon-line-Print pic-margin-r5"></i>{{$header_title}}
+        </h3>
+      </li>
+
+      {{foreach name=arrOrderList from=$arrOrder item=m_order}}
+      <li class="admweb-v2-order_detail__card" data-delete-target>
+        <div class="pic-flex-center-between">
+          <div class="pic-text-gray">
+            <span class="admweb-v2-order_delivery__badge-num">{{$smarty.foreach.arrOrderList.iteration}}</span>
+            訂單編號<span class="pic-text-gray-100 pic-margin-lr5">{{$m_order.order_uid}}</span>
+          </div>
+          <label class="admweb-v2-order_delivery__delete-btn" for="{{$m_order.order_uid}}" {{if $arrOrder|@count == '1'}} style="display: none;"{{/if}}>
+            <i class="icons-line icon-line-ashbin"></i>
+            <span>刪除</span>
+            <input
+              class="orderlist_item"
+              id="{{$m_order.order_uid}}"
+              type="checkbox"
+              checked
+              value="{{$m_order.order_uid}}"
+              data-delivery_uid="{{$m_order.delivery_uid}}"
+              data-delete-checkbox
+            />
+          </label>
+        </div>
+
+        <dl class="admweb-v2-order_delivery__info" style="--custom-grid-width: 82px">
+          <div class="admweb-v2-order_detail__info-desc">
+            <dt class="admweb-v2-order_detail__info-desc-dt">訂單溫層</dt>
+            <dd class="admweb-v2-order_detail__info-desc-dd">
+              <span class="{{$m_order.order_prod_type_class}}">{{$m_order.order_prod_type_desc}}</span>
+            </dd>
+          </div>
+          <div class="admweb-v2-order_detail__info-desc--multi" style="--custom-multi-grid: 82px 1fr 40px auto">
+            <dt class="admweb-v2-order_detail__info-desc-dt">配送方式</dt>
+            <dd class="admweb-v2-order_detail__info-desc-dd">
+              <span class="{{$m_order.delivery_type_class}}">{{$m_order.delivery_type_desc}}</span>
+            </dd>
+            <dt class="admweb-v2-order_detail__info-desc-dt">狀態</dt>
+            <dd class="admweb-v2-order_detail__info-desc-dd">
+              <strong class="pic-text-orange admweb-v2-order_delivery__info-status">{{$m_order.ever_printed}}</strong>
+            </dd>
+          </div>
+        </dl>
+      </li>
+      {{/foreach}}
+    </ol>
+
+    <!-- 置底按鈕-->
+    <div class="admweb-v2-order_detail__action">
+      {{if !$mobileDeviceDirected}}
+      <button class="admweb-v2-order_detail__action-btn admweb-v2-orderlist__action-row_btn" type='button' onclick="location.href='{{$pre_url}}';">
+        <i class="icons-line icon-arrow-left-01 admweb-v2__icon-xs" style="font-weight: bold;"></i> 回上一頁
+      </button>
+      {{/if}}
+      {{if $print_methode == '1' || $print_methode == '3'}}
+      <!-- 宅配 顯示以下一個按鈕-->
+      <button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__PrintBtn admweb-v2-order_detail__action-btn--sp-row" onclick="command_print();">
+        <i class="icons-line icon-line-Print"></i>列印
+      </button>
+      {{else}}
+      <!-- 超商 顯示以下兩個按鈕-->
+      <button class="admweb-v2-order_detail__action-btn" onclick="command_print('double');">
+        <i class="icons-line icon-line-paper-text"></i>列印寄件標籤(雙排)
+      </button>
+      <button class="admweb-v2-order_detail__action-btn" onclick="command_print('machine');">
+        <i class="icons-line icon-line-paper-text"></i>列印寄件標籤(單排)
+      </button>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  // 刪除列印訂單按鈕
+  const deleteCheckbox = document.querySelectorAll('[data-delete-checkbox]');
+  let restOrder = 0;
+  deleteCheckbox.forEach((checkbox) => {
+    restOrder++;
+    checkbox.addEventListener('change', () => {
+      if (restOrder > 1) {
+        checkbox.closest('[data-delete-target]').remove();
+        restOrder--;
+        if (restOrder === 1) {
+          document
+            .querySelector('[data-delete-checkbox]')
+            .closest('label').style.display = 'none';
+        }
+        let new_no = 1;
+        $('.admweb-v2-order_delivery__badge-num').each(function(){
+          $(this).text(new_no);
+          new_no ++;
+        });
+      }
+    });
+  });
+
+  function command_print(print_size)
+  {
+    let action = '';
+    let myAct	= 'COMMAND_PRINT';
+
+    switch ("{{$print_type}}"){
+      case 'delivery_print': // 列印出貨單
+        action = 'order_delivery_print.php';
+        break;
+
+      case "delivery_t-cat": // 黑貓宅配單
+        action  = '{{$m_inURL}}';
+        myAct	= 'COMMAND_PRINT_STORE';
+        break;
+
+      case "delivery_St711C2C":
+        action = 'st711_c2c_od_print.php';
+        break;
+
+      case "delivery_St711ColdC2C":
+        action = 'st711_cold_c2c_od_print.php';
+        break;
+
+      case "delivery_St711B2C":
+        action = 'st711_b2c_od_print.php';
+        break;
+
+      case "delivery_St711ColdB2C":
+        action = 'st711_cold_b2c_od_print.php';
+        break;
+
+      default:
+        if(print_size){
+          action = "{{$m_inURL}}";
+          myAct	= 'COMMAND_PRINT_STORE';
+        }
+        break;
+    }
+
+    if(action){
+      const eles = document.querySelectorAll(
+              '.orderlist_item:checked'
+      );
+      let value = [];
+      eles.forEach((ele) => {
+        ele.checked && value.push($(ele).data('delivery_uid'))
+      });
+      let delivery_uids = Array.from(new Set(value));
+
+      let form = $(document.createElement('form'));
+      $(form).attr("action", action);
+      $(form).attr("method", "POST");
+
+      {{if !$m_arrSystem.is_app_mode}}
+      $(form).attr("target", "_blank");
+      {{/if}}
+
+      let _append = `
+<input type='hidden' name='myAct' value='${myAct}' />
+`;
+      delivery_uids.forEach((val) => {
+        _append += `<input type='hidden' name='delivery_uid[]' value='${val}' />`;
+      });
+
+      if(print_size){
+        _append += `<input type="hidden" name="print_size" value="${print_size}">`
+      }
+
+      $(form).append(_append);
+      form.appendTo( document.body );
+      $(form).submit();
+    }
+  }
+</script>

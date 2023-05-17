@@ -1,0 +1,1603 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">客服彙整</h2>
+  <div class="admweb-v2-orderlist-header-qrcode"></div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div
+    class="
+      admweb-v2-orderlist__inner
+      admweb-v2-customer_qa__inner
+      pic-text-gray-100
+    "
+    data-content
+  >
+    <section>
+      <!-- form  -->
+      <section data-tab-actions>
+        <!-- form1 商品評論 -->
+        <div class="">
+          <form
+            class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+            style="--custom-grid-width: 80px 1fr"
+          >
+            <div class="admweb-v2-orderlist__form-head_search-outer">
+              <div
+                class="
+                  admweb-v2-search__form-head
+                  js-orderlist__form-head_search
+                "
+                style="--custom-search-width: 1fr 84px"
+              >
+                <div class="admweb-v2-search__form-item">
+                  <label for="order-date">回覆狀態</label>
+                  <select
+                    name="delivery_type"
+                    id=""
+                    class="
+                      pic-text-lnput pic-text-lnput-style
+                      admweb-v2-orderlist-select
+                    "
+                  >
+                    <option value="全部">全部</option>
+                    <option value="待回覆">待回覆</option>
+                    <option value="已回覆">已回覆</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  class="
+                    pic-BgText-color-green
+                    admweb-v2-orderlist__form-head_search-btn
+                    js-orderlist__form-head_search-btn
+                  "
+                >
+                  搜尋
+                </button>
+              </div>
+              <div class="admweb-v2-search__form-item">
+                <label for="review">評價星等</label>
+                <select
+                  name="review"
+                  id=""
+                  class="
+                    pic-text-lnput pic-text-lnput-style
+                    admweb-v2-orderlist-select
+                  "
+                >
+                  <option value="5星">5星</option>
+                  <option value="4星">4星</option>
+                  <option value="3星">3星</option>
+                  <option value="2星">2星</option>
+                  <option value="1星">1星</option>
+                </select>
+              </div>
+              <div
+                class="
+                  admweb-v2-search__form-item admweb-v2-search__form-item--last
+                "
+              >
+                <label for="review-date">評價日期</label>
+                <div
+                  class="admweb-v2-orderlist__form-range_date"
+                  id="review-date"
+                >
+                  <input
+                    type="date"
+                    class="
+                      admweb-v2-orderlist__form-date
+                      pic-text-lnput pic-lnput-enter
+                    "
+                  />
+                  <span>-</span>
+                  <input
+                    type="date"
+                    class="
+                      admweb-v2-orderlist__form-date
+                      pic-text-lnput pic-lnput-enter
+                    "
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="pic-BgText-color-green admweb-v2-orderlist__form-btn"
+              >
+                搜尋
+              </button>
+            </div>
+          </form>
+          <button
+            class="
+              pic-text-gray-30 pic-bg-green-5
+              admweb-v2-orderlist__form-toggle-btn
+              js-orderlist__form-toggle--btn
+            "
+          >
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <!-- form2 訂單問答 -->
+        <div class="">
+          <form
+            class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+            style="--custom-grid-width: 80px 1fr"
+          >
+            <div class="admweb-v2-orderlist__form-head_search-outer">
+              <div
+                class="
+                  admweb-v2-search__form-head
+                  js-orderlist__form-head_search
+                "
+                style="--custom-search-width: 1fr 84px"
+              >
+                <div class="admweb-v2-search__form-item">
+                  <label for="order-date">回覆狀態</label>
+                  <select
+                    name="delivery_type"
+                    id=""
+                    class="
+                      pic-text-lnput pic-text-lnput-style
+                      admweb-v2-orderlist-select
+                    "
+                  >
+                    <option value="全部">全部</option>
+                    <option value="待回覆">待回覆</option>
+                    <option value="已回覆">已回覆</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  class="
+                    pic-BgText-color-green
+                    admweb-v2-orderlist__form-head_search-btn
+                    js-orderlist__form-head_search-btn
+                  "
+                >
+                  搜尋
+                </button>
+              </div>
+              <div class="admweb-v2-search__form-item">
+                <label for="review">問題類型</label>
+                <select
+                  name="review"
+                  id=""
+                  class="
+                    pic-text-lnput pic-text-lnput-style
+                    admweb-v2-orderlist-select
+                  "
+                >
+                  <option value="a">a</option>
+                  <option value="b">b</option>
+                  <option value="c">c</option>
+                  <option value="d">d</option>
+                  <option value="e">e</option>
+                </select>
+              </div>
+              <div
+                class="
+                  admweb-v2-search__form-item admweb-v2-search__form-item--last
+                "
+              >
+                <label for="review-date">詢問日期</label>
+                <div
+                  class="admweb-v2-orderlist__form-range_date"
+                  id="review-date"
+                >
+                  <input
+                    type="date"
+                    class="
+                      admweb-v2-orderlist__form-date
+                      pic-text-lnput pic-lnput-enter
+                    "
+                  />
+                  <span>-</span>
+                  <input
+                    type="date"
+                    class="
+                      admweb-v2-orderlist__form-date
+                      pic-text-lnput pic-lnput-enter
+                    "
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="pic-BgText-color-green admweb-v2-orderlist__form-btn"
+              >
+                搜尋
+              </button>
+            </div>
+          </form>
+          <button
+            class="
+              pic-text-gray-30 pic-bg-green-5
+              admweb-v2-orderlist__form-toggle-btn
+              js-orderlist__form-toggle--btn
+            "
+          >
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <!-- form3 商品問答 -->
+        <div class="">
+          <form
+            class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+            style="--custom-grid-width: 80px 1fr"
+          >
+            <div class="admweb-v2-orderlist__form-head_search-outer">
+              <div
+                class="
+                  admweb-v2-search__form-head
+                  js-orderlist__form-head_search
+                "
+                style="--custom-search-width: 1fr 84px"
+              >
+                <div class="admweb-v2-search__form-item">
+                  <label for="order-date">回覆狀態</label>
+                  <select
+                    name="delivery_type"
+                    id=""
+                    class="
+                      pic-text-lnput pic-text-lnput-style
+                      admweb-v2-orderlist-select
+                    "
+                  >
+                    <option value="全部">全部</option>
+                    <option value="待回覆">待回覆</option>
+                    <option value="已回覆">已回覆</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  class="
+                    pic-BgText-color-green
+                    admweb-v2-orderlist__form-head_search-btn
+                    js-orderlist__form-head_search-btn
+                  "
+                >
+                  搜尋
+                </button>
+              </div>
+
+              <div
+                class="
+                  admweb-v2-search__form-item admweb-v2-search__form-item--last
+                "
+              >
+                <label for="review-date">詢問日期</label>
+                <div
+                  class="admweb-v2-orderlist__form-range_date"
+                  id="review-date"
+                >
+                  <input
+                    type="date"
+                    class="
+                      admweb-v2-orderlist__form-date
+                      pic-text-lnput pic-lnput-enter
+                    "
+                  />
+                  <span>-</span>
+                  <input
+                    type="date"
+                    class="
+                      admweb-v2-orderlist__form-date
+                      pic-text-lnput pic-lnput-enter
+                    "
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="pic-BgText-color-green admweb-v2-orderlist__form-btn"
+              >
+                搜尋
+              </button>
+            </div>
+          </form>
+          <button
+            class="
+              pic-text-gray-30 pic-bg-green-5
+              admweb-v2-orderlist__form-toggle-btn
+              js-orderlist__form-toggle--btn
+            "
+          >
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+      </section>
+      <!-- nav -->
+      <div
+        class="admweb-v2-store_delivery__nav-list admweb-v2-nav--sp-scroll"
+        data-tab-navs
+        style="--custom-nav-width: calc(100% / 3)"
+      >
+        <a class="admweb-v2-store_delivery__nav-item" href="#type1">
+          商品評論(99+)
+        </a>
+        <a class="admweb-v2-store_delivery__nav-item" href="#type2">
+          訂單問答(99+)
+        </a>
+        <a class="admweb-v2-store_delivery__nav-item" href="#type3">
+          商品問答(99+)
+        </a>
+      </div>
+      <!-- 左列表 右對話框 -->
+      <section
+        class="admweb-v2-customer_qa-layout js-admweb-v2-customer_qa-layout"
+      >
+        <!-- panels  -->
+        <div data-tab-panels class="admweb-v2-customer_qa-list">
+          <!-- type1 : 商品評論  -->
+          <section>
+            <div>
+              <div class="admweb-v2-orderlist-overview">
+                <span></span>
+                <span>共102筆</span>
+              </div>
+              <ul class="admweb-v2-orderlist__list">
+                <li
+                  class="admweb-v2-customer_qa__card"
+                  data-card-target
+                  data-card-no="500000011"
+                >
+                  <div class="admweb-v2-customer_qa__card-head">
+                    <div class="">
+                      <i class="icons-line icon-line-member"></i>
+                      <span class="pic-margin-l5">0978137056</span>
+                      <!-- 已讀class加上read  -->
+                      <span class="admweb-v2-customer_qa__card-satus read"
+                        >已回覆</span
+                      >
+                    </div>
+                    <div class="comment_grade_star">
+                      <img
+                        src="{{$root_url}}css/images/pic_grade_star_05.svg"
+                        alt="comment_grade_star"
+                      />
+                    </div>
+                  </div>
+                  <div class="admweb-v2-customer_qa__card-product">
+                    <div>
+                      <img
+                        src="https://picsum.photos/300/200/?random=10"
+                        alt=""
+                        class="admweb-v2-customer_qa__card-product-img"
+                      />
+                    </div>
+                    <div class="admweb-v2-customer_qa__card-product-info">
+                      <p class="admweb-v2-customer_qa__card-product-name">
+                        星巴克 太空熊爆米花桶(可選爆米花口味)
+                      </p>
+                      <p class="pic-font-size-12">口味：酸奶洋蔥爆米花</p>
+                      <p class="pic-font-size-12">顏色：綠色、白色</p>
+                    </div>
+                  </div>
+                  <!-- 賣家class需加上admweb-v2-order_detail__inquiry--seller -->
+                  <!-- 買家class需加上admweb-v2-order_detail__inquiry--buyer -->
+                  <div class="admweb-v2-order_detail__inquiry--seller">
+                    <div class="admweb-v2-customer_qa__card-inquiry">
+                      <div class="admweb-v2-order_detail__inquiry-img">
+                        <i class="icons-line icon-line-Seller"></i>
+                      </div>
+                      <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                        <div class="admweb-v2-customer_qa__card-inquiry-title">
+                          <p class="admweb-v2-order_detail__inquiry-title">
+                            賣家回覆
+                          </p>
+                          <p class="admweb-v2-customer_qa__card-inquiry-time">
+                            2022/07/15 11:27
+                          </p>
+                        </div>
+                        <p class="admweb-v2-customer_qa__card-inquiry-message">
+                          超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="admweb-v2-customer_qa__card"
+                  data-card-target
+                  data-card-no="500000012"
+                >
+                  <div class="admweb-v2-customer_qa__card-head">
+                    <div class="">
+                      <i class="icons-line icon-line-member"></i>
+                      <span class="pic-margin-l5">0978137056</span>
+                      <!-- 已讀class加上read  -->
+                      <span class="admweb-v2-customer_qa__card-satus"
+                        >待回覆</span
+                      >
+                    </div>
+                    <div class="comment_grade_star">
+                      <img
+                        src="{{$root_url}}css/images/pic_grade_star_03.svg"
+                        alt="comment_grade_star"
+                      />
+                    </div>
+                  </div>
+                  <div class="admweb-v2-customer_qa__card-product">
+                    <div>
+                      <img
+                        src="https://picsum.photos/300/200/?random=10"
+                        alt=""
+                        class="admweb-v2-customer_qa__card-product-img"
+                      />
+                    </div>
+                    <div class="admweb-v2-customer_qa__card-product-info">
+                      <p class="admweb-v2-customer_qa__card-product-name">
+                        星巴克 太空熊爆米花桶(可選爆米花口味)
+                      </p>
+                      <p class="pic-font-size-12">口味：酸奶洋蔥爆米花</p>
+                      <p class="pic-font-size-12">顏色：綠色、白色</p>
+                    </div>
+                  </div>
+                  <!-- 賣家class需加上admweb-v2-order_detail__inquiry--seller -->
+                  <!-- 買家class需加上admweb-v2-order_detail__inquiry--buyer -->
+                  <div class="admweb-v2-order_detail__inquiry--buyer">
+                    <div class="admweb-v2-customer_qa__card-inquiry">
+                      <div class="admweb-v2-order_detail__inquiry-img">
+                        <i class="icons-line icon-line-Buyer"></i>
+                      </div>
+                      <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                        <div class="admweb-v2-customer_qa__card-inquiry-title">
+                          <p class="admweb-v2-order_detail__inquiry-title">
+                            買家回覆
+                          </p>
+                          <p class="admweb-v2-customer_qa__card-inquiry-time">
+                            2022/07/15 11:27
+                          </p>
+                        </div>
+                        <p class="admweb-v2-customer_qa__card-inquiry-message">
+                          超讚的賣家！
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- 商品評論 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-earphone"></i>
+              <span>目前無商品評論資料</span>
+            </div>
+          </section>
+          <!-- type2 : 訂單問答 -->
+          <section>
+            <div>
+              <div class="admweb-v2-orderlist-overview">
+                <span></span>
+                <span>共138筆</span>
+              </div>
+              <ul class="admweb-v2-orderlist__list">
+                <li
+                  class="admweb-v2-customer_qa__card"
+                  data-card-target
+                  data-card-no="500000011"
+                >
+                  <div class="admweb-v2-customer_qa__card-head">
+                    <div class="">
+                      <i class="icons-line icon-line-member"></i>
+                      <span class="pic-margin-l5">0978137056</span>
+                      <!-- 已讀class加上read  -->
+                      <span class="admweb-v2-customer_qa__card-satus read"
+                        >已回覆</span
+                      >
+                    </div>
+                    <div class="">
+                      訂單編號
+                      <span class="pic-text-gray-100 pic-margin-l5"
+                        >500000011</span
+                      >
+                    </div>
+                  </div>
+                  <!-- 賣家class需加上admweb-v2-order_detail__inquiry--seller -->
+                  <!-- 買家class需加上admweb-v2-order_detail__inquiry--buyer -->
+                  <div class="admweb-v2-order_detail__inquiry--seller">
+                    <div class="admweb-v2-customer_qa__card-inquiry">
+                      <div class="admweb-v2-order_detail__inquiry-img">
+                        <i class="icons-line icon-line-Seller"></i>
+                      </div>
+                      <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                        <div class="admweb-v2-customer_qa__card-inquiry-title">
+                          <p class="admweb-v2-order_detail__inquiry-title">
+                            賣家回覆
+                          </p>
+                          <p class="admweb-v2-customer_qa__card-inquiry-time">
+                            2022/07/15 11:27
+                          </p>
+                        </div>
+                        <p class="admweb-v2-customer_qa__card-inquiry-message">
+                          超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="admweb-v2-customer_qa__card"
+                  data-card-target
+                  data-card-no="500000012"
+                >
+                  <div class="admweb-v2-customer_qa__card-head">
+                    <div class="">
+                      <i class="icons-line icon-line-member"></i>
+                      <span class="pic-margin-l5">0978137056</span>
+                      <!-- 已讀class加上read  -->
+                      <span class="admweb-v2-customer_qa__card-satus"
+                        >待回覆</span
+                      >
+                    </div>
+                    <div class="">
+                      訂單編號
+                      <span class="pic-text-gray-100 pic-margin-l5"
+                        >500000012</span
+                      >
+                    </div>
+                  </div>
+
+                  <!-- 賣家class需加上admweb-v2-order_detail__inquiry--seller -->
+                  <!-- 買家class需加上admweb-v2-order_detail__inquiry--buyer -->
+                  <div class="admweb-v2-order_detail__inquiry--buyer">
+                    <div class="admweb-v2-customer_qa__card-inquiry">
+                      <div class="admweb-v2-order_detail__inquiry-img">
+                        <i class="icons-line icon-line-Buyer"></i>
+                      </div>
+                      <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                        <div class="admweb-v2-customer_qa__card-inquiry-title">
+                          <p class="admweb-v2-order_detail__inquiry-title">
+                            買家回覆
+                            <span class="admweb-v2-order_detail__inquiry-status"
+                              >訂單取消/退貨/退款</span
+                            >
+                          </p>
+                          <p class="admweb-v2-customer_qa__card-inquiry-time">
+                            2022/07/15 11:27
+                          </p>
+                        </div>
+                        <p class="admweb-v2-customer_qa__card-inquiry-message">
+                          超讚的賣家！
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- 訂單問答 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-info-edit-bold-02"></i>
+              <span>目前無訂單問答資料</span>
+            </div>
+          </section>
+          <!-- type3 : 商品問答 -->
+          <section>
+            <div>
+              <div class="admweb-v2-orderlist-overview">
+                <span></span>
+                <span>共102筆</span>
+              </div>
+              <ul class="admweb-v2-orderlist__list">
+                <li
+                  class="admweb-v2-customer_qa__card"
+                  data-card-target
+                  data-card-no="500000011"
+                >
+                  <div class="admweb-v2-customer_qa__card-head">
+                    <div class="">
+                      <i class="icons-line icon-line-member"></i>
+                      <span class="pic-margin-l5">0978137056</span>
+                      <!-- 已讀class加上read  -->
+                      <span class="admweb-v2-customer_qa__card-satus read"
+                        >已回覆</span
+                      >
+                    </div>
+                  </div>
+                  <div class="admweb-v2-customer_qa__card-product">
+                    <div>
+                      <img
+                        src="https://picsum.photos/300/200/?random=10"
+                        alt=""
+                        class="admweb-v2-customer_qa__card-product-img"
+                      />
+                    </div>
+                    <div class="admweb-v2-customer_qa__card-product-info">
+                      <p class="admweb-v2-customer_qa__card-product-name">
+                        星巴克 太空熊爆米花桶(可選爆米花口味)
+                      </p>
+                      <p class="pic-font-size-12">口味：酸奶洋蔥爆米花</p>
+                    </div>
+                  </div>
+                  <!-- 賣家class需加上admweb-v2-order_detail__inquiry--seller -->
+                  <!-- 買家class需加上admweb-v2-order_detail__inquiry--buyer -->
+                  <div class="admweb-v2-order_detail__inquiry--seller">
+                    <div class="admweb-v2-customer_qa__card-inquiry">
+                      <div class="admweb-v2-order_detail__inquiry-img">
+                        <i class="icons-line icon-line-Seller"></i>
+                      </div>
+                      <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                        <div class="admweb-v2-customer_qa__card-inquiry-title">
+                          <p class="admweb-v2-order_detail__inquiry-title">
+                            賣家回覆
+                          </p>
+                          <p class="admweb-v2-customer_qa__card-inquiry-time">
+                            2022/07/15 11:27
+                          </p>
+                        </div>
+                        <p class="admweb-v2-customer_qa__card-inquiry-message">
+                          超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="admweb-v2-customer_qa__card"
+                  data-card-target
+                  data-card-no="500000012"
+                >
+                  <div class="admweb-v2-customer_qa__card-head">
+                    <div class="">
+                      <i class="icons-line icon-line-member"></i>
+                      <span class="pic-margin-l5">0978137056</span>
+                      <!-- 已讀class加上read  -->
+                      <span class="admweb-v2-customer_qa__card-satus"
+                        >待回覆</span
+                      >
+                    </div>
+                  </div>
+                  <div class="admweb-v2-customer_qa__card-product">
+                    <div>
+                      <img
+                        src="https://picsum.photos/300/200/?random=10"
+                        alt=""
+                        class="admweb-v2-customer_qa__card-product-img"
+                      />
+                      <i class="admweb-v2-customer_qa__card-product-img"></i>
+                    </div>
+                    <div class="admweb-v2-customer_qa__card-product-info">
+                      <p class="admweb-v2-customer_qa__card-product-name">
+                        星巴克 太空熊爆米花桶(可選爆米花口味)
+                      </p>
+                      <p class="pic-font-size-12">口味：酸奶洋蔥爆米花</p>
+                    </div>
+                  </div>
+                  <!-- 賣家class需加上admweb-v2-order_detail__inquiry--seller -->
+                  <!-- 買家class需加上admweb-v2-order_detail__inquiry--buyer -->
+                  <div class="admweb-v2-order_detail__inquiry--buyer">
+                    <div class="admweb-v2-customer_qa__card-inquiry">
+                      <div class="admweb-v2-order_detail__inquiry-img">
+                        <i class="icons-line icon-line-Buyer"></i>
+                      </div>
+                      <div class="admweb-v2-customer_qa__card-inquiry-conent">
+                        <div class="admweb-v2-customer_qa__card-inquiry-title">
+                          <p class="admweb-v2-order_detail__inquiry-title">
+                            買家回覆
+                          </p>
+                          <p class="admweb-v2-customer_qa__card-inquiry-time">
+                            2022/07/15 11:27
+                          </p>
+                        </div>
+                        <p class="admweb-v2-customer_qa__card-inquiry-message">
+                          超讚的賣家！
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- 商品問答 無資料-->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-box-product"></i>
+              <span>目前無商品問答資料</span>
+            </div>
+          </section>
+        </div>
+        <div class="admweb-v2-customer_qa__chat" data-card-container>
+          <div class="admweb-v2-orderlist-header admweb-v2-md-hidden">
+            <div class="admweb-v2-orderlist-header-actions">
+              <button onclick="closeChatDetail()">
+                <i class="icons-line icon-line-Arrow-left"></i>
+              </button>
+            </div>
+            <h2 class="admweb-v2-orderlist-header-title">賣家回覆</h2>
+            <span></span>
+          </div>
+          <!-- 內容  use js to render-->
+          <section data-chat-container>
+            <!-- 未有內容時 -->
+            <div class="admweb-v2_customer_qa-empty">
+              <i class="icons-line icon-line-MamberID-None"></i>
+              <span>立即回覆</span>
+            </div>
+          </section>
+
+          <!-- 置底 打字框 -->
+          <section
+            class="
+              admweb-v2-customer_qa__chat-bottom
+              js-admweb-v2-customer_qa__chat-bottom
+            "
+          >
+            <!-- sp -->
+            <p
+              class="
+                admweb-v2-customer_qa__chat-warn
+                admweb-v2-md-hidden
+                pic-text-center
+              "
+            >
+              您僅能回覆一次，送出後無法修改。
+            </p>
+            <!-- 僅商品評論顯示常用訊息  -->
+            <div
+              class="
+                admweb-v2-customer_qa__chat-example
+                admweb-v2-md-hidden
+                js-chat-example
+              "
+            >
+              <div class="admweb-v2-customer_qa__chat-example-list-box">
+                <!-- get example data  -->
+              </div>
+              <button
+                class="admweb-v2-customer_qa__chat-edit_btn"
+                onclick="showMsgOverlay()"
+              >
+                <i class="icons-line icon-line-info-edit-bold-02"></i>
+              </button>
+            </div>
+            <div
+              class="
+                admweb-v2-customer_qa__chat-input_box
+                admweb-v2-md-hidden
+                js-admweb-v2-customer_qa__chat-target
+              "
+            >
+              <div
+                contenteditable="true"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="true"
+                aria-expanded="false"
+                aria-autocomplete="list"
+                aria-multiline="true"
+                aria-label="Message"
+                role="textbox"
+                class="
+                  admweb-v2-customer_qa__chat-textarea-sp
+                  js-contenteditable
+                "
+                name="user-input"
+              ></div>
+              <button class="admweb-v2-customer_qa__chat-submit_btn">
+                <i class="icons-line icon-line-SendOut"></i>
+              </button>
+            </div>
+            <!-- pc -->
+            <div
+              class="
+                admweb-v2-customer_qa__chat-example
+                admweb-v2-sp-hidden
+                js-chat-example
+              "
+            >
+              <button
+                class="admweb-v2-customer_qa__chat-edit_btn"
+                onclick="showModal()"
+              >
+                <i class="icons-line icon-line-info-edit-bold-02"></i>
+              </button>
+            </div>
+            <div class="admweb-v2-sp-hidden">
+              <textarea
+                name="user-input"
+                id=""
+                placeholder="請輸入回覆....."
+                rows="5"
+                class="admweb-v2-customer_qa__chat-textarea"
+              ></textarea>
+              <p class="admweb-v2-customer_qa__chat-warn admweb-v2-sp-hidden">
+                您僅能回覆一次，送出後無法修改。
+              </p>
+            </div>
+          </section>
+        </div>
+      </section>
+    </section>
+    <section style="display: none" class="admweb-v2_customer_qa__overlay">
+      <!-- msg overlay -->
+      <div class="js-admweb-v2_customer_qa__overlay">
+        <div class="admweb-v2-orderlist-header admweb-v2-md-hidden">
+          <div class="admweb-v2-orderlist-header-actions">
+            <button onclick="closeMsgOverlay()">
+              <i class="icons-line icon-line-Arrow-left"></i>
+            </button>
+          </div>
+          <h2 class="admweb-v2-orderlist-header-title">賣家回覆</h2>
+          <span></span>
+        </div>
+        <ul class="admweb-v2_customer_qa__overlay-list">
+          <li data-msg-item>
+            <p>謝謝！</p>
+            <div class="">
+              <button class="admweb-v2_customer_qa__delete-btn" data-delete-btn>
+                <i class="icons-line icon-line-ashbin"></i>刪除
+              </button>
+              <button class="admweb-v2_customer_qa__edit-btn" data-edit-btn>
+                <i class="icons-line icon-line-edit"></i>編輯
+              </button>
+            </div>
+          </li>
+          <li data-msg-item>
+            <p>謝謝！</p>
+            <div class="">
+              <button class="admweb-v2_customer_qa__delete-btn" data-delete-btn>
+                <i class="icons-line icon-line-ashbin"></i>刪除
+              </button>
+              <button class="admweb-v2_customer_qa__edit-btn" data-edit-btn>
+                <i class="icons-line icon-line-edit"></i>編輯
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="admweb-v2-order_detail__action">
+        <button
+          class="
+            admweb-v2-order_detail__action-btn--outline
+            admweb-v2-sp-hidden
+          "
+          onclick="closeMsgOverlay()"
+        >
+          <i class="icons-line icon-line-Arrow-left"></i>回上一頁
+        </button>
+        <button
+          class="
+            admweb-v2-order_detail__action-btn
+            admweb-v2-order_detail__action-btn--sp-row
+          "
+          onclick="showModalMsg()"
+        >
+          <i class="icons-line icon-line-add"></i>建立常用訊息範本
+        </button>
+      </div>
+    </section>
+  </div>
+  <!-- pc modal 選擇常用訊息  -->
+  <div
+    class="pic-window-bg js-admweb-v2__modal admweb-v2__modal-form"
+    style="display: none"
+  >
+    <form class="admweb-v2__modal-lg_form-outer">
+      <div class="admweb-v2__modal-lg_form-header">
+        <p class="pic-flex-center">
+          <i class="icons-line icon-line-Query pic-margin-r5"></i>選擇常用訊息
+        </p>
+        <button class="admweb-v2__modal-form-close" type="button">
+          <i class="icons-line icon-line-X" onclick="closeModal()"></i>
+        </button>
+      </div>
+      <div class="admweb-v2__modal-form-content">
+        <ul class="admweb-v2-customer_qa__msg-list">
+          <li>
+            <label for="msg1">
+              <input type="radio" value="謝謝！" id="msg1" name="msg" />
+              <span>謝謝！</span>
+            </label>
+          </li>
+          <li>
+            <label for="msg2">
+              <input type="radio" value="感謝您的購買！" id="msg2" name="msg" />
+              <span>感謝您的購買！</span>
+            </label>
+          </li>
+          <li>
+            <label for="msg3">
+              <input
+                type="radio"
+                value="超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～"
+                id="msg3"
+                name="msg"
+              />
+              <span
+                >超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～</span
+              >
+            </label>
+          </li>
+          <li>
+            <label for="msg4">
+              <input
+                type="radio"
+                value="超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～"
+                id="msg4"
+                name="msg"
+              />
+              <span
+                >超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～</span
+              >
+            </label>
+          </li>
+          <li>
+            <label for="msg5">
+              <input
+                type="radio"
+                value="超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～"
+                id="msg5"
+                name="msg"
+              />
+              <span
+                >超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～</span
+              >
+            </label>
+          </li>
+          <li>
+            <label for="msg6">
+              <input
+                type="radio"
+                value="超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～"
+                id="msg6"
+                name="msg"
+              />
+              <span
+                >超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～</span
+              >
+            </label>
+          </li>
+          <li>
+            <label for="msg7">
+              <input
+                type="radio"
+                value="超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～"
+                id="msg7"
+                name="msg"
+              />
+              <span
+                >超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～</span
+              >
+            </label>
+          </li>
+          <li>
+            <label for="msg8">
+              <input
+                type="radio"
+                value="超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～"
+                id="msg8"
+                name="msg"
+              />
+              <span
+                >超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～</span
+              >
+            </label>
+          </li>
+        </ul>
+        <div class="admweb-v2-order_detail-actions">
+          <button
+            class="
+              pic-btn-newstore-100 pic-BgText-color-white-green pic-margin-r5
+            "
+            type="reset"
+            onclick="showMsgOverlay()"
+          >
+            <i class="icons-line icon-line-info-edit-bold-02 pic-margin-r5"></i
+            >編輯常用訊息範本
+          </button>
+          <button
+            class="
+              pic-btn-newstore-100 pic-BgText-color-green
+              js-admweb-v2--modal-submit
+            "
+            type="button"
+            onclick="chooseMsg()"
+          >
+            <i class="icons-line icon-line-tick pic-margin-r5"></i>選擇
+          </button>
+        </div>
+        <!-- 無資料  -->
+        <!-- <div class="admweb-v2-customer_qa__msg-empty">
+          <i class="icons-line icon-line-MamberID-None"></i>
+          <span>目前無常用訊息資料</span>
+        </div>
+        <div class="admweb-v2-order_detail-actions">
+          <button
+            type="button"
+            class="pic-btn-newstore-100 admweb-v2_customer_qa__msg-add-btn"
+            onclick="showModalMsg()"
+            onclick=""
+          >
+            <i class="icons-line icon-line-add pic-margin-r5"></i
+            >新增常用訊息範本
+          </button>
+        </div> -->
+      </div>
+    </form>
+  </div>
+  <!-- modal 新增/編輯常用訊息  -->
+  <div
+    class="
+      pic-window-bg
+      js-admweb-v2__modal-msg
+      admweb-v2__modal-form
+      admweb-v2_customer_qa__modal
+    "
+    style="display: none"
+  >
+    <form class="admweb-v2_customer_qa__modal-outer">
+      <div class="admweb-v2_customer_qa__modal-header">
+        <button
+          onclick="closeModalMsg()"
+          class="admweb-v2-md-hidden admweb-v2_customer_qa__modal-back_btn"
+          type="button"
+        >
+          <i class="icons-line icon-line-Arrow-left"></i>
+        </button>
+        <p class="pic-flex-center admweb-v2_customer_qa__modal-title">
+          <i
+            class="icons-line icon-line-Query admweb-v2-sp-hidden pic-margin-r5"
+          ></i>
+          <span class="js-admweb-v2__modal-msg-text">新增常用訊息</span>
+        </p>
+        <button
+          class="admweb-v2__modal-form-close admweb-v2-sp-hidden"
+          type="button"
+        >
+          <i class="icons-line icon-line-X" onclick="closeModalMsg()"></i>
+        </button>
+      </div>
+      <div class="admweb-v2_customer_qa__modal-content">
+        <div class="admweb-v2_customer_qa__modal-textarea_box">
+          <textarea
+            class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter"
+            name="single-msg"
+            id=""
+            placeholder="請輸入文字....."
+          ></textarea>
+        </div>
+
+        <div class="admweb-v2_customer_qa__modal-actions">
+          <button
+            class="
+              pic-btn-newstore-100 pic-BgText-color-green
+              js-admweb-v2--modal-submit
+            "
+            type="button"
+            onclick="saveMsg()"
+          >
+            <i class="icons-line icon-line-tick pic-margin-r5"></i>儲存
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="js-admweb-v2__alert" style="display: none">
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="admweb-v2__alert-content">
+        <p class="admweb-v2__alert-text js-admweb-v2__alert-text">確定要刪除</p>
+        <div class="admweb-v2__alert-action js-admweb-v2__alert-action">
+          <button
+            class="pic-window-button-OneBtn pic-BgText-color-green"
+            onclick="deleteMsg()"
+          >
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('resize', () => {
+    getPcSideMenuWidth();
+    chatDetailDisplay();
+  });
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-orderlist')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  // 預設搜尋表單高度
+  function initialFormHeight() {
+    const formEles = document.querySelectorAll('.js-orderlist__form');
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const wholeHeight = formEles.item(0).clientHeight;
+    formEles.forEach(
+      (formEle) => (formEle.style.height = `${defaultHeight}px`)
+    );
+  }
+  // 取得layout上距高度
+  function getLayoutOffsetTop() {
+    const pcTopFormEle = document.querySelector(
+      '.js-admweb-v2-customer_qa-layout'
+    );
+    const bottomEle = document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-bottom'
+    );
+    pcTopFormEle.style.setProperty(
+      '--layout-offset-top',
+      pcTopFormEle.getBoundingClientRect().top +
+        document.documentElement.scrollTop +
+        'px'
+    );
+  }
+  // 取得chatbox內head及bottom區塊高度
+  function getChatEleHeight() {
+    const pcTopFormEle = document.querySelector(
+      '.js-admweb-v2-customer_qa-layout'
+    );
+    const bottomEle = document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-bottom'
+    );
+    const headEle = document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-head'
+    );
+    pcTopFormEle.style.setProperty(
+      '--chat-bottom-height',
+      bottomEle.clientHeight + 'px'
+    );
+    pcTopFormEle.style.setProperty(
+      '--chat-head-height',
+      headEle.clientHeight + 'px'
+    );
+  }
+  // 取得視窗高度
+  function getInnerHeight() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const innerHeight = window.innerHeight;
+    document.body.style.setProperty(
+      '--inner-height',
+      isMobile ? innerHeight + 'px' : '100vh'
+    );
+  }
+  // 搜尋表單收合展開
+  const Selector = {
+    toggleBtns: document.querySelectorAll('.js-orderlist__form-toggle--btn'),
+    formEles: document.querySelectorAll('.js-orderlist__form'),
+    formHeadEles: document.querySelectorAll('.js-orderlist__form-head_search'),
+    headBtns: document.querySelectorAll('.js-orderlist__form-head_search-btn')
+  };
+  Selector.toggleBtns.forEach((button, i) =>
+    button.addEventListener('click', () => {
+      searchFormCollapse(button, i);
+    })
+  );
+  function searchFormCollapse(toggleBtn, i) {
+    const defaultHeight = Selector.formHeadEles.item(i).clientHeight;
+    const wholeHeight = Selector.formEles.item(i).children[0].clientHeight;
+    const currentStyle = Selector.formEles.item(i).style;
+    //當前為收合
+    if (currentStyle.height === `${defaultHeight}px`) {
+      currentStyle.height = `${wholeHeight}px`;
+      toggleBtn.innerHTML =
+        '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+      Selector.formHeadEles.item(i).style.gridTemplateColumns = '1fr';
+      Selector.headBtns.item(i).style.display = 'none';
+    } else {
+      ///當前為展開
+      currentStyle.height = `${defaultHeight}px`;
+      toggleBtn.innerHTML =
+        '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+      Selector.formHeadEles.item(i).style.gridTemplateColumns = '1fr 84px';
+      Selector.headBtns.item(i).style.display = 'block';
+    }
+  }
+
+  // pc modal 選擇常用訊息
+  function showModal() {
+    const modal = document.querySelector('.js-admweb-v2__modal');
+    modal.style.display = 'flex';
+  }
+  function closeModal() {
+    const modal = document.querySelector('.js-admweb-v2__modal');
+    modal.style.display = 'none';
+  }
+  // modal 新增/編輯常用訊息
+  function closeModalMsg() {
+    const modal = document.querySelector('.js-admweb-v2__modal-msg');
+    modal.style.display = 'none';
+  }
+  function showModalMsg(type, event) {
+    const modal = document.querySelector('.js-admweb-v2__modal-msg');
+    modal.querySelector('.js-admweb-v2__modal-msg-text').innerHTML =
+      type === 'edit' ? '編輯常用訊息' : '新增常用訊息';
+    if (type) {
+      const value = event.target
+        .closest('[data-msg-item]')
+        .querySelector('p').innerText;
+      document.querySelector('textarea[name="single-msg"]').value = value;
+    }
+    modal.style.display = 'flex';
+  }
+  // 儲存新增/編輯的常用訊息
+  function saveMsg() {
+    // submit data
+    closeModalMsg();
+  }
+  // 刪除單筆常用訊息confirm alert
+  function showAlert() {
+    const alert = document.querySelector('.js-admweb-v2__alert');
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2__alert');
+    alert.style.display = 'none';
+  }
+
+  // Tab
+  const DOM = {
+    nav: document.querySelector('[data-tab-navs]'),
+    navItems: document.querySelectorAll('[data-tab-navs] > a'),
+    panels: document.querySelectorAll('[data-tab-panels] > section'),
+    actions: document.querySelectorAll('[data-tab-actions] > div'),
+    exampleBtns: document.querySelectorAll('.js-chat-example')
+  };
+  DOM.nav.addEventListener('click', (e) => {
+    const clickedTab = e.target;
+    const activeIndex = Array.from(DOM.navItems).indexOf(clickedTab);
+    setActivePanel(activeIndex);
+    setActiveNav(activeIndex);
+    setActiveAction(activeIndex);
+    if (activeIndex === 0) {
+      DOM.exampleBtns.forEach((ele) => (ele.style.display = 'flex'));
+    } else {
+      DOM.exampleBtns.forEach((ele) => (ele.style.display = 'none'));
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  function setActivePanel(activeIndex) {
+    DOM.panels.forEach((ele) => (ele.style.display = 'none'));
+    DOM.panels[activeIndex].style.display = 'block';
+  }
+  function setActiveNav(activeIndex) {
+    DOM.navItems.forEach((ele) => ele.classList.remove('active'));
+    DOM.navItems[activeIndex].classList.add('active');
+  }
+  function setActiveAction(activeIndex) {
+    DOM.actions.forEach((ele) => (ele.style.display = 'none'));
+    if (!DOM.actions[activeIndex]) return;
+    DOM.actions[activeIndex].style.display = 'block';
+  }
+  (function () {
+    setActivePanel(0);
+    setActiveNav(0);
+    setActiveAction(0);
+  })();
+  // 顯示對話內容
+  const CARD_DOM = {
+    cards: document.querySelectorAll('[data-card-target]'),
+    container: document.querySelector('[data-card-container]')
+  };
+  CARD_DOM.cards.forEach((card) =>
+    card.addEventListener('click', () => {
+      // can use data-card-no to get data from server
+      CARD_DOM.container.dataset.cardNo = card.dataset.cardNo;
+      createChat();
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        CARD_DOM.container.style.display = 'block';
+        CARD_DOM.container.style.paddingTop = '60px';
+        document.body.style.overflow = 'hidden';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('[data-tab-panels]').style.display = 'none';
+      }
+      getChatEleHeight();
+    })
+  );
+  function closeChatDetail() {
+    CARD_DOM.container.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector('[data-tab-panels]').style.display = 'block';
+      delete CARD_DOM.container.dataset.cardNo;
+    }
+  }
+  function chatDetailDisplay() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      if (!CARD_DOM.container.dataset.cardNo) {
+        CARD_DOM.container.style.display = 'none';
+      }
+      CARD_DOM.container.style.paddingTop = '60px';
+    } else {
+      CARD_DOM.container.style.display = 'block';
+      CARD_DOM.container.style.paddingTop = '0';
+      document.querySelector('[data-tab-panels]').style.display = 'block';
+    }
+  }
+
+  // 顯示overlay區塊
+  const CONTENT_DOM = {
+    contents: document.querySelectorAll('[data-content] > section')
+  };
+  function setActiveContent(activeIndex) {
+    CONTENT_DOM.contents.forEach((ele) => (ele.style.display = 'none'));
+    CONTENT_DOM.contents[activeIndex].style.display = 'block';
+  }
+  // js-admweb-v2_customer_qa__overlay
+  function showMsgOverlay() {
+    setActiveContent(1);
+    closeModal();
+  }
+  function closeMsgOverlay() {
+    setActiveContent(0);
+  }
+  // 刪除/編輯訊息
+  const MSG_DOM = {
+    deleteBtns: document.querySelectorAll('[data-delete-btn]'),
+    editBtns: document.querySelectorAll('[data-edit-btn]')
+  };
+  MSG_DOM.deleteBtns.forEach((btn) => btn.addEventListener('click', showAlert));
+  MSG_DOM.editBtns.forEach((btn) => {
+    btn.addEventListener('click', showModalMsg.bind(this, 'edit'));
+  });
+  // 刪除訊息
+  function deleteMsg() {
+    closeAlert();
+  }
+
+  (function () {
+    hideMobileLayout();
+    initialFormHeight();
+    getPcSideMenuWidth();
+    getLayoutOffsetTop();
+    getInnerHeight();
+    createChatExampleList();
+  })();
+
+  // 產生對話內容
+  function createChat() {
+    const Section = document.createElement('section');
+    Section.dataset.chatContainer = '';
+    // head -> content
+    Section.append(createChatHead());
+    Section.append(createChatContent());
+    const Target = document.querySelector('[data-chat-container]');
+    Target.replaceWith(Section);
+  }
+  function createChatHead() {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__chat-head');
+    ele.classList.add('js-admweb-v2-customer_qa__chat-head');
+    ele.innerHTML = `
+          <div class="">
+            <i class="icons-line icon-line-member"></i>
+            <span class="pic-margin-l5">0978137056</span>
+            <!-- 已讀class加上read -->
+            <span class="admweb-v2-customer_qa__card-satus"
+              >待回覆</span
+            >
+          </div>
+          <div class="comment_grade_star">
+            <img
+              src="{{$root_url}}css/images/pic_grade_star_05.svg"
+              alt="comment_grade_star"
+            />
+          </div>
+        `;
+    return ele;
+  }
+  function createChatContent() {
+    const Div = document.createElement('div');
+    Div.classList.add('admweb-v2-customer_qa__chat-content');
+    // 順序：product -> date -> dialog
+    Div.append(createProduct());
+    Div.append(createDate());
+    Div.append(createBuyerDialog());
+    Div.append(createSellerDialog());
+    Div.append(createSellerDialog());
+    Div.append(createBuyerDialog());
+    return Div;
+  }
+  function createProduct() {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__card');
+    ele.innerHTML = `
+          <div class="admweb-v2-customer_qa__card-product">
+            <div>
+              <img
+                src="https://picsum.photos/300/200/?random=10"
+                alt=""
+                class="admweb-v2-customer_qa__card-product-img"
+              />
+            </div>
+            <div class="admweb-v2-customer_qa__card-product-info">
+              <p class="admweb-v2-customer_qa__card-product-name">
+                星巴克 太空熊爆米花桶(可選爆米花口味)
+              </p>
+              <p class="pic-font-size-12 pic-flex-center-between">
+                口味：酸奶洋蔥爆米花
+                <span class="pic-text-green">X2</span>
+              </p>
+              <p class="pic-font-size-12 pic-flex-center-between">
+                顏色：綠色、白色<span>$500</span>
+              </p>
+            </div>
+          </div>
+        `;
+    return ele;
+  }
+  function createDate() {
+    const ele = document.createElement('div');
+    ele.classList.add('pic-text-center');
+    ele.classList.add('pic-margin-t10');
+    ele.innerHTML = `
+          <span class="admweb-v2-customer_qa-badge-date"
+            >2022/07/15</span
+          >
+        `;
+    return ele;
+  }
+  function createBuyerDialog() {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__chat-item--outer');
+    ele.innerHTML = `
+          <div
+            class="admweb-v2-order_detail__inquiry--buyer admweb-v2-customer_qa__chat-item"
+          >
+            <div class="admweb-v2-customer_qa__card-inquiry-conent">
+              <div class="admweb-v2-customer_qa__card-inquiry-title">
+                <p class="admweb-v2-order_detail__inquiry-title">
+                  買家回覆
+                  <span class="admweb-v2-order_detail__inquiry-status"
+                  >訂單取消/退貨/退款</span>
+                </p>
+
+              </div>
+              <p class="admweb-v2-customer_qa__card-inquiry-message">
+                超讚的賣家！
+              </p>
+            </div>
+          </div>
+          <span class="admweb-v2-customer_qa__chat-item-time"
+            >11:27</span
+          >
+        `;
+    return ele;
+  }
+  function createSellerDialog() {
+    const ele = document.createElement('div');
+    ele.classList.add('admweb-v2-customer_qa__chat-item--outer');
+    ele.innerHTML = `
+          <span class="admweb-v2-customer_qa__chat-item-time pic-text-right"
+            >11:27</span
+          >
+          <div
+            class="admweb-v2-order_detail__inquiry--seller admweb-v2-customer_qa__chat-item"
+          >
+            <div class="admweb-v2-customer_qa__card-inquiry-conent">
+              <div class="admweb-v2-customer_qa__card-inquiry-title">
+                <p class="admweb-v2-order_detail__inquiry-title">
+                  賣家回覆
+                </p>
+              </div>
+              <p class="admweb-v2-customer_qa__card-inquiry-message">
+                超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～
+              </p>
+            </div>
+          </div>
+
+        `;
+    return ele;
+  }
+  function createChatBottom() {
+    const Section = document.createElement('section');
+    Section.classList.add('admweb-v2-customer_qa__chat-bottom');
+    Section.classList.add('js-admweb-v2-customer_qa__chat-bottom');
+    Section.innerHTML = `
+
+        `;
+  }
+  function createChatExample(value, i) {
+    const Li = document.createElement('li');
+    Li.innerHTML = `
+        <label for="msg${i}-sp">
+          <input
+            type="radio"
+            value="${value}"
+            id="msg${i}-sp"
+            name="msg-sp"
+          />
+          <span>${value}</span>
+        </label>
+        `;
+    return Li;
+  }
+  function createChatExampleList() {
+    const Ul = document.createElement('ul');
+    Ul.classList.add('admweb-v2-customer_qa__chat-example-list');
+    const example = [
+      '謝謝！',
+      '感謝您的購買！',
+      '超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～',
+      '超讚的買家！謝謝你的支持！商品希望您喜歡，若有問題都歡迎聯絡我們反應～'
+    ];
+    example.forEach((value, i) => {
+      Ul.append(createChatExample(value, i));
+    });
+    const target = document.querySelector(
+      '.admweb-v2-customer_qa__chat-example-list-box'
+    );
+    target.append(Ul);
+  }
+  // pc - choose msg form modal list
+  function chooseMsg() {
+    const msgEle = document.querySelector('input[name="msg"]:checked');
+    updateMsgToInput(msgEle.value);
+    closeModal();
+  }
+  function updateMsgToInput(msg) {
+    const userInputs = document.querySelectorAll('textarea[name="user-input"]');
+    userInputs.forEach((input) => (input.value = msg));
+  }
+  // sp - choose msg form example list
+  const inputMsgEles = document.querySelectorAll('input[name="msg-sp"]');
+  inputMsgEles.forEach((msgEle) =>
+    msgEle.addEventListener('change', () => {
+      const userInput = document.querySelector('[name="user-input"]');
+      userInput.innerText = msgEle.value;
+    })
+  );
+  // 送出框button對齊
+  const EDITABLE_DOM = {
+    contenteditEle: document.querySelector('.js-contenteditable'),
+    contentTarget: document.querySelector(
+      '.js-admweb-v2-customer_qa__chat-target'
+    )
+  };
+  EDITABLE_DOM.contenteditEle.addEventListener('input', (e) => {
+    if (e.target.clientHeight > 40) {
+      EDITABLE_DOM.contentTarget.classList.add('multiline');
+    } else {
+      EDITABLE_DOM.contentTarget.classList.remove('multiline');
+    }
+  });
+</script>

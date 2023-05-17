@@ -1,0 +1,417 @@
+<style>
+  .pic-window-bg .pic-window { width: 333px;}
+  .pic-window-button-box > a,
+  .admweb-v2-I-Btn{ cursor: pointer;}
+  .admweb-v2-marketing{ padding-top: 72px;}
+  .admweb-v2-marketing .admweb-v2-marketing-inner{ font-size: 14px; overflow-x: auto; flex-grow: 1; background: var(--pic-color-grey-10); position: relative;color: var(--pic-color-grey-100); min-height: calc(100vh - 60px - 62px);}
+  
+  /* 搜尋 */
+  .admweb-v2-marketing .admweb-v2-marketing-form { background: var(--pic-light-green-5); padding: 10px; padding-bottom: 0; overflow: hidden; margin-bottom: 0; transition: height 0.3s ease-in-out; box-sizing: content-box; }
+  .admweb-v2-marketing .admweb-v2-input-date-content .admweb-v2-DateBox{ width: calc(100% / 2);}
+  .admweb-v2-marketing .admweb-v2-marketing-form-item{ display: grid; grid-template-columns: 60px 1fr; align-items: center; gap: 5px; }
+  .admweb-v2-marketing .admweb-v2-marketing-form-item:last-of-type{ grid-column-end: 4; grid-column-start: 1;}
+  .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn { width: 100%; border: none; display: block; padding: 6px; cursor: pointer; margin: 0;}
+  .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn i {font-size: 20px; vertical-align: bottom;}
+  .admweb-v2-marketing .admweb-v2-marketing-form-head_search { display: grid; grid-template-columns: auto 1fr 84px; gap: 5px; }
+  .admweb-v2-marketing .admweb-v2-marketing-form-head_search-btn { padding: 10px; cursor: pointer; border-radius: 8px; }
+  .admweb-v2-marketing .admweb-v2-marketing-form-btn { border-radius: 8px; display: block; width: 100%; cursor: pointer; }
+  @media screen and (min-width: 768px){
+      .admweb-v2-marketing .admweb-v2-marketing-form-head-search-outer{ display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px;}
+      .admweb-v2-marketing .admweb-v2-marketing-form-head_search{ grid-area: 1/1/2/5; }
+      .admweb-v2-marketing .admweb-v2-marketing-form-head_search + div{ grid-area: 2/1/3/5 }
+      .admweb-v2-marketing .admweb-v2-marketing-form div + div{ margin: 0; }
+  }
+
+  /* 清單 */
+  .admweb-v2-marketing .admweb-v2-marketing-list{ background: var(--pic-color-grey-10); list-style: none; padding: 0 10px; }
+  .admweb-v2-marketing .admweb-v2-marketing-card{ background: #FFFFFF; border-radius: 10px; padding: 10px;}
+  .admweb-v2-marketing .admweb-v2-marketing-card + .admweb-v2-marketing-card { margin: 10px 0; }
+  .admweb-v2-marketing .admweb-v2-marketing-table{ font-size: 14px; text-align: center; width: 100%; display: none; }
+  .admweb-v2-marketing .admweb-v2-marketing-table-head { color:var(--pic-color-grey-60) }
+  .admweb-v2-marketing .admweb-v2-marketing-table-head th{ background: var(--pic-color-grey-5); padding:12px 5px; font-weight: normal; }
+  .admweb-v2-marketing .admweb-v2-marketing-table-head th:first-child{ border-radius: 8px 0px 0px 0px; }
+  .admweb-v2-marketing .admweb-v2-marketing-table-head th:last-child{ border-radius: 0px 8px 0px 0px; }
+  .admweb-v2-marketing .admweb-v2-marketing-table-tr td{ padding: 8px;}
+  .admweb-v2-marketing .admweb-v2-marketing-table tr th:first-of-type{ width: 30%;}
+  .admweb-v2-marketing .admweb-v2-marketing-table tr td:first-of-type{ width: calc(100% - 720px);}
+  .admweb-v2-marketing .admweb-v2-marketing-table tr th:nth-child(2),
+  .admweb-v2-marketing .admweb-v2-marketing-table tr td:nth-child(2){ width: 260px;}
+  .admweb-v2-marketing .admweb-v2-marketing-table tr th:nth-child(3),
+  .admweb-v2-marketing .admweb-v2-marketing-table tr td:nth-child(3){width: 260px;white-space: nowrap;}
+  .admweb-v2-marketing .admweb-v2-marketing-table tr th:nth-child(4),
+  .admweb-v2-marketing .admweb-v2-marketing-table tr td:nth-child(4){ width: 200px;}
+  .admweb-v2-marketing .admweb-v2-marketing-table tr .admweb-v2-marketing-name{ overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+  .admweb-v2-marketing .admweb-v2-marketing-table tr .admweb-v2-marketing-type-text { margin-top: 5px; font-size: 14px; }
+  @media screen and (min-width: 768px){
+      .admweb-v2-marketing .admweb-v2-marketing-table{ display: table; }
+      .admweb-v2-marketing .admweb-v2-marketing-card-top,
+      .admweb-v2-marketing .admweb-v2-marketing-card-detail{ display: none; }
+  }
+
+  /* tag */
+  .admweb-v2-marketing-tag-marketing-type{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+  .admweb-v2-marketing-tag-marketing-type i.icons-line{ font-size: 16px; font-weight: normal; margin-right: 2px;}
+  .admweb-v2-marketing-tag-status-valid{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+  .admweb-v2-marketing-tag-status-invalid{ background:var(--pic-color-grey-5); border: 1px solid var(--pic-color-grey-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-color-grey-30); font-size: 12px; display: inline-block;}
+
+  /* 置底按鈕 */
+  .pic-confirm-box{ margin: 0;}
+  .admweb-v2-marketing-action { display: flex; justify-content: flex-end; width: calc(100% - 250px); background-color: #fff; border-top: 0.5px solid rgba(60, 60, 67, 0.36); padding: 10px 15px; position: fixed; bottom: 0; }
+  .admweb-v2-marketing-action i.icons-line { font-weight: normal; font-size: 13px; }
+  .admweb-v2-marketing-action > button { display: flex; justify-content: center; align-items: center; gap: 3px 5px; background: var(--pic-green); color: #fff; padding: 3px 5px; border: none; border-radius: 6px; cursor: pointer;}
+  .admweb-v2-marketing-action-row_btn { flex-direction: row; flex-grow: 1; }
+  @media screen and (min-width: 768px){
+      .admweb-v2-marketing-action-row_btn{ flex-direction: row; flex-grow: 0; padding: 10px 12px; }
+      .admweb-v2-marketing-action > button{ font-size: 16px; padding: 10px 12px; }
+      .admweb-v2-marketing-action i.icons-line{ font-size: 16px; }
+  }
+</style>
+<div class="pic-default pic-flex admweb-v2-marketing">
+  <!-- 左側選單 Start -->
+  <div class="admweb-v2-seller-front-left-box">
+      {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <!-- 左側選單 End -->
+
+  <!-- 右側內容 Start -->
+  <div class="admweb-v2-adjustment">
+      <div class="admweb-v2-marketing-inner">
+          <!-- 搜尋 -->
+          <!--<form class="admweb-v2-marketing-form js-marketing-form">
+              <div class="admweb-v2-marketing-form-head-search-outer">
+                  <div class="admweb-v2-marketing-form-head_search js-marketing-form-head-search" style="grid-template-columns: auto 1fr 84px;">
+                      <select name="keyword_type" class="pic-text-lnput pic-text-lnput-style" style="width: 127px;">
+                          <option value="活動名稱">活動名稱</option>
+                          <option value="商品名稱">商品名稱</option>
+                      </select>
+                      <input type="text" placeholder="請輸入活動名稱" class="pic-text-lnput pic-lnput-enter">
+                      <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-marketing-form-head_search-btn js-marketing-form-head-search-btn" style="display: block;"> 搜尋 </button>
+                  </div>
+                  <div class="admweb-v2-marketing-form-item">
+                      <label for="order-date">活動時間</label>
+                      <div class="admweb-v2-input-date-content">
+                          <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                              <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+                          </span>
+                          <span class="pic-margin-r5">-</span>
+                          <span class="admweb-v2-DateBox iopen-icon-date">
+                              <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+                          </span>
+                      </div>
+                  </div>
+                  <div class="admweb-v2-marketing-form-item">
+                      <label for="order-date">活動類型</label>
+                      <select class="pic-text-lnput pic-text-lnput-style">
+                          <option value="全部">全部</option>
+                          <option value="滿額加購">滿額加購</option>
+                          <option value="滿額加贈">滿額加贈</option>
+                      </select>
+                  </div>
+                  <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-marketing-form-btn">搜尋</button>
+              </div>
+              <input type="hidden" name="csrf_token" value="MTY3NTMyMzczMUJkcVFRWTBOMXRjclQ0M0tuQkpwY0NvOVRqQUp2b2dj">
+          </form>
+          <button class=" pic-text-gray-30 pic-bg-green-5 admweb-v2-marketing-form-toggle-btn" id="js-marketing-form-toggle--btn">更多進階條件 <i class="icons-line icon-arrow-down-01"></i></button>
+        -->
+          <!-- 頁籤 -->
+          <div class="pic-common-navbarbox pic-common-navbarbox-tow-width-50">
+              <div class="swiper-container pic-navbar" id="pic-navbar">
+                  <div class="swiper-wrapper pic-nav-list">
+                      <div id="swiper-tab-1" class="swiper-slide pic-nav-a" timeCheck="1"><span>進行中</span></div>
+                      <div id="swiper-tab-2" class="swiper-slide pic-nav-a" timeCheck="2"><span>即將開始</span></div>
+                      <div id="swiper-tab-3" class="swiper-slide pic-nav-a" timeCheck="3"><span>已結束</span></div>
+                  </div>
+              </div>
+          </div>
+          <!-- 清單 -->
+          <p class="admweb-v2-FewStrokes pic-margin-10">
+              <span class="pic-margin-r10">
+                  <text style="display: none;">活動日期：2022/09/05 ~ 2022/10/05</text>
+              </span> <text id="total">共{{$m_arrWebsiteMarketingTotal}}筆</text>
+          </p>
+          <ul class="admweb-v2-marketing-list pic-margin-b20">
+              {{if $m_arrWebsiteMarketing|@count > 0}}
+              {{foreach from=$m_arrWebsiteMarketing item=m_arrWM}}
+              <li class="admweb-v2-marketing-card">
+                  <table class="admweb-v2-marketing-table">
+                      <thead>
+                          <tr class="admweb-v2-marketing-table-head">
+                              <th>活動名稱</th>
+                              <th>活動類型</th>
+                              <th>活動時間</th>
+                              <th>狀態</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="admweb-v2-marketing-table-tr">
+                              <td>
+                                  <div class="admweb-v2-marketing-name">{{$m_arrWM.wmkt_title}}</div>
+                              </td>
+                              {{if $m_arrWM.wmkt_type == '31'}}
+                              <td>
+                                  <span class="admweb-v2-marketing-tag-marketing-type"><i class="icons-line icon-line-emoney-bold-02"></i>滿額加贈</span>
+                                  <p class="admweb-v2-marketing-type-text">消費滿 {{$m_arrWM.wmkt_money_start}} 元可加贈</p>
+                              </td>
+                              {{elseif $m_arrWM.wmkt_type == '32'}}
+                              <td>
+                                  <span class="admweb-v2-marketing-tag-marketing-type"><i class="icons-line icon-line-emoney-bold-02"></i>滿額加購</span>
+                                  <p class="admweb-v2-marketing-type-text">消費滿 {{$m_arrWM.wmkt_money_start}} 元可加購</p>
+                              </td>
+                              {{/if}}
+                              <td>{{$m_arrWM.wmkt_time_start}}~{{$m_arrWM.wmkt_time_end}}</td>
+                              {{if $m_arrWM.wmkt_status == '1'}}
+                              <td><span class="admweb-v2-marketing-tag-status-valid">有效</span></td>
+                              {{else}}
+                              <td><span class="admweb-v2-marketing-tag-status-invalid">無效</span></td>
+                              {{/if}}
+                          </tr>
+                          <tr>
+                              <td colspan="4">
+                                  <div class="pic-confirm-box pic-justify-content-flex-end pic-icon-margin-r pic-line-light15">
+                                      <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5"
+                                         href="admweb.main.php?action=add_gift_edit_pic&timeCheck={{$m_arrSearch.timeCheck}}&wmkt_uid={{$m_arrWM.wmkt_uid}}">
+                                          <i class="icons-line icon-line-edit"></i>編輯
+                                      </a>
+                                      <!-- <a class="admweb-v2-I-Btn pic-BgText-color-green" onclick="WindowOpen()"><i class="icons-line icon-share-01"></i>分享</a> -->
+                                  </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </li>
+              {{/foreach}}
+              {{if $m_arrWebsiteMarketingTotal<=$argument.items_per_page}}
+              <!-- 頁碼a -->
+              <div class="pic-text-center">
+                  <p class="pic-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$m_arrWebsiteMarketingTotal}} 筆</p>
+              </div>
+              {{elseif $m_arrWebsiteMarketingTotal<=($argument.items_per_page*5)}}
+              <!-- 頁碼b -->
+              <div class="pic-flex-center pic-flex-center-column">
+                  <ul class="admweb-v2-pagination">
+                      {{$m_arrPage.pager_numeric}}
+                  </ul>
+                  <p class="admweb-v2-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$m_arrWebsiteMarketingTotal}} 筆</p>
+              </div>
+              {{else}}
+              <!-- 頁碼c -->
+              <div class="pic-flex-center pic-flex-center-column">
+                  <ul class="admweb-v2-pagination">
+                      {{$m_arrPage.pager_prev}}
+                      {{$m_arrPage.pager_numeric}}
+                      {{$m_arrPage.pager_next}}
+                  </ul>
+                  <p class="admweb-v2-page-bottom-text">{{$argument.data_from}} - {{$argument.data_to}} 筆／共 {{$m_arrWebsiteMarketingTotal}} 筆</p>
+              </div>
+              {{/if}}
+              {{else}}
+              <!-- 清單目前無活動資料 -->
+              <div class="admweb-v2-NoData">
+                  <div class="admweb-v2-img-BlacklistNoData"></div>
+                  <span>目前無活動資料</span>
+              </div>
+              {{/if}}
+          </ul>
+      </div>
+      <!-- 置底按鈕 -->
+      <div class="admweb-v2-marketing-action" id="js-marketing-action">
+          <button class="admweb-v2-marketing-action-row_btn iopen-icon-white-add-front"
+                  onclick="window.location.href='admweb.main.php?action=add_gift_edit_pic&add_wmkt=1'">新增活動
+          </button>
+      </div>
+  </div>
+  <!-- 右側內容 End-->
+</div>
+
+<!-- 視窗 -->
+<div id="admweb-v2-window-content" class="pic-window-bg" style="display:none" >
+  <div class="pic-window">
+      <div class="admweb-v2-window-content">
+          <i class="icons-line icon-line-X admweb-v2-WindowClose-position"onclick="WindowClose()"></i>
+      <div class="pic-OrderCancel-window-close"></div>
+      <h2>分享商品</h2>
+      <span class="admweb-v2-window-text">分享商品給你的親朋好友</span>
+      <div>
+          <a class="pic-window-link admweb-v2-window-ShareLink" href="javascript:void(0);"></a>
+          <a class="pic-window-link admweb-v2-window-ShareLine" href="javascript:void(0);"></a>
+          <a class="pic-window-link admweb-v2-window-ShareFB" href="javascript:void(0);"></a>
+          <a class="pic-window-link admweb-v2-window-ShareIG" href="javascript:void(0);"></a>
+      </div>
+      </div> 
+          <div class="pic-window-button-box">
+              <a class="pic-window-button-TwoBtn pic-BgText-color-green pic-window-button-TwoBtn-r" onclick="WindowClose()" value="1">確定</a>
+      </div>
+  </div>
+</div>
+
+<script>
+  // 分享lightbox-開啟
+  function WindowOpen() {
+      $("#admweb-v2-window-content").show()
+  }
+  // 分享lightbox-關閉
+  function WindowClose() {
+      $(".pic-window-bg").hide()
+  }
+
+  $(function (){
+      // 頁籤套件
+      var $switch_top = $('.swiper-wrapper .swiper-slide');
+      $($switch_top.eq('{{$m_arrSearch.timeCheck-1}}').addClass('selected').find('swiper-slide'));
+      $switch_top.click(function () {
+          $(this).addClass('selected').siblings('.selected').removeClass('selected');
+          changePage(filterScriptTags($(this).attr('timeCheck')));
+      });
+      
+      // 呼叫函式
+      // searchFormCollapse();
+  });
+  
+  // 搜尋函式
+  function searchFormCollapse() {
+      const toggleBtn = document.getElementById('js-marketing-form-toggle--btn');
+      const formEle = document.getElementsByClassName('js-marketing-form')[0];
+      const formHeadEle = document.getElementsByClassName(
+          'js-marketing-form-head-search'
+      )[0];
+      const defaultHeight = formHeadEle.clientHeight;
+      const headBtn = document.getElementsByClassName(
+          'js-marketing-form-head-search-btn'
+      )[0];
+      const wholeHeight = formEle.clientHeight;
+      formEle.style.height = `${defaultHeight}px`;
+      toggleBtn.addEventListener('click', () => {
+          //當前為收合
+          if (formEle.style.height === `${defaultHeight}px`) {
+          formEle.style.height = `${wholeHeight}px`;
+          toggleBtn.innerHTML =
+              '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+          formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+          headBtn.style.display = 'none';
+          } else {
+          ///當前為展開
+          formEle.style.height = `${defaultHeight}px`;
+          toggleBtn.innerHTML =
+              '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+          formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+          headBtn.style.display = 'block';
+          }
+      });
+  }
+
+  function changePage(timeCheck){
+      $(".admweb-v2-marketing-list").html('');
+      $.ajax({
+          url:"",
+          dataType:"json",
+          type:"POST",
+          async:false,
+          data:{
+              "myAct": "COMMAND_SEARCH",
+              "timeCheck": timeCheck
+          },
+          success: function (result){
+              $("#total").text("共"+result.m_arrWebsiteMarketingTotal+"筆")
+              var html;
+              if(result.m_arrWebsiteMarketingTotal>0) {
+                  result.m_arrWebsiteMarketing.forEach(function (m_arrWM, i) {
+                      html = "<li class=\"admweb-v2-marketing-card\">\n" +
+                          "                    <table class=\"admweb-v2-marketing-table\">\n" +
+                          "                        <thead>\n" +
+                          "                            <tr class=\"admweb-v2-marketing-table-head\">\n" +
+                          "                                <th>活動名稱</th>\n" +
+                          "                                <th>活動類型</th>\n" +
+                          "                                <th>活動時間</th>\n" +
+                          "                                <th>狀態</th>\n" +
+                          "                            </tr>\n" +
+                          "                        </thead>\n" +
+                          "                        <tbody>\n" +
+                          "                            <tr class=\"admweb-v2-marketing-table-tr\">\n" +
+                          "                                <td>\n" +
+                          "                                    <div class=\"admweb-v2-marketing-name\">" + filterScriptTags(m_arrWM.wmkt_title) + "</div>\n" +
+                          "                                </td>\n"
+                      if(m_arrWM.wmkt_type == '31') {
+                          html += "                              <td>\n" +
+                          "                                  <span class=\"admweb-v2-marketing-tag-marketing-type\"><i class=\"icons-line icon-line-emoney-bold-02\"></i>滿額加贈</span>\n" +
+                          "                                  <p class=\"admweb-v2-marketing-type-text\">消費滿 " + filterScriptTags(m_arrWM.wmkt_money_start) + " 元可加贈</p>\n" +
+                          "                              </td>\n"
+                      } else if(m_arrWM.wmkt_type == '32') {
+                          html += "                              <td>\n" +
+                          "                                  <span class=\"admweb-v2-marketing-tag-marketing-type\"><i class=\"icons-line icon-line-emoney-bold-02\"></i>滿額加購</span>\n" +
+                          "                                  <p class=\"admweb-v2-marketing-type-text\">消費滿 " + filterScriptTags(m_arrWM.wmkt_money_start) + " 元可加購</p>\n" +
+                          "                              </td>\n"
+                      }
+                      html += "                                <td>" + filterScriptTags(m_arrWM.wmkt_time_start) + "~" + filterScriptTags(m_arrWM.wmkt_time_end) + "</td>\n";
+                      if (m_arrWM.wmkt_status == 1)
+                          html += "                                <td><span class=\"admweb-v2-marketing-tag-status-valid\">有效</span></td>\n";
+                      else
+                          html += "                                <td><span class=\"admweb-v2-marketing-tag-status-invalid\">無效</span></td>\n";
+                      html += "                            </tr>\n" +
+                          "                            <tr>\n" +
+                          "                                <td colspan=\"4\">\n" +
+                          "                                    <div class=\"pic-confirm-box pic-justify-content-flex-end pic-icon-margin-r pic-line-light15\">\n" +
+                          "                                    <a class=\"admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5\" href=\"admweb.main.php?action=add_gift_edit_pic&timeCheck=" + filterScriptTags(timeCheck) + "&wmkt_uid=" + filterScriptTags(m_arrWM.wmkt_uid) + "\"><i class=\"icons-line icon-line-edit\"></i>編輯</a>\n" +
+                          "                                </div>\n" +
+                          "                                </td>\n" +
+                          "                            </tr>\n" +
+                          "                        </tbody>\n" +
+                          "                    </table>\n" +
+                          "                </li>";
+                      $(".admweb-v2-marketing-list").append(html);
+                  }) //forEach
+
+                  var pageHtml;
+                  if (parseInt(result.m_arrWebsiteMarketingTotal) <= parseInt('{{$argument.items_per_page}}')) {
+                      pageHtml = "<div class=\"pic-text-center\">\n" +
+                          "    <p class=\"pic-page-bottom-text\">1- " + filterScriptTags(result.m_arrWebsiteMarketing.length) + " 筆／共 " + filterScriptTags(result.m_arrWebsiteMarketingTotal) + " 筆</p>\n" +
+                          "</div>"
+                  } else if (parseInt(result.m_arrWebsiteMarketingTotal) <= parseInt('{{$argument.items_per_page*5}}')) {
+                      pageHtml = "<div class=\"pic-flex-center pic-flex-center-column\">\n" +
+                          "        <ul class=\"admweb-v2-pagination\">\n" +
+                          "        " + filterScriptTags(result.m_arrPage.pager_numeric) + "\n" +
+                          "        </ul>\n" +
+                          "    <p class=\"admweb-v2-page-bottom-text\">1- " + filterScriptTags(result.m_arrWebsiteMarketing.length) + " 筆／共 " + filterScriptTags(result.m_arrWebsiteMarketingTotal) + " 筆</p>\n" +
+                          "</div>";
+                  } else {
+                      pageHtml = "<div class=\"pic-flex-center pic-flex-center-column\">\n" +
+                          "    <ul class=\"admweb-v2-pagination\">\n" +
+                          "        " + filterScriptTags(result.m_arrPage.pager_prev) + "\n" +
+                          "        " + filterScriptTags(result.m_arrPage.pager_numeric) + "\n" +
+                          "        " + filterScriptTags(result.m_arrPage.pager_next) + "\n" +
+                          "    </ul>\n" +
+                          "    <p class=\"admweb-v2-page-bottom-text\">1- " + filterScriptTags(result.m_arrWebsiteMarketing.length) + " 筆／共 " + filterScriptTags(result.m_arrWebsiteMarketingTotal) + " 筆</p>\n" +
+                          "</div>";
+                  }
+                  $(".admweb-v2-marketing-list").append(pageHtml);
+              } else {
+                  html = "                <div class=\"admweb-v2-NoData\">\n" +
+                      "                    <div class=\"admweb-v2-img-BlacklistNoData\"></div>\n" +
+                      "                    <span>目前無活動資料</span>\n" +
+                      "                </div>"
+                  $(".admweb-v2-marketing-list").append(html);
+              }
+          }
+      })
+  }
+
+  function filterScriptTags(input) {
+        if (typeof input === 'string') {
+            // 如果是字串，過濾 script 標籤及其內容
+            return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        } else if (Array.isArray(input)) {
+            // 如果是陣列，遞迴處理每個元素
+            return input.map(filterScriptTags);
+        } else if (typeof input === 'object') {
+            // 如果是物件，遞迴處理每個屬性值
+            const sanitizedObject = {};
+            for (const key in input) {
+                sanitizedObject[key] = filterScriptTags(input[key]);
+            }
+            return sanitizedObject;
+        } else {
+            // 其他型態直接回傳
+            return input;
+        }
+    }
+
+</script>

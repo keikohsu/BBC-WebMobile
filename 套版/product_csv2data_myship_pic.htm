@@ -1,0 +1,476 @@
+<style>
+  .admweb-v2-phone-haed{display: none;}
+  	@media screen and (max-width:768px){
+      .admweb-v2-orderlist i.icon-arrow-left-01{font-size: 24px;}
+      .admweb-v2-orderlist i.icon-line-hamburger{ font-size: 15px;}
+      .admweb-v2-phone-haed{display: block;}
+      .admweb-v2-phone-haed{height: 48px;}
+      .admweb-v2-list-header-in-fixbottom,.admweb-v2-list-header{display: none;}
+      .admweb-v2-SettingsTitle{margin-bottom: 10px;}
+      .admweb-v2-settings-frame .admweb-v2-outside-white-box .admweb-v2-edit-name:first-child {margin-top: 0px;}
+    }
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <!-- 左側選單 Start -->
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <!-- 左側選單 End -->
+
+<!-- 右側內容 Start -->
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+      <a onclick="history.back()">
+          <i class="icons-line icon-arrow-left-01"></i>
+      </a>
+
+      <a onclick="toggleMenuHandlertwo()">
+          <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+              <i class="icons-line icon-line-hamburger"></i>
+          </div>
+      </a>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">商品大量上傳</h2>
+  <div class="admweb-v2-orderlist-header-qrcode"></div>
+</div>
+
+<div class="pic-front-pages-right admweb-v2-adjustment admweb-v2-MyShip">
+<!--========================== 賣貨便 START==========================-->
+
+<div class="admweb-v2-settings-frame pic-margin-10">
+  <div class="admweb-v2-NewProduct-title">
+    <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-box-product"></i>賣貨便商品搬家</h2>
+  </div>
+
+  <p class="pic-padding-10 pic-margin-b10 pic-text-orange pic-bg-orange-10 pic-font-size-12 ">想將賣貨便商品快速搬家至iOPEN Mall嗎?iOPEN Mall提供您一次性搬家，您可選擇使用「全部商品搬家」或是「選擇賣場搬家」。</p>
+
+  <div class="admweb-v2-BulkUpload-MoveCargo">
+    <ul class="admweb-v2-BulkUpload-MoveCargo-content">
+        <h2>自賣貨便一鍵搬家服務條款</h3>
+      <h4>基本條款</h4>
+      <li>1. 自賣貨便一鍵搬家服務條款，以下簡稱「本服務」，本服務之使用，為供賣貨便的賣家，自賣貨便網站將相關商品資訊轉移至iOPEN Mall使用，<span class="pic-text-red">您使用本服務時便表示已同意本服務條款</span>。</li>
+      <li>2. 您不得使用本服務從事任何非法或未經授權的活動。您同意遵守所有適用於與使用本服務及您的內容（定義如下）相關的法令規章（例如中華民國法律、地方法律），包括但不限於著作權法。 </li>
+      <li>3. 本服務所使用之軟體為統一資訊股份有限公司所有，您不得重製、修改其內容。</li>
+      <li>4. 本服務為客戶端軟體，使用軟體而產生之網路傳輸費用，您必須自行支付。</li>
+      <li>5. 違反本使用條款時，可全權酌情終止您的帳號。</li>
+      <li>6. 本服務有時可能會出現中斷或故障等現象，或許將造成您使用上的不便、資料喪失、錯誤、遭人篡改或其他經濟上損失等情形。您於使用本服務時宜自行採取防護措施。iOPEN Mall對於您因使用（或無法使用）本服務而造成的損害，不負任何賠償責任。</li>
+        <h4>免責聲明</h4>
+        <li>1. iOPEN Mall並不保證本服務毫無錯誤或不會中斷；對於缺陷會加以修正；本服務或使本服務可用的伺服器不會受到任何傷害，包括但不限於電腦病毒。iOPEN Mall並未表明或擔保本服務的資料（包括任何指示）為正確、完整或有用。您確知在使用本服務時需自行承擔風險。iOPEN Mall並不保證您對本服務的使用在任何特定司法管轄區屬於合法，而且iOPEN Mall各方特此聲明拒絕此一擔保。某些司法管轄區會限制或禁止行使默示擔保等擔保的免責聲明，因此在該司法管轄區的法令適用於您和使用條款時，該免責聲明未必適用。</li>
+        <li>2. 存取或使用本服務，即表示您表明並保證您在所有存取或使用本服務的司法管轄區中，從事的活動及提供的商品信息均屬真實、準確且合法。</li>
+        <li>3. iOPEN Mall並不替內容背書，並特別聲明，對於任何人或實體因任何內容造成的損失或損害（無論是實際、衍生性、懲罰性等等）、損傷、索賠、求償或任何其他原因及性質，本服務概不負責或賠償。</li>
+        <h4>賠償</h4>
+        <li>1. 您（以及您在本服務代為操作帳號或活動的任何第三方）同意保護iOPEN Mall及其所屬營運公司免於承擔由於下述原因（包括您在本服務的直接活動，或是您的代理人所造成的後果）帶來的任何索賠要求，免於賠償或負擔任何損害、損失責任及費用，包括但不限於合理的律師費用及支出：（i）您在本服務的內容、存取及使用；（ii）您違反或被指稱違反本使用條款；（iii）您侵犯任何第三方權利，包括但不限於任何智慧財產權、肖像權、機密性、財產或隱私權；（iv）您違反任何政府或半政府機關的法令規章，包括但不限於監管機關、行政機關和立法機關；或是（v）您的任何不實陳述。您同意在各種索賠抗辯中，全力配合iOPEN Mall的要求。對於您造成的賠償事宜，iOPEN Mall保留獨家全權處理權利，未iOPEN Mall事先書面同意，您不得與任何索賠案和解。</li>
+        <h4>隱私權與安全策略</h4>
+        <li>相關權利義務比照iOPEN Mall平台之隱私權條款，網址連結如下，請務必詳閱。</li>
+        <li><a target="_blank" href="https://mall.iopenmall.tw/iopen/index.php?action=privacy_policy">https://mall.iopenmall.tw/iopen/index.php?action=privacy_policy</a> </li>
+    </ul>
+
+    <div class="admweb-v2-checkbox-name pic-margin-b10">
+        <input name="agree_licence" type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_1" onclick="agree_licence();">
+        <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_1"></label>
+        <span>同意賣貨便商品搬家條款</span>
+    </div>
+  </div>
+{{* 搬家方式 *}}
+  <ul class="admweb-v2-outside-white-box" id="moving_method" style="display: none;">
+    <li class="admweb-v2-edit-name">
+      <p><span class="pic-text-red">*</span>選擇搬家方式</p>
+    </li>
+    <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+      <div class="pic-flex admweb-v2-BulkUpload-two-btn">
+          <a onclick="javascript:data_moving_method(this, true);" href="javascript:void(0)" class="pic-BgText-color-gray admweb-v2-categories-btn moving_method">
+              <i class="icons-line icon-line-ArrowParper pic-margin-r5"></i>全部商品搬家
+          </a>
+          <a onclick="javascript:data_moving_method(this, false);" href="javascript:void(0)" class="pic-BgText-color-gray admweb-v2-categories-btn moving_method">
+              <i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>選擇賣場搬家
+          </a>
+        </div>
+        <p class="pic-text-warn">※注意：僅提供"一次性"搬家賣貨便商品，若此次搬家成功，即完成搬家。<br/>※注意：賣貨便部分商品資料無法搬家至iOPEN Mall，匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。</p>
+      <!-- {{* 點擊 選擇賣場搬家 出現提示文字 *}} -->
+      <!-- <p class="pic-text-warn moving_method_msg"></p> -->
+      <!-- {{* 點擊 選擇賣場搬家 出現提示文字 END *}} -->
+
+      <div class="admweb-v2-commodity-block" style="display: none;">
+        <h2>選擇搬家賣場<span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span></h2>
+        {{* 賣場列表 *}}
+        <div class="admweb-v2-slideToggle admweb-v2-BulkUpload-form"></div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="admweb-v2-settings-frame pic-margin-10 admweb-v2-settings-last" style="display: none;">
+  <div class="admweb-v2-NewProduct-title">
+    <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-home-bag"></i>商品資訊</h2>
+  </div>
+  <p class="pic-text-center pic-padding-10 pic-text-orange pic-bg-orange-10 pic-font-size-12 import_msg"></p>
+
+  <div class="admweb-v2-BulkUpload-pd-detail"></div>
+</div>
+<!--========================== 賣貨便 END ==========================-->
+
+<!--========================== 遮罩 START==========================-->
+<div class="pic-window-bg pic_moving_loading" style="display: none;">
+  <!-- LOGO 加載 -->
+  <div class="admweb-v2-mask-img">
+      <span>商品資料匯入中...</span>
+  </div>
+</div>
+<!--========================== 遮罩 END==========================-->
+
+<!--置底按鈕 START-->
+<!-- 綠色按鈕 CSS:pic-BgText-color-green 灰色按鈕 CSS:pic-BgText-color-gray -->
+<div class="admweb-v2-orderlist__action admweb-v2-BulkUpload-bottom-btn" style="display: none;">
+    <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0);" onclick="confirm_moving_data();">
+      <i class="icons-line icon-line-ArrowParper"></i>匯入商品資料
+    </a>
+
+    <!--
+    <a class="admweb-v2-I-Btn pic-BgText-color-green" href="admweb.main.php?action=product_pic">
+        <i class="icons-line icon-line-info-edit-bold-02"></i>前往編輯商品
+    </a>
+    -->
+</div>
+<!--置底按鈕 END-->
+</div>
+
+<!-- 右側內容 End-->
+</div>
+
+<script>
+    $(".admweb-v2-commodity-block h2").click(function () {
+        $(this).find(".pic-icon-black-arrows-rotate-up").toggleClass("pic-arrows-rotate");
+        $(this).next(".admweb-v2-slideToggle").slideToggle();
+        $(".admweb-v2-NewProduct-title").toggleClass("pic-padding-0")
+    });
+
+    function toggleMenuHandlertwo()
+    {
+        document
+          .querySelector('.admweb-v2-seller-front-left-box')
+          .classList.toggle('pic-phone-open-menu');
+        const hamBtn = document
+          .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+          .querySelector('i');
+        if (hamBtn.classList.contains('icon-arrow-left-01')) {
+          document.querySelectorAll(
+            '.admweb-v2-orderlist-header-actions button'
+          )[0].style.display = 'block';
+        } else {
+          document.querySelectorAll(
+            '.admweb-v2-orderlist-header-actions button'
+          )[0].style.display = 'none';
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01');
+    }
+
+    // 同意條款
+    function agree_licence()
+    {
+        $('#moving_method').hide();
+
+        if($("input[name='agree_licence']").is(':checked')){
+            if(check_pic_seller())
+                $('#moving_method').show();
+        }
+    }
+
+    function check_pic_seller()
+    {
+        var RETURN = true;
+
+        $('.pic_moving_loading').show();
+
+        $.ajax({
+            url: "../api/api.app_check_seller.php",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                service : "PIC_SELLER",
+                mem_login_token : "{{$adm_arrMember.mem_login_token}}"
+            }),
+            success: function(RS){
+                $('.pic_moving_loading').hide();
+                console.log(RS);
+
+                let Jdata = RS.data;
+                let errMsg = ``;
+
+                if(Jdata.SellerStatus ==  null || parseInt(Jdata.SellerStatus) == 1){
+                    RETURN = false;
+                    errMsg = `不是賣貨便賣家`;
+                }
+
+                if(RETURN == false){
+                    alert(errMsg);
+                    $("input[name='agree_licence']").prop("checked", false);
+                }
+            }
+        });
+
+        return RETURN;
+    }
+
+    var moving_method = ``;
+
+    // 搬家方式
+    function data_moving_method(_this, is_whole)
+    {
+        let alert_msg = is_whole
+            ? `※注意：僅提供"一次性"搬家賣貨便商品，若此次搬家成功，即完成搬家。<br/>※注意：賣貨便部分商品資料無法搬家至iOPEN Mall，匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。`
+            : `※注意：僅提供"一次性"搬家賣貨便商品，若確認已選擇需搬家至iOPEN Mall的賣場商品，請點擊「匯出商品資料」，若此次搬家成功，即完成搬家。`;
+
+        $('.moving_method_msg').html(alert_msg);
+
+        $('.moving_method').removeClass('pic-BgText-color-green').addClass('pic-BgText-color-gray');
+        $(_this).addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray');
+
+        $('.admweb-v2-commodity-block').hide();
+
+        // 僅能選一次
+        if(is_whole == false){
+            confirm_moving_method(`part`);
+        }else{
+            confirm_moving_method(`whole`);
+        }
+    }
+
+    function confirm_moving_method(method)
+    {
+        confirm('按確定後即不可更換搬家方式').done(function(){
+            moving_method = method;
+            $('.moving_method').css('pointer-events', 'none');
+
+            if(method == `part`){
+                getPICStoreList();
+            }else{
+                $('.admweb-v2-BulkUpload-bottom-btn').show();
+            }
+        });
+    }
+
+    //全選
+    function selectAllStore()
+    {
+        const isSelectedAll = document.getElementById('ckbutton-id_all').checked;
+        const eles = document.querySelectorAll('.js-admweb-v2--store-checkbox');
+
+        eles.forEach((ele) =>
+            isSelectedAll ? (ele.checked = true) : (ele.checked = false)
+        );
+    }
+
+    function check_choose()
+    {
+        const eles = document.querySelectorAll(
+            '.js-admweb-v2--store-checkbox:checked'
+        );
+
+        let value = [];
+
+        eles.forEach((ele) => {
+            ele.checked && value.push($(ele).val())
+        });
+
+        let store_list = Array.from(new Set(value));
+
+        if(store_list.length < $(".js-admweb-v2--store-checkbox").length){
+            $("#ckbutton-id_all").prop('checked', false);
+        }else{
+            $("#ckbutton-id_all").prop('checked', true);
+        }
+    }
+
+    function check_product_list(store_list)
+    {
+        $.ajax({
+            url: "../api/api.app_pic.php",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                service: "GET_PRODUCT_LIST_BATCH",
+                LoginID: "{{$adm_arrMember.mem_login_token}}",
+                LoginIDType: "0",
+                CgdmIds: ""
+            }),
+            success: function (Jdata) {
+                if(Jdata.data.GoodsDetails.length == 0){
+                    $('.pic_moving_loading').hide();
+                    alert(`無賣場商品`);
+                    return false;
+                }
+
+                command_moving(store_list);
+            }
+        });
+    }
+
+    function confirm_moving_data()
+    {
+        let store_list = [];
+
+        if(moving_method == 'part'){
+            const eles = document.querySelectorAll(
+                '.js-admweb-v2--store-checkbox:checked'
+            );
+
+            let value = [];
+
+            eles.forEach((ele) => {
+                ele.checked && value.push($(ele).val())
+            });
+
+            store_list = Array.from(new Set(value));
+
+            if (store_list.length === 0) {
+                alert(`請勾選要搬家的賣場`);
+                return false;
+            }
+
+            $('.pic_moving_loading').show();
+            command_moving(store_list);
+        }else{
+            $('.pic_moving_loading').show();
+            check_product_list(store_list);
+        }
+    }
+
+    function command_moving(store_list)
+    {
+        $.ajax({
+            url: "",
+            type: "POST",
+            dataType: "json",
+            data: {
+                myAct : "COMMAND_MOVING",
+                moving_method : moving_method,
+                CgdmIds : store_list
+            },
+            success: function(Jdata){
+                $('.pic_moving_loading').hide();
+
+                let show_msg = (typeof Jdata.show_msg != "undefined") ? Jdata.show_msg : '';
+
+                $('.import_msg').text(show_msg);
+                $('.admweb-v2-settings-last').show();
+
+                $('.js-admweb-v2--store-checkbox').each(function(){
+                    $(this).attr('disabled', true);
+                });
+
+                $('#ckbutton-id_all').attr('disabled', true);
+                $('#ckbutton-id_1').attr('disabled', true);
+                $('.admweb-v2-BulkUpload-bottom-btn').remove();
+            }
+        });
+    }
+
+    // 取得賣場列表
+    function getPICStoreList()
+    {
+        $('.pic_moving_loading').show();
+
+        $.ajax({
+            url: "../api/api.app_pic.php",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({
+                service : "GET_QUERY_STORE_LIST",
+                LoginID : "{{$adm_arrMember.mem_login_token}}",
+                LoginIDType : "0",
+                StartDatetime : "2021-01-01",
+                EndDatetime : `{{$smarty.now|date_format:"%Y-%m-%d"}}`,
+                Status : "1",
+                Type: '1',
+                PageIdx: '-1',
+                ShowCount: '-1'
+            }),
+            success: function(RS){
+                $('.pic_moving_loading').hide();
+                console.log('GET_QUERY_STORE_LIST', 'success', RS)
+
+                let Jdata = RS.data;
+
+                if(Jdata.RecordCount > 0){
+                    let _htm = ``;
+
+{{if !$mobileDeviceDirected}}
+                    _htm += `
+<table class="admweb-v2-orderlist__table">
+    <thead>
+        <tr class="admweb-v2-orderlist__table--head">
+            <th>
+                <div class="admweb-v2-checkbox-name" >
+                    <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_all" value="all" onchange="selectAllStore();">
+                    <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_all"></label>
+                    <p class="pic-width-100 pic-text-left">賣場名稱</p>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>`;
+
+                    Jdata.StoreList.forEach(function (m_store) {
+                        _htm += `
+        <tr class="admweb-v2-orderlist__table--tr">
+            <td>
+                <div class="admweb-v2-checkbox-name pic-margin-l10">
+                    <input type="checkbox" name="store_uid" class="admweb-v2-ckbutton-green-checkbox js-admweb-v2--store-checkbox" id="${m_store.CgdmId}" value="${m_store.CgdmId}" onclick="check_choose();" />
+                    <label class="admweb-v2-ckbutton-green-label" for="${m_store.CgdmId}"></label>
+                    </div>
+                    <p class="pic-OneRow-simplify">${m_store.CgdmName}</p>
+            </td>
+        </tr>`;
+                    });
+
+                    _htm += `
+    </tbody>
+</table>`;
+
+{{else}}
+                    _htm += `
+<table class="admweb-v2-orderlist__table">
+    <thead>
+        <tr class="admweb-v2-orderlist__table--head">
+            <th>
+                <div class="admweb-v2-checkbox-name" >
+                    <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_all" value="all" onchange="selectAllStore();">
+                    <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_all"></label>
+                    <p class="pic-width-100 pic-text-left">賣場名稱</p>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>`;
+
+                    Jdata.StoreList.forEach(function (m_store) {
+                        _htm += `
+        <tr class="admweb-v2-orderlist__table--tr">
+            <td>
+                <div class="admweb-v2-checkbox-name">
+                    <div class="admweb-v2-checkbox-outside">
+                    <input type="checkbox" name="store_uid" class="admweb-v2-ckbutton-green-checkbox js-admweb-v2--store-checkbox" id="${m_store.CgdmId}" value="${m_store.CgdmId}" onclick="check_choose();" />
+                    <label class="admweb-v2-ckbutton-green-label" for="${m_store.CgdmId}"></label>
+                    </div>
+                    <p class="pic-OneRow-simplify">${m_store.CgdmName}</p>
+                </div>
+            </td>
+        </tr>`;
+                    });
+{{/if}}
+
+                    _htm += `
+    </tbody>
+</table>`;
+
+                    $('.admweb-v2-BulkUpload-form').html(_htm);
+                    $('.admweb-v2-commodity-block').show();
+                    $('.admweb-v2-BulkUpload-bottom-btn').show();
+                }else{
+                    alert("查無有效賣場");
+                }
+            }
+        });
+    }
+</script>

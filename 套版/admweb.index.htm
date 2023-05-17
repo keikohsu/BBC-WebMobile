@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{$admweb_lang}}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- basic styles -->
+    <link href="{{$root_url}}assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{$root_url}}assets/css/font-awesome.min.css"/>
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="{{$root_url}}assets/css/font-awesome-ie7.min.css"/>
+    <![endif]-->
+
+    <!-- page specific plugin styles -->
+
+    <!-- fonts -->
+
+    <link rel="stylesheet" href="{{$root_url}}assets/css/ace-fonts.css"/>
+
+    <!-- ace styles -->
+
+    <link rel="stylesheet" href="{{$root_url}}assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="{{$root_url}}assets/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="{{$root_url}}assets/css/ace-skins.min.css"/>
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="{{$root_url}}assets/css/ace-ie.min.css"/>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{{$root_url}}css/reset.css"/>
+
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+
+    <script src="{{$root_url}}assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+    <script src="{{$root_url}}assets/js/html5shiv.js"></script>
+    <script src="{{$root_url}}assets/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- basic scripts -->
+
+    <!-- jQuery -->
+    <script src="{{$sys_arrWebsite.website_url}}javascripts/jquery/jquery.min.js"></script>
+
+    <!--[if !IE]> -->
+    <link href="../css/new_admweb2.css" rel="stylesheet" type="text/css">
+
+    <title>{{$web_title}}</title>
+
+    <script language="javascript">
+        
+        {{if $sys_arrWebsite.web_adm_style == '2'}}
+            window.location.replace("https://{{$sys_arrWebsite.web_domainname}}/{{$m_arrSystem.mem_byeurl}}/index.php?action=member_login&b_action=index&check_seller=1");
+        {{/if}}
+        
+        
+        function _reloadAuthimgImg(imgId) {
+            var r = Math.round(Math.random() * 9999);
+            document.getElementById(imgId).src = '../images/authimg.php?' + r;
+        }
+
+        var count = 0;
+
+        function lock_login_btn() {
+            count++;
+            document.getElementById('btn_submit').textContent = '請稍後...';
+            if (count == 1) {
+                document.getElementById('login').submit();
+            }
+        }
+
+        // 忘記密碼
+        function goChangePW() {
+            var input = document.createElement("input");
+
+            input.type = "hidden";
+            input.name = "adm_web_uid";
+            input.value = "{{$sys_arrWebsite.web_uid}}";
+
+            document.getElementById("lostPW").appendChild(input);
+            document.getElementById('login').submit();
+        }
+
+        window.onload = function () {
+            {{if $m_arrSystem.google_authenticator_secret}}
+            var input_google_authenticator_code = document.getElementById("google_authenticator_code");
+            input_google_authenticator_code.addEventListener("keyup", function (event) {
+                // Number 13 is the "Enter" key on the keyboard
+                if (event.keyCode === 13) {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    // Trigger the button element with a click
+                    // document.getElementById("myBtn").click();
+
+                    count++;
+                    document.getElementById('btn_submit').textContent = '請稍後...';
+                    if (count == 1) {
+                        document.getElementById('login').submit();
+                    }
+                }
+            });
+            {{else}}
+            var input_login_authimg_str = document.getElementById("login_authimg_str");
+            if (input_login_authimg_str) {
+                input_login_authimg_str.addEventListener("keyup", function (event) {
+                    // Number 13 is the "Enter" key on the keyboard
+                    if (event.keyCode === 13) {
+                        // Cancel the default action, if needed
+                        event.preventDefault();
+                        // Trigger the button element with a click
+                        // document.getElementById("myBtn").click();
+
+                        count++;
+                        document.getElementById('btn_submit').textContent = '請稍後...';
+                        if (count == 1) {
+                            document.getElementById('login').submit();
+                        }
+                    }
+                });
+            }
+            {{/if}}
+
+            //拼圖驗證
+            if ($("#captcha").length > 0) {
+                $('#efcaptcha_data').attr('name', 'efcaptcha_data');
+                $('#challenge_key').attr('name', 'challenge_key');
+            }
+        }
+    </script>
+
+</head>
+
+<body class="index_body">
+<h2 class="index_logo"><img src="{{$m_arrSystem.uploads_url}}{{$m_arrSystem.admweb_logo}}" width="200" height="50"/>
+</h2>
+<h2 class="index_store_name">{{$web_title}}</h2>
+<div class="index_loginbox">
+    <form id="login" method="post" action="admweb.main.php" target="_parent">
+        <table width="100%" border="0" cellspacing="5" cellpadding="1">
+            <tr>
+                <td width="110">&nbsp;Account︰</td>
+                <td>
+            <span class="block input-icon input-icon-right">
+			<input name="login_account" type="text" class="form-control">
+			<i class="icon-user"></i>
+			</span>
+                </td>
+                <!--{{* <td width="113" rowspan="4"><img src="../images/image002.jpg" width="113" height="79"></td> *}}-->
+            </tr>
+            <tr>
+                <td>&nbsp;Password︰</td>
+                <td>
+            <span class="block input-icon input-icon-right">
+			<input type="password" name="login_password" class="form-control" autocomplete="off">
+			<i class="icon-lock"></i>
+			</span>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;Language︰</td>
+                <td>
+                    <select name="admweb_lang" class="FormTxt">
+                        {{section name=i loop=$sys_arrWebsiteByLang}}
+                            <option value="{{$sys_arrWebsiteByLang[i].lang_code}}"
+                                    {{if $admweb_lang == $sys_arrWebsiteByLang[i].lang_code}}selected{{/if}}>{{$sys_arrWebsiteByLang[i].lang_name}}</option>
+                        {{/section}}
+                    </select>
+                </td>
+            </tr>
+            {{if $m_arrSystem.jsonESecure.javascrip_src}}
+                <tr>
+                    <td colspan="2" align="center">
+
+                        <div id="captcha"></div>
+                        <script src="{{$m_arrSystem.jsonESecure.javascrip_src}}"></script>
+                    </td>
+                </tr>
+            {{else}}
+            <tr>
+                <td>&nbsp;Verification︰</td>
+                <td><input name="login_authimg_str" type="text" class="FormTxt" id="login_authimg_str" size="5"
+                           maxlength="5"/>
+                    <img id="login_authimg_img" src="../images/authimg.php" align="absmiddle" border="0"/>
+                    <button class="btn btn-sm btn-info" name="button" type="button"
+                            onclick="JavaScript:_reloadAuthimgImg('login_authimg_img');" data-dismiss="modal">
+                        <i class="icon-undo bigger-110"></i> Reload
+                    </button>
+                </td>
+            </tr>
+            {{/if}}
+            {{if $m_arrSystem.google_authenticator_secret}}
+                <tr>
+                    <td>&nbsp;{{$lang.admweb.index.4}}<!--{{*動態密碼 *}}-->︰</td>
+                    <td><input name="google_authenticator_code" type="text" class="FormTxt"
+                               id="google_authenticator_code" size="6" maxlength="6"/>
+                    </td>
+                </tr>
+            {{/if}}
+        </table>
+        <div class="center">
+            <input type="hidden" name="csrf_token" value="{{$nocsrfToken}}"/>
+            <button id="btn_submit" class="btn btn-info" type="button" name="btn_submit" data-dismiss="modal"
+                    onclick="lock_login_btn()">
+                <i class="icon-key bigger-110"></i> Login
+            </button>
+            <button id="btn_FPW" class="btn btn-info" type="button" name="btn_FPW" data-dismiss="modal"
+                    onclick="location.href='/member/index.php?action=member_lostpw';">
+                {{$lang.admweb.index.5}}
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

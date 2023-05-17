@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{$admweb_lang}}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{{$web_title}}</title>
+
+{{if $sys_arrWebsite.web_uid == 5 || $sys_arrWebsite.web_uid == 6}}
+	<link href="../css/admweb.css" rel="stylesheet" type="text/css">
+{{else}}
+	<link href="../css/admweb2.css" rel="stylesheet" type="text/css">
+{{/if}}
+
+</head>
+
+<body>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><table width="100%"  border="0" cellpadding="4" cellspacing="0" class="ContentTitle1">
+        <tr>
+          <td class="HeaderText" style="font-size:16px;">{{$web_title}}</td>
+          <td align="right" class="HeaderFastMenu">
+		  {{$lang.admweb.inside_head.1|replace:"#mem_name#":$adm_arrMember.mem_name}}<!--{{*#mem_name# 您好 *}}-->，
+		  <a href="{{$sys_arrWebsite.website_url}}" class="HeaderFastMenu" target="_parent">{{$lang.admweb.inside_head.2}}<!--{{*檢視網站 *}}--></a>
+		  &nbsp;&nbsp;|&nbsp;&nbsp;
+		  <a href="admweb.main.php?action=editpwd" class="HeaderFastMenu" target="mainFrame">{{$lang.admweb.editpwd.0}}<!--{{*修改密碼 *}}--></a>
+		  &nbsp;&nbsp;|&nbsp;&nbsp;
+		  <a href="index.php" class="HeaderFastMenu" target="_parent">{{$lang.admweb.inside_head.0}}<!--{{*登出 *}}--></a></td>
+        </tr>
+      </table>
+	  <!--{{*- Menu -*}}-->
+        <table width="100%"  border="0" cellspacing="0" cellpadding="3">
+          <tr>
+            <td class="meatTxt ContentTitle3">
+			<!--{{*- 主選單 -*}}-->
+			| <a href="admweb.main.php" target="mainFrame" class="meatTxt">{{$lang.admweb.inside_head.3}}<!--{{*首頁 *}}--></a> |
+			{{section name=i loop=$m_arrWebUseMenu_m}}
+				{{if $admweb_menu_pid == $m_arrWebUseMenu_m[i].web_use_uid}}
+					<font class="ContentTitle2"><strong>{{$m_arrWebUseMenu_m[i].web_use_name}}</strong></font> |
+				{{else}}
+					<a href="admweb.inside_head.php?admweb_menu_pid={{$m_arrWebUseMenu_m[i].web_use_uid}}" class="meatTxt">{{$m_arrWebUseMenu_m[i].web_use_name}}</a> |
+				{{/if}}
+			{{/section}}
+			<!--{{*- 主選單 End-*}}-->
+			</td>
+          </tr>
+          <tr height="23">
+            <td class="meatTxt ContentTitle2">
+			<!--{{*- 次選單-*}}-->
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+			{{if $admweb_menu_pid != "" && $admweb_menu_pid != "0"}}
+				{{section name=i loop=$m_arrWebUseMenu_s}}
+
+					<a href="{{$m_arrWebUseMenu_s[i].web_use_path}}" class="SubMenuBar" target="mainFrame">{{$m_arrWebUseMenu_s[i].web_use_name}}</a> |
+
+				{{/section}}
+			{{/if}}
+			<!--{{*- 次選單 End-*}}-->
+			</td>
+          </tr>
+        </table>
+	  <!--{{*- Menu END-*}}-->
+	  </td>
+    </tr>
+   </table>
+</body>
+</html>

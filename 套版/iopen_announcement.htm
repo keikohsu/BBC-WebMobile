@@ -1,0 +1,181 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    {{if $m_arrSystem.is_app_mode}}
+      <button onclick="{
+        let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+        let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            window.JavaScriptInterface.backToSellerCenter();
+        } else if (isiOS) {
+            window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+        }
+      }">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{else}}
+      <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{/if}}
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">公告</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-order_delivery__inner pic-text-gray-100">
+    <div class="admweb-v2-announce__outer">
+      <div class="
+          admweb-v2-announcement-TopTitle
+          pic-BgText-color-orange pic-flex-center-between
+        ">
+        <h2>公告</h2>
+
+        <a class="admweb-v2-sequence-btn">
+          <i class="icons-line icon-line-arrow-UpDown"></i>排序</a>
+        <!-- 排序下拉選單 -->
+        <ul id="" class="
+            admweb-v2-sequence-list admweb-v2-sequence-triangle
+            pic-padding-t10
+          " style="display: none">
+          <li style="display: none"><a href="#">未讀訊息置頂</a></li>
+          <li>
+            <a id="start_timeDESC" class="pic-text-orange" href="{{$m_inURL}}&usort=DESC">訊息時間由新至舊排序</a>
+          </li>
+          <li><a id="start_timeASC" href="{{$m_inURL}}&usort=ASC">訊息時間由舊至新排序</a></li>
+        </ul>
+      </div>
+      <div class="admweb-v2-announce__list">
+        {{section name=i loop=$m_arrAdmwebSysmsg}}
+        <article class="admweb-v2-announce__article">
+          <header class="admweb-v2-announce__article-header admweb-v2-header-btn">
+            <i class="pic-text-orange icons-line icon-line-announce"></i>
+            <a class="pic-text-orange pic-OneRow-simplify" {{if $m_arrAdmwebSysmsg[i].admweb_sysmsg_url}}
+              href="{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_url}}" {{/if}}>
+              {{$m_arrAdmwebSysmsg[i].admweb_sysmsg_title}}</a>
+            <i id="arrow{{$smarty.section.i.index}}" class="pic-text-orange icons-line icon-line-Arrow-Down"></i>
+          </header>
+          <!-- <div class="admweb-v2-content">          </div> -->
+            <p id="content{{$smarty.section.i.index}}" class="admweb-v2-announce__article-text">
+              {{$m_arrAdmwebSysmsg[i].admweb_sysmsg_content}}
+            </p>
+            <p class="admweb-v2-announce__article-date">{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_start|date_format:"%Y/%m/%d"}}</p>
+
+        </article>
+        {{/section}}
+      </div>
+    </div>
+    <!-- 分頁 -->
+    {{if $announce_total lte 30}}
+    <!-- 一頁以下 -->
+    <div class="pic-text-center">
+      <p class="pic-page-bottom-text">1 - {{$announce_total}} 筆／共 {{$announce_total}} 筆</p>
+    </div>
+    {{else}}
+    <!-- 五頁以下 -->
+    <!-- 五頁以上 -->
+    <div class="pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_prev}}{{/if}}
+        {{$m_arrPage.pager_numeric}}
+        {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_next}}{{/if}}
+      </ul>
+      <p class="admweb-v2-page-bottom-text">{{$m_arrPage.row_start+1}} - {{if $m_arrPage.p ==
+        $m_arrPage.p_num}}{{$announce_total}}
+        {{else}}{{$m_arrPage.row_start+$m_arrPage.rows_num}}{{/if}} 筆
+        ／ 共 {{$announce_total}} 筆</p>
+    </div>
+    {{/if}}
+
+  </div>
+</div>
+<script>
+
+  $('.admweb-v2-sequence-btn').click(function () {
+    $('.admweb-v2-sequence-list').toggle();
+  });
+
+
+  $(".admweb-v2-header-btn").click(function () {
+    $(this).find(".icon-line-Arrow-Down").toggleClass("icon-line-Arrow-UP");
+    // $(this).next(".admweb-v2-content").slideToggle();
+    // $('.admweb-v2-announce__article-text').toggleClass("admweb-v2-announce__article-text-block");
+    $(this).next(".admweb-v2-announce__article-text").toggleClass("admweb-v2-announce__article-text-block");
+  })
+
+
+    (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+
+
+</script>
+
+<script>
+  $(document).ready(function () {
+
+    {{if $usort eq 'ASC'}}
+    $('#start_timeASC').attr('class', 'pic-text-orange');
+    $('#start_timeDESC').attr('class', '');
+    {{else}}
+    $('#start_timeDESC').attr('class', 'pic-text-orange');
+    $('#start_timeASC').attr('class', '');
+    {{/if}}
+
+      //判斷內文是否有省略
+      const isEllipsisActive = (el) => {
+        return (el.offsetHeight < el.scrollHeight);
+      }
+      window.addEventListener('load', () => {
+        console.log('{{$m_arrAdmwebSysmsg|@count}}')
+        for(var i=0;i<{{$m_arrAdmwebSysmsg|@count}};i++){
+          if(!isEllipsisActive(document.querySelector('#content'+i))){
+            $('#arrow'+i).attr('style','display:none;');
+          }
+        }
+
+        });
+    });
+
+
+</script>

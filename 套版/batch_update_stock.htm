@@ -1,0 +1,210 @@
+<style>
+.admweb-v2-orderlist{height: 100vh;}
+.admweb-v2-orderlist__form{padding-bottom: 10px;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__table--head th{width: 33%; border-right: 1px solid #EAEAEA;border-bottom: 1px solid #EAEAEA;}
+.admweb-v2-EntireBatch{border-radius:10px;margin-top: 10px;width: 100%;}
+.admweb-v2-EntireBatch table{border-collapse: separate;width: 100%;}
+.admweb-v2-list-header-in-fixbottom{display: none;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment tr:last-child td:first-child{border-radius: 0 0 0 5px;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment tr:last-child td:last-child{border-radius: 0  0 5px 0;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__table--tr{    height: 64px;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td {color:var(--pic-color-grey-60) ;font-size: 14px;border-right: solid 1px #EAEAEA;border-bottom: solid 1px #EAEAEA; background: #fff;   padding: 0 20px;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:nth-child(2){text-align: center;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:first-child{text-align: start;height: 64px;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:last-child{padding: 0 40px;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment tr:last-child td:first{ border-bottom: solid 0px #EAEAEA;}
+.admweb-v2-orderlist__form-head_search{grid-template-columns: 66px 1fr 194px;}
+.admweb-v2-orderlist__form-head_search span{display: flex;justify-content: center;align-items: center;color:var(--pic-color-grey-100) ;}
+.admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__action{left: 251px;padding-left: 4px;}
+.admweb-v2-orderlist__card-desc-dd{color:var(--pic-color-grey-100) ;}
+.admweb-v2-settings-BottomBtn .pic-confirm-box {width: 548px;margin: 0;}
+.admweb-v2-orderlist__card-desc{grid-template-columns: 81px 1fr;text-align: center;    border: 0px solid var(--pic-color-grey-5);}
+.admweb-v2-orderlist__list {padding-bottom: 60px;}
+@media screen and (max-width: 768px) {
+    .admweb-v2-orderlist__card-desc-dt, .admweb-v2-orderlist__card-desc-dd{text-align: start;padding: 5px;}
+    .admweb-v2-orderlist__card-desc-dd{border-bottom:solid 1px #F8F8F8;}
+    .admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__action{left: 0px;padding-left: 0px;}
+    .admweb-v2-adjustment .admweb-v2-orderlist__form-head_search{grid-template-columns: 66px 1fr 116px;}
+    .admweb-v2-orderlist__card-desc-dt,.admweb-v2-orderlist__card-desc-dd {height: 100%;    display: flex;align-items: center;}
+    .admweb-v2-adjustment .admweb-v2-orderlist__action{    width: auto;}
+    .admweb-v2-orderlist__card-desc-dt{justify-content: center;}
+    .admweb-v2-orderlist__action>button{justify-content: center;align-items: center;flex-direction: row;height: 40px;}
+    .admweb-v2-CommodityAndBatch.admweb-v2-adjustment .admweb-v2-orderlist__action>button{width: 100%;}
+    .admweb-v2-adjustment .admweb-v2-orderlist__action{padding-right: 0;}
+    .admweb-v2-EntireBatch{margin:10px 0 ;font-size: 14px;}
+    .admweb-v2-EntireBatch-box{background:#fff;margin-bottom: 10px;border-radius: 5px;}
+    .admweb-v2-orderlist__card-desc:first-child .admweb-v2-orderlist__card-desc-dt{border-radius: 5px 0 0 0;}
+    .admweb-v2-orderlist__card-desc .admweb-v2-orderlist__card-desc-dt-last{padding: 10px 6px;border-radius: 0 0 0 5px;}
+    .admweb-v2-settings-BottomBtn .pic-confirm-box {width: 100%;margin: 0;}
+    .admweb-v2-orderlist__list {padding-bottom: 38px;}
+}
+</style>
+
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        <button onclick="toggleMenuHandler()">
+            <i class="icons-line icon-line-hamburger"></i>
+        </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">整批更新庫存</h2>
+    <span></span>
+</div>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 版頭選單 -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 主要頁面 -->
+    <div class="admweb-v2-adjustment admweb-v2-CommodityAndBatch">
+        <div class="admweb-v2-blacklist-form">
+            <!-- 批次更新庫存 -->
+            <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" style="height: 40px;" method="post" id="batch_update">
+                <div class="admweb-v2-orderlist__form-head_search-outer">
+                    <div class="admweb-v2-orderlist__form-head_search js-orderlist__form-head_search">
+                        <span>批次編輯</span>
+                        <input name="batch_stock_num" type="number" placeholder="請輸入庫存數量" class="pic-text-lnput pic-lnput-enter">
+                        <button class="pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn" style="display: block;" id="batch_update_btn">
+                            <i class="icons-line iopen-icon-white-add-front"></i>
+                            全部套用
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- 商品列表 -->
+        <div class="admweb-v2-orderlist__list pic-margin-b20">
+            <div class="admweb-v2-EntireBatch">
+                <table>
+                    {{if !$mobileDeviceDirected}}
+                    <thead>
+                        <tr class="admweb-v2-orderlist__table--head">
+                            <th>商品名稱</th>
+                            <th>規格</th>
+                            <th>庫存數量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$m_arrProduct item=prod}}
+                        <tr class="admweb-v2-orderlist__table--tr">
+                            <td data-th="商品名稱"><span>{{$prod.prod_name}}</span></td>
+                            <td data-th="規格"> <span>{{$prod.prod_spec_cus}}</span></td>
+                            <td data-th="庫存數量"><input name="{{$prod.prod_uid}}" type="number" class="each_update pic-text-lnput pic-lnput-enter" placeholder="請輸入庫存數量" value="{{$prod.prod_stock}}"></td>
+                        </tr>
+                        {{/foreach}}
+                    </tbody>
+                    {{else}}
+                    {{foreach from=$m_arrProduct item=prod}}
+                    <div class="admweb-v2-EntireBatch-box">
+                        <div class="admweb-v2-orderlist__card-desc">
+                            <dt class="admweb-v2-orderlist__card-desc-dt">商品名稱</dt>
+                            <dd class="admweb-v2-orderlist__card-desc-dd">{{$prod.prod_name}}</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                            <dt class="admweb-v2-orderlist__card-desc-dt">規格</dt>
+                            <dd class="admweb-v2-orderlist__card-desc-dd pic-text-gray-60">{{$prod.prod_spec_cus}}</dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc" style="height: 50px;">
+                            <dt class="admweb-v2-orderlist__card-desc-dt  admweb-v2-orderlist__card-desc-dt-last">庫存數量
+                            </dt>
+                            <dd class="admweb-v2-orderlist__card-desc-dd">
+                                <input type="number" name="{{$prod.prod_uid}}" class="each_update pic-text-lnput pic-lnput-enter pic-margin-r5" placeholder="請輸入庫存數量" value="{{$prod.prod_stock}}">
+                            </dd>
+                        </div>
+                    </div>
+                    {{/foreach}}
+                    {{/if}}
+                </table>
+            </div>
+        </div>
+
+        <div class="admweb-v2-orderlist__action admweb-v2-settings-BottomBtn">
+            <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+                <a id="cancel_update_btn" class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5" href="javascript:void(0);" style="width: 100%; justify-content: center;">
+                    <i class="icons-line icon-line-X"></i>取消</a>
+                <a id="each_update_btn" class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-l5" href="javascript:void(0);" style="width: 100%; justify-content: center;">
+                    <i class="icons-line iopen-icon-white-add-front"></i>更新</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 全部套用 => 全部更新同一個數量
+    $('#batch_update_btn').click(function (e) { 
+        e.preventDefault();
+        // 檢查 有批次編輯的數量 才更新
+        if($('input[name="batch_stock_num"]').val())
+            $('.each_update').each(function (idx, ele) {
+                $(ele).val($('input[name="batch_stock_num"]').val());
+            });
+        else alert('請輸入批次編輯庫存數量');
+    });
+
+    // 取消
+    $('#cancel_update_btn').click(function (e) { 
+        e.preventDefault();
+        confirm('您尚未儲存目前編輯之內容，請問是否確認取消編輯？').done(function(){
+            window.history.back();
+        });
+    });
+
+    // 套用 => 各別更新數量
+    $('#each_update_btn').click(function (e) { 
+        e.preventDefault();
+        // 檢查 至少有一個商品 有更新數量才更新
+        var check = false;
+        var data = {};
+        $('.each_update').each(function (idx, ele) {
+            if($(ele).val()){
+                var key = $(ele).attr('name');
+                data[`${key}`] = $(ele).val();
+                check = true;
+            }            
+        });
+
+        // 檢查 是否有輸入更新數量
+        if(check) update_stock_by_uid('SET_PROD_STOCK',data);
+        else alert('請輸入欲更新的商品庫存數量');
+    });
+
+    // 更新各別商品庫存量
+    function update_stock_by_uid(myAct, arr_uid_stock){
+        $.ajax({
+            type: "post",
+            url: "",
+            data: {
+                myAct: myAct,
+                data: arr_uid_stock
+            },
+            dataType: "json",
+            success: function (re) {
+                // console.log('update_stock_by_uid','suc',re)
+                if(re.msg=='OK'){
+                    alert('已更新庫存').done(function(){
+                        window.location = 'admweb.main.php?action=product_batch_pic';
+                    });
+                }
+            },
+            error: function (re) {
+                // console.log('update_stock_by_uid','err',re)
+            }
+        });
+    }
+
+    // 主選單使用
+    function toggleMenuHandler() {
+        document.querySelector('.admweb-v2-seller-front-left-box').classList.toggle('pic-phone-open-menu')
+        const hamBtn = document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1].querySelector('i')
+        if (hamBtn.classList.contains('icon-arrow-left-01')) {
+            document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block'
+        } else {
+            document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none'
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01')
+    }
+</script>

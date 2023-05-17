@@ -1,0 +1,168 @@
+<style>
+/* 活動規則 */
+.admweb-v2-eventRule .admweb-v2-settings-frame-RadioBox{ flex-direction: column;}
+.admweb-v2-eventRule .admweb-v2-eventRule_radio{ width: 100%; display: flex; flex-direction: row; margin-bottom: 5px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input{ display: flex; flex-direction: row; align-items: center; margin-left: 0; padding: 0 5px; background: #EDFBF7; border-radius: 8px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input .pic-text-lnput{ width: 200px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input span{ margin: 12px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input span:nth-child(1){ margin-left: 0;}
+/* 活動圖片 */
+.admweb-v2-eventAddPhoto .pic-AddImag{ width: 270px;}
+/* 活動時間 */
+.admweb-v2-eventTime span.admweb-v2-DateBox.iopen-icon-date.pic-margin-r5{ width: 174px;}
+.admweb-v2-eventTime .admweb-v2-input-date-content_title{ margin-right: 9px;}
+.admweb-v2-eventTime .admweb-v2-DateNotation{ margin: 0 9px;}
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+    
+    <!-- 右側內容 Start -->
+    <div class="admweb-v2-adjustment">
+    <!------------------------------------ 基本設定 Start -------------------------------------->
+    <div class="admweb-v2-settings-frame pic-margin-10">
+        <div class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>商品分類設定</h2>
+        </div>
+        <!-- 商品分類名稱-->
+        <ul class="admweb-v2-outside-white-box">
+            <li class="admweb-v2-edit-name">
+                <p><span class="pic-text-red">*</span>商品分類名稱</p><span class="pic-quantity" id="charCount">0/20</span>
+            </li>
+            <li class="admweb-v2-content-enter">
+                <input id="textInput" name="prod_sort_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品分類名稱" value="{{$m_arrProductSort.prod_sort_name}}" oninput="fromcheck()" maxlength="20">
+                <p id="warning" class="pic-red-text-restrict" style="visibility: hidden">字數不能超過20個字</p>
+                <p id="word_sp" class="pic-text-warn" >※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+            </li>
+        </ul>
+        <!-- 狀態 -->
+        <ul class="admweb-v2-outside-white-box">
+            <li class="admweb-v2-edit-name">
+                <p><span class="pic-text-red">*</span>狀態</p><p id="sta_warn" class="pic-text-warn" style="visibility: hidden">請選擇分類狀態</p>
+            </li>
+            <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                <div id="radio_div1" class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioId1">
+                    <input class="admweb-v2-radio-green" type="radio" id="radioId1" name="prod_sort_status" {{if $m_arrProductSort.prod_sort_status == "1"}}checked{{/if}} value="1" />
+                    <div class="admweb-v2-label-check-green"></div>
+                    有效
+                </label>
+                </div>
+    
+                <div id="radio_div2" class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioId2">
+                    <input class="admweb-v2-radio-green" type="radio" id="radioId2" name="prod_sort_status" {{if $m_arrProductSort.prod_sort_status == "0"}}checked{{/if}} value="0" />
+                    <div class="admweb-v2-label-check-green"></div>
+                    無效
+                </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!------------------------------------ 基本設定 End -------------------------------------->
+
+    
+
+    <!------------------------------------ 底部按鈕 Start -------------------------------------->
+    <div class="admweb-v2-orderlist__action">
+        <a class="admweb-v2-I-Btn pic-BgText-color-white-green" href="javascript:btn_cancel();"><i class="icons-line icon-line-X"></i>取消</a>
+        <a class="admweb-v2-I-Btn pic-BgText-color-green" id="edit_btn" href="javascript:edit_prod_sort()"><i class="icons-line icon-line-tick"></i>儲存</a>
+      </div>
+    <!------------------------------------ 底部按鈕 End -------------------------------------->
+    </div>
+    <!-- 右側內容 End-->
+</div>
+
+<script>
+    $(document).ready(function () {
+        if(document.getElementById('textInput').value)fromcheck();
+    })
+    $('#radioId1').click(function (){
+        $('#radioId1').attr('checked',true);
+        $('#radioId2').attr('checked',false);
+        fromcheck();
+    })
+    $('#radioId2').click(function (){
+        $('#radioId2').attr('checked',true);
+        $('#radioId1').attr('checked',false);
+        fromcheck();
+    })
+
+    var char1 = /[&'()"=;<>\\]/g; //字元偵測
+    function fromcheck() {
+        const obj   = document.getElementById('textInput').value;
+        var box     = document.getElementById('charCount');
+        var warn    = document.getElementById('warning');
+        var wordsp  = document.getElementById('word_sp');
+        var btn     = document.getElementById('edit_btn');
+        var sta     = document.querySelector('input[name="prod_sort_status"]:checked');
+        var sp = obj.search(char1);
+        //字數檢查
+        if(obj.length >= 20 || obj === '') {
+            warn.style = "visibility: visible";
+            if(obj.length >= 20)warn.innerText = "字數不能超過20個字";
+            else if(obj === '')warn.innerText = "請輸入商品分類名稱";
+        }else{
+            warn.style = "visibility: hidden";
+        }
+
+        //特殊字元檢查
+        if(sp>= 0){
+            wordsp.className = "pic-red-text-restrict";
+        }else{
+            wordsp.className = "pic-text-warn";
+        }
+
+        //狀態檢查
+        if(sta == null){
+            document.getElementById('sta_warn').style = "visibility: visible";
+        }else{
+            document.getElementById('sta_warn').style = "visibility: hidden";
+        }
+
+        if( obj.length > 20 || sp>= 0 || obj.length == 0 || sta == null){
+            btn.className="admweb-v2-I-Btn pic-BgText-color-gray";
+            btn.removeAttribute("href");
+        }else{
+            btn.className="admweb-v2-I-Btn pic-BgText-color-green";
+            btn.setAttribute("href","javascript:edit_prod_sort()");
+        }
+        box.innerHTML = obj.length + "/20";
+    }
+
+    function edit_prod_sort() {
+        var status = document.querySelector('input[name="prod_sort_status"]:checked').value;
+        var ACT    = '{{$page_action}}';
+        $.ajax({
+            url: '{{$m_inURL}}',
+            type: 'POST',
+            data: {
+                myAct: ACT,
+                prod_sort_name: document.getElementById('textInput').value,
+                prod_sort_status: status ,
+                prod_sort_p_uid: '{{$p_uid}}',
+                prod_sort_layer: '{{$layer}}'
+            },
+            success: function (response) {
+                alert('資料更新成功!!').done(
+                    function (){
+                        window.history.back();
+                    });
+
+            },
+            error: function () {
+                console.log('ajax error.');
+            }
+        });
+    }
+
+    function btn_cancel(){
+        confirm('確定是否在未儲存情況下離開此頁面？').done(function () {
+            window.history.back();
+        });
+    }
+  </script>

@@ -1,0 +1,574 @@
+<style>
+/* --- 公用 --- */
+.pic-org-text-restrict { padding: 10px; display: block; background: var(--pic-light-orange-5); color: var(--pic-orange); font-size: 12px; line-height: 16px;}
+.pic-org-text-restrict > p { font-size: 16px; line-height: 20px;}
+.admweb-v2-SearchHeartBtn { border-radius: 6px;}
+.admweb-v2-SearchHeartBtn a { font-size: 12px; line-height: 20px; padding: 10px; color: #fff;}
+/* --- 公用end --- */
+
+/* page_invisible-store-edit-pic */
+.admweb-v2-EventMerchandise label{ width: 78px;}
+.admweb-v2-EventMerchandise .pic-text-lnput { width: 100%;margin-left: 12px;}
+.admweb-v2-invisible-store-edit-pic .pic-org-text-restrict{ margin: 10px;}
+.admweb-v2-invisible-store-edit-pic .pic-org-text-restrict .pic-margin-b10{ margin-bottom: 5px;}
+.admweb-v2-invisible-store-edit-pic .pic-org-text-restrict p { font-weight: bold;}
+.admweb-v2-invisible-store-edit-pic  .admweb-v2-eventTime .admweb-v2-input-date-content_title{ font-size: 14px;}
+</style>
+
+<form id="formWpage" name="formWpage" action="" method="POST" onsubmit="return _CS_checkAdd(this);"
+      enctype="multipart/form-data">
+  <div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+      {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+
+    <!-- 右側內容 Start -->
+    <div class="admweb-v2-adjustment admweb-v2-invisible-store-edit-pic">
+
+      <!------------------------------------ 活動基本設定 Start -------------------------------------->
+      <div class="admweb-v2-settings-frame pic-margin-10">
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>賣場基本設定</h2>
+        </div>
+        <!-- 賣場名稱-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場名稱</p>
+            <span id="wpage_name-length" class="pic-quantity">0/20</span>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input type="text" class="pic-text-lnput pic-lnput-enter" id="wpage_name" name="wpage_name"
+                   maxlength="20" placeholder="請輸入賣場名稱" value="{{$m_arrWebsitePage.wpage_name}}">
+            <p class="pic-red-text-restrict" id="text_over" style="display: none;">字數不能超過20個字</p>
+            <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+        </ul>
+
+        <!-- 賣場圖片-->
+        <ul class="admweb-v2-outside-white-box admweb-v2-eventAddPhoto ">
+          <li class="admweb-v2-edit-name">
+            <p>賣場圖片</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <div class="admweb-v2-PdImg-EditDelete pic-EditImag_wpitem_pic1 admweb-v2-EditLogo-large" style="{{if !$m_arrWebsitePage.item_954.wpitem_pic1}}display:none;{{/if}}">
+                <img src="{{if $m_arrWebsitePage.item_954.wpitem_pic1}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$m_arrWebsitePage.item_954.wpitem_pic1}}{{/if}}" id="wpitem_pic1">
+                <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green wpitem_pic1" href="javascript:void(0)">
+                    <i class="icons-line icon-line-edit"></i>編輯
+                  </a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red wpitem_pic1_delete" href="javascript:void(0)">
+                    <i class="icons-line icon-line-ashbin"></i>刪除
+                  </a>
+                </div>
+              </div>
+              <div class="pic-AddImag pic-AddImag_wpitem_pic1 admweb-v2-EditLogo-large wpitem_pic1" style="{{if $m_arrWebsitePage.item_954.wpitem_pic1}}display:none;{{/if}}">
+                <span class="iopen-icon-black-add"></span>上傳圖片
+              </div>
+              <input type="file" id="wpitem_img" name="wpitem_pic1" style="display: none" targetID="wpitem_pic1"
+                     accept="image/jpg, image/jpeg, image/png"/>
+            </div>
+            <p class="pic-text-warn">※圖片檔案大小不得超過2MB，檔案格式僅支援jpg、png。</p>
+          </li>
+        </ul>
+
+        <!-- 活動時間-->
+        <ul class="admweb-v2-outside-white-box admweb-v2-eventTime">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場活動時間</p>
+          </li>
+          <li class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+            <div class="admweb-v2-input-date-content">
+              <div class="admweb-v2-input-date-content_title">起始時間</div>
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input id="wpitem_eff_date_d" class="pic-text-lnput datepicker" type="text"
+                       value="{{$m_arrWebsitePage.item_953.wpitem_eff_date|date_format:'%Y/%m/%d'}}"
+                       onchange="setTime('wpitem_eff_date')" readonly>
+              </span>
+
+              <select class="pic-text-lnput iopen-text-lnput-style" id="wpitem_eff_date_h"
+                      onchange="setTime('wpitem_eff_date')">
+                {{section name=i loop=24 start=0}}
+                <option {{if $m_arrWebsitePage.item_953.wpitem_eff_date|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                {{/section}}
+              </select>
+              <select class="pic-text-lnput iopen-text-lnput-style" id="wpitem_eff_date_m"
+                      onchange="setTime('wpitem_eff_date')">
+                {{section name=i loop=60 start=0}}
+                <option {{if $m_arrWebsitePage.item_953.wpitem_eff_date|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                {{/section}}
+              </select>
+              <div class="admweb-v2-DateNotation">-</div>
+              <div class="admweb-v2-input-date-content_title">結束時間</div>
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input id="wpitem_exp_date_d" class="pic-text-lnput datepicker" type="text"
+                       value="{{$m_arrWebsitePage.item_953.wpitem_exp_date|date_format:'%Y/%m/%d'}}"
+                       onchange="setTime('wpitem_exp_date')" readonly>
+                </span>
+              <select class="pic-text-lnput iopen-text-lnput-style" id="wpitem_exp_date_h"
+                      onchange="setTime('wpitem_exp_date')">
+                {{section name=i loop=24 start=0}}
+                <option {{if $m_arrWebsitePage.item_953.wpitem_exp_date|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                {{/section}}
+              </select>
+              <div class="admweb-v2-DateNotation">:</div>
+              <select class="pic-text-lnput iopen-text-lnput-style" id="wpitem_exp_date_m"
+                      onchange="setTime('wpitem_exp_date')">
+                {{section name=i loop=60 start=0}}
+                <option {{if $m_arrWebsitePage.item_953.wpitem_exp_date|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                {{/section}}
+              </select>
+            </div>
+          </li>
+        </ul>
+        <input type="hidden" name="wpitem_eff_date" id="wpitem_eff_date" value="{{$m_arrWebsitePage.item_953.wpitem_eff_date}}">
+        <input type="hidden" name="wpitem_exp_date" id="wpitem_exp_date" value="{{$m_arrWebsitePage.item_953.wpitem_exp_date}}">
+
+        <!-- 狀態 -->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>狀態</p>
+          </li>
+          <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="wpage_status_1">
+                <input class="admweb-v2-radio-green" type="radio" id="wpage_status_1" name="wpage_status"
+                       {{if $m_arrWebsitePage.wpage_status!=0}}checked{{/if}} value="1"/>
+                <div class="admweb-v2-label-check-green"></div>
+                有效
+              </label>
+            </div>
+
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="wpage_status_0">
+                <input class="admweb-v2-radio-green" type="radio" id="wpage_status_0" name="wpage_status"
+                       {{if $m_arrWebsitePage.wpage_status==0}}checked{{/if}} value="0"/>
+                <div class="admweb-v2-label-check-green"></div>
+                無效
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 新增商品 -->
+
+      <div class="admweb-v2-settings-frame pic-margin-10 product_list">
+
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-box-product"></i><text id="item_count">活動商品(0/100)</text>
+          </h2>
+          <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" onclick="WindowOpen()">
+            <i class="icons-line icon-line-add"></i>選擇商品
+          </a>
+        </div>
+
+        {{if $m_arrWebsitePage.product|@count>0 && !$smarty.get.add_wmkt}}
+        {{foreach from=$m_arrWebsitePage.product item=website_page_product}}
+        <div class="admweb-v2-EventMerchandise-ProductBox product_box" id="product_box_{{$website_page_product.prod_uid}}">
+          {{if $website_page_product.prod_category==5 or $website_page_product.prod_category==6 or $website_page_product.prod_display==0 or $website_page_product.prod_is_search==1}}
+          <div class="admweb-v2-EventMerchandise-state pic_warn_mask">
+            <h2>商品不適用此行銷活動</h2>
+            <p class="pic-text-warn">{{$website_page_product.text_warn}}</p>
+            <div class="admweb-v2-icon-right">
+              <a href="javascript:delete_product('{{$website_page_product.prod_uid}}', '{{$website_page_product.wpiprod_uid}}')" class="iopen-icon-black-delete"></a>
+            </div>
+          </div>
+          {{/if}}
+
+          <input type="hidden" name="wpiprod_uid[{{$website_page_product.prod_uid}}]" value="{{$website_page_product.wpiprod_uid}}">
+          <input type="hidden" name="prod_uid_list[]" value="{{$website_page_product.prod_uid}}">
+          <img class="pic-margin-r10" src="{{$website_page_product.prod_file}}">
+          <div class="admweb-v2-product-name">
+            <h2>{{$website_page_product.prod_name}}</h2>
+            <div class="admweb-v2-product-detail">
+              {{if $website_page_product.prod_spec_str}}<span>規格：{{$website_page_product.prod_spec_str}}</span>{{/if}}
+              <span>${{$website_page_product.prod_selling_price}}</span>
+            </div>
+          </div>
+          <div class="admweb-v2-icon-right">
+            <a href="javascript:moveUp('{{$website_page_product.prod_uid}}')" class="iopen-icon-black-ArrowsLong-up" ></a>
+            <a href="javascript:moveDown('{{$website_page_product.prod_uid}}')" class="iopen-icon-black-ArrowsLong-down" ></a>
+            <a href="javascript:delete_product('{{$website_page_product.prod_uid}}', '{{$website_page_product.wpiprod_uid}}')"
+               class="iopen-icon-black-delete"></a>
+          </div>
+        </div>
+        {{/foreach}}
+        {{else}}
+        <div class="admweb-v2-NoData">
+          <div class="admweb-v2-img-BlacklistNoData"></div>
+          <span>沒有任何商品資料</span>
+        </div>
+        {{/if}}
+
+      </div>
+
+      <!--新增商品 視窗 -->
+      {{include file="admweb_2/add_wmkt_product_pic.htm"}}
+
+      <!-- 提醒備註 -->
+      <div class="pic-org-text-restrict">
+        <p class="pic-margin-b10">提醒備註：</p>
+        1.隱形賣場只能選擇隱形商品。<br>
+        2.如選取商品為多規格商品，僅需選取該商品任一規格，系統會自動抓取該商品全部規格並顯示於前台。
+      </div>
+
+      <!------------------------------------ 活動基本設定 End -------------------------------------->
+
+      <!-- 右側內容 End-->
+
+      <!------------------------------------ 底部按鈕 Start -------------------------------------->
+      <div class="admweb-v2-orderlist__action admweb-v2-settings-BottomBtn">
+        <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+          <!-- 灰色 按鈕字 -->
+          <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-white-green pic-margin-r5"
+             href="javascript:void(0)" onclick="cancel_btn()"><i class="icons-line icon-line-X"></i>取消</a>
+          <a id="save_button" class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-green pic-margin-l5"
+             href="javascript:void(0);" onclick="$('#formWpage').submit()">
+            <i class="icons-line icon-line-tick"></i>儲存
+          </a>
+        </div>
+      </div>
+      <!------------------------------------ 底部按鈕 End -------------------------------------->
+    </div>
+  </div>
+  <input type="hidden" name="myAct" value="">
+</form>
+
+<script>
+function WindowOpen() {
+$("#admweb-v2-ProductWindow").show()
+}
+
+function WindowClose() {
+$(".pic-window-bg").hide()
+}
+
+
+(function () {
+// searchFormCollapse();
+// hideMobileLayout();
+// markCurrentNavLink();
+})();
+window.addEventListener('resize', () => {
+searchFormCollapse();
+checkNoticeOverflow();
+});
+
+function searchFormCollapse() {
+const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+const formHeadEle = document.getElementsByClassName(
+    'js-orderlist__form-head_search'
+)[0];
+const defaultHeight = formHeadEle.clientHeight;
+const headBtn = document.getElementsByClassName(
+    'js-orderlist__form-head_search-btn'
+)[0];
+const wholeHeight = formEle.clientHeight;
+formEle.style.height = `${defaultHeight}px`;
+toggleBtn.addEventListener('click', () => {
+    //當前為收合
+    if (formEle.style.height === `${defaultHeight}px`) {
+    formEle.style.height = `${wholeHeight}px`;
+    toggleBtn.innerHTML =
+        '批次更新優惠資訊<i class="icons-line icon-arrow-top-01"></i>';
+    formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+    headBtn.style.display = 'none';
+    } else {
+    ///當前為展開
+    formEle.style.height = `${defaultHeight}px`;
+    toggleBtn.innerHTML =
+        '批次更新優惠資訊<i class="icons-line icon-arrow-down-01"></i>';
+    formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+    headBtn.style.display = 'block';
+    }
+});
+}
+
+</script>
+
+<script>
+  var wpage_checked_puid;
+  /********************
+   　計算 input 內容長度
+   ********************/
+  $(function(){
+    var inInput = $("#wpage_name");
+    document.getElementById('wpage_name').addEventListener('input', function (){
+      inputLength(this);
+    })
+    inputLength(inInput);
+  });
+
+  //*** 內容長度呈現 ******
+  function inputLength(ele){
+    var length = $(ele).val().length;
+    var maxlength = $(ele).attr("maxlength");
+    var div_id = $(ele).attr("name")+"-length";
+    document.getElementById(div_id).innerText = length + "/" + maxlength;
+    $('#wpage_name').val($(ele).val());
+    if(length>=20) $('#text_over').show();
+    else $('#text_over').hide();
+    setButtonStatus();
+  };
+
+  $(document).ready(function(){
+    $(".datepicker").datepicker({
+      dateFormat: 'yy/mm/dd',
+      changeYear: true,
+      changeMonth: true,
+      monthNamesShort: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+      dayNamesMin: ['日','一','二','三','四','五','六'],
+      minDate: null,
+      yearRange: '2023:2050',
+    }).attr('size', 10);
+
+    $("#wpitem_eff_date_d").datepicker("option","onClose",function(dateText,inst){
+      $("#wpitem_exp_date_d").datepicker("option","minDate",dateText);
+    });
+    $("#wpitem_exp_date_d").datepicker("option","onClose",function(dateText,inst){
+      $("#wpitem_eff_date_d").datepicker("option","maxDate",dateText);
+    });
+
+    if('{{$smarty.get.add_wpage}}'=='1'){
+      $("input[name='myAct']").val('COMMAND_ADD');
+      setButtonStatus();
+    } else {
+      $("input[name='myAct']").val('COMMAND_EDIT');
+      setButtonStatus();
+    }
+
+    /*{{* 選擇商品 *}}*/
+    wpage_checked_puid = {{$arr_website_page_prod_uid_list|@json_encode}};
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      if(entries[0].intersectionRatio <= 0){ // 關閉視窗
+        if(sessionStorage.getItem('checked_prod_uid')!=null){
+          checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+        }else{
+          checked_prod_uid = wpage_checked_puid;
+          $('input[name="prod_uid"]').prop('checked',false);
+          $(".product_box").each(function (){
+            check_puid_in_lightbox($(this).find("input[name='prod_uid_list[]']").val())
+          });
+        }
+
+        if(checked_prod_uid.length + $('.pic_warn_mask').length > 100){
+          alert('超過總選擇商品數量上限100個，請重新選取').done(function(){
+            open_add_product_box();
+          });
+          return false;
+        } else {
+          checked_prod_uid.forEach(ele => {
+            if (wpage_checked_puid.indexOf(ele) < 0) {
+              wpage_checked_puid.push(ele);
+              add_product(obj_wmkt_prod[ele])
+            }
+          });
+
+          $(wpage_checked_puid).not(checked_prod_uid).toArray().forEach(p_uid => {
+            if($("#product_box_"+p_uid).find('.pic_warn_mask').length==0) {
+              delete_product_unit(p_uid, $("input[name='wpiprod_uid[" + p_uid + "]'").val());
+            }
+          })
+        }
+      }
+    });
+    intersectionObserver.observe(document.querySelector('#admweb-v2-ProductWindow'));
+    /*{{* 選擇商品END *}}*/
+
+    $(".wpitem_pic1").click(function () {
+      $("input[name='wpitem_pic1']").click();
+    });
+    $("input[name='wpitem_pic1']").change(function () {
+      if ($("input[name='wpitem_pic1']").val() != '') {
+        $(".pic-AddImag_wpitem_pic1").hide();
+        $(".pic-EditImag_wpitem_pic1").show();
+        readURL_logo(this);
+      }
+    });
+    $(".wpitem_pic1_delete").click(function () {
+      $("#wpitem_pic1").attr('src','')
+      $("input[name='wpitem_pic1']").val('')
+      $(".pic-AddImag_wpitem_pic1").show();
+      $(".pic-EditImag_wpitem_pic1").hide();
+      $("#formWpage").prepend("<input type='hidden' name='delete_wpitem_pic1' value='1'>")
+    });
+
+    setProdCount();
+  });
+
+  function readURL_logo(input){
+    if(input.files && input.files[0]){
+      var imageTagID = input.getAttribute("targetID");
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        src = e.target.result
+        var newImg = new Image();
+        newImg.src = src;
+        if (e.total > 2000000) {
+          alert('圖片檔案大小超過2.0MB限制，請重新上傳').done(function(){
+            $(input).siblings('.admweb-v2-PdImg-EditDelete').find('.admweb-v2-EditLogo-btn>.admweb-v2-ImgAshbinBtn').click();
+          });
+          return false;
+        }
+        newImg.onload = function(e){
+          var height = newImg.height;
+          var width = newImg.width;
+          if(height>2000 || width>2000){
+            alert('圖片解析度上限為 2000*2000px，請重新上傳').done(function(){
+              $(".pic_"+id+"_delete").trigger('click');
+            });
+            return false;
+          }else{
+            var img = document.getElementById(imageTagID);
+            img.setAttribute("src", src)
+          }
+        }
+
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function setTime(id){
+    var date = document.getElementById(id + "_d").value.replace(/\//g, '-');
+    var hour = document.getElementById(id + "_h").value;
+    var min = document.getElementById(id + "_m").value;
+    document.getElementById(id).value = date + ' ' + hour + ':' + min + ':00';
+  }
+
+  function setButtonStatus(){
+    var status = '1'
+    if($("#wpage_name").val() == '') status = '0';
+    if($(".product_box").length==0) status = '0';
+
+    if(status == '1') {
+      $("#save_button").addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('pointer-events', '');
+    } else {
+      $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+    }
+  }
+
+  function add_product(product){
+    var add_prod_html;
+    var prod_uid,prod_display,prod_category,prod_spec_cus,prod_file,prod_name,prod_selling_price; //ajax要取的資料
+    prod_uid = product.prod_uid;
+    prod_display = product.prod_display;
+    prod_category = product.prod_category;
+    prod_spec_cus = product.prod_spec_cus;
+    prod_file = product.prod_file ? `{{$m_arrSystem.uploads_product_url}}${product.prod_file}` : '{{$sys_arrWebsite.website_url}}images/skm_nopic.jpg';
+    prod_name = product.prod_name;
+    prod_selling_price = product.prod_selling_price;
+
+    if($(".product_box").length==0){
+      $(".admweb-v2-NoData").remove();
+    }
+
+    add_prod_html =
+            "<div class=\"admweb-v2-EventMerchandise-ProductBox product_box\" id=\"product_box_" + prod_uid + "\">\n";
+    if(prod_category == 5 || prod_category == 6 || prod_display == 0) {
+      add_prod_html +=
+              "          <div class=\"admweb-v2-EventMerchandise-state\">\n" +
+              "            <h2>商品不適用此行銷活動</h2>\n" +
+              "            <p class=\"pic-text-warn\">※團購商品無法參加行銷活動販售</p>\n" +
+              "            <div class=\"admweb-v2-icon-right\">\n" +
+              "              <a href=\"javascript:delete_product('" + prod_uid + "','')\" class=\"iopen-icon-black-delete\"></a>\n" +
+              "            </div>\n" +
+              "          </div>\n";
+    }
+    add_prod_html +=
+            "          <input type=\"hidden\" name=\"wpiprod_uid[" + prod_uid + "]\" value=\"\">\n" +
+            "          <input type=\"hidden\" name=\"prod_uid_list[]\" value=\"" + prod_uid + "\">\n" +
+            "          <img class=\"pic-margin-r10\" src=\"" + prod_file + "\">\n" +
+            "          <div class=\"admweb-v2-product-name\">\n" +
+            "            <h2>" + prod_name + "</h2>\n" +
+            "            <div class=\"admweb-v2-product-detail\">\n";
+    if(prod_spec_cus) {
+      add_prod_html +=
+              "<span>規格：" + prod_spec_cus + "</span>";
+    }
+    add_prod_html +=
+            "              <span>$" + prod_selling_price + "</span>\n" +
+            "            </div>\n" +
+            "          </div>\n" +
+            "          <div class=\"admweb-v2-icon-right\">\n" +
+            "            <a href=\"javascript:moveUp('" + prod_uid + "')\" class=\"iopen-icon-black-ArrowsLong-up\"></a>\n" +
+            "            <a href=\"javascript:moveDown('" + prod_uid + "')\" class=\"iopen-icon-black-ArrowsLong-down\"></a>\n" +
+            "            <a href=\"javascript:delete_product('" + prod_uid + "','')\"\n" +
+            "               class=\"iopen-icon-black-delete\"></a>\n" +
+            "          </div>\n" +
+            "        </div>"
+
+    $(".product_list").append(add_prod_html);
+
+    setButtonStatus();
+    setProdCount();
+  }
+
+  function delete_product(prod_uid, uid){
+    if ('{{$m_arrSystem.custom_dialog}}' == '1') {
+      confirm("是否確認刪除此商品?").done(function(){
+        delete_product_unit(prod_uid, uid)
+      })
+    } else {
+      if (confirm("是否確認刪除此商品?")) {
+        delete_product_unit(prod_uid, uid)
+      }
+    }
+  }
+
+  function delete_product_unit(prod_uid, uid){
+    $("#product_box_"+prod_uid).remove();
+    if(uid!='') {
+      $("#formWpage").prepend("<input type='hidden' name='delete_wpiprod[]' value='" + uid + "'>")
+    }
+    if($(".product_box").length==0){
+      setButtonStatus();
+      var no_prod_html = "        <div class=\"admweb-v2-NoData\">\n" +
+              "          <div class=\"admweb-v2-img-BlacklistNoData\"></div>\n" +
+              "          <span>沒有任何商品資料</span>\n" +
+              "        </div>";
+      $(".product_list").append(no_prod_html);
+    }
+    wpage_checked_puid.splice(wpage_checked_puid.indexOf(prod_uid), 1);
+
+    check_puid_in_lightbox(prod_uid, false);
+    setProdCount();
+  }
+
+  function setProdCount(){
+    $("#item_count").text("活動商品(" + $(".product_box").length + "/100)");
+  }
+
+  function moveUp(prod_uid){
+    var p_item = $("#product_box_"+prod_uid)
+    p_item.prev('.product_box').before(p_item);
+  }
+
+  function moveDown(prod_uid){
+    var p_item = $("#product_box_"+prod_uid)
+    p_item.next('.product_box').after(p_item);
+  }
+
+  function _CS_checkAdd(_this){
+    if(_this.wpage_name.value.search(/[\\\/'"&()=;<>]/)>0){
+      alert('請確認活動名稱中是否有特殊符號。')
+      return false;
+    }
+    $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+  }
+
+  function cancel_btn(){
+    confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function (){
+      window.location.href = encodeURI('{{$m_backURL}}'); //Checkmarkx Client DOM XSS 
+    });
+  }
+
+</script>

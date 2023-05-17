@@ -1,0 +1,609 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="javascript: location.href='admweb.main.php?action=order_control_pic';">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">
+    <!-- type1：黑貓宅配-> 產生黑貓宅配單號 type2：c2c超商-> 產生寄件編號  -->
+    {{$arrOrderList.case_no_title}}
+  </h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-order_delivery__inner pic-text-gray-100">
+    <div class="admweb-v2-order_detail__content">
+      <p
+        class="
+          pic-bg-orange-10 pic-text-orange
+          admweb-v2-order_delivery-order_no
+        "
+      >
+        訂單編號：{{$arrOrderList.order_uid}}
+      </p>
+      <section class="admweb-v2-order_delivery-status">
+        <p>{{$arrOrderList.case_no_type}}</p>
+        <p class="admweb-v2-order_delivery-no">
+          {{$arrOrderList.delivery_case_no}}
+        </p>
+      </section>
+      <!-- 訂單資訊 -->
+      <section class="admweb-v2-order_detail__card" data-folder-container>
+        <div class="admweb-v2-order_detail__card--title">
+          <h3>
+            <i class="icons-line icon-line-paper-text pic-margin-r5"></i>訂單資訊
+          </h3>
+          <button
+            data-folder-btn
+            class="
+              admweb-v2-order_detail__card-folder-btn
+              admweb-v2-md-visibility--none
+            "
+          >
+            <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <div data-folder-target>
+          <div class="pic-padding-t10">
+            <span class="{{$arrOrderList.order_prod_type_class}}">{{$arrOrderList.order_prod_type_desc}}</span>
+            <!-- list bottom -->
+            <dl
+              class="admweb-v2-order_delivery__info"
+              style="--custom-grid-width: 82px"
+            >
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">訂單狀態</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  <span class="pic-text-green">{{$arrOrderList.order_status_desc}}</span>
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">訂單時間</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  {{$arrOrderList.order_date}}
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">配送方式</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  <span class="{{$arrOrderList.delivery_type_class}}">{{$arrOrderList.delivery_type_desc}}</span>
+                </dd>
+              </div>
+              {{if $arrOrderList.errMsg}}
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">失敗原因</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  <span class="admweb-v2-orderlist-delivery--store admweb-v2-OrderFail">{{$arrOrderList.errMsg}}</span>
+                </dd>
+              </div>
+              {{/if}}
+            </dl>
+          </div>
+        </div>
+      </section>
+      <!-- 商品明細 -->
+      {{if $arrOrderList.prods}}
+      <section class="admweb-v2-order_detail__card" data-folder-container>
+        <div class="admweb-v2-order_detail__card--title">
+          <h3>
+            <i class="icons-line icon-line-home-bag pic-margin-r5"></i>商品明細
+          </h3>
+          <button
+            data-folder-btn
+            class="
+              admweb-v2-order_detail__card-folder-btn
+              admweb-v2-md-visibility--none
+            "
+          >
+            <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <div data-folder-target>
+          <table class="admweb-v2-order_detail__product-table">
+            <thead>
+              <tr class="admweb-v2-order_detail__product-info">
+                <th>商品原始貨號</th>
+                <th style="width: 13%">商品圖片</th>
+                <th>商品名稱/規格</th>
+                <th>單價</th>
+                <th style="width: 8%">數量</th>
+                <th style="width: 8%">小計</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{foreach from=$arrOrderList.prods item=m_arrProd}}
+              <tr class="admweb-v2-order_detail__product-item">
+                <td class="admweb-v2-order_detail__product-no">{{$m_arrProd.prod_no_old}}</td>
+                <td class="admweb-v2-order_detail__product-img">
+                  <img
+                    src="{{$m_arrProd.prod_file_path}}"
+                    alt="{{$m_arrProd.prod_name}}"
+                    class="admweb-v2-order_detail__product-img"
+                  />
+                </td>
+                <td class="admweb-v2-order_detail__product-title">
+                  <p class="admweb-v2-order_detail__product-name">
+                    {{$m_arrProd.prod_name}}
+                  </p>
+                  <p class="admweb-v2-order_detail__product-spec">
+                    {{$m_arrProd.prod_size}}{{if $m_arrProd.prod_size && $m_arrProd.prod_color_name}}／{{/if}}{{$m_arrProd.prod_color_name}}
+                  </p>
+                </td>
+                <td class="admweb-v2-order_detail__product-price">
+                  {{if $m_arrProd.prod_tax_code == '0'}}
+                  <span class="pic-sort-color-orange pic-sort-frame">應稅</span>
+                  {{elseif $m_arrProd.prod_tax_code == '1'}}
+                  <span class="pic-sort-color-red pic-sort-frame">免稅</span>
+                  {{elseif $m_arrProd.prod_tax_code == '2'}}
+                  <span class="pic-sort-color-green pic-sort-frame">零稅</span>
+                  {{/if}}
+                  <span class="admweb-v2-order_detail__show_in_moblie">{{getWebColsName idx="prod_currency_unit"}}</span>{{$m_arrProd.prod_selling_price|formatMoney}}
+                </td>
+                <td class="admweb-v2-order_detail__product-num pic-text-green">
+                  <span class="admweb-v2-order_detail__show_in_moblie">X</span>{{$m_arrProd.order_df_qty}}
+                </td>
+                <td class="admweb-v2-order_detail__product-sum">
+                  {{getWebColsName idx="prod_currency_unit"}}{{$m_arrProd.prod_price_amt|formatMoney}}
+                </td>
+                <td
+                  class="
+                    admweb-v2-order_detail__show_in_moblie
+                    admweb-v2-order_detail__product-spec--bottom
+                  "
+                >
+                  {{$m_arrProd.prod_size}}{{if $m_arrProd.prod_size && $m_arrProd.prod_color_name}}／{{/if}}{{$m_arrProd.prod_color_name}}
+                </td>
+              </tr>
+              {{/foreach}}
+
+              <!-- 訂單金額計算 -->
+              <tr
+                class="
+                  admweb-v2-order_detail__product-unify
+                  admweb-v2-order_detail__product-cost
+                "
+              >
+                <td colspan="4" class="pic-text-gray">小計</td>
+                <td colspan="2">
+                  <div class="pic-flex-center-between">
+                    <div>
+                      <span class="pic-text-green pic-font-size-12">共 {{$arrOrderList.total_prod_qty}} 項</span>
+                      ，小計
+                    </div>
+                    <span>{{getWebColsName idx="prod_currency_unit"}}{{$arrOrderList.prod_total|formatMoney}}</span>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="
+                  admweb-v2-order_detail__product-unify
+                  admweb-v2-order_detail__product-cost
+                "
+              >
+                <td colspan="4" class="pic-text-gray">運費</td>
+                <td colspan="2">
+                  {{getWebColsName idx="prod_currency_unit"}}{{$arrOrderList.delivery_carriage|formatMoney}}
+                </td>
+              </tr>
+
+              {{if $arrOrderList.order_offset_bonus_total > 0}}
+              <tr
+                class="
+                  admweb-v2-order_detail__product-unify
+                  admweb-v2-order_detail__product-campaign
+                "
+              >
+                <td colspan="4" class="pic-text-green">使用OP點數</td>
+                <td colspan="2">-{{getWebColsName idx="prod_currency_unit"}}{{$arrOrderList.order_offset_bonus_total|formatMoney}}</td>
+              </tr>
+              {{/if}}
+
+              {{if $arrOrderList.mktdf_amt_total > 0}}
+              <tr
+                class="
+                  admweb-v2-order_detail__product-unify
+                  admweb-v2-order_detail__product-campaign
+                "
+              >
+                <td colspan="4" class="pic-text-green">使用折價券</td>
+                <td colspan="2">-{{getWebColsName idx="prod_currency_unit"}}{{$arrOrderList.mktdf_amt_total|formatMoney}}</td>
+              </tr>
+              {{/if}}
+
+              {{if $arrOrderList.total_wmkt > 0}}
+              <tr
+                class="
+                  admweb-v2-order_detail__product-unify
+                  admweb-v2-order_detail__product-campaign
+                "
+              >
+                <td colspan="4" class="pic-text-green">行銷活動折抵</td>
+                <td colspan="2">
+                  <div class="pic-flex-center-between">
+                    <button onclick="showPopover()">
+                      <span class="pic-td-icon-merge"></span></button
+                    >-{{getWebColsName idx="prod_currency_unit"}}{{$arrOrderList.total_wmkt|formatMoney}}
+                  </div>
+                </td>
+              </tr>
+              {{/if}}
+              <tr
+                class="
+                  admweb-v2-order_detail__product-unify
+                  admweb-v2-order_detail__product-cost
+                "
+              >
+                <td colspan="4" class="pic-text-gray">總計</td>
+                <td colspan="2">
+                  <span class="admweb-v2-order_detail__total_price">{{getWebColsName idx="prod_currency_unit"}}{{$arrOrderList.total_money_all|formatMoney}}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      {{/if}}
+
+      {{if !$setTcat}}
+      <div class="pic-confirm-box pic-flex-center pic-icon-margin-r pic-line-light15">
+        <a
+          class="
+            pic-btn-NewPage-remind pic-BgText-color-white pic-icon-orange-arrows
+          "
+          href="admweb.main.php?action=shipping_specifications_pic"
+          >貼心提醒，寄送前請先確認是否符合寄件規範</a>
+      </div>
+      {{/if}}
+    </div>
+
+    <!-- 置底按鈕-->
+    <div class="admweb-v2-order_detail__action">
+      {{if !$mobileDeviceDirected}}
+      <button class="admweb-v2-order_detail__action-btn admweb-v2-orderlist__action-row_btn" type='button' onclick="location.href='{{$pre_url}}';">
+        <i class="icons-line icon-arrow-left-01 admweb-v2__icon-xs"></i> 回上一頁
+      </button>
+      {{/if}}
+
+    {{if !$arrOrderList.errMsg}}
+      <button class="admweb-v2-order_detail__action-btn" onclick="print_delivery_case_no();">
+        <i class="icons-line icon-line-Print admweb-v2__icon-xs"></i>{{$arrOrderList.print_case_no_desc}}
+      </button>
+      {{if $arrOrderList.is_store_order && $mobileDeviceDirected}}
+      <!-- 超商 -->
+      <button class="admweb-v2-order_detail__action-btn" onclick="send_to_my_qrcode();">
+        <i class="icons-solid icon-solid-qrcode"></i>傳送至我的 QRcode
+      </button>
+      {{/if}}
+    {{/if}}
+    </div>
+  </div>
+  {{* 訂單折抵詳情 *}}
+  <div class="js-admweb-v2__popover" style="display: none">
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="admweb-v2__popover-content">
+        <div class="pic-BgText-color-green admweb-v2__popover-header">
+          訂單折抵詳情
+          <button
+            class="admweb-v2__popover-header-btn"
+            onclick="closePopover()"
+          >
+            <i class="icons-line icon-line-X"></i>
+          </button>
+        </div>
+        <ul class="admweb-v2__order_detali-campaign_list">
+          {{foreach from=$arrOrderList.wmkts item=m_arrWmkt}}
+          <li>
+            <span>{{$m_arrWmkt.marketing_title}}</span>
+            <span>-{{getWebColsName idx="prod_currency_unit"}}{{$m_arrWmkt.marketing_dis_amt}}</span>
+          </li>
+          {{/foreach}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="js-admweb-v2__alert admweb-v2-orderlist--alert"
+  style="display: none"
+>
+  <div id="pic-icon2" class="pic-window-bg">
+    <div class="pic-window-order">
+      <p class="pic-window-marge-box js-admweb-v2__alert-text">text</p>
+      <div class="pic-window-button-box js-admweb-v2__alert-action">
+        <button
+          class="pic-window-button-OneBtn pic-BgText-color-green"
+          onclick="closeAlert();"
+        >
+          確認
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  // js-admweb-v2__alert
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2__alert');
+    alert.style.display = 'none';
+  }
+  function editAlertContent({ text, actions }) {
+    const alertEle = document.querySelector('.js-admweb-v2__alert');
+    const alertTextEle = alertEle.querySelector('.js-admweb-v2__alert-text');
+
+    if (typeof text == 'string' && (text.indexOf('<br/>') >= 0 || text.indexOf('<br>') >= 0)) {
+      var splits;
+      if(text.indexOf('<br/>') >= 0)
+        splits = text.split('<br/>');
+      else
+        splits = text.split('<br>');
+
+      alertTextEle.innerHTML = '';
+      for (let i = 0; i < splits.length; i++) {
+        const txt = splits[i];
+        let txt_node = document.createTextNode(txt);
+        alertTextEle.appendChild(txt_node);
+
+        if(i != (splits.length-1))
+          alertTextEle.appendChild(document.createElement("br"));
+      }
+    } else {
+      alertTextEle.innerText = text;
+    }
+
+    const defaultBtn = `<button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert()" > 確認 </button>`;
+    alertEle.querySelector('.js-admweb-v2__alert-action').innerHTML = actions
+      ? actions
+      : defaultBtn;
+    showAlert(alertEle);
+  }
+
+  // js-admweb-v2__modal
+  function showModal() {
+    const modal = document.querySelector('.js-admweb-v2__modal');
+    modal.style.display = 'flex';
+  }
+  function closeModal() {
+    const modal = document.querySelector('.js-admweb-v2__modal');
+    modal.style.display = 'none';
+  }
+  // 行銷活動折抵
+  const popover = document.querySelector('.js-admweb-v2__popover');
+  function showPopover() {
+    popover.style.display = 'block';
+  }
+  function closePopover() {
+    popover.style.display = 'none';
+  }
+
+  //清除重填
+  function clearInput() {
+    document.querySelector(
+      '.admweb-v2-order_detail__line_card--form select'
+    ).value = '';
+    document.querySelector(
+      '.admweb-v2-order_detail__line_card--form textarea'
+    ).value = '';
+  }
+
+  // 收合展開 start
+  const toggleBtns = document.querySelectorAll('[data-folder-btn]');
+  toggleBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+      toggleFolderHandler(button);
+    });
+  });
+
+  function toggleFolderHandler(button) {
+    const targetEle = button
+      .closest('[data-folder-container]')
+      .querySelector('[data-folder-target]');
+    const targetStyle = targetEle.style;
+    const eleHeight = targetEle.children[0].clientHeight;
+    const defaultFolded = targetEle.dataset.folded;
+    const toFold =
+      !defaultFolded ||
+      defaultFolded === 'false' ||
+      targetStyle.height === `${eleHeight}px`;
+    const param = { toFold, targetEle, button, eleHeight };
+    updateOuterFolderContainer(param);
+    updateFolderTarget(param);
+  }
+  function updateOuterFolderContainer({
+    toFold,
+    targetEle,
+    button,
+    eleHeight
+  }) {
+    const rootTargetEle = button
+      .closest('section[data-folder-container]')
+      .querySelector('[data-folder-target]');
+    const height = rootTargetEle.children[0].clientHeight;
+    const differBtn = rootTargetEle !== targetEle;
+    if (toFold && differBtn) {
+      rootTargetEle.style.height = height - eleHeight + 'px';
+    } else if (differBtn) {
+      rootTargetEle.style.height = height + eleHeight + 'px';
+    }
+  }
+  function updateFolderTarget({ toFold, targetEle, button, eleHeight }) {
+    if (toFold) {
+      targetEle.style.height = '0';
+      button.querySelector('i').classList = 'icons-line icon-arrow-down-01';
+      targetEle.dataset.folded = true;
+    } else {
+      targetEle.style.height = `${eleHeight}px`;
+      button.querySelector('i').classList = 'icons-line icon-arrow-top-01';
+      targetEle.dataset.folded = false;
+    }
+  }
+
+  //textarea字數監控
+  const textareaEle = document.querySelectorAll('[data-textarea-limit]');
+  textareaEle.forEach((textarea) => {
+    textarea.addEventListener('input', () => {
+      changeLimitNumber(textarea);
+    });
+  });
+  function changeLimitNumber(textareaEle) {
+    const limit = textareaEle.dataset.textareaLimit;
+    const letter = textareaEle.value.length;
+    const containerEle = textareaEle.closest('[data-textarea-container]');
+    const alert = containerEle.querySelector('[data-textarea-alert]');
+    containerEle.querySelector(
+      '[data-textarea-text]'
+    ).innerText = `${letter}/${limit}`;
+    alert.style.display = letter > limit ? 'block' : 'none';
+  }
+  // form使用者輸入監控
+  const formEle = document.querySelectorAll('[data-watch-form]');
+  formEle.forEach((form) => {
+    const fields = form.querySelectorAll('input,textarea,select');
+    fields.forEach((field) => watchFieldChange(field, form));
+  });
+  function watchFieldChange(field, form) {
+    field.addEventListener('input', () => {
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn.classList.contains('pic-BgText-color-gray')) {
+        btn.classList.add('pic-BgText-color-green');
+        btn.classList.remove('pic-BgText-color-gray');
+      }
+    });
+  }
+  //form 清空
+  const resetBtns = document.querySelectorAll('button[type="reset"]');
+  resetBtns.forEach((button) => {
+    button.addEventListener('click', resetFieldValue(button));
+  });
+  function resetFieldValue(button) {
+    const formEle = button.closest('[data-watch-form]');
+    const fields = formEle.querySelectorAll('input,textarea,select');
+    fields.forEach((field) => {
+      if (!field.disabled) {
+        field.value = '';
+      }
+    });
+  }
+  //查看詳情錨點scroll
+  let $root = $('html, body');
+  $('a[href^="#"]').click(function () {
+    let href = $.attr(this, 'href');
+    //加入margin-top距離
+    const header = $('.admweb-v2-orderlist-header').height() + 10;
+    $root.animate(
+      {
+        scrollTop: $(href).offset().top - header
+      },
+      500,
+      function () {
+        window.location.hash = href;
+      }
+    );
+    return false;
+  });
+
+  // 上傳至我的 QRcode
+  function send_to_my_qrcode()
+  {
+    $.ajax({
+      url: '../api/api.app_ibon.php',
+      type: 'POST',
+      dataType: 'json',
+      headers: {
+        authorization: "Bearer {{$jwt_token}}"
+      },
+      data: JSON.stringify({
+        service: 'SEND_TO_MY_QRCODE',
+        service_methode: 'bbc',
+        LoginID: "{{$adm_arrMember.mem_login_token}}",
+        LoginIDType: "0",
+        EsmmNoList: '{{$arrOrderList.delivery_case_no}}',
+        '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+      }),
+      success: function (Jdata) {
+        if (Jdata.result == 'C000') {
+          editAlertContent({
+            text: Jdata.data.AlertMsg
+          });
+        } else {
+          editAlertContent({
+            text: '傳送至【我的 QRcode】失敗'
+          });
+        }
+      },
+      error: function (e) {
+        editAlertContent({
+          text: '傳送至【我的 QRcode】失敗'
+        });
+      }
+    });
+  }
+
+  // 列印寄件標籤
+  function print_delivery_case_no() {
+    let form = $(document.createElement('form'));
+    $(form).attr('action', 'admweb.main.php?action=order_delivery_print_pic');
+    $(form).attr('method', 'POST');
+    {{if !$m_arrSystem.is_app_mode}}
+    $(form).attr("target", "_blank");
+    {{/if}}
+
+    let _append = `
+<input type='hidden' name='myAct' value='COMMAND_PRINT' />
+<input type='hidden' name='delivery_uid' value='{{$arrOrderList.delivery_uid}}' />
+<input type='hidden' name='delivery_type' value='{{$arrOrderList.delivery_type}}' />
+`;
+    $(form).append(_append);
+
+    form.appendTo(document.body);
+    $(form).submit();
+  }
+</script>

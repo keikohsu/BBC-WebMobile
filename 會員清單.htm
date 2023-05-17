@@ -1,0 +1,302 @@
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+<div class="admweb-v2-adjustment">
+  <div class="admweb-v2-blacklist-form">
+    <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form">
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div class="
+            admweb-v2-orderlist__form-head_search
+            js-orderlist__form-head_search
+          " style="grid-template-columns: auto 1fr 84px;">
+          <span id="admweb-v2-ShareProfit" class="pic-text-lnput admweb-v2-orderlist-select">會員帳號
+            
+          </span>
+  
+
+          <input type="text" placeholder="請輸入訂單編號" class="pic-text-lnput pic-lnput-enter">
+          <button type="submit" class="iopen-search
+              pic-BgText-color-green
+              admweb-v2-orderlist__form-head_search-btn
+              js-orderlist__form-head_search-btn
+            " style="display: block;">
+            搜尋
+          </button>
+        </div>
+
+        <div class="admweb-v2-adjustment-DateBox">
+          <label for="order-date">註冊日期</label>
+          <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+            <div class="admweb-v2-input-date-content">
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+              </span>
+              <span class="pic-margin-r5">-</span>
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-btn">
+            搜尋
+          </button>
+
+        </div>
+
+      </div>
+  
+  
+    <input type="hidden" name="csrf_token" value="MTY3NTMyMzczMUJkcVFRWTBOMXRjclQ0M0tuQkpwY0NvOVRqQUp2b2dj">
+  </form>
+
+    <!-- 下拉 -->
+    <ul class="admweb-v2-top-list pic-window-list" style="display: none;">
+      <li class="pic-radio-list-store">
+        <input class="pic-rdobutton-radio" type="radio" id="radioIdStore1" name="store_type" value="0" checked="checked">
+        <label class=" pic-rdobutton-label-2" for="radioIdStore1">會員帳號</label>
+    </li>
+      <li class="pic-radio-list-store">
+          <input class="pic-rdobutton-radio" type="radio" id="radioIdStore2" name="store_type" value="1">
+          <label class=" pic-rdobutton-label-2" for="radioIdStore2">姓名</label>
+      </li>
+      <li class="pic-radio-list-store">
+          <input class="pic-rdobutton-radio" type="radio" id="radioIdStore3" name="store_type" value="1">
+          <label class="pic-rdobutton-label-2" for="radioIdStore3">訂單取消次數</label>
+      </li>
+      <li class="pic-radio-list-store">
+        <input class="pic-rdobutton-radio" type="radio" id="radioIdStore4" name="store_type" value="1">
+        <label class="pic-rdobutton-label-2" for="radioIdStore4">訂單退貨次數</label>
+    </li>
+    </ul>
+  </div>
+  <button class="
+  pic-text-gray-30 pic-bg-green-5
+  admweb-v2-orderlist__form-toggle-btn
+" id="js-orderlist__form-toggle--btn">更多進階條件 <i class="icons-line icon-arrow-down-01"></i></button>
+
+
+    <p class="admweb-v2-FewStrokes pic-margin-10"><span class="pic-margin-r10">註冊日期：2022/09/05 ~ 2022/10/05</span> 共180筆 </p>
+  <ul class="admweb-v2-orderlist__list pic-margin-b20">
+    <!-- 配送類型：超商 -->
+    <li class="admweb-v2-orderlist__card">
+      <!-- 電腦版 -->
+      <table class="admweb-v2-orderlist__table">
+        <thead>
+          <tr class="admweb-v2-orderlist__table--head">
+            <th>會員帳號</th>
+            <th>姓名</th>
+            <th>行動電話</th>
+            <th>E-mail</th>
+            <th>註冊日期</th>
+            <th>累績購物金額</th>
+            <th  style="width: 50px;">編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td> 0978137056</td>
+            <td>王小明</td>
+            <td>0978137056</td>
+            <td>kei45521@gmail.com</td>
+            <td>2022/09/23 12:12:12</td>
+            <td>$16,888</td>
+
+            <td><a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center"><i class="icons-line icon-remove-01"></i>設為黑名單</a></td>
+          </tr>
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>0978137056</td>
+            <td>王小明</td>
+            <td>0978137056</td>
+            <td>kei45521@gmail.com</td>
+            <td>2022/09/23 12:12:12</td>
+            <td>$16,888</td>
+            <td><a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center"><i class="icons-line icon-remove-01"></i>設為黑名單</a></td>
+          </tr>
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>0978137056</td>
+            <td>王小明</td>
+            <td>0978137056</td>
+            <td>kei45521@gmail.com</td>
+            <td>2022/09/23 12:12:12</td>
+            <td>$16,888</td>
+            <td><a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center"><i class="icons-line icon-remove-01"></i>設為黑名單</a></td>
+          </tr>
+
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>0978137056</td>
+            <td>王小明</td>
+            <td>0978137056</td>
+            <td>kei45521@gmail.com</td>
+            <td>2022/09/23 12:12:12</td>
+            <td>$16,888</td>
+            <td><a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center"><i class="icons-line icon-remove-01"></i>設為黑名單</a></td>
+          </tr>
+
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td><span class="pic-sort-color-green pic-sort-frame pic-margin-r10">黑名單</span>0978137056</td>
+            <td>林小花</td>
+            <td>0978137056</td>
+            <td>kei45521@gmail.com</td>
+            <td>2022/09/23 12:12:12</td>
+            <td>$16,888</td>
+            <td><a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center"><i class="icons-line icon-remove-01"></i>設為黑名單</a></td>
+          </tr>
+
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td><span class="pic-sort-color-green pic-sort-frame pic-margin-r10">黑名單</span>0978137056</td>
+            <td>林小花</td>
+            <td>0978137056</td>
+            <td>kei45521@gmail.com</td>
+            <td>2022/09/23 12:12:12</td>
+            <td>$16,888</td>
+            <td><a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center"><i class="icons-line icon-remove-01"></i>設為黑名單</a></td>
+          </tr>
+          
+
+        </tbody>
+      </table>
+
+    </li>
+
+  </ul>
+<!--目前無會員資料  -->
+  <div class="admweb-v2-NoData">
+    <div class="admweb-v2-img-BlacklistNoData"></div>
+    <span>目前無會員資料</span>
+  </div>
+  <div class="pic-text-center">
+    <p class="pic-page-bottom-text">1 - 3 筆／共 3 筆</p>
+  </div>
+  
+  <div class="pic-flex-center pic-flex-center-column">
+    <ul class="admweb-v2-pagination">
+      <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+        <a class="admweb-v2-page-link-num" href="#">1</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">2</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">3</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">4</a>
+      </li>
+    </ul>
+    <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+  </div>
+  
+  <div class="pic-flex-center pic-flex-center-column">
+    <ul class="admweb-v2-pagination">
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+          <span class="admweb-v2-icon-page-left-first-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Previous">
+          <span class="admweb-v2-icon-black-left-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+        <a class="admweb-v2-page-link-num" href="#">1</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">2</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">3</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">4</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-num" href="#">5</a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+          <span class="admweb-v2-icon-black-right-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li class="admweb-v2-page-num-box">
+        <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+          <span class="admweb-v2-icon-page-right-last-arrows" aria-hidden="true"></span>
+        </a>
+      </li>
+    </ul>
+    <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+  </div>
+
+  <div class="admweb-v2-orderlist__action" id="js-orderlist__action" style="">
+    <button class="admweb-v2-orderlist__action-row_btn">
+      <i class="icons-line icon-line-ArrowParper"></i> 匯出
+    </button>
+  </div>
+
+
+
+</div>
+
+
+
+</div>
+
+<script>
+
+$("#admweb-v2-ShareProfit").click(function () {
+    $('.admweb-v2-adjustment .pic-window-list').toggle();
+    $('.admweb-v2-orderlist-select').toggleClass("admweb-v2-hide-images");
+  })
+
+    $(function () {
+    var $switch = $('.admweb-v2-top-list li');
+    $($switch.eq(0).addClass('active').find('li'));
+    $switch.click(function () {
+      $(this).addClass('active').siblings('.active').removeClass('active');
+    });
+  });
+  
+
+  (function () {
+    searchFormCollapse();
+    hideMobileLayout();
+    markCurrentNavLink();
+  })();
+  window.addEventListener('resize', () => {
+    searchFormCollapse();
+    checkNoticeOverflow();
+  });
+  
+  function searchFormCollapse() {
+    const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const headBtn = document.getElementsByClassName(
+      'js-orderlist__form-head_search-btn'
+    )[0];
+    const wholeHeight = formEle.clientHeight;
+    formEle.style.height = `${defaultHeight}px`;
+    toggleBtn.addEventListener('click', () => {
+      //當前為收合
+      if (formEle.style.height === `${defaultHeight}px`) {
+        formEle.style.height = `${wholeHeight}px`;
+        toggleBtn.innerHTML =
+          '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+        headBtn.style.display = 'none';
+      } else {
+        ///當前為展開
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.innerHTML =
+          '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+        headBtn.style.display = 'block';
+      }
+    });
+  }
+</script>

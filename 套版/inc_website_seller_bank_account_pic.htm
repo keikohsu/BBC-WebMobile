@@ -1,0 +1,848 @@
+<style>
+    /*公用*/
+    .pic-org-text-restrict {
+        padding: 10px;
+        display: block;
+        background: var(--pic-light-orange-5);
+        color: var(--pic-orange);
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .pic-org-text-restrict > p {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .admweb-v2-SearchHeartBtn {
+        border-radius: 6px;
+    }
+
+    .admweb-v2-SearchHeartBtn a {
+        font-size: 12px;
+        line-height: 20px;
+        padding: 10px;
+        color: #fff;
+    }
+</style>
+
+<div class="pic-default pic-flex admweb-v2-add-product">
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <div class="pic-front-pages-right admweb-v2-adjustment" style="width: 100%;">
+        <form name="formA" method="post" action="" onSubmit="return _CS_checkAdd(this);" enctype="multipart/form-data">
+            <div class="admweb-v2-settings-frame pic-margin-10">
+                <div class="admweb-v2-NewProduct-title">
+                    <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>銀行帳戶</h2>
+                </div>
+                <!--戶名-->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>戶名</p></li>
+                    <li class="admweb-v2-content-enter">
+                        <input name="com_bank_username" type="text" class="pic-text-lnput pic-lnput-enter"
+                               placeholder="請輸入戶名" value="{{$m_arrCompany.com_bank_username}}">
+                        <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+                            *戶名若為公司名稱，請於退貨門市修改指定領取人，以利未取退回取件</p>
+                    </li>
+                </ul>
+                <!--銀行開戶之身分ID-->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>銀行開戶之身分ID</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10">
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="radioId1">
+                                    <input class="admweb-v2-radio-green" type="radio" id="radioId1"
+                                           name="com_bank_set_type"
+                                           value="1" {{if $m_arrCompany.com_bank_set_type=="1"}}checked{{/if}}>
+                                    <div class="admweb-v2-label-check-green"></div>
+                                    個人戶
+                                </label>
+                            </div>
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="radioId2">
+                                    <input class="admweb-v2-radio-green" type="radio" id="radioId2"
+                                           name="com_bank_set_type"
+                                           value="2" {{if $m_arrCompany.com_bank_set_type=="2"}}checked{{/if}}>
+                                    <div class="admweb-v2-label-check-green"></div>
+                                    企業戶
+                                </label>
+                            </div>
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="radioId3">
+                                    <input class="admweb-v2-radio-green" type="radio" id="radioId3"
+                                           name="com_bank_set_type"
+                                           value="3" {{if $m_arrCompany.com_bank_set_type=="3"}}checked{{/if}}>
+                                    <div class="admweb-v2-label-check-green"></div>
+                                    外籍人士
+                                </label>
+                            </div>
+                        </div>
+                        <input id="com_bank_set_identity" name="com_bank_set_identity" type="text"
+                               class="pic-text-lnput pic-lnput-enter"
+                               placeholder="請輸入戶名" value="{{$m_arrCompany.com_bank_set_identity}}">
+                        <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+                            *為避免帳戶有生難字等情況，提高銀行匯款作業效率，將採ACH匯款模式，需提交身分ID予銀行。<br>
+                            *請填寫「銀行開戶」使用之身分資料；個人戶請填身分證字號(外籍人士填居留證號碼)、商戶請填統一編號。<br>
+                            *外籍人士居留證號更新時，請務必更新銀行開戶之身分ID資料,避免撥款失敗。
+                        </p>
+                    </li>
+                </ul>
+                <!--銀行-->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>銀行</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <select class="pic-text-lnput pic-text-lnput-style" style="width: 100%;" id="com_bank_no"
+                                name="com_bank_no" onchange="getBranchList()">
+                            <option value="">請選擇銀行...</option>
+                            {{foreach from=$arrBankList item=i key=k}}
+                            <option value="{{$k}}" {{if $m_arrCompany.com_bank_no==$k}}selected{{/if}}>{{$k}} - {{$i}}
+                            </option>
+                            {{/foreach}}
+                        </select>
+                        <input type="hidden" id="com_bank_name" name="com_bank_name" value=""/>
+                        <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+                            *請設定您的銀行帳戶，交貨便收款後會撥款至預設帳戶。取貨後最快3個工作天完成撥款作業。<br>
+                            *非中國信帳戶，於撥款時產生的跨行匯款手續費，將由賣家當筆交易款項中扣除。
+                        </p>
+                    </li>
+                </ul>
+
+                <!--分行-->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>分行</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <select class="pic-text-lnput pic-text-lnput-style pic-margin-b10" style="width: 100%;"
+                                id="com_branch_no" name="com_branch_no">
+                            <option value=""></option>
+                        </select>
+                        <input type="hidden" id="com_branch_name" name="com_branch_name" value=""/>
+                    </li>
+                </ul>
+                <!--銀行帳戶-->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>銀行帳戶</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <input name="com_bank_account" type="text" class="pic-text-lnput pic-lnput-enter"
+                               placeholder="請輸入銀行帳戶" value="{{$m_arrCompany.com_bank_account}}">
+                        <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+                            *請設定您的銀行帳戶，交貨便收款後會撥款至預設帳戶。取貨後最快3個工作天完成撥款作業。<br>
+                            *非中國信帳戶，於撥款時產生的跨行匯款手續費，將由賣家當筆交易款項中扣除。
+                        </p>
+                        <img class="pic-margin-b5" style="max-width:100%; width: 100%; height: auto;"
+                             src="{{$sys_arrWebsite.website_url}}css/images/bbc/it943_bank.png">
+                        <div class="pic-org-text-restrict">
+                            <p class="pic-margin-b10">填寫帳務資料提醒：</p>
+                            1.賣家未填寫銀行帳戶，則無法使用IOPEN商城服務。<br>
+                            2.銀行帳戶名稱請與存摺及會員帳號名稱相同。<br>
+                            3.帳號輸入請小心核對，本平台不負檢核責任。<br>
+                            4.取貨付款成功之交易且非中國信託帳戶，於撥款時產生的跨行匯款手續費，將由賣家當筆交易款項中扣除。<br>
+                            5.請勿刊登10元(含)以下商品，結帳金額若小於10元，跨行轉帳撥款作業時，因手續費問題，將無法成功匯款。
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="admweb-v2-settings-frame pic-margin-10">
+                <div class="admweb-v2-NewProduct-title">
+                    <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>發票設定</h2>
+                </div>
+                <!--電子發票設定-->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>電子發票設定</p></li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="pic-org-text-restrict pic-margin-b10">
+                            註:<br>
+                            1.賣家寄件後,運費發票設定<br>
+                            2.配合國稅局勸止二聯換開三聯之政策,本公司有權利考量各因素後拒絕換開發票
+                        </div>
+                        <select class="pic-text-lnput pic-text-lnput-stylet pic-margin-b5" style="width: 100%;"
+                                name="com_inv_type" id="com_inv_type">
+                            <option value="0">選擇發票類型</option>
+                            <option value="1" {{if $m_arrCompany.com_inv_type=="1"}}selected{{/if}}>二聯式發票</option>
+                            <option value="2" {{if $m_arrCompany.com_inv_type=="2"}}selected{{/if}}>三聯式發票</option>
+                            <option value="3" {{if $m_arrCompany.com_inv_type=="3"}}selected{{/if}}>捐贈</option>
+                        </select>
+                        <div class="admweb-v2-settings-frame-RadioBox pic-margin-b5" id="admweb_com_inv_donate"
+                             style="display: none;">
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="radioIdx1">
+                                    <input class="admweb-v2-radio-green" type="radio" id="radioIdx1"
+                                           name="com_inv_donate_type"
+                                           value="1" {{if $m_arrCompany.com_inv_donate_type=="1"}}checked{{/if}}>
+                                    <div class="admweb-v2-label-check-green"></div>
+                                    受捐贈機關或團體
+                                </label>
+                            </div>
+                            <div class="admweb-v2-radio-green-box" style="width: 220px;">
+                                <label class="admweb-v2-label-green" for="radioIdx2">
+                                    <input class="admweb-v2-radio-green" type="radio" id="radioIdx2"
+                                           name="com_inv_donate_type"
+                                           value="2" {{if $m_arrCompany.com_inv_donate_type=="2"}}checked{{/if}}>
+                                    <div class="admweb-v2-label-check-green"></div>
+                                    自行輸入社福團體愛心碼
+                                </label>
+                            </div>
+                            <div class="admweb-v2-SearchHeartBtn pic-BgText-color-green "><a
+                                    href="https://www.einvoice.nat.gov.tw/APCONSUMER/BTC603W/" target="_blank">查詢愛心碼</a>
+                            </div>
+                        </div>
+                        <select class="pic-text-lnput pic-text-lnput-style pic-margin-b5"
+                                style="width: 100%;display: none;"
+                                name="com_inv_donate" id="com_inv_donate_1">
+                            <option value="0">請選擇受捐贈機關或團體</option>
+                            {{foreach from=$arrInvoiceDonationUnit item=i}}
+                            <option value="{{$i.unit_love_code}}"
+                                    {{if $m_arrCompany.com_inv_donate==$i.unit_love_code}}selected{{/if}}>
+                                {{$i.unit_name}}
+                            </option>
+                            {{/foreach}}
+                        </select>
+                        <input id="com_inv_donate_2" name="com_inv_donate_input" type="text"
+                               class="pic-text-lnput pic-lnput-enter pic-margin-b5"
+                               value="{{$m_arrCompany.com_inv_donate}}" placeholder="請輸入社福團體愛心碼(限字數)"
+                               style="display: none;">
+                        <select class="pic-text-lnput pic-text-lnput-style pic-margin-b5"
+                                style="width: 100%;display: none;"
+                                name="com_inv_save_mode" id="com_inv_save_mode">
+                            <option value="0">請選擇發票儲存型式</option>
+                            <option value="1" {{if $m_arrCompany.com_inv_save_mode=="1"}}selected{{/if}}>託管</option>
+                            <option value="2" {{if $m_arrCompany.com_inv_save_mode=="2"}}selected{{/if}}>手機載具</option>
+                            <option value="3" {{if $m_arrCompany.com_inv_save_mode=="3"}}selected{{/if}}>自然人憑證載具
+                            </option>
+                        </select>
+                        <input id="com_inv_vehicle" name="com_inv_vehicle" type="text"
+                               class="pic-text-lnput pic-lnput-enter pic-margin-b5"
+                               value="{{$m_arrCompany.com_inv_vehicle}}" placeholder="請輸入手機條碼載具"
+                               style="display: none;">
+                        <input id="com_utcode" name="com_utcode" type="text"
+                               class="pic-text-lnput pic-lnput-enter pic-margin-b5"
+                               value="{{$m_arrCompany.com_utcode}}" placeholder="請輸入統一編號" style="display: none;">
+                        <input id="com_name" name="com_name" type="text"
+                               class="pic-text-lnput pic-lnput-enter pic-margin-b5"
+                               value="{{$m_arrCompany.com_name}}" placeholder="請輸入發票抬頭" style="display: none;">
+                    </li>
+                </ul>
+                <!--發票寄送E-mail-->
+                <ul class="admweb-v2-outside-white-box" id="admweb_com_mail" style="display: none;">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>發票寄送E-mail</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <input name="com_email" type="text" class="pic-text-lnput pic-lnput-enter"
+                               value="{{$m_arrCompany.com_email}}" placeholder="請輸入電子信箱"
+                               id="com_email">
+                    </li>
+                </ul>
+                <!--發票中獎地址-->
+                <ul class="admweb-v2-outside-white-box" id="admweb_com_inv_address" style="display: none;">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>發票中獎地址</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="admweb-v2-settings-frame-RadioBox pic-margin-b5">
+                            <input id="com_inv_zip" name="com_inv_zip" type="text"
+                                   class="pic-text-lnput pic-lnput-enter"
+                                   value="{{$m_arrCompany.com_inv_zip}}" placeholder="郵遞區號" style="width: 120px;">
+                            <input id="com_inv_state" name="com_inv_state" value="158" type="hidden">
+                            <select class="pic-text-lnput pic-text-lnput-style pic-margin-lr5" style="width: 100%;"
+                                    name="com_inv_city" id="com_inv_city" onchange="loadcountry('getdistrictbyzip');">
+                                <option value="none">請選擇</option>
+                            </select>
+                            <select class="pic-text-lnput pic-text-lnput-style" style="width: 100%;" name="com_inv_dist"
+                                    id="com_inv_dist" onchange="changezip()">
+                                <option value="none">請選擇</option>
+                            </select>
+                        </div>
+                        <input id="com_inv_address" name="com_inv_address" type="text"
+                               class="pic-text-lnput pic-lnput-enter"
+                               value="{{getAddressOther address=$m_arrCompany.com_inv_address}}" placeholder="請輸入地址">
+                        <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+                            *提醒您!請填入正確的通訊地址，發票中獎將會通知您。<br>
+                            *郵遞區號僅需填五碼，地址不可使用簡體字及中文數字填寫。
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <!--置底按鈕-->
+            <div class="admweb-v2-orderlist__action">
+                <input type="hidden" name="myAct" value="COMMAND_EDIT">
+                <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0)" onclick="$('form[name=formA]').submit();">
+                    <i class="icons-line iopen-icon-white-add-front"></i>儲存
+                </a>
+            </div>
+            <!--置底按鈕end-->
+        </form>
+    </div>
+</div>
+
+<script>
+    var inv_option = "                            <option value=\"0\">選擇發票類型</option>\n" +
+                     "                            <option value=\"1\">二聯式發票</option>\n" +
+                     "                            <option value=\"3\">捐贈</option>";
+    var inv_option_2 = "                            <option value=\"0\">選擇發票類型</option>\n" +
+                     "                            <option value=\"2\">三聯式發票</option>\n";
+    //事件
+    $(function (){
+        $("input[name=com_bank_set_type]").on("change", function () {
+            $("#com_inv_type").val('').trigger("change");
+            $("#com_bank_set_identity").val('');
+            $("#com_inv_type option").show();
+            if ($("input[name=com_bank_set_type]:checked").val() == '1') {
+                $("#com_utcode").val('');
+                $("#com_inv_type").html(inv_option)
+                $("#com_inv_type option[value='1']").prop('selected',true).trigger("change");
+                $("#com_bank_set_identity").attr('placeholder','請輸入身份證字號');
+            } else if ($("input[name=com_bank_set_type]:checked").val() == '2') {
+                $("#com_utcode").val('{{$m_arrCompany.com_utcode}}');
+                $("#com_bank_set_identity").val('{{$m_arrCompany.com_utcode}}');
+                $("#com_inv_type").html(inv_option_2)
+                $("#com_inv_type option[value='2']").prop('selected',true).trigger("change");
+                $("#com_bank_set_identity").attr('placeholder','請輸入統一編號');
+            } else if ($("input[name=com_bank_set_type]:checked").val() == '3') {
+                $("#com_utcode").val('');
+                $("#com_inv_type").html(inv_option)
+                $("#com_inv_type option[value='1']").prop('selected',true).trigger("change");
+                $("#com_bank_set_identity").attr('placeholder','請輸入居留證號碼');
+                alert("提醒 !!!<br>居留證號更新時，<br>請務必更新銀行開戶之身分ID資料，<br>避免撥款失敗");
+            }
+        })
+
+        $("#com_inv_type").on("change", function () {
+            $("#com_inv_save_mode").hide().val('');
+            $("#admweb_com_mail").hide();
+            $("#com_email").val('');
+            $("#com_utcode").hide().val('');
+            $("#com_name").hide().val('');
+            $("#admweb_com_inv_address").hide();
+            $("#com_inv_zip").val('');
+            $("#com_inv_city").val('');
+            $("#com_addr").val('');
+            $("#com_inv_address").val('');
+            $("#admweb_com_inv_donate").hide();
+            $("input[name=com_inv_donate_type]").attr('checked', false);
+            $("#com_inv_vehicle").hide().val('');
+            $("#com_inv_donate_1").hide().val('');
+            $("#com_inv_donate_2").hide().val('');
+
+            if ($("#com_inv_type").val() == '1') {
+                $("#com_inv_save_mode").val('1');
+                $("#com_inv_save_mode").show();
+                $("#admweb_com_mail").show();
+                $("#admweb_com_inv_address").show();
+                loadcountry('getdistrict');
+            } else if ($("#com_inv_type").val() == '2') {
+                $("#com_utcode").show().val('{{$m_arrCompany.com_utcode}}');
+                $("#com_name").show().val('{{$m_arrCompany.com_name}}');
+                $("#admweb_com_mail").show();
+            } else if ($("#com_inv_type").val() == '3') {
+                $("#admweb_com_inv_donate").show();
+            }
+        })
+        $("#com_inv_save_mode").on("change", function () {
+            $("#com_inv_vehicle").hide().val('');
+            if ($("#com_inv_save_mode").val() == '2') {
+                $("#com_inv_vehicle").attr('placeholder','請輸入手機條碼載具').show();
+            } else if($("#com_inv_save_mode").val() == '3') {
+                $("#com_inv_vehicle").attr('placeholder','請輸入自然人憑證載具(限英數字)').show();
+            }
+        })
+        $("input[name=com_inv_donate_type]").on("change", function () {
+            $("#com_inv_donate_1").hide().val('');
+            $("#com_inv_donate_2").hide().val('');
+            if ($("input[name=com_inv_donate_type]:checked").val() == '1') {
+                $("#com_inv_donate_1").show();
+            } else if ($("input[name=com_inv_donate_type]:checked").val() == '2') {
+                $("#com_inv_donate_2").show();
+            }
+        })
+    })
+
+    //帶入本身設定值
+    $(document).ready(function () {
+        var com_bank_set_type = '{{$m_arrCompany.com_bank_set_type}}'
+        var com_inv_type = '{{$m_arrCompany.com_inv_type}}';
+        var com_inv_save_mode = '{{$m_arrCompany.com_inv_save_mode}}'
+        var com_inv_donate_type = '{{$m_arrCompany.com_inv_donate_type}}'
+
+        $("#com_inv_state").val("158");
+        loadcountry('getdistrict');
+
+        if(com_bank_set_type == '2'){
+            $("#com_utcode").val('{{$m_arrCompany.com_utcode}}');
+            $("#com_inv_type").html(inv_option_2)
+            if(com_inv_type == '0'){
+                $("#com_utcode").show();
+                $("#com_name").show();
+                $("#admweb_com_mail").show();
+            }
+            $("#com_inv_type option[value='2']").prop('selected',true);
+            $("#com_bank_set_identity").attr('placeholder','請輸入統一編號');
+        } else if(com_bank_set_type == '1' || com_bank_set_type == '3') {
+            $("#com_utcode").val('');
+            $("#com_inv_type").html(inv_option)
+            if(com_inv_type == '0'){
+                $("#com_inv_save_mode").val('1');
+                $("#com_inv_save_mode").show();
+                $("#admweb_com_mail").show();
+                $("#admweb_com_inv_address").show();
+                $("#com_inv_type option[value='1']").prop('selected',true);
+            }
+            else $("#com_inv_type option[value='"+com_inv_type+"']").prop('selected',true);
+            if(com_bank_set_type == '1'){
+                $("#com_bank_set_identity").attr('placeholder','請輸入身份證字號');
+            } else {
+                $("#com_bank_set_identity").attr('placeholder','請輸入居留證號碼');
+            }
+        }
+
+        if (com_inv_type == '1') {
+            $("#com_inv_save_mode").show();
+            if (com_inv_save_mode == '2') {
+                $("#com_inv_vehicle").attr('placeholder','請輸入手機條碼載具').show();
+            } else if(com_inv_save_mode == '3') {
+                $("#com_inv_vehicle").attr('placeholder','請輸入自然人憑證載具(限英數字)').show();
+            }
+            $("#admweb_com_mail").show();
+            $("#admweb_com_inv_address").show();
+
+            // $("#com_inv_city").val('{{$m_arrCompany.com_inv_city}}')
+            $('#com_inv_city > option').each (function (index) {
+                if ($(this).text() == '{{$m_arrCompany.com_inv_city}}'){
+                    $(this).prop('selected', true);
+                    $('#com_inv_city').val($(this).val());
+                }
+            });
+            loadcountry('getdistrictbyzip');
+            // $("#com_inv_dist").val('{{getAddressState address=$m_arrCompany.com_inv_address}}')
+            $('#com_inv_dist > option').each (function (index) {
+                if ($(this).text() == '{{getAddressState address=$m_arrCompany.com_inv_address}}'){
+                    $(this).prop('selected', true);
+                    $('#com_inv_dist').val($(this).val());
+                }
+            });
+            changezip()
+
+        } else if (com_inv_type == '2') {
+            $("#com_utcode").show();
+            $("#com_name").show();
+            $("#admweb_com_mail").show();
+        } else if (com_inv_type == '3') {
+            $("#admweb_com_inv_donate").show();
+            if (com_inv_donate_type == '1') {
+                $("#com_inv_donate_1").show();
+            } else if (com_inv_donate_type == '2') {
+                $("#com_inv_donate_2").show();
+            }
+        }
+
+        $('#com_bank_no').val('{{$m_arrCompany.com_bank_no}}');
+        $('#com_bank_name').val('{{$m_arrCompany.com_bank_name}}');
+        getBranchList();
+        $('#com_branch_no').val('{{$m_arrCompany.com_branch_no}}');
+        $('#com_branch_name').val('{{$m_arrCompany.com_branch_name}}');
+
+    });
+
+    function _CS_checkAdd(_this) {
+        if (_this.com_bank_username.value == "") {
+            alert('請輸入戶名');
+            return false;
+        }
+
+        if (_this.com_bank_set_type.value == "") {
+            alert('請選擇開戶身分');
+            return false;
+        }
+
+        if (_this.com_bank_set_identity.value == ""){
+            alert('請輸入身分ID');
+            return false;
+        }
+
+        if (_this.com_bank_set_type.value == "1") {
+            if(!check_taiwan_ID(_this.com_bank_set_identity.value)) {
+                alert('請確認身分證字號格式是否正確');
+                return false;
+            }
+        } else if (_this.com_bank_set_type.value == "2") {
+            if(!isValidGUI(_this.com_bank_set_identity.value)) {
+                alert('請確認統編格式是否正確');
+                return false;
+            }
+        } else if (_this.com_bank_set_type.value == "3") {
+            //舊版 && 新版
+            if(!check_resident_ID(_this.com_bank_set_identity.value) && !check_taiwan_ID(_this.com_bank_set_identity.value)) {
+                alert('請確認居留證號碼是否正確');
+                return false;
+            }
+        }
+
+        if (_this.com_bank_no.value == ""){
+            alert('請選擇銀行');
+            return false;
+        }
+
+        if (_this.com_branch_no.value == ""){
+            alert('請選擇分行');
+            return false;
+        }
+
+        if (_this.com_bank_account.value == ""){
+            alert('請輸入帳戶');
+            return false;
+        }
+
+        var regexp = /^[0-9]+$/;
+        if(!regexp.test(_this.com_bank_account.value)){
+            alert('銀行帳戶只限數字');
+            return false;
+        }
+
+        var bank_account_count = _this.com_bank_account.value.length;
+        var branch_no = _this.com_bank_no.value;
+        if (branch_no==822) {
+            if (bank_account_count > 14 || bank_account_count < 12) {
+                alert('銀行帳戶長度有誤');
+                return false;
+            }
+        }else{
+            if (bank_account_count > 14 || bank_account_count < 8) {
+                alert('銀行帳戶長度有誤');
+                return false;
+            }
+        }
+
+        if(_this.com_inv_type.value == "" || _this.com_inv_type.value == "0"){
+            alert('請選擇發票類型');
+            return false;
+        }
+
+        if (_this.com_inv_type.value == '1') {
+            if (_this.com_inv_save_mode.value == "0" || _this.com_inv_save_mode.value == "") {
+                alert('請選擇發票儲存型式');
+                return false;
+            }
+            if (_this.com_inv_save_mode.value == '2') {
+                if (_this.com_inv_vehicle.value == "") {
+                    alert('請輸入手機條碼載具');
+                    return false;
+                }
+                var regexp = /^\/{1}[0-9A-Z+-.]{7}$/;
+                if(!regexp.test(_this.com_inv_vehicle.value)){
+                    alert('請確認載具格式');
+                    return false;
+                }
+            }
+            if (_this.com_inv_save_mode.value == '3') {
+                if (_this.com_inv_vehicle.value == "") {
+                    alert('請輸入自然人憑證載具');
+                    return false;
+                }
+                var regexp = /^[a-zA-Z]{2}\d{14}$/;
+                if(!regexp.test(_this.com_inv_vehicle.value)){
+                    alert('請確認載具格式');
+                    return false;
+                }
+            }
+            if (_this.com_email.value == "") {
+                alert('請輸入聯絡人 E-mail');
+                return false;
+            }
+            if (!ij_isEmail(_this.com_email.value)) {
+                alert('聯絡人 E-mail 格式不正確');
+                return false;
+            }
+            if (_this.com_inv_city.value == "") {
+                alert('請選擇縣市');
+                return false;
+            }
+            if (_this.com_inv_zip.value == "") {
+                alert('請選擇區域');
+                return false;
+            }
+            if (_this.com_inv_address.value == "") {
+                alert('請輸入地址');
+                return false;
+            }
+        } else if (_this.com_inv_type.value == '2') {
+            if (_this.com_utcode.value == "") {
+                alert('請輸入統一編號');
+                return false;
+            }
+            if(!isValidGUI(_this.com_utcode.value)) {
+                alert('請確認統編格式是否正確');
+                return false;
+            }
+
+            let CHECK_REPEAT = 0;
+            $.ajax({
+                url:'',
+                type:'POST',
+                dataType:'json',
+                async:false,
+                data:{
+                    myAct:'CHECK_UTCODE_REPEAT',
+                    utcode:_this.com_utcode.value },
+                success: function (r){
+                    // console.log(r)
+                    if(r == 'repeat'){
+                        CHECK_REPEAT = 1;
+                    }
+                }
+            })
+            if(CHECK_REPEAT) {
+                alert('統一編號已存在，請確認是否重複使用。');
+                return false;
+            }
+
+            if (_this.com_name.value == "") {
+                alert('請輸入發票抬頭');
+                return false;
+            }
+            if (_this.com_email.value == "") {
+                alert('請輸入聯絡人 E-mail');
+                return false;
+            }
+            if (!ij_isEmail(_this.com_email.value)) {
+                alert('聯絡人 E-mail 格式不正確');
+                return false;
+            }
+        } else if (_this.com_inv_type.value == '3') {
+            if (_this.com_inv_donate_type.value == ""){
+                alert('請選擇捐贈方式');
+                return false;
+            }
+            if (_this.com_inv_donate_type.value == '1') {
+                if(_this.com_inv_donate.value == '0') {
+                    alert('請選擇捐贈機關或團體');
+                    return false;
+                }
+            } else if (_this.com_inv_donate_type.value == '2') {
+                if(_this.com_inv_donate_input.value == '') {
+                    alert('請輸入捐贈愛心碼');
+                    return false;
+                }
+                var regexp = /^[0-9]+$/;
+                if(!regexp.test(_this.com_inv_donate_input.value) || _this.com_inv_donate_input.value.length<3 || _this.com_inv_donate_input.value.length>7){
+                    alert('請確認愛心碼格式是否正確');
+                    return false;
+                }
+            }
+        }
+
+        $('#com_bank_name').val($('#com_bank_no option:selected').text());
+        $('#com_branch_name').val($('#com_branch_no option:selected').data('value'));
+        $("#com_inv_city :selected").val($('#com_inv_city :selected').text());
+        $("#com_inv_dist :selected").val($('#com_inv_dist :selected').text());
+    }
+
+    function getBranchList() {
+        var bank_no = $('#com_bank_no').val();
+        var arr_branch_list;
+        $('#com_branch_no').empty();
+        let option = document.createElement("option");
+        option.innerText = '請選擇分行...';
+        option.value = '';
+        document.getElementById("com_branch_no").appendChild(option);
+
+        if (bank_no != '') {
+            $.ajax({
+                url: '../api/api.ajax_auto_load.php',
+                type: 'POST',
+                dataType: "json",
+                async: false,
+                data: {"params": [bank_no, 'get_bank_branch_list']},
+                success: function (rtn_data) {
+                    arr_branch_list = rtn_data.branch_list;
+                    $.each(arr_branch_list, function (index, value) {
+						let ele = document.createElement('option')
+						ele.setAttribute("value", index)
+						ele.setAttribute("data-value", value)
+						ele.textContent = index + ' - ' + value;
+						document.getElementById('com_branch_no').appendChild(ele);
+					});
+
+                }
+            });
+        }
+    }
+
+    function stringToHTML(htmlString){
+        const parser = new DOMParser();
+        const html = parser.parseFromString(htmlString, 'text/html')
+        return html.body.children;
+    }
+
+    function loadcountry(action)
+    {
+        var cou_code_num = $('#com_inv_state').val();
+        var zip = $('#com_inv_city :selected').val();
+
+        cou_code_num = (cou_code_num != 'none') ? cou_code_num : $("#com_inv_state").val();
+        zip = (zip != 'none') ? zip : $('#com_inv_city :selected').val();
+
+        if(cou_code_num != 'none'){
+            $.ajax({
+                url:'../api/api.loadcountry.php',
+                type:'post',
+                dataType:'text',
+                async:false,
+                data:{action:action, cou_code_num:cou_code_num, zip:zip},
+                success:function(response_country){
+                    var init_str = '<option value="none">{{$lang.root.order_cancel.DO_SELECT}}</option>';
+
+                    switch(action){
+                        case 'getdistrict':
+                            if(response_country != 'none'){
+                                document.getElementById('com_inv_city').replaceChildren();
+                                let htm_obj = stringToHTML(response_country);
+                                for (const iterator of htm_obj) {
+                                    if(iterator.tagName == 'OPTION'){
+                                        let OPT = document.createElement('option')
+                                        OPT.textContent = iterator.innerText;
+                                        OPT.setAttribute('value', iterator.value);
+                                        document.getElementById('com_inv_city').appendChild(OPT)
+                                    }
+                                }
+                                $('#com_inv_city').show();
+                            }else{
+                                $('#com_inv_city').hide().html(init_str);
+                                $('#com_inv_dist').hide().html(init_str);
+                            }
+
+                            $('#com_inv_zip').attr('readonly',false);
+                            $('#com_inv_state').val(cou_code_num);
+                            break;
+
+                        case 'getdistrictbyzip':
+                            if(response_country != 'none'){
+                                document.getElementById('com_inv_dist').replaceChildren();
+                                let htm_obj = stringToHTML(response_country);
+                                for (const iterator of htm_obj) {
+                                    if(iterator.tagName == 'OPTION'){
+                                        let OPT = document.createElement('option')
+                                        OPT.textContent = iterator.innerText;
+                                        OPT.setAttribute('value', iterator.value);
+                                        document.getElementById('com_inv_dist').appendChild(OPT)
+                                    }
+                                }
+                                $('#com_inv_dist').show();
+                                $('#com_inv_zip').attr('readonly',true);
+                            }else{
+                                $('#com_inv_dist').hide().html(init_str);
+                                $('#com_inv_zip').attr('readonly',false).val('');
+                            }
+
+                            break;
+                    }
+                }
+            });
+        }else{
+            $('#com_inv_city').hide();
+            $('#com_inv_dist').hide();
+        }
+
+        changezip();
+    }
+
+    function changezip()
+    {
+        var zip = $('#com_inv_dist :selected').val();
+
+        $('#com_inv_zip').val((zip != 'none') ? zip : "");
+    }
+
+    /*檢查身分證字號*/
+    function check_taiwan_ID( id ){
+        tab = "ABCDEFGHJKLMNPQRSTUVXYWZIO"
+        A1 = new Array (1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3 );
+        A2 = new Array (0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5 );
+        Mx = new Array (9,8,7,6,5,4,3,2,1,1);
+
+        if ( id.length != 10 ) return false;
+        i = tab.indexOf( id.charAt(0) );
+        if ( i == -1 ) return false;
+        sum = A1[i] + A2[i]*9;
+
+        for ( i=1; i<10; i++ ) {
+            v = parseInt( id.charAt(i) );
+            if ( isNaN(v) ) return false;
+            sum = sum + v * Mx[i];
+        }
+        if ( sum % 10 != 0 ) return false;
+        return true;
+    }
+
+    /*檢查居留證號碼*/
+    function check_resident_ID( id ) {
+
+        studIdNumber = id
+
+        /*格式，用正則表示式比對第一個字母是否為英文字母*/
+        if(isNaN(studIdNumber.substr(2,8)) ||
+            (!/^[A-Z]$/.test(studIdNumber.substr(0,1))) ||
+            (!/^[A-Z]$/.test(studIdNumber.substr(1,1)))){
+            /*alert("居留證號碼格式錯誤");*/
+            return false;
+        }
+
+        var idHeader = "ABCDEFGHJKLMNPQRSTUVXYWZIO"; /*按照轉換後權數的大小進行排序*/
+        /*這邊把身分證字號轉換成準備要對應的*/
+        studIdNumber = (idHeader.indexOf(studIdNumber.substring(0,1))+10) +
+            '' + ((idHeader.indexOf(studIdNumber.substr(1,1))+10) % 10) + '' + studIdNumber.substr(2,8);
+        /*開始進行身分證數字的相乘與累加，依照順序乘上1987654321*/
+
+        s = parseInt(studIdNumber.substr(0,1)) +
+            parseInt(studIdNumber.substr(1,1)) * 9 +
+            parseInt(studIdNumber.substr(2,1)) * 8 +
+            parseInt(studIdNumber.substr(3,1)) * 7 +
+            parseInt(studIdNumber.substr(4,1)) * 6 +
+            parseInt(studIdNumber.substr(5,1)) * 5 +
+            parseInt(studIdNumber.substr(6,1)) * 4 +
+            parseInt(studIdNumber.substr(7,1)) * 3 +
+            parseInt(studIdNumber.substr(8,1)) * 2 +
+            parseInt(studIdNumber.substr(9,1));
+
+        /*檢查號碼 = 10 - 相乘後個位數相加總和之尾數。*/
+        checkNum = parseInt(studIdNumber.substr(10,1));
+        /*模數 - 總和/模數(10)之餘數若等於第九碼的檢查碼，則驗證成功*/
+        /*若餘數為0，檢查碼就是0*/
+        if((s % 10) == 0 || (10 - s % 10) == checkNum){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /*檢查統編*/
+    function isValidGUI(taxId) {
+        var invalidList = "00000000,11111111";
+        if (/^\d{8}$/.test(taxId) == false || invalidList.indexOf(taxId) != -1) {
+            return false;
+        }
+
+        var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1],
+            sum = 0,
+            calculate = function(product) { /* 個位數 + 十位數*/
+                var ones = product % 10,
+                    tens = (product - ones) / 10;
+                return ones + tens;
+            };
+        for (var i = 0; i < validateOperator.length; i++) {
+            sum += calculate(taxId[i] * validateOperator[i]);
+        }
+
+        return sum % 5 == 0 || (taxId[6] == "7" && (sum + 1) % 5 == 0);
+    }
+</script>

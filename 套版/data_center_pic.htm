@@ -1,0 +1,507 @@
+<style>
+    .admweb-v2-analysis__canvas-line{margin-top: 20px;}
+    .admweb-v2-orderlist__form-date::before{display: none;}
+    .admweb-v2-list-header-in-fixbottom{display: none;}
+</style>
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        {{if $m_arrSystem.is_app_mode}}
+        <button onclick="{
+            let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+            let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isAndroid) {
+                window.JavaScriptInterface.backToSellerCenter();
+            } else if (isiOS) {
+                window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+            }
+            }">
+          <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        {{else}}
+        <button onclick="history.back()">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        {{/if}}
+        <button onclick="toggleMenuHandler()">
+            <i class="icons-line icon-line-hamburger"></i>
+        </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">營運分析</h2>
+    <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+        <section class="admweb-v2-analysis__content">
+            <h1 class="admweb-v2-analysis__title"> 營運分析 <button onclick="openAlert('case2')">
+                    <i class="icons-line icon-line-Help pic-text-gray-40" style="font-size: 15px"></i>
+                </button>
+            </h1>
+            <fieldset class="pic-margin-t10 pic-margin-b10" data-input-fieldset>
+                <div class="admweb-v2-store_delivery__fieldset">
+                    <legend class="admweb-v2-store_delivery__fieldset-legend">
+                        <span data-input-legend>資料時間</span>
+                        <!-- openPopupHandler 傳入 要監聽的input name -->
+                        <div class="admweb-v2-store_delivery__popup-btn" onclick="openPopupHandler(this,'search-interval')">
+                            <span data-input-text>過去7天</span>
+                            <i class="icons-line icon-arrow-right-01"></i>
+                        </div>
+                    </legend>
+                    <div class="admweb-v2-analysis__serach-field">
+                        <div class="admweb-v2-store_delivery__fieldset-fields-type1 admweb-v2-sp-hidden" data-input-fields>
+                            <select name="search-interval" id="sel_time_diff" class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select" style="max-width: 500px">
+                                <option value="7">過去7天</option>
+                                <option value="30">過去30天</option>
+                                <!-- <option value="自訂時間">自訂時間</option> -->
+                            </select>
+                        </div>
+                        <div class="admweb-v2-orderlist__form-range_date js-admweb-v2__range_date admweb-v2-analysis__range_date" style="display: none">
+                            <input type="date" name="date" class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter"/>
+                            <span>-</span>
+                            <input type="date" name="date" class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- 網站流量  -->
+            <section class="admweb-v2-analysis__check_list">
+                <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart1" checked/>
+                    <label for="line-chart1" style="--check-color: var(--pic-red)">
+                        <p>總訂單數</p>
+                        <p id="p_total_order_qty" class="admweb-v2-analysis__check_item-num">29,875,379</p>
+                    </label>
+                </div>
+                <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart2" />
+                    <label for="line-chart2" style="--check-color: var(--pic-red)">
+                        <p>總銷售額</p>
+                        <p id="p_total_order_money" class="admweb-v2-analysis__check_item-num">9,935,759</p>
+                    </label>
+                </div>
+                <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart3" />
+                    <label for="line-chart3" style="--check-color: var(--pic-red)">
+                        <p>平均訂單金額</p>
+                        <p id="p_avg_order_money" class="admweb-v2-analysis__check_item-num">19,875,379</p>
+                    </label>
+                </div>
+                <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart4" />
+                    <label for="line-chart4" style="--check-color: var(--pic-red)">
+                        <p>總寄件數</p>
+                        <p id="p_total_delivery_qty" class="admweb-v2-analysis__check_item-num">19,875,379</p>
+                    </label>
+                </div>
+                <!-- <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart5" />
+                    <label for="line-chart5" style="--check-color: var(--pic-green)">
+                        <p>賣場訪客數</p>
+                        <p class="admweb-v2-analysis__check_item-num">19,875,379</p>
+                    </label>
+                </div>
+                <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart6" />
+                    <label for="line-chart6" style="--check-color: var(--pic-green)">
+                        <p>新增會員數</p>
+                        <p class="admweb-v2-analysis__check_item-num">19,875,379</p>
+                    </label>
+                </div>
+                <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart7" />
+                    <label for="line-chart7" style="--check-color: var(--pic-green)">
+                        <p>下單轉換率</p>
+                        <p class="admweb-v2-analysis__check_item-num">19,875,379</p>
+                    </label>
+                </div>
+                <div class="admweb-v2-analysis__check_item">
+                    <input type="checkbox" name="line-data" id="line-chart8" />
+                    <label for="line-chart8" style="--check-color: var(--pic-green)">
+                        <p>已完成訂單數</p>
+                        <p class="admweb-v2-analysis__check_item-num">19,875,379</p>
+                    </label>
+                </div> -->
+            </section>
+            <section>
+                <!-- <p class="pic-text-gray-70 pic-font-size-12 pic-text-right pic-margin-t10" id="line-data-selected"> 已選1/2 </p> -->
+                <canvas id="line-data" class="admweb-v2-analysis__canvas-line"></canvas>
+                <div id="one_day_info" class="admweb-v2-analysis__canvas-info">
+                    <header>2022/10/28</header>
+                    <div class="admweb-v2-analysis__canvas-info--box">
+                        <div class="admweb-v2-analysis__canvas-info--item">
+                            <span class="admweb-v2-analysis__deco-device" style="--deco-color: var(--pic-red)">總訂單數</span>
+                            <p class="admweb-v2-analysis__canvas-num">19,935,759</p>
+                        </div>
+                        <div class="admweb-v2-analysis__canvas-info--item">
+                            <span class="admweb-v2-analysis__deco-device" style="--deco-color: var(--pic-green)">總銷售額</span>
+                            <p class="admweb-v2-analysis__canvas-num">19,935,759</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+    <div class="admweb-v2__popup js-admweb-v2__popup" style="display: none" onclick="closePopup()">
+        <div class="admweb-v2__popup--inner js-admweb-v2__popup--inner">
+            <h3 class="admweb-v2__popup--title js-admweb-v2__popup--title"> 篩選區間 </h3>
+            <div class="admweb-v2__popup--content js-admweb-v2__popup--content">
+                <div class="admweb-v2-store_delivery__fieldset--radio">
+                    <label class="" for="search-interval10">
+                        <input class="admweb-v2-radio-green" type="radio" id="search-interval10" name="search-interval" title="過去7天" value="7" checked="" />
+                        <div class="admweb-v2-label-check-green"></div>
+                        <p>過去7天</p>
+                    </label>
+                </div>
+                <div class="admweb-v2-store_delivery__fieldset--radio">
+                    <label class="" for="search-interval21">
+                        <input class="admweb-v2-radio-green" type="radio" id="search-interval21" name="search-interval" title="過去30天" value="30" />
+                        <div class="admweb-v2-label-check-green"></div>
+                        <p>過去30天</p>
+                    </label>
+                </div>
+                <!-- <div class="admweb-v2-store_delivery__fieldset--radio">
+                    <label class="" for="search-interval31">
+                        <input class="admweb-v2-radio-green" type="radio" id="search-interval31" name="search-interval" value="自訂時間" />
+                        <div class="admweb-v2-label-check-green"></div>
+                        <p>自訂時間</p>
+                    </label>
+                </div> -->
+            </div>
+            <div class="js-admweb-v2__popup--action pic-confirm-box pic-flex-center pic-icon-margin-r pic-line-light15">
+                <button onclick="confirmPopup('search-interval')" class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check"> 確定 </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{$sys_arrWebsite.website_url}}javascripts/chart.umd.js"></script>
+<script>
+  (function() {
+      getPcSideMenuWidth();
+  })();
+
+  function getPcSideMenuWidth() {
+      const pcSidMenuEle = document.querySelector('.admweb-v2-seller-front-left-box');
+      pcSidMenuEle.closest('.admweb-v2-order_detail').style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+
+  function toggleMenuHandler() {
+      document.querySelector('.admweb-v2-seller-front-left-box').classList.toggle('pic-phone-open-menu');
+      const hamBtn = document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1].querySelector('i');
+      if (hamBtn.classList.contains('icon-arrow-left-01')) {
+          document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block';
+      } else {
+          document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none';
+      }
+      hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+
+  // 自訂時間
+  const searchInputs = document.querySelectorAll('[name=search-interval]');
+  searchInputs.forEach((input) => input.addEventListener('change', () => {
+      const dateInputs = document.querySelectorAll('.js-admweb-v2__range_date');
+      if (input.value === '自訂時間') {
+          dateInputs.forEach((date) => (date.style.display = 'flex'));
+      } else {
+          dateInputs.forEach((date) => (date.style.display = 'none'));
+      }
+  }));
+  // popup
+  function openPopupHandler(ele, inputName) {
+      const filedsetEle = ele.closest('[data-input-fieldset]');
+      const textEle = ele.querySelector('[data-input-text]');
+      const legendEle = filedsetEle.querySelector('[data-input-legend]');
+      const fieldEles = filedsetEle.querySelectorAll('[data-input-fields] > *');
+      $('.js-admweb-v2__popup').show();
+      $('.js-admweb-v2__popup--inner').slideDown();
+  }
+
+  function confirmPopup(inputName) {
+      $('.js-admweb-v2__popup--inner').slideUp();
+      $('.js-admweb-v2__popup').hide();
+      updatePopupText(inputName);
+  }
+  const popupEle = document.querySelector('.js-admweb-v2__popup--inner');
+  popupEle.addEventListener('click', (event) => {
+      event.stopPropagation();
+  });
+
+  function closePopup() {
+      $('.js-admweb-v2__popup--inner').slideUp();
+      $('.js-admweb-v2__popup').hide();
+  }
+
+  function updatePopupText(inputName) {
+      const inputEles = document.querySelectorAll(`input[name=${inputName}]`);
+      const filedsetEle = document.querySelector(`select[name=${inputName}]`).closest('[data-input-fieldset]');
+      const textEle = filedsetEle.querySelector('[data-input-text]');
+      textEle.innerText = Array.from(inputEles).find(
+          (input) => input.checked).title;
+    var sel_value = $("input[name='search-interval']:checked").val();
+      $("#sel_time_diff").val(sel_value);  
+      set_display();
+  }
+  
+  dates_zone_7 = [];
+  daily_data_7_total_order_qty = [];
+  daily_data_7_total_order_money = [];
+  daily_data_7_avg_order_money = [];
+  daily_data_7_total_delivery_qty = [];
+
+  dates_zone_30 = [];
+  daily_data_30_total_order_qty = [];
+  daily_data_30_total_order_money = [];
+  daily_data_30_avg_order_money = [];
+  daily_data_30_total_delivery_qty = [];
+
+  {{foreach key=k item=v from=$arrChartData.days_7.date}}
+
+  dates_zone_7.push("{{$v}}");
+  //每7日
+  {{if $arrChartData.days_7.daily[$v]}}
+  daily_data_7_total_order_qty.push('{{$arrChartData.days_7.daily[$v].total_order_qty}}');
+  daily_data_7_total_order_money.push('{{$arrChartData.days_7.daily[$v].total_order_money}}');
+  daily_data_7_avg_order_money.push('{{$arrChartData.days_7.daily[$v].avg_order_money}}');
+  daily_data_7_total_delivery_qty.push('{{$arrChartData.days_7.daily[$v].delivery_qty}}');
+  {{else}}
+  daily_data_7_total_order_qty.push(0);
+  daily_data_7_total_order_money.push(0);
+  daily_data_7_avg_order_money.push(0);
+  daily_data_7_total_delivery_qty.push(0);
+  {{/if}}
+
+  {{/foreach}}
+
+  {{foreach key=k item=v from=$arrChartData.days_30.date}}
+
+  dates_zone_30.push("{{$v}}");
+  //每30日
+  {{if $arrChartData.days_30.daily[$v]}}
+  daily_data_30_total_order_qty.push('{{$arrChartData.days_30.daily[$v].total_order_qty}}');
+  daily_data_30_total_order_money.push('{{$arrChartData.days_30.daily[$v].total_order_money}}');
+  daily_data_30_avg_order_money.push('{{$arrChartData.days_30.daily[$v].avg_order_money}}');
+  daily_data_30_total_delivery_qty.push('{{$arrChartData.days_30.daily[$v].delivery_qty}}');
+  {{else}}
+  daily_data_30_total_order_qty.push(0);
+  daily_data_30_total_order_money.push(0);
+  daily_data_30_avg_order_money.push(0);
+  daily_data_30_total_delivery_qty.push(0);
+  {{/if}}
+
+  {{/foreach}}
+
+  // chart.js
+  lineData = {
+      labels: dates_zone_7,
+      datasets: [{
+          label: '總訂單數',
+          data: daily_data_7_total_order_qty,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      }]
+  };
+  lineConfig = {
+      type: 'line',
+      data: lineData,
+      options: {
+          responsive: true,
+          plugins: {
+              legend: {
+                  display: false
+              },
+              title: {
+                  display: false
+              }
+          },
+          borderWidth: 1,
+          pointHoverBorderWidth: 8,
+          borderStyle: 'dotted',
+          scales: {
+              x: {
+                  grid: {
+                      color: '#fff',
+                      tickColor: '#fff',
+                      tickWidth: 1
+                  },
+                  ticks: {
+                      color: '#ACACAC'
+                  },
+                  border: {
+                      dash: [2, 2]
+                  }
+              },
+              y: {
+                  grid: {
+                      color: '#EAEAEA',
+                      tickColor: '#fff'
+                  },
+                  border: {
+                      dash: [2, 2]
+                  },
+                  ticks: {
+                      display: false,
+                      color: '#fff'
+                  }
+              }
+          }
+      },
+      plugins: [{
+          beforeDraw: (chart) => {
+              if (chart.tooltip?._active?.length) {
+                  let x = chart.tooltip._active[0].element.x;
+                  let yAxis = chart.scales.y;
+                  let ctx = chart.ctx;
+                  ctx.save();
+                  ctx.beginPath();
+                  ctx.moveTo(x, yAxis.top);
+                  ctx.lineTo(x, yAxis.bottom);
+                  ctx.lineWidth = 1;
+                  ctx.strokeStyle = '#EAEAEA';
+                  ctx.stroke();
+                  ctx.restore();
+              }
+          }
+      }]
+  };
+  lineChart = new Chart('line-data', lineConfig);
+
+  newDataset_7 = [{
+          label: '總訂單數',
+          data: daily_data_7_total_order_qty,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      },{
+          label: '總銷售額',
+          data: daily_data_7_total_order_money,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      }, {
+          label: '平均訂單金額',
+          data: daily_data_7_avg_order_money,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      }, {
+          label: '總寄件數',
+          data: daily_data_7_total_delivery_qty,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      }];
+
+  newDataset_30 = [{
+          label: '總訂單數',
+          data: daily_data_30_total_order_qty,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      },{
+          label: '總銷售額',
+          data: daily_data_30_total_order_money,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      }, {
+          label: '平均訂單金額',
+          data: daily_data_30_avg_order_money,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      }, {
+          label: '總寄件數',
+          data: daily_data_30_total_delivery_qty,
+          borderColor: '#ED2525',
+          backgroundColor: '#ED2525'
+      }];
+
+  checked_seq = [0]; //點選的順序
+
+  //換查看區間
+  $("#sel_time_diff").on('change', function(){
+      set_display();
+  })
+
+  //click chart
+  $("input[name='line-data']").on("change", function(){
+      var checked = $(this).is(":checked");
+      var idx = parseInt( $(this).attr("id").replace("line-chart", "") ) - 1;
+
+      //目前是看多少天的
+      var search_mode = $("#sel_time_diff").val();
+
+      //目前數量
+      var count = checked_seq.length;
+
+      if(checked) {
+
+          if(count == 0){
+              checked_seq.push(idx);
+          }else if(count == 1){
+              //先取消上一個點選的
+              checked_seq.pop();
+              checked_seq.push(idx);
+          }
+      } else {  
+          var seq = checked_seq.indexOf(idx);
+          if (seq > -1) { // only splice array when item is found
+              checked_seq.splice(seq, 1); // 2nd parameter means remove one item only
+          }
+          checked_seq.flat();
+      }
+
+      lineData.datasets = [];
+      $("input[name='line-data']").prop("checked", false);
+      $.each( checked_seq, function( key, value ) {
+          if( search_mode == '7' ){
+              lineData.datasets.push(newDataset_7[value]);
+          }else if( search_mode == '30' ){
+              lineData.datasets.push(newDataset_30[value]);
+          }
+          
+          $("input[name='line-data']:eq("+value+")").prop("checked", true);
+      });
+      lineChart.update();
+
+      //updateText(checked_seq.length);
+  })
+
+  function set_display(){
+      var search_mode = $("#sel_time_diff").val();
+
+      $("#one_day_info").hide();
+
+      //數字
+      if(search_mode == '7'){
+          $("#p_total_order_qty").text("{{$arrChartData.days_7.total.total_order_qty|number_format}}");
+          $("#p_total_order_money").text("${{$arrChartData.days_7.total.total_order_money|number_format}}");
+          $("#p_avg_order_money").text("${{$arrChartData.days_7.total.avg_order_money|number_format}}");
+          $("#p_total_delivery_qty").text("{{$arrChartData.days_7.total.total_delivery_qty|number_format}}");
+      }else if(search_mode == '30'){
+          $("#p_total_order_qty").text("{{$arrChartData.days_30.total.total_order_qty|number_format}}");
+          $("#p_total_order_money").text("${{$arrChartData.days_30.total.total_order_money|number_format}}");
+          $("#p_avg_order_money").text("${{$arrChartData.days_30.total.avg_order_money|number_format}}");
+          $("#p_total_delivery_qty").text("{{$arrChartData.days_30.total.total_delivery_qty|number_format}}");
+      }
+    
+      checked_seq = [0]; //點選的順序
+      $("input[name='line-data']").prop("checked", false);
+      $("input[name='line-data']:eq(0)").prop("checked", true);
+      if(search_mode == '7'){
+          lineData.labels = dates_zone_7;
+          lineData.datasets = [];
+          lineData.datasets.push(newDataset_7[0]);
+      }else if(search_mode == '30'){
+          lineData.labels = dates_zone_30;
+          lineData.datasets = [];
+          lineData.datasets.push(newDataset_30[0]);
+      }
+      lineChart.update();
+  }
+
+  //改變數量字樣
+  function updateText(count) {
+      const ele = document.getElementById(`line-data-selected`);
+      ele.innerText = `已選${count}/2`;
+  }
+
+  (function() {
+      set_display();
+  })();
+  
+</script>

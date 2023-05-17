@@ -1,0 +1,213 @@
+<script language="javascript">
+function _CS_checkAdd( _this )
+{
+	if (_this.wpage_name.value=="")
+	{ alert('{{$lang.admweb.website_page.5}}'); return false;} /*{{* 請輸入頁面名稱 *}}*/
+	
+	if (_this.wpage_action.value!="" && !ij_isAccount( _this.wpage_action.value ))
+	{ alert('{{$lang.admweb.website_page.8}}' ); return false;} /*{{* 頁面索引輸入格式不正確，只能包含 [a-z] [0-9] _ - 等字元 *}}*/
+}
+function EditThidPage(obj){
+	var wpage_uid = $(obj).parent().attr('wpage_uid');
+	$('iframe[name="EditAttr"]').attr('src','admweb.main.php?action=website_page_edit&wpage_uid=' + wpage_uid);
+}
+function EditThidPageContent(obj){
+	var wpage_uid = $(obj).parent().attr('wpage_uid');
+	$('iframe[name="editFrame"]').attr('src','admweb.main.php?action=website_page_item&wpage_uid=' + wpage_uid);
+}
+</script>
+<div class="body_padding">
+	<table width="100%"  border="0" cellspacing="0" cellpadding="0" class="ApTitle1">
+		<tr>
+			<td>
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li> <i class="icon-home home-icon"></i> <a href="admweb.main.php">Home</a> </li>
+						<li class="active">{{$lang.admweb.website_manager.0}}<!--{{*網站維護 *}}--></li>
+						<li class="active">{{$lang.admweb.website_page.1}}<!--{{*頁面維護 *}}--></li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<div>
+		{{if $m_websitePageCount < $sys_arrWebsite.web_page_num}}
+		<div class="col-xs-12 col-sm-2">
+			<form method="post" action="" onsubmit="return _CS_checkAdd(this);" enctype="multipart/form-data">
+				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+				  <thead>
+				  <tr>
+					<th>{{$lang.admweb.website_page.2}}<!--{{*新增網站頁面 *}}-->~~~手機版</th>
+				  </tr>
+				  </thead>
+				  <tr>
+					<td style="background:#fff;"><table width="100%"  border="0" cellpadding="1" cellspacing="0" bgcolor="#FFFFFF" class="meatTxt">
+					  <tr>
+						<td style="border:0">&nbsp;{{$lang.admweb.website_page.10}}<!--{{*目前頁面使用量 *}}-->︰<strong><br />{{$m_websitePageCount}} / {{$sys_arrWebsite.web_page_num}}</strong></td>
+					  </tr>
+					  <tr>
+						<td style="border:0">&nbsp;<acronym class="form_star" title="{{$lang.admin.basic.57}}">*</acronym> {{$lang.admweb.website_page.3}}<!--{{*頁面名稱 *}}--></td>
+					  </tr>
+					  <tr>
+						<td style="border:0"><input name="wpage_name" id="wpage_name" type="text" class="FormTxt100" value="" /></td>
+					  </tr>
+					  <tr>
+						<td style="border:0">&nbsp;{{$lang.admweb.website_page.4}}<!--{{*頁面索引 *}}--></td>
+					  </tr>
+					  <tr>
+						<td style="border:0"><input name="wpage_action" id="wpage_action" type="text" class="FormTxt100" value="" /></td>
+					  </tr>
+					  <tr>
+						<td style="border:0">&nbsp;{{$lang.admweb.website_page.7}}<!--{{*頁面色系 *}}--></td>
+					  </tr>
+					  <tr>
+						<td style="border:0">
+							<select name="wstl_color_no" class="FormTxt100">
+							{{section name=i loop=$m_arrWebStyleColor}}
+							  <option value="{{$m_arrWebStyleColor[i].wstl_color_no}}" style="background-color:#{{$m_arrWebStyleColor[i].wstl_color}}; color:#ffffff">#{{$m_arrWebStyleColor[i].wstl_color}}</option>
+							{{/section}}
+							</select>
+						</td>
+					  </tr>
+					  <tr>
+						<td style="border:0">
+						<div class="center">
+						<input name="myAct" type="hidden" value="COMMAND_ADD" />
+						<button class="btn btn-info" type="submit" data-dismiss="modal">
+						<i class="icon-pencil bigger-110"></i> {{$lang.admin.basic.1}}<!--{{*新增 *}}--> 
+						</button>
+						</div>
+						</td>
+					  </tr>
+					</table></td>
+				  </tr>
+				</table>
+			</form>
+		</div>
+		{{/if}}
+
+		<div class="col-xs-12 {{if $m_websitePageCount < $sys_arrWebsite.web_page_num}} col-sm-10{{/if}}">
+			<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+			   <thead>
+				   <tr>
+					   <th>{{$lang.admweb.website_page.6}}<!--{{*網站頁面列表 *}}--> ~~~手機版
+						   <div style="display:inline;width:200px;float:right;">
+							   <form action="{{$m_inURL}}" method="POST">
+								   <select name="sort_status" id="sort_status" class="FormTxt" style="width:100px;">
+									   <option value="1" {{if $search_sort_status === '1'}}selected{{/if}}>{{$lang.admin.basic.7}}<!--有效--></option>
+									   <option value="0" {{if $search_sort_status === '0'}}selected{{/if}}>{{$lang.admin.basic.8}}<!--無效--></option>
+									   <option value="2" {{if $search_sort_status === '2'}}selected{{/if}}>{{$lang.admin.basic.91}}<!--系統頁--></option>
+									   <option value=""  {{if $search_sort_status === "" }}selected{{/if}}>{{$lang.admin.basic.65}}<!--全部--></option>
+								   </select>
+								   <input name="Submit" type="submit" class="btn btn-info" value="{{$lang.admin.basic.16}}" /><!--{{*搜尋 *}}-->
+							   </form>
+						   </div>
+					   </th>
+				   </tr>
+			  </thead>
+			  <tr>
+				<td style="background:#fff;">
+				<table id="sample-table-3" class="table table-striped table-bordered table-hover">
+				  <thead>
+				  <tr>
+					<th width="48">{{$lang.admin.basic.27}}<!--{{*序號 *}}--></th>
+					<th>&nbsp;{{$lang.admweb.website_page.3}}<!--{{*頁面名稱 *}}--></th>
+					<th width="200">&nbsp;{{$lang.admweb.website_page.4}}<!--{{*頁面索引 *}}--></th>
+					<th width="60" align="center">{{$lang.admin.basic.3}}<!--{{*狀態 *}}--></th>
+					<th width="100" align="right">{{$lang.admin.basic.4}}<!--{{*異動 *}}--></th>
+				  </tr>
+				  </thead>
+				</table>
+				<div style="width:100%; background-color:#FFFFFF">
+				<table id="sample-table-4" class="table table-striped table-bordered table-hover" style="margin-bottom:0;">
+		{{section name=i loop=$m_arrWebsitePage}}
+				  <tr class="hover_over">
+					<td width="48" align="right">{{$m_arrWebsitePage[i].wpage_no}}</td>
+					<td>
+						{{if $m_arrWebsitePage[i].wpage_issys}}<span style="color:#FF0000"><strong>system</strong></span> {{/if}}{{$m_arrWebsitePage[i].wpage_name}}<br>
+						<a href="//{{$sys_arrWebsite.web_domainname}}/{{$sys_arrWebsite.web_byeurl }}/index.php?action={{$m_arrWebsitePage[i].wpage_action}}" target="_blank">//{{$sys_arrWebsite.web_domainname}}/{{$sys_arrWebsite.web_byeurl }}/index.php?action={{$m_arrWebsitePage[i].wpage_action}}</a>
+					</td>
+					<td width="200">{{$m_arrWebsitePage[i].wpage_action}}</td>
+					<td width="60" align="center">
+						{{if $m_arrWebsitePage[i].wpage_status == 1}}
+							<span class="label label-warning">{{$lang.admin.basic.7}}<!--{{*有效 *}}--></span>
+						{{else}}
+							<span class="label label-inverse">{{$lang.admin.basic.8}}<!--{{*無效 *}}--></span>
+						{{/if}}
+					</td>
+					<td width="100">
+						<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons" wpage_uid='{{$m_arrWebsitePage[i].wpage_uid}}'>
+							<a class="blue" href="#modal-page" data-toggle="modal" title="編輯" onclick='EditThidPage(this);' ><i class="icon-pencil bigger-130"></i></a>
+							{{if $m_arrWebsitePage[i].wpage_status == 1}}
+							<a class="purple" href="#modal-content" data-toggle="modal" onclick='EditThidPageContent(this);'  title="{{$lang.admin.basic.9}}"><i class="icon-zoom-in bigger-130"></i></a>
+							{{/if}}
+							{{if $m_arrWebsitePage[i].wpage_status == 1}}
+							<a class="green" href="//{{$sys_arrWebsite.web_domainname}}/{{$sys_arrWebsite.web_byeurl }}/index.php?action={{$m_arrWebsitePage[i].wpage_action}}" target="_blank" title="預覽"><i class="icon-eye-open bigger-130"></i></a>
+							{{/if}}
+						</div>
+					</td>
+				  </tr>
+		{{/section}}
+		{{if $m_arrWebsitePage|@count == 0}}
+				  <tr align="center">
+					 <td height="80" colspan="6" style="background:#fff;">{{$lang.admin.basic.11}}<!--{{*沒有資料 *}}--></td>
+				  </tr>
+		{{/if}}
+				</table>
+				</div>
+				</td>
+			  </tr>
+			</table>
+			<!-- 編輯區塊 -->
+			<div id="modal-page" class="modal fade" tabindex="-1">
+			  <div class="modal-dialog" style="width:1000px;">
+				<div class="modal-content">
+				  <div class="modal-header no-padding">
+					<div class="table-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <span class="white">&times;</span> </button>
+						{{$lang.admweb.website_page_edit.0}}<!--{{*編輯頁面設定 *}}--></div>
+				  </div>
+				  <div class="modal-body padding"> 
+					<!-- 編輯內容 -->
+
+					<iframe name='EditAttr' src="" height="700" width="940" scrolling="yes" frameborder="0"></iframe>
+
+					<!-- 編輯內容 end --> 
+				  </div>
+				  <div class="modal-footer no-margin-top">
+					<button class="btn btn-sm btn-danger pull-left" data-dismiss="modal"> <i class="icon-remove"></i> Close </button>
+				  </div>
+				</div>
+				<!-- /.modal-content --> 
+			  </div>
+			  <!-- /.modal-dialog --> 
+			</div>
+			<!-- 編輯區塊 end --> 
+            <!-- 編輯區塊 -->
+			<div id="modal-content" class="modal fade" tabindex="-1">
+			  <div class="modal-dialog" style="width:1200px;">
+				<div class="modal-content">
+				  <div class="modal-header no-padding">
+					<div class="table-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <span class="white">&times;</span> </button>
+						{{$lang.admweb.event_registration.7}}<!--{{*編輯頁面內容 *}}--></div>
+				  </div>
+				  <div class="modal-body padding"> 
+					<!-- 編輯內容 -->
+
+					<iframe name='editFrame' src="" height="700" width="1140" scrolling="yes" frameborder="0"></iframe>
+
+					<!-- 編輯內容 end --> 
+				  </div>
+				  <div class="modal-footer no-margin-top">
+					<button class="btn btn-sm btn-danger pull-left" data-dismiss="modal"> <i class="icon-remove"></i> Close </button>
+				  </div>
+				</div>
+				<!-- /.modal-content --> 
+			  </div>
+			  <!-- /.modal-dialog --> 
+			</div>
+			<!-- 編輯區塊 end -->            
+		</div>
+	</div>
+</div>

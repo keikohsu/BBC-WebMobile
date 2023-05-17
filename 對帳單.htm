@@ -1,0 +1,771 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">對帳單</h2>
+  <div class="admweb-v2-orderlist-header-qrcode"></div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <form
+      class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+      style="--custom-grid-width: 82px 1fr"
+    >
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div
+          class="
+            admweb-v2-orderlist__form-head_search
+            js-orderlist__form-head_search
+          "
+        >
+          <select
+            name="search_type"
+            id=""
+            class="
+              pic-text-lnput pic-text-lnput-style
+              admweb-v2-orderlist-select
+            "
+          >
+            <option value="訂單編號">訂單編號</option>
+            <option value="配送單編號">配送單編號</option>
+            <option value="對帳單編號">對帳單編號</option>
+          </select>
+          <input
+            type="text"
+            placeholder="請輸入訂單編號"
+            class="pic-text-lnput pic-lnput-enter"
+          />
+          <button
+            type="submit"
+            class="
+              pic-BgText-color-green
+              admweb-v2-orderlist__form-head_search-btn
+              js-orderlist__form-head_search-btn
+            "
+          >
+            搜尋
+          </button>
+        </div>
+        <div class="admweb-v2-search__form-item">
+          <label for="order-date">對帳單日期</label>
+          <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+            <input
+              type="date"
+              class="
+                admweb-v2-orderlist__form-date
+                pic-text-lnput pic-lnput-enter
+              "
+            />
+            <span>-</span>
+            <input
+              type="date"
+              class="
+                admweb-v2-orderlist__form-date
+                pic-text-lnput pic-lnput-enter
+              "
+            />
+          </div>
+        </div>
+        <div
+          class="admweb-v2-search__form-item admweb-v2-search__form-item--last"
+        >
+          <label for="delivery">對帳類型</label>
+          <select
+            name="delivery_type"
+            id=""
+            class="
+              pic-text-lnput pic-text-lnput-style
+              admweb-v2-orderlist-select
+            "
+          >
+            <option value="全部">全部</option>
+            <option value="線上支付">線上支付</option>
+            <option value="取貨付款">取貨付款</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="pic-BgText-color-green admweb-v2-orderlist__form-btn"
+        >
+          搜尋
+        </button>
+      </div>
+    </form>
+    <button
+      class="
+        pic-text-gray-30 pic-bg-green-5
+        admweb-v2-orderlist__form-toggle-btn
+      "
+      id="js-orderlist__form-toggle--btn"
+    >
+      更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+    </button>
+    <!-- nav -->
+    <div
+      class="admweb-v2-store_delivery__nav-list admweb-v2-nav--sp-scroll"
+      data-tab-navs
+      style="--custom-nav-width: 28vw"
+    >
+      <a class="admweb-v2-store_delivery__nav-item" href="#type1"> 待撥款 </a>
+      <a class="admweb-v2-store_delivery__nav-item" href="#type2"> 撥款成功 </a>
+      <a class="admweb-v2-store_delivery__nav-item" href="#type3"> 撥款失敗 </a>
+      <a class="admweb-v2-store_delivery__nav-item" href="#all"> 全部 </a>
+    </div>
+    <!-- 注意事項 -->
+    <div
+      class="
+        pic-bg-orange-10 pic-text-orange
+        admweb-v2-orderlist__notice--outer
+      "
+    >
+      <div class="admweb-v2-orderlist__notice" data-overflow>
+        <div data-expand-text class="admweb-v2-orderlist__notice--text">
+          <p>
+            1.◆週一至週三取貨成功之款項，當週週四中午後可查詢對帳單且轉入會員帳戶
+          </p>
+          <p>
+            2.◆週四至週日取貨成功之款項，隔遇週一中午後可查詢對帳單且入會員帳戶
+          </p>
+          <p>
+            3.◆若您未如期收到款項，請點選「賣家銀行帳戶」，確認您填寫之資料是否正確無誤。
+          </p>
+          <p>
+            小提醒：代收貨款及遺失判賠款項皆轉入員帳戶，可於「我的員帳戶」調整提領設定。
+          </p>
+        </div>
+        <button
+          class="
+            pic-bg-orange-10 pic-text-orange
+            admweb-v2-orderlist__notice--btn
+          "
+        ></button>
+      </div>
+    </div>
+    <div data-tab-panels>
+      <!-- type1  -->
+      <section class="">
+        <!-- 訂單列表 -->
+        <div>
+          <div class="admweb-v2-orderlist-overview">
+            <span>對帳單日期：2022/09/05 ~2022/10/05</span>
+            <span>共3筆</span>
+          </div>
+          <ul class="admweb-v2-orderlist__list">
+            <!-- 取貨付款 +  匯款成功 -->
+            <li class="admweb-v2-orderlist__card">
+              <!-- 電腦版 -->
+              {{if !$mobileDeviceDirected}}
+              <table class="admweb-v2-orderlist__table">
+                <thead>
+                  <tr class="admweb-v2-orderlist__table--head">
+                    <th>對帳單編號</th>
+                    <th>對帳類型</th>
+                    <th>對帳區間</th>
+                    <th>匯款時間</th>
+                    <th>狀態</th>
+                    <th>應撥款金額</th>
+                    <th style="padding: 12px 15px">匯費</th>
+                    <th>實際撥款金額</th>
+                    <th>匯款銀行-帳號</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="admweb-v2-order_detail__product-item">
+                    <td>BM123456789123456</td>
+                    <td>
+                      <!-- 取貨付款:admweb-v2-orderlist-delivery--store /線上支付:admweb-v2-orderlist-delivery--normal -->
+                      <span class="admweb-v2-orderlist-delivery--store"
+                        >取貨付款</span
+                      >
+                    </td>
+                    <td>2022/12/28~2022/12/28</td>
+                    <td>2022/12/31</td>
+                    <td>
+                      <!-- 匯款失敗: admweb-v2-store_delivery__badge--danger / 匯款成功: admweb-v2-store_delivery__badge--success -->
+                      <span class="admweb-v2-store_delivery__badge--success"
+                        >匯款成功</span
+                      >
+                    </td>
+                    <!-- 應撥款金額 -->
+                    <td><span class="pic-text-green">$1,895</span></td>
+                    <!-- 匯費 -->
+                    <td>
+                      <span class="pic-text-green">$10</span>
+                    </td>
+                    <!-- 實際撥款金額 -->
+                    <td><span class="pic-text-green">$1,885</span></td>
+                    <td>822 中國新託商業銀行-40010</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a
+                class="
+                  admweb-v2-account__table_status-link
+                  pic-BgText-color-white-green pic-font-size-12
+                  admweb-v2-sp-hidden
+                "
+              >
+                對帳單詳情
+                <i class="icons-line icon-arrow-right-01"></i>
+              </a>
+              {{else}}
+              <!-- 手機版  -->
+              <dl
+                class="
+                  admweb-v2-account__info
+                  admweb-v2-md-hidden
+                  pic-margin-t5
+                "
+              >
+                <div style="--custom-grid-width: 82px">
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      對帳單編號
+                    </dt>
+                    <dd
+                      class="
+                        admweb-v2-order_detail__info-desc-dd
+                        pic-flex-center-between
+                      "
+                    >
+                      BM123456789123456
+                      <a
+                        class="
+                          admweb-v2-orderlist__card-top_status-link
+                          pic-BgText-color-white-green pic-font-size-12
+                        "
+                      >
+                        對帳單詳情
+                        <i class="icons-line icon-arrow-right-01"></i>
+                      </a>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      對帳類型
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <!-- 取貨付款:admweb-v2-orderlist-delivery--store /線上支付:admweb-v2-orderlist-delivery--normal -->
+                      <span class="admweb-v2-orderlist-delivery--store"
+                        >取貨付款</span
+                      >
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      對帳區間
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      2022/12/28~2022/12/28
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      匯款時間
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      2022/12/31
+                    </dd>
+                  </div>
+                </div>
+                <div style="--custom-grid-width: 105px">
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">狀態</dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <!-- 匯款失敗: admweb-v2-store_delivery__badge--danger / 匯款成功: admweb-v2-store_delivery__badge--success -->
+                      <span class="admweb-v2-store_delivery__badge--success"
+                        >匯款成功</span
+                      >
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      應撥款金額
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <span class="pic-text-green">$1,895</span>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">匯費</dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <span class="pic-text-green">$10</span>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      實際撥款金額
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <span class="pic-text-green">$1,895</span>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      匯款銀行-帳號
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      822 中國新託商業銀行-40010
+                    </dd>
+                  </div>
+                </div>
+              </dl>
+              {{/if}}
+            </li>
+            <!-- 線上支付 +  匯款失敗 -->
+            <li class="admweb-v2-orderlist__card">
+              <!-- 電腦版 -->
+              {{if !$mobileDeviceDirected}}
+              <table class="admweb-v2-orderlist__table admweb-v2-sp-hidden">
+                <thead>
+                  <tr class="admweb-v2-orderlist__table--head">
+                    <th>對帳單編號</th>
+                    <th>對帳類型</th>
+                    <th>對帳區間</th>
+                    <th>匯款時間</th>
+                    <th>狀態</th>
+                    <th>應撥款金額</th>
+                    <th style="padding: 12px 15px">匯費</th>
+                    <th>實際撥款金額</th>
+                    <th>匯款銀行-帳號</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="admweb-v2-order_detail__product-item">
+                    <td>BM123456789123456</td>
+                    <td>
+                      <!-- 取貨付款:admweb-v2-orderlist-delivery--store /線上支付:admweb-v2-orderlist-delivery--normal -->
+                      <span class="admweb-v2-orderlist-delivery--normal"
+                        >線上支付</span
+                      >
+                    </td>
+                    <td>2022/12/28~2022/12/28</td>
+                    <td>2022/12/31</td>
+                    <td>
+                      <!-- 匯款失敗: admweb-v2-store_delivery__badge--danger / 匯款成功: admweb-v2-store_delivery__badge--success -->
+                      <span class="admweb-v2-store_delivery__badge--danger"
+                        >匯款失敗</span
+                      >
+                    </td>
+                    <!-- 應撥款金額 -->
+                    <td><span class="pic-text-green">$1,895</span></td>
+                    <!-- 匯費 -->
+                    <td>
+                      <span class="pic-text-green">$10</span>
+                    </td>
+                    <!-- 實際撥款金額 -->
+                    <td><span class="pic-text-green">$1,885</span></td>
+                    <td>822 中國新託商業銀行-40010</td>
+                  </tr>
+                </tbody>
+              </table>
+              <a
+                class="
+                  admweb-v2-account__table_status-link
+                  pic-BgText-color-white-green pic-font-size-12
+                  admweb-v2-sp-hidden
+                "
+              >
+                對帳單詳情
+                <i class="icons-line icon-arrow-right-01"></i>
+              </a>
+              {{else}}
+              <!-- 手機版  -->
+              <dl
+                class="
+                  admweb-v2-account__info
+                  admweb-v2-md-hidden
+                  pic-margin-t5
+                "
+              >
+                <div style="--custom-grid-width: 82px">
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      對帳單編號
+                    </dt>
+                    <dd
+                      class="
+                        admweb-v2-order_detail__info-desc-dd
+                        pic-flex-center-between
+                      "
+                    >
+                      BM123456789123456
+                      <a
+                        class="
+                          admweb-v2-orderlist__card-top_status-link
+                          pic-BgText-color-white-green pic-font-size-12
+                        "
+                      >
+                        對帳單詳情
+                        <i class="icons-line icon-arrow-right-01"></i>
+                      </a>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      對帳類型
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <!-- 取貨付款:admweb-v2-orderlist-delivery--store /線上支付:admweb-v2-orderlist-delivery--normal -->
+                      <span class="admweb-v2-orderlist-delivery--normal"
+                        >線上支付</span
+                      >
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      對帳區間
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      2022/12/28~2022/12/28
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      匯款時間
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      2022/12/31
+                    </dd>
+                  </div>
+                </div>
+                <div style="--custom-grid-width: 105px">
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">狀態</dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <!-- 匯款失敗: admweb-v2-store_delivery__badge--danger / 匯款成功: admweb-v2-store_delivery__badge--success -->
+                      <span class="admweb-v2-store_delivery__badge--danger"
+                        >匯款失敗</span
+                      >
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      應撥款金額
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <span class="pic-text-green">$1,895</span>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">匯費</dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <span class="pic-text-green">$10</span>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      實際撥款金額
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      <span class="pic-text-green">$1,895</span>
+                    </dd>
+                  </div>
+                  <div class="admweb-v2-order_detail__info-desc">
+                    <dt class="admweb-v2-order_detail__info-desc-dt">
+                      匯款銀行-帳號
+                    </dt>
+                    <dd class="admweb-v2-order_detail__info-desc-dd">
+                      822 中國新託商業銀行-40010
+                    </dd>
+                  </div>
+                </div>
+              </dl>
+              {{/if}}
+            </li>
+          </ul>
+        </div>
+
+        <!-- 對帳單 無資料-->
+        <div class="admweb-v2-NoData">
+          <div class="admweb-v2-img-NoData"></div>
+          <span>目前無對帳單資料</span>
+        </div>
+        <div></div>
+        <!-- 一頁以下 -->
+        <div class="pic-text-center">
+          <p class="pic-page-bottom-text">1 - 3 筆／共 3 筆</p>
+        </div>
+        <!-- 五頁以下 -->
+        <div class="pic-flex-center pic-flex-center-column">
+          <ul class="admweb-v2-pagination">
+            <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+              <a class="admweb-v2-page-link-num" href="#">1</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-num" href="#">2</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-num" href="#">3</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-num" href="#">4</a>
+            </li>
+          </ul>
+          <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+        </div>
+        <!-- 五頁以上 -->
+        <div class="pic-flex-center pic-flex-center-column">
+          <ul class="admweb-v2-pagination">
+            <li class="admweb-v2-page-num-box">
+              <a
+                class="admweb-v2-page-link-arrows"
+                href="#"
+                aria-label="Previous"
+              >
+                <span
+                  class="admweb-v2-icon-page-left-first-arrows"
+                  aria-hidden="true"
+                ></span>
+              </a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a
+                class="admweb-v2-page-link-arrows"
+                href="#"
+                aria-label="Previous"
+              >
+                <span
+                  class="admweb-v2-icon-black-left-arrows"
+                  aria-hidden="true"
+                ></span>
+              </a>
+            </li>
+            <li class="admweb-v2-page-num-box admweb-v2-page-num-active">
+              <a class="admweb-v2-page-link-num" href="#">1</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-num" href="#">2</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-num" href="#">3</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-num" href="#">4</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-num" href="#">5</a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+                <span
+                  class="admweb-v2-icon-black-right-arrows"
+                  aria-hidden="true"
+                ></span>
+              </a>
+            </li>
+            <li class="admweb-v2-page-num-box">
+              <a class="admweb-v2-page-link-arrows" href="#" aria-label="Next">
+                <span
+                  class="admweb-v2-icon-page-right-last-arrows"
+                  aria-hidden="true"
+                ></span>
+              </a>
+            </li>
+          </ul>
+          <p class="admweb-v2-page-bottom-text">1 - 10 筆／共 34 筆</p>
+        </div>
+      </section>
+      <!-- type2  -->
+      <section></section>
+      <!-- type3  -->
+      <section></section>
+      <!-- type4  -->
+      <section></section>
+    </div>
+    <div class="admweb-v2-order_delivery__actions">
+      <div class="admweb-v2-order_detail__action">
+        <button
+          class="
+            admweb-v2-order_detail__action-btn
+            admweb-v2-order_detail__action-btn--sp-row
+          "
+        >
+          <i class="icons-line icon-line-paper-text admweb-v2__icon-xs"></i
+          >匯出報表
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="js-admweb-v2--alert admweb-v2-orderlist--alert"
+    style="display: none"
+  >
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="pic-window-order">
+        <p class="pic-window-marge-box">text</p>
+        <div class="pic-window-button-box">
+          <button
+            class="pic-window-button-OneBtn pic-BgText-color-green"
+            onclick="closeAlert()"
+          >
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    initialFormHeight();
+    getPcSideMenuWidth();
+  })();
+  window.addEventListener('resize', getPcSideMenuWidth);
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-orderlist')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  // 預設搜尋表單高度
+  function initialFormHeight() {
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const wholeHeight = formEle.clientHeight;
+    formEle.style.height = `${defaultHeight}px`;
+  }
+  // 搜尋表單收合展開
+  const Selector = {
+    toggleBtn: document.getElementById('js-orderlist__form-toggle--btn'),
+    formEle: document.querySelector('.js-orderlist__form'),
+    formHeadEle: document.querySelector('.js-orderlist__form-head_search'),
+    headBtn: document.querySelector('.js-orderlist__form-head_search-btn')
+  };
+  Selector.toggleBtn.addEventListener('click', searchFormCollapse.bind(this));
+  function searchFormCollapse(event) {
+    const defaultHeight = Selector.formHeadEle.clientHeight;
+    const wholeHeight = Selector.formEle.children[0].clientHeight;
+    const currentStyle = Selector.formEle.style;
+    //當前為收合
+    if (currentStyle.height === `${defaultHeight}px`) {
+      currentStyle.height = `${wholeHeight}px`;
+      event.target.closest('button').innerHTML =
+        '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+      Selector.formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+      Selector.headBtn.style.display = 'none';
+    } else {
+      ///當前為展開
+      currentStyle.height = `${defaultHeight}px`;
+      event.target.closest('button').innerHTML =
+        '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+      Selector.formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+      Selector.headBtn.style.display = 'block';
+    }
+  }
+  // 注意事項收合展開
+  const expandableEles = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice'
+  );
+  const expandableBtns = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice--btn'
+  );
+  checkNoticeOverflow();
+  function checkNoticeOverflow() {
+    expandableEles.forEach((expandableEle) => {
+      if (expandableEle.classList.contains('expanded')) return;
+      const expandableText = expandableEle.querySelector(
+        '.admweb-v2-orderlist__notice--text'
+      );
+      const overflowing =
+        expandableText.scrollHeight > expandableEle.clientHeight;
+      expandableEle.dataset.overflow = overflowing;
+    });
+  }
+  expandableBtns.forEach((button) => {
+    button.addEventListener('click', toggleNoticeText);
+    setNoticeButtonText(button);
+  });
+  function toggleNoticeText(e) {
+    const expandableEle = e.target.closest('.admweb-v2-orderlist__notice');
+    expandableEle.classList.toggle('expanded');
+    setNoticeButtonText(e.target);
+  }
+  function setNoticeButtonText(button) {
+    const expandableEle = button.closest('.admweb-v2-orderlist__notice');
+    const expanded = expandableEle.classList.contains('expanded');
+    button.innerHTML = expanded
+      ? '<i class="icons-line icon-arrow-top-01"></i>運費/出貨說明收合'
+      : '<i class="icons-line icon-arrow-down-01"></i>運費/出貨說明展開';
+  }
+
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    alert.style.display = 'none';
+  }
+  function editAlertContent(content) {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    showAlert(alert);
+    alert.querySelector('.pic-window-marge-box').innerHTML = content;
+  }
+
+  // Tab
+  const DOM = {
+    nav: document.querySelector('[data-tab-navs]'),
+    navItems: document.querySelectorAll('[data-tab-navs] > a'),
+    panels: document.querySelectorAll('[data-tab-panels] > section')
+  };
+  DOM.nav.addEventListener('click', (e) => {
+    const clickedTab = e.target;
+    const activeIndex = Array.from(DOM.navItems).indexOf(clickedTab);
+    setActivePanel(activeIndex);
+    setActiveNav(activeIndex);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  function setActivePanel(activeIndex) {
+    DOM.panels.forEach((ele) => (ele.style.display = 'none'));
+    DOM.panels[activeIndex].style.display = 'block';
+  }
+  function setActiveNav(activeIndex) {
+    DOM.navItems.forEach((ele) => ele.classList.remove('active'));
+    DOM.navItems[activeIndex].classList.add('active');
+  }
+  (function () {
+    setActivePanel(0);
+    setActiveNav(0);
+  })();
+</script>

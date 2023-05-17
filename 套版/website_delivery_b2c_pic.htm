@@ -1,0 +1,816 @@
+<style>
+.admweb-v2-order_detail .admweb-v2-order_detail__content{padding-bottom: 0;}
+.admweb-v2-orderlist__inner{padding-bottom: 60px;}
+@media screen and (max-width:768px){
+    .admweb-v2-order_detail__action button{width: 50%;}
+    .admweb-v2-list-header-in-fixbottom{display: none;}
+}
+</style>
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        <button onclick="toggleMenuHandler()">
+            <i class="icons-line icon-line-hamburger"></i>
+        </button>
+    </div>
+    <!-- status1:大宗寄件申請  status2:更新大宗寄件資訊 status3:查看大宗寄件申請資料 -->
+    <h2 class="admweb-v2-orderlist-header-title">大宗寄件申請 </h2>
+    <span></span>
+</div>
+
+<div class="pic-default pic-flex admweb-v2-order_detail">
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+
+    <div class="admweb-v2-orderlist__inner pic-text-gray-100 pic-text-gray-100">
+        <div data-tab-panels>
+            <div class="admweb-v2-order_detail__content" style="padding-bottom: 0;">
+                <form name="form_del_b2c" id="form_del_b2c" action="" method="post">
+                <section class="admweb-v2-store_delivery__card">
+                    <div class="admweb-v2-order_detail__card--title">
+                        <h3>
+                            <i class="icons-line icon-line-emoney-bold-02 pic-margin-r5"></i>大宗寄件資訊 ({{$bdba_prod_type_name}}) ({{$bdba_apply_status_name}})
+                        </h3>
+                        <div id="pic-list-1" class="pic-icon-black-arrows-rotate-up pic_margin-r5" onclick="toggleList();"></div>
+                    </div>
+
+                    <div id="pic-list-content-1">
+                        <fieldset class="pic-margin-t5">
+                            <!-- status3:查看大宗寄件申請資料時 欄位請帶入資料 並設為disabled -->
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span>廠商名稱
+                                </legend>
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                                    <input type="text" name="bdba_vendor_name" id="bdba_vendor_name" value="{{$m_arrB2CApply.bdba_vendor_name}}"
+                                            class="pic-text-lnput pic-lnput-enter" placeholder="請輸入廠商名稱" />
+                                </div>
+                            </div>
+                        </fieldset>
+    
+                        <fieldset class="pic-margin-t5">
+                            <!-- status3:查看大宗寄件申請資料時 欄位請帶入資料 並設為disabled -->
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span>聯絡人
+                                </legend>
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                                    <input type="text" name="bdba_contact_name" id="bdba_contact_name" value="{{$m_arrB2CApply.bdba_contact_name}}"
+                                            class="pic-text-lnput pic-lnput-enter" placeholder="請輸入聯絡人" />
+                                </div>
+                            </div>
+                        </fieldset>
+    
+                        <fieldset>
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span>廠商統一編號
+                                </legend>
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                                    <input type="text" name="bdba_vendor_utcode" id="bdba_vendor_utcode" value="{{$m_arrB2CApply.bdba_vendor_utcode}}"
+                                            class="pic-text-lnput pic-lnput-enter" placeholder="請輸入廠商統一編號" {{if $bdba_apply_status == '2'}}disabled{{/if}}/>
+                                </div>
+                            </div>
+                        </fieldset>
+    
+                        <fieldset>
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span>聯絡人E-mail
+                                </legend>
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                                    <input type="text" name="bdba_contact_email" id="bdba_contact_email" value="{{$m_arrB2CApply.bdba_contact_email}}"
+                                            class="pic-text-lnput pic-lnput-enter" placeholder="請輸入聯絡人E-mail" />
+                                </div>
+                            </div>
+                        </fieldset>
+    
+                        <fieldset>
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span>電話號碼
+                                </legend>
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                                    <input type="text" name="bdba_contact_tel" id="bdba_contact_tel" value="{{$m_arrB2CApply.bdba_contact_tel}}"
+                                            class="pic-text-lnput pic-lnput-enter" placeholder="請輸入電話號碼"/>
+                                </div>
+                            </div>
+                        </fieldset>
+    
+                        <fieldset>
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span>收退貨地址
+                                </legend>
+                                <div class="">
+                                    <div class="admweb-v2-order_detail__return_backage-address pic-margin-t5">
+                                        <input class="pic-text-lnput" placeholder="郵遞區號" name="bdba_zip" id="bdba_zip"/>
+                                        <select class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select" name="bdba_city" id="bdba_city" onchange="b2c_objAddress.selectCity();"> 
+                                            <option>選擇縣市</option>
+                                        </select>
+                                        <select class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select" name="bdba_state" id="bdba_state" onchange="b2c_objAddress.selectState();">
+                                        </select>
+                                    </div>
+                                    <input class="pic-text-lnput pic-lnput-enter pic-margin-t5" name="bdba_address" id="bdba_address" 
+                                        value="{{$m_arrB2CApply.bdba_address}}" placeholder="請輸入地址" />
+                                </div>
+                            </div>
+                        </fieldset>
+    
+                        <fieldset data-input-fieldset id="field_bdba_return_cycle">
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span><span data-input-legend>退貨週期</span>
+                                    <!-- openPopupHandler 傳入 要監聽的input name -->
+                                    <div class="admweb-v2-store_delivery__popup-btn"
+                                        onclick="openPopupHandler(this,'bdba_return_cycle')">
+                                        <span data-input-text>{{$m_arrB2CApply.bdba_return_cycle_name}}</span>
+                                        <i class="icons-line icon-arrow-right-01"></i>
+                                    </div>
+                                </legend>
+    
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type1 admweb-v2-sp-hidden" data-input-fields>
+                                    <div class="admweb-v2-store_delivery__fieldset--radio">
+                                        <label class="" for="bdba_return_cycle_0">
+                                            <input class="admweb-v2-radio-green bdba_return_cycle" type="radio" id="bdba_return_cycle_0"
+                                                name="bdba_return_cycle" value="0" {{if $m_arrB2CApply.bdba_return_cycle == '0'}}checked{{/if}} 
+                                                data-input_title = "每週"/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>每週</p>
+                                        </label>
+                                    </div>
+                                    <div class="admweb-v2-store_delivery__fieldset--radio">
+                                        <label class="" for="bdba_return_cycle_1">
+                                            <input class="admweb-v2-radio-green bdba_return_cycle" type="radio" id="bdba_return_cycle_1"
+                                                name="bdba_return_cycle" value="1" {{if $m_arrB2CApply.bdba_return_cycle == '1'}}checked{{/if}}
+                                                data-input_title = "日退（隔天收退）"/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>日退（隔天收退）</p>
+                                        </label>
+                                    </div>
+                                    <div class="admweb-v2-store_delivery__fieldset--radio">
+                                        <label class="" for="bdba_return_cycle_2">
+                                            <input class="admweb-v2-radio-green bdba_return_cycle" type="radio" id="bdba_return_cycle_2"
+                                                name="bdba_return_cycle" value="2" {{if $m_arrB2CApply.bdba_return_cycle == '2'}}checked{{/if}}
+                                                data-input_title = "當日退（進貨時收退）"/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>當日退（進貨時收退）</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        
+                        <fieldset data-input-fieldset id="field_bdba_return_day">
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span><span data-input-legend>退貨週期日</span>
+                                    <!-- openPopupHandler 傳入 要監聽的input name -->
+                                    <div class="admweb-v2-store_delivery__popup-btn"
+                                        onclick="openPopupHandler(this,'bdba_return_day')">
+                                        <span data-input-text>{{$m_arrB2CApply.bdba_return_day_name}}</span>
+                                        <i class="icons-line icon-arrow-right-01"></i>
+                                    </div>
+                                </legend>
+    
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type1 admweb-v2-sp-hidden" data-input-fields>
+                                    <div class="admweb-v2-store_delivery__fieldset--radio">
+                                        <label class="" for="bdba_return_day_2">
+                                            <input class="admweb-v2-radio-green bdba_return_day" type="radio" id="bdba_return_day_2"
+                                                name="bdba_return_day" value="2" {{if $m_arrB2CApply.bdba_return_day == '2'}}checked{{/if}} 
+                                                data-input_title = "週二"/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>週二</p>
+                                        </label>
+                                    </div>
+                                    <div class="admweb-v2-store_delivery__fieldset--radio">
+                                        <label class="" for="bdba_return_day_3">
+                                            <input class="admweb-v2-radio-green bdba_return_day" type="radio" id="bdba_return_day_3"
+                                                name="bdba_return_day" value="3" {{if $m_arrB2CApply.bdba_return_day == '3'}}checked{{/if}}
+                                                data-input_title = "週三"/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>週三</p>
+                                        </label>
+                                    </div>
+                                    <div class="admweb-v2-store_delivery__fieldset--radio">
+                                        <label class="" for="bdba_return_day_4">
+                                            <input class="admweb-v2-radio-green bdba_return_day" type="radio" id="bdba_return_day_4"
+                                                name="bdba_return_day" value="4" {{if $m_arrB2CApply.bdba_return_day == '4'}}checked{{/if}}
+                                                data-input_title = "週四"/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>週四</p>
+                                        </label>
+                                    </div>
+                                    <div class="admweb-v2-store_delivery__fieldset--radio">
+                                        <label class="" for="bdba_return_day_5">
+                                            <input class="admweb-v2-radio-green bdba_return_day" type="radio" id="bdba_return_day_5"
+                                                name="bdba_return_day" value="5" {{if $m_arrB2CApply.bdba_return_day == '5'}}checked{{/if}}
+                                                data-input_title = "週五"/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>週五</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+    
+                        <fieldset data-input-fieldset id="field_bdba_return_mode">
+                            <div class="admweb-v2-store_delivery__fieldset">
+                                <legend class="admweb-v2-store_delivery__fieldset-legend">
+                                    <span class="pic-GeneralStore-red">*</span><span data-input-legend>退貨方式</span>
+                                    <!-- openPopupHandler 傳入 要監聽的input name -->
+                                    <div class="admweb-v2-store_delivery__popup-btn"
+                                        onclick="openPopupHandler(this,'bdba_return_mode')">
+                                        <span data-input-text>
+                                            {{$m_arrB2CApply.bdba_return_mode_name}}
+                                        </span>
+                                        <i class="icons-line icon-arrow-right-01"></i>
+                                    </div>
+                                </legend>
+                                <div class="admweb-v2-store_delivery__fieldset-fields-type1 admweb-v2-sp-hidden" data-input-fields>
+                                    <div id="div_bdba_return_mode_1" class="admweb-v2-store_delivery__fieldset--radio div_bdba_return_mode">
+                                        <label class="" for="bdba_return_mode_1">
+                                            <input class="admweb-v2-radio-green bdba_return_mode" type="radio" id="bdba_return_mode_1"
+                                                name="bdba_return_mode" value="1"
+                                                data-input_title = "自行取貨" {{if $m_arrB2CApply.bdba_return_mode == '1'}}checked{{/if}}/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>自行取貨</p>
+                                        </label>
+                                    </div>
+                                    <div id="div_bdba_return_mode_3" class="admweb-v2-store_delivery__fieldset--radio div_bdba_return_mode">
+                                        <label class="" for="bdba_return_mode_3">
+                                            <input class="admweb-v2-radio-green bdba_return_mode" type="radio" id="bdba_return_mode_3"
+                                                name="bdba_return_mode" value="3" 
+                                                data-input_title = "黑貓宅急便" {{if $m_arrB2CApply.bdba_return_mode == '3'}}checked{{/if}}/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>黑貓宅急便</p>
+                                        </label>
+                                    </div>
+                                    <div id="div_bdba_return_mode_4" class="admweb-v2-store_delivery__fieldset--radio div_bdba_return_mode">
+                                        <label class="" for="bdba_return_mode_4">
+                                            <input class="admweb-v2-radio-green bdba_return_mode" type="radio" id="bdba_return_mode_4"
+                                                name="bdba_return_mode" value="4"
+                                                data-input_title = "大嘴鳥宅配通" {{if $m_arrB2CApply.bdba_return_mode == '4'}}checked{{/if}}/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>大嘴鳥宅配通</p>
+                                        </label>
+                                    </div>
+                                    <div id="div_bdba_return_mode_5" class="admweb-v2-store_delivery__fieldset--radio div_bdba_return_mode">
+                                        <label class="" for="bdba_return_mode_5">
+                                            <input class="admweb-v2-radio-green bdba_return_mode" type="radio" id="bdba_return_mode_5"
+                                                name="bdba_return_mode" value="5"
+                                                data-input_title = "新竹貨運" {{if $m_arrB2CApply.bdba_return_mode == '5'}}checked{{/if}}/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>新竹貨運</p>
+                                        </label>
+                                    </div>
+                                    <div id="div_bdba_return_mode_6" class="admweb-v2-store_delivery__fieldset--radio div_bdba_return_mode">
+                                        <label class="" for="bdba_return_mode_6">
+                                            <input class="admweb-v2-radio-green bdba_return_mode" type="radio" id="bdba_return_mode_6"
+                                                name="bdba_return_mode" value="6"
+                                                data-input_title = "大榮貨運" {{if $m_arrB2CApply.bdba_return_mode == '6'}}checked{{/if}}/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>大榮貨運</p>
+                                        </label>
+                                    </div>
+                                    <div id="div_bdba_return_mode_9" class="admweb-v2-store_delivery__fieldset--radio div_bdba_return_mode">
+                                        <label class="" for="bdba_return_mode_9">
+                                            <input class="admweb-v2-radio-green bdba_return_mode" type="radio" id="bdba_return_mode_9"
+                                                name="bdba_return_mode" value="9"
+                                                data-input_title = "其他" {{if $m_arrB2CApply.bdba_return_mode == '9'}}checked{{/if}}/>
+    
+                                            <div class="admweb-v2-label-check-green"></div>
+                                            <p>其他</p>
+                                            <input type="text" name="bdba_return_mode_other" id="bdba_return_mode_other" value="{{$m_arrB2CApply.bdba_return_mode_other}}"
+                                                class="pic-text-lnput pic-lnput-enter pic-margin-l5" placeholder="請輸入退貨方式" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </section>
+
+                {{if $bdba_apply_status != '1'}}
+                <input name="myAct" type="hidden" value="COMMAND_UPDATE">
+                {{/if}}
+                
+
+                <!-- <div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12 ">
+                    <p class="admweb-v2-store_delivery__notice-title">
+                        PAYUNi客服及帳務連絡資訊
+                    </p>
+                    <p>電話：02-6605-0810</p>
+                    <p>信箱：service@payuni.com.tw</p>
+                </div> -->
+
+                {{if $bdba_apply_status == '0'}}
+                <div class="pic-padding-10 pic-bg-orange-10">
+                    <div class="admweb-v2-checkbox-box admweb-v2-checkbox-name">
+                        <input name="agree_licence" type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_1" onclick="agree_licence();">
+                        <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_1"></label>
+                        <span class="admweb-v2-checkbox-span">我同意IOPEN 
+                            <span class="pic-text-orange">
+                            <a class="pic-text-orange" href="https://mall.iopenmall.tw/iopen/index.php?action=delivery_b2c_rule" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}}>物流金流服務合約條款</a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                {{/if}}
+
+                </form>
+                <div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12" style="margin-bottom: 0;">客服電話02-77137107</div>
+            </div>
+        </div>
+        {{if $bdba_apply_status == '1'}}
+        <!-- 更新大宗寄件資訊 不顯示此區塊 -->
+        
+        <div class="admweb-v2-order_detail__content">
+            <section class="admweb-v2-store_delivery__card">
+                <div class="admweb-v2-order_detail__card--title">
+                    <h3>
+                        <i class="icons-line icon-line-paper-text pic-margin-r5"></i>審核資料
+                    </h3>
+                </div>
+
+                <fieldset>
+                    <div class="admweb-v2-store_delivery__fieldset">
+                        <legend class="admweb-v2-store_delivery__fieldset-legend">
+                            <span class="pic-GeneralStore-red">*</span>標籤審核
+                        </legend>
+                        <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                            {{if $bdba_prod_type == '11'}}
+                            <p class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+                                註：請列印出紙本寄件標籤，寄至 744台南市新市區大營里7號(統昶行銷) 
+                                ES測標 收
+                            </p>
+                            <a href="admweb.main.php?action=st711_cold_b2c_od_print&delivery_uid=sample" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}} class="admweb-v2-store_delivery__lg-btn pic-BgText-color-green">
+                                <i class="icons-line icon-line-Download pic-margin-r5"></i>下載寄件標籤檔案
+                            </a>
+                            {{else}}
+                            <p class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+                                註：請列印出紙本寄件標籤，寄至 新北市樹林區佳園路二段 70-1 號 大智通文化行銷 電子商務作業組收
+                            </p>
+                            <a href="admweb.main.php?action=st711_b2c_od_print&delivery_uid=sample" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}} class="admweb-v2-store_delivery__lg-btn pic-BgText-color-green">
+                                <i class="icons-line icon-line-Download pic-margin-r5"></i>下載寄件標籤檔案
+                            </a>
+                            {{/if}}
+                            <!-- <p class="pic-text-warn">*資料審核中，請於30分鐘後再回到此功能中列印標籤。</p> -->
+
+                            
+                        </div>
+                    </div>
+                </fieldset>
+            </section>
+        </div>
+    
+        {{/if}}
+
+        <!-- 置底按鈕-->
+        <div class="admweb-v2-store_delivery__actions" data-tab-actions>
+            <!-- 大宗寄件申請 才顯示  -->
+            {{if $bdba_apply_status == '0'}}
+            <div class="admweb-v2-order_detail__action">
+                <button class="admweb-v2-order_detail__action-btn--outline admweb-v2-order_detail__action-btn--sp-row" onclick="backToWebsiteDeliveryPic();">
+                    <i class="icons-line icon-line-Arrow-Left"></i>返回
+                </button>
+                <button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row" onclick="sendInfoData()">
+                    <i class="icons-line icon-line-tick"></i>確認送出
+                </button>
+            </div>
+            {{/if}}
+            
+            <!-- 查看大宗寄件申請資料 才顯示 -->
+            {{if $bdba_apply_status == '1'}}
+            <div class="admweb-v2-order_detail__action">
+                <button class="admweb-v2-order_detail__action-btn--outline admweb-v2-order_detail__action-btn--sp-row" onclick="backToWebsiteDeliveryPic();">
+                    <i class="icons-line icon-line-X"></i>返回
+                </button>
+                <button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row" onclick="backToWebsiteDeliveryPic();">
+                    <i class="icons-line icon-line-tick"></i>確認
+                </button>
+            </div>
+            {{/if}}
+            
+            <!-- 更新大宗寄件資訊 才顯示 -->
+            {{if $bdba_apply_status == '2'}}
+            <div class="admweb-v2-order_detail__action">
+                <button class="admweb-v2-order_detail__action-btn--outline admweb-v2-order_detail__action-btn--sp-row" onclick="backToWebsiteDeliveryPic();">
+                    <i class="icons-line icon-line-X"></i>返回
+                </button>
+                <button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row" onclick="sendInfoData()">
+                    <i class="icons-line icon-line-tick"></i>確認送出
+                </button>
+            </div>
+            {{/if}}
+
+        </div>
+    </div>
+
+    <div class="js-admweb-v2__alert" style="display: none">
+        <div id="pic-icon" class="pic-window-bg">
+            <div class="admweb-v2__alert-content">
+                <p class="admweb-v2__alert-text js-admweb-v2__alert-text">text</p>
+                <div class="admweb-v2__alert-action js-admweb-v2__alert-action">
+                    <button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert()">
+                        確認
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="admweb-v2__popup js-admweb-v2__popup" style="display: none" onclick="closePopup()">
+        <div class="admweb-v2__popup--inner js-admweb-v2__popup--inner">
+            <h3 class="admweb-v2__popup--title js-admweb-v2__popup--title">
+                寄件方式
+            </h3>
+            <div class="admweb-v2__popup--content js-admweb-v2__popup--content"></div>
+            <div class="js-admweb-v2__popup--action pic-confirm-box pic-flex-center pic-icon-margin-r pic-line-light15"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var b2c_objAddress;
+    
+    (function () {
+        // hideMobileLayout();
+        getPcSideMenuWidth();
+
+        b2c_objAddress = new ij_AddressFormTw("form_del_b2c","bdba_city","bdba_state","bdba_zip");
+        b2c_objAddress.init("{{$m_arrB2CApply.bdba_city}}","{{$m_arrB2CApply.bdba_state}}");
+
+        {{if $bdba_apply_status == '1'}}
+        $('form *').prop('disabled', true);
+        $(":text,#bdba_city,#bdba_state").css("background-color","#DBDBDB");
+        $('.admweb-v2-store_delivery__popup-btn').removeAttr('onclick');
+        {{/if}}
+
+        $('.bdba_return_cycle').change(function() {
+            let return_cycle = $(this).val();
+            returnCycleChange(return_cycle);
+        });
+
+        $('.bdba_return_day').change(function() {
+            let week_day = $(this).val();
+            returnDayChange(week_day);
+        });
+
+        {{if $m_arrB2CApply.bdba_return_day > '0'}}
+        $('#bdba_return_day_' + {{$m_arrB2CApply.bdba_return_day}}).trigger('change');
+        {{/if}}
+
+        {{if $m_arrB2CApply.bdba_return_cycle >= '0'}}
+        $('#bdba_return_cycle_' + {{$m_arrB2CApply.bdba_return_cycle}}).trigger('change');
+        {{/if}}
+
+        {{if ($bdba_apply_status == '1' || $bdba_apply_status == '2') && $m_arrB2CApply.bdba_return_mode > '0'}}
+        $('#bdba_return_mode_' + {{$m_arrB2CApply.bdba_return_mode}}).prop("checked", true);
+        updatePopupText('bdba_return_mode');
+        {{/if}}
+
+        {{if $bdba_apply_status == '1'}}
+        toggleList();
+        {{/if}}
+
+    })();
+    function getPcSideMenuWidth() {
+        const pcSidMenuEle = document.querySelector(
+            '.admweb-v2-seller-front-left-box'
+        );
+        pcSidMenuEle
+            .closest('.admweb-v2-order_detail')
+            .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+    }
+    function toggleMenuHandler() {
+        document
+            .querySelector('.admweb-v2-seller-front-left-box')
+            .classList.toggle('pic-phone-open-menu');
+        const hamBtn = document
+            .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+            .querySelector('i');
+        if (hamBtn.classList.contains('icon-arrow-left-01')) {
+            document.querySelectorAll(
+                '.admweb-v2-orderlist-header-actions button'
+            )[0].style.display = 'block';
+        } else {
+            document.querySelectorAll(
+                '.admweb-v2-orderlist-header-actions button'
+            )[0].style.display = 'none';
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01');
+    }
+    // function hideMobileLayout() {
+    //     if (window.matchMedia('(max-width: 768px)').matches) {
+    //         document.querySelector(
+    //             '.admweb-v2-list-header-in-fixbottom'
+    //         ).style.display = 'none';
+    //         document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    //     }
+    // }
+
+    // js-admweb-v2__alert
+    function showAlert(alert) {
+        alert.style.display = 'block';
+    }
+    function closeAlert() {
+        const alert = document.querySelector('.js-admweb-v2__alert');
+        alert.style.display = 'none';
+    }
+    function editAlertContent({ text, actions }) {
+        const alertEle = document.querySelector('.js-admweb-v2__alert');
+        alertEle.querySelector('.js-admweb-v2__alert-text').innerText = text;
+        const defaultBtn = `<button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert()" > 確認 </button>`;
+        alertEle.querySelector('.js-admweb-v2__alert-action').innerHTML = actions
+            ? actions
+            : defaultBtn;
+        showAlert(alertEle);
+    }
+    function openAlert() {
+        content = {
+            text: '貼心提醒<br>超商大宗寄件已進行審核<br>再請您耐心等候申請結果！'
+        };
+        editAlertContent(content);
+    }
+    // popup
+    function createPopupContent(inputName, legendEle, fieldEles) {
+        const windowEle = document.querySelector('.js-admweb-v2__popup');
+        const titleEle = windowEle.querySelector('.js-admweb-v2__popup--title');
+        const contentEle = windowEle.querySelector('.js-admweb-v2__popup--content');
+        const actionEle = windowEle.querySelector('.js-admweb-v2__popup--action');
+        contentEle.innerHTML = null;
+        titleEle.innerText = legendEle.innerText;
+
+        for (let i = 0; i < fieldEles.length; i++) {
+            const ele = fieldEles[i].cloneNode(true);
+            const radio = ele.querySelector('input[type="radio"]');
+
+            const id = radio.id;
+            radio.id += i;
+            ele.querySelector('label').setAttribute('for', id + i);
+
+            const text = ele.querySelector('input[type="text"]');
+            if (text != null) {
+                const tid = text.id;
+                text.id += i;
+            }
+            
+            contentEle.appendChild(ele);
+            
+            ori_ele = document.querySelector('#' + id);
+            ori_ele.checked = false;
+
+            new_ele = document.querySelector('#' + id + i);
+            new_ele.setAttribute('ori_id', id);
+            new_ele.checked = false;
+        }
+
+        updateDefaultPopupText(inputName);
+        actionEle.innerHTML = `<a onclick="confirmPopup('${inputName}')" class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">儲存</a>`;
+    }
+    function openPopupHandler(ele, inputName) {
+        const filedsetEle = ele.closest('[data-input-fieldset]');
+        const textEle = ele.querySelector('[data-input-text]');
+        const legendEle = filedsetEle.querySelector('[data-input-legend]');
+        const fieldEles = filedsetEle.querySelectorAll('[data-input-fields] > *');
+        createPopupContent(inputName, legendEle, fieldEles);
+        $('.js-admweb-v2__popup').show();
+        $('.js-admweb-v2__popup--inner').slideDown();
+    }
+    function confirmPopup(inputName) {
+        $('.js-admweb-v2__popup--inner').slideUp();
+        $('.js-admweb-v2__popup').hide();
+        updatePopupText(inputName);
+    }
+    const popupEle = document.querySelector('.js-admweb-v2__popup--inner');
+    popupEle.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+    function closePopup() {
+        $('.js-admweb-v2__popup--inner').slideUp();
+        $('.js-admweb-v2__popup').hide();
+    }
+    function updatePopupText(inputName) {
+        const inputEles = document.querySelectorAll(`input[name=${inputName}]`);
+        const filedsetEle = inputEles[0].closest('[data-input-fieldset]');
+        const textEle = filedsetEle.querySelector('[data-input-text]');
+        textEle.innerText = $('input[name=' + inputName + ']:checked').data('input_title');
+
+        ori_id = $('input[name=' + inputName + ']:checked').attr('ori_id');
+
+        if (ori_id) {
+            checked_id = $('input[name=' + inputName + ']:checked').attr('id');
+            document.getElementById(checked_id).checked = false;
+			document.getElementById(ori_id).checked = true;
+            document.getElementById(ori_id).dispatchEvent(new Event('change'));
+        }
+
+        if (ori_id == 'bdba_return_mode_9') {
+            $('#bdba_return_mode_other').val($('#bdba_return_mode_other5').val());
+        }
+    }
+    function updateDefaultPopupText(inputName) {
+        const inputEles = document.querySelectorAll(`input[name=${inputName}]`);
+        const filedsetEle = inputEles[0].closest('[data-input-fieldset]');
+        const textEle = filedsetEle.querySelector('[data-input-text]');
+
+        for (let i = 0; i < inputEles.length; i++) {
+            inputEles[i].checked = false;
+        }
+        //console.log('aaa');console.log($('input[name=' + inputName + ']:checked')); console.log('bbb');
+        textEle.innerText = '[請選擇]';
+    }
+    // 步驟一進步驟二
+    const DOM = {
+        panels: document.querySelectorAll('[data-tab-panels] > div'),
+        actions: document.querySelectorAll('[data-tab-actions] > div')
+    };
+    function setActivePanel(activeIndex) {
+        DOM.panels.forEach((ele) => (ele.style.display = 'none'));
+        DOM.panels[activeIndex].style.display = 'block';
+    }
+    function setActiveAction(activeIndex) {
+        DOM.actions.forEach((ele) => (ele.style.display = 'none'));
+        if (!DOM.actions[activeIndex]) return;
+        DOM.actions[activeIndex].style.display = 'flex';
+    }
+    function toStep(step) {
+        setActivePanel(step);
+        setActiveAction(step);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // status3：查看大宗寄件申請資料時 不分步驟顯示 因此不執行此函式
+    (function () {
+        setActivePanel(0);
+        setActiveAction(0);
+    })();
+
+    // 更新大宗寄件資訊
+    function checkInfoData() {
+        if ($('#ckbutton-id_1').length > 0 && !$('#ckbutton-id_1').is(':checked')) {toStep(0); alert('請同意<br>[IOPEN 物流金流服務合約條款]'); return false;}
+        if ($('#bdba_vendor_name').val().trim() == '') {toStep(0); alert('請填寫[廠商名稱]'); return false; }
+        if ($('#bdba_contact_name').val().trim() == '') {toStep(0); alert('請填寫[聯絡人]'); return false; }
+
+        if (!isValidGUI($('#bdba_vendor_utcode').val())) {toStep(0); alert('[統一編號]格式有誤'); return false;}
+
+        if ($('#bdba_contact_email').val().trim() == '') {toStep(0); alert('請填寫[聯絡人EMAIL]'); return false; }
+        let email_patt = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let res_email = email_patt.test($('#bdba_contact_email').val());
+        if (!res_email) {toStep(0); alert('聯絡人EMAIL格式不正確'); return false;}
+
+        if ($('#bdba_contact_tel').val().trim() == '') {toStep(0); alert('請填寫[電話號碼]'); return false; }
+        let regexNumber = /\D+/;
+        let res_tel = regexNumber.test($('#bdba_contact_tel').val());
+        if (res_tel) {toStep(0); alert('電話號碼只限數字'); return false; }
+
+        if ($('#bdba_city').val().trim() == '') {toStep(0); alert('請選擇[縣市]'); return false; }
+        if ($('#bdba_state').val().trim() == '') {toStep(0); alert('請選擇[鄉/鎮/市/區]'); return false; }
+        if ($('#bdba_address').val().trim() == '') {toStep(0); alert('請填寫[收退貨地址]'); return false; }
+
+        let bdba_return_cycle = $('input[name="bdba_return_cycle"]:checked').val();
+        let bdba_return_mode = $('input[name="bdba_return_mode"]:checked').val();
+        let bdba_return_day = $('input[name="bdba_return_day"]:checked').val();
+        if (!bdba_return_cycle) {toStep(0); alert('請選擇[退貨週期]'); return false; }
+        if (bdba_return_cycle == '0' && !bdba_return_day) {toStep(0); alert('請選擇[退貨週期日]'); return false; }
+        if (!bdba_return_mode) {toStep(0); alert('請選擇[退貨方式]'); return false; }
+        if (bdba_return_mode == '9' && bdba_return_cycle == '0' && $('#bdba_return_mode_other').val().trim() == '') {toStep(0); alert('請填寫[退貨方式]'); return false; }
+        
+        return true;
+    }
+    // 提交大宗寄件申請資訊
+    function sendInfoData() {
+        qqq = checkInfoData();
+        if (qqq) {
+            $('#form_del_b2c').submit();
+        }
+    }
+    
+    /*檢查統編*/
+    function isValidGUI(taxId) {
+        var invalidList = "00000000,11111111";
+        if (/^\d{8}$/.test(taxId) == false || invalidList.indexOf(taxId) != -1) {
+            return false;
+        }
+
+        var validateOperator = [1, 2, 1, 2, 1, 2, 4, 1],
+            sum = 0,
+            calculate = function(product) { /* 個位數 + 十位數*/
+                var ones = product % 10,
+                    tens = (product - ones) / 10;
+                return ones + tens;
+            };
+        for (var i = 0; i < validateOperator.length; i++) {
+            sum += calculate(taxId[i] * validateOperator[i]);
+        }
+
+        return sum % 5 == 0 || (taxId[6] == "7" && (sum + 1) % 5 == 0);
+    }
+
+    /**
+     * 退貨週期日變更退貨方式 
+     */
+    function returnDayChange(week_day) {
+
+        //let bdba_return_mode = $('input[name="bdba_return_mode"]:checked').val();
+
+        //$('.bdba_return_mode').prop("checked", false).attr('disabled', true);
+
+        $('.div_bdba_return_mode').hide();
+
+        switch (week_day) {
+            case '2':
+
+                $('#bdba_return_mode_5,#bdba_return_mode_6').attr('disabled', false);
+                $('#div_bdba_return_mode_5,#div_bdba_return_mode_6').show();
+/*
+                if (bdba_return_mode == '5') {
+                    $('#bdba_return_mode_5').prop("checked", true);
+                } else if (bdba_return_mode == '6') {
+                    $('#bdba_return_mode_6').prop("checked", true);
+                } else {
+                    $('#bdba_return_mode_5').prop("checked", true);
+                }
+                */
+                break;
+
+            case '3':
+                $('#bdba_return_mode_1,#bdba_return_mode_9').attr('disabled', false);
+                $('#div_bdba_return_mode_1,#div_bdba_return_mode_9').show();
+/*
+                if (bdba_return_mode == '1') {
+                    $('#bdba_return_mode_1').prop("checked", true);
+                } else if (bdba_return_mode == '9') {
+                    $('#bdba_return_mode_9').prop("checked", true);
+                } else {
+                    $('#bdba_return_mode_1').prop("checked", true);
+                }
+                */
+                break;
+
+            case '4':
+                //$('#bdba_return_mode_3').prop("checked", true).attr('disabled', false);
+
+                $('#bdba_return_mode_3').attr('disabled', false);
+                $('#div_bdba_return_mode_3').show();
+                break;
+
+            case '5':
+                //$('#bdba_return_mode_4').prop("checked", true).attr('disabled', false);
+                $('#bdba_return_mode_4').attr('disabled', false);
+                $('#div_bdba_return_mode_4').show();
+                break;
+
+                
+            default:
+
+        }
+
+        updateDefaultPopupText('bdba_return_mode');
+    }
+
+    function returnCycleChange(return_cycle) {
+
+        switch (return_cycle) {
+            case '0':
+                $('#field_bdba_return_day').show();
+                break;
+            case '1':
+            case '2':
+                $('#field_bdba_return_day').hide();
+                $('.div_bdba_return_mode').show();
+                $('.bdba_return_day').removeAttr('checked');
+                break;
+
+            default:
+                $('#field_bdba_return_day').show();
+                break; 
+        }
+    }
+
+    function backToWebsiteDeliveryPic() {
+        location.href = 'admweb.main.php?action=website_delivery_pic';
+    }
+    
+
+    function toggleList() {
+        $("#pic-list-1").toggleClass("pic-arrows-rotate");
+        $("#pic-list-content-1").slideToggle();
+    }
+
+</script>

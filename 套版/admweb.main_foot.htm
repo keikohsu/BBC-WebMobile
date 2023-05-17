@@ -1,0 +1,123 @@
+<!--{{if $m_arrSystem.sys_byeurl == 'haostore'}}
+<div class="admweb_footer">Powered By <a href="https://haostore.fami.life/" target="_blank"><img src="{{$m_arrSystem.root_url}}images/hoastore_logo.png" width="139" height="40" title="hoastore"/></a></div>
+{{elseif $m_arrSystem.sys_byeurl == 'coldshop' || $m_arrSystem.sys_byeurl == 'haofresh'}}
+{{else}}
+<div class="admweb_footer">Powered By <a href="https://www.ewebs.com.tw/" target="_blank"><img src="{{$m_arrSystem.root_url}}images/ewebs_logo.png" width="139" height="40" title="和盟電子商務"/></a></div>
+{{/if}}-->
+
+<script language="javascript">
+    // nocsrf
+    var csrfToken = '{{$nocsrfToken}}';
+    var csrfTokenInput = document.createElement("input");
+    $(csrfTokenInput).attr ('type', 'hidden').attr('name', 'csrf_token').val (csrfToken);
+    
+    $('form').each (function (index) {
+        $(this).append(csrfTokenInput);
+        // console.log($(this).serialize());
+    })
+</script>
+<script src="../javascripts/jquery.lazyload.js"></script>
+<script>
+    $(function(){
+//		  $("img").addClass('lazy');
+//		$("img").each(function(){
+//			$(this).attr('data-original',$(this).attr('src'))
+//		})
+//		$("img").removeAttr('src');
+        $("img.lazy").lazyload({effect : "fadeIn", failure_limit : 20 ,threshold:$(window).height()}); //加入threshold為視窗高度，以免一開始沒load圖
+        $("img.lazy").show().lazyload();
+    })
+</script>
+
+<script src="../javascripts/jquery/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="../css/jquery-ui.css">
+<script>
+    var AAA;
+    //將日曆Input做成插件
+    //如果只有單日請用sdate_id
+    //如果是區間請用sdate_id 與 edate_id
+    //如果要自訂input 的html樣式 請用 date_input_html
+    $.fn.datepickInput = function(options) {
+        var settings = {
+            sdate_id : 'sdate',
+            sdate_val: '',
+            edate_val: '',
+            callback:function(){}
+        }
+        ele = this;
+        $.extend(settings, options); //將參數設定覆寫
+
+        if (!settings.sdate_name) {
+            settings.sdate_name = settings.sdate_id;
+        }
+        if (!settings.edate_name) {
+            settings.edate_name = settings.edate_id;
+        }
+
+        if (settings.date_input_html) {
+            date_input_html = settings.date_input_html;
+        } else {
+            date_input_html = '<span class="input-icon">'+
+                            '<input id="'+settings.sdate_id+'" name="'+settings.sdate_name+'" type="text" value="'+settings.sdate_val+'" class="datepicker" />'+
+                            '<i class="icon-calendar"></i>'+
+                            '</span>';
+            if (settings.edate_id) {
+                date_input_html += '~'+
+                        '<span class="input-icon">'+
+                        '<input id="'+settings.edate_id+'" name="'+settings.edate_name+'" type="text" value="'+settings.edate_val+'" class="datepicker" />'+
+                        '<i class="icon-calendar"></i>'+
+                        '</span>';
+            }
+        }
+
+        $(ele).append(date_input_html);
+        AAA = ele;
+
+        weekName = ['日','一','二','三','四','五','六'];
+        monthName = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
+        $(".datepicker").datepicker({
+            dateFormat:'yy-mm-dd',
+            changeYear: true,
+            changeMonth:true,
+            monthNamesShort:monthName,
+            dayNamesMin:weekName
+        });
+        $.escapeSelector("#"+settings.sdate_id).datepicker("option","onClose",function(dateText,inst){
+            if (settings.edate_id) {
+                $.escapeSelector("#"+settings.edate_id).datepicker("option","minDate",dateText);
+            }
+        });
+        if (settings.edate_id) {
+            $.escapeSelector("#"+settings.edate_id).datepicker("option","onClose",function(dateText,inst){
+                $.escapeSelector("#"+settings.sdate_id).datepicker("option","maxDate",dateText);
+            });
+        }
+
+        if (settings.sdate_min) {
+            $.escapeSelector("#"+settings.sdate_id).datepicker("option","minDate",settings.sdate_min);
+        }
+        if (settings.sdate_max) {
+            $.escapeSelector("#"+settings.sdate_id).datepicker("option","maxDate",settings.sdate_max);
+        }
+        if (settings.edate_min && settings.edate_id) {
+            $.escapeSelector("#"+settings.edate_id).datepicker("option","minDate",settings.sdate_min);
+        }
+        if (settings.edate_max && settings.edate_id) {
+            $.escapeSelector("#"+settings.edate_id).datepicker("option","maxDate",settings.sdate_max);
+        }
+    }
+</script>
+{{if $sys_msg_custom_msg}}
+<script>
+    alert('{{$sys_msg_custom_msg}}').done(function(){
+        if('{{$sys_msg_custom_close}}'!='') window.close();
+        if('{{$sys_msg_custom_url2}}') 
+        //TEST00 Checkmarkx Client DOM XSS
+        window.location.href = encodeURI('{{$sys_msg_custom_url2}}');
+    })
+</script>
+{{/if}}
+{{* fix Checkmarkx Client DOM Stored XSS *}}
+</body>
+</html>
+

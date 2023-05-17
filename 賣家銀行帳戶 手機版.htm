@@ -1,0 +1,266 @@
+<style>
+  /*公用*/
+  .pic-org-text-restrict{ padding: 10px; display: block; background: var(--pic-light-orange-5); color: var(--pic-orange); font-size: 12px;line-height: 16px;}
+  .pic-org-text-restrict > p{ font-size: 16px; line-height: 20px;}
+  .admweb-v2-SearchHeartBtn{ border-radius: 6px; }
+  .admweb-v2-SearchHeartBtn a{ font-size: 12px; line-height: 20px; padding: 10px;color: #fff;}
+
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">賣家銀行帳戶</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <!------------------------------------ 銀行帳戶 Start -------------------------------------->
+    <div class="admweb-v2-settings-frame pic-margin-10" style="margin-bottom: 0px;">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>銀行帳戶</h2>
+        <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+      </div>
+      <ul class="admweb-v2-outside-white-box">
+        <!--戶名-->
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>戶名</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入戶名" value="王小明">
+          <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">*戶名若為公司名稱，請於退貨門市修改指定領取人，以利未取退回取件</p>
+        </li>
+        <!--銀行開戶之身分ID-->
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>銀行開戶之身分ID</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10">
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="radioId1">
+                <input class="admweb-v2-radio-green" type="radio" id="radioId1" name="prod_type" checked="" value="3">
+                <div class="admweb-v2-label-check-green"></div>
+                個人戶
+              </label>
+            </div>
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="radioId2">
+                <input class="admweb-v2-radio-green" type="radio" id="radioId2" name="prod_type" value="10">
+                <div class="admweb-v2-label-check-green"></div>
+                企業戶
+              </label>
+            </div>
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="radioId3">
+                <input class="admweb-v2-radio-green" type="radio" id="radioId3" name="prod_type" value="11">
+                <div class="admweb-v2-label-check-green"></div>
+                外籍人士
+              </label>
+            </div>
+          </div>
+          <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入銀行開戶之身分ID" value="F2146236412">
+          <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+            *為避免帳戶有生難字等情況，提高銀行匯款作業效率，將採ACH匯款模式，需提交身分ID予銀行。<br>
+            *請填寫「銀行開戶」使用之身分資料；個人戶請填身分證字號(外籍人士填居留證號碼)、商戶請填統一編號。<br>
+            *外籍人士居留證號更新時，請務必更新銀行開戶之身分ID資料,避免撥款失敗。
+          </p>
+        </li>
+        <!--銀行-->
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>銀行</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <select class="pic-text-lnput pic-text-lnput-style" style="width: 100%;">
+            <option value="台灣中小企業銀行">台灣中小企業銀行</option>
+            <option value="台灣中小企業銀行">台灣中小企業銀行</option>
+            <option value="台灣中小企業銀行">台灣中小企業銀行</option>
+          </select> 
+          <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+            *請設定您的銀行帳戶，交貨便收款後會撥款至預設帳戶。取貨後最快3個工作天完成撥款作業。<br>
+            *非中國信帳戶，於撥款時產生的跨行匯款手續費，將由賣家當筆交易款項中扣除。
+          </p>
+        </li>
+        <!--分行-->
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>分行</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <select class="pic-text-lnput pic-text-lnput-style pic-margin-b10" style="width: 100%;">
+            <option value="松江分行">松江分行</option>
+            <option value="松江分行">松江分行</option>
+            <option value="松江分行">松江分行</option>
+          </select> 
+        </li>
+        <!--銀行帳戶-->
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>銀行帳戶</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入銀行帳戶" value="5831 2145 2141 3212">
+          <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+            *請設定您的銀行帳戶，交貨便收款後會撥款至預設帳戶。取貨後最快3個工作天完成撥款作業。<br>
+            *非中國信帳戶，於撥款時產生的跨行匯款手續費，將由賣家當筆交易款項中扣除。
+          </p>
+          <img class="pic-margin-b5" style="max-width:100%; width: 100%; height: auto;" src="{{$sys_arrWebsite.website_url}}css/images/bbc/it943_bank.png">
+          <div class="pic-org-text-restrict">
+            <p class="pic-margin-b10">填寫帳務資料提醒：</p>
+            1.賣家未填寫銀行帳戶，則無法使用IOPEN商城服務。<br>
+            2.銀行帳戶名稱請與存摺及會員帳號名稱相同。<br>
+            3.帳號輸入請小心核對，本平台不負檢核責任。<br>
+            4.取貨付款成功之交易且非中國信託帳戶，於撥款時產生的跨行匯款手續費，將由賣家當筆交易款項中扣除。<br>
+            5.請勿刊登10元(含)以下商品，結帳金額若小於10元，跨行轉帳撥款作業時，因手續費問題，將無法成功匯款。
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!------------------------------------ 銀行帳戶 end -------------------------------------->
+    <!------------------------------------ 發票設定 Start -------------------------------------->
+    <div class="admweb-v2-settings-frame pic-margin-10">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>發票設定</h2>
+        <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+      </div>
+      <!--電子發票設定-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>電子發票設定</p></li>
+        <li class="admweb-v2-content-enter">
+          <div class="pic-org-text-restrict pic-margin-b10">
+            註:<br>
+            1.賣家寄件後,運費發票設定<br>
+            2.配合國稅局勸止二聯換開三聯之政策,本公司有權利考量各因素後拒絕換開發票
+          </div>
+          <select class="pic-text-lnput pic-text-lnput-stylet pic-margin-b5" style="width: 100%;">
+            <option value="選擇發票類型">選擇發票類型</option>
+            <option value="二聯式發票">二聯式發票</option>
+            <option value="三聯式發票">三聯式發票</option>
+            <option value="捐贈">捐贈</option>
+          </select>
+          <div class="admweb-v2-settings-frame-RadioBox pic-margin-b5" style="flex-wrap: wrap;">
+            <div class="admweb-v2-radio-green-box pic-margin-b5" style="width: 100%;">
+              <label class="admweb-v2-label-green" for="radioIdx1">
+                <input class="admweb-v2-radio-green" type="radio" id="radioIdx1" name="prod_typex" checked="" value="3">
+                <div class="admweb-v2-label-check-green"></div>
+                受捐贈機關或團體
+              </label>
+            </div>
+            <div class="admweb-v2-radio-green-box" style="width: 220px;">
+              <label class="admweb-v2-label-green" for="radioIdx2">
+                <input class="admweb-v2-radio-green" type="radio" id="radioIdx2" name="prod_typex" value="10">
+                <div class="admweb-v2-label-check-green"></div>
+                自行輸入社福團體愛心碼
+              </label>
+            </div>
+          <div class="admweb-v2-SearchHeartBtn pic-BgText-color-green "><a href="#">查詢愛心碼</a></div>
+          </div>
+          <select class="pic-text-lnput pic-text-lnput-style pic-margin-b5" style="width: 100%;">
+            <option value="請選擇發票儲存型式">請選擇發票儲存型式</option>
+            <option value="託管">託管</option>
+            <option value="手機載具">手機載具</option>
+            <option value="自然人憑證載具">自然人憑證載具</option>
+          </select>
+          <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter pic-margin-b5" placeholder="請輸入手機條碼載具(限大寫英數字)">
+          <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter pic-margin-b5" placeholder="請輸入統一編號">
+          <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter pic-margin-b5" placeholder="請輸入發票抬頭">
+        </li>
+      </ul>
+      <!--發票寄送E-mail-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>發票寄送E-mail</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入電子信箱">
+        </li>
+      </ul>
+      <!--發票中獎地址-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>發票中獎地址</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <div class="admweb-v2-settings-frame-RadioBox pic-margin-b5">
+            <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="郵遞區號" style="width: 120px;">
+            <select class="pic-text-lnput pic-text-lnput-style pic-margin-lr5" style="width: 100%;">
+              <option value="台北市">台北市</option>
+            </select>
+            <select class="pic-text-lnput pic-text-lnput-style" style="width: 100%;">
+              <option value="中正區">中正區</option>
+            </select>
+          </div>
+          <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入地址">
+          <p class="pic-text-warn" style="color: var(--pic-color-grey-40);">
+            *提醒您!請填入正確的通訊地址，發票中獎將會通知您。<br>
+            *郵遞區號僅需填五碼，地址不可使用簡體字及中文數字填寫。
+          </p>
+        </li>
+      </ul>
+    </div>
+    <!------------------------------------ 發票設定 end -------------------------------------->
+    <div class="admweb-v2-settings-BottomBtn">
+      <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+        <!-- 灰色 按鈕字 -->
+        <!--<a class="admweb-v2-I-Btn pic-BgText-color-gray pic-margin-r5"href="javascript:void(0);" style="width: 100%; justify-content: center;"><i class="icons-line icon-line-ArrowParper"></i>儲存</a>-->
+        <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);" style="width: 100%; justify-content: center;"><i class="icons-line icon-line-ArrowParper"></i>儲存</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+
+  //區塊收合
+    $(".admweb-v2-settings-frame .admweb-v2-NewProduct-title > span").click(function(){
+      $(this).toggleClass("pic-arrows-rotate");
+      $(this).parent(".admweb-v2-NewProduct-title").next("ul").slideToggle();
+    });
+</script>
+
+

@@ -1,0 +1,333 @@
+<style>
+.admweb-v2-orderlist__action-select_all {flex-direction: row;}
+.admweb-v2-orderlist__action-select_all span {margin-left: 12px;}
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單區 -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 右側商品區 -->
+    <div class="admweb-v2-adjustment admweb-v2-CommodityAndBatch">
+        <div class="admweb-v2-blacklist-form">
+            <!-- 搜尋條件表單 -->
+            <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" method="post" id="search_form">
+                <div class="admweb-v2-orderlist__form-head_search-outer">
+                    <div class="admweb-v2-orderlist__form-head_search js-orderlist__form-head_search" style="grid-template-columns: auto 1fr 84px;">
+                        <!-- 搜尋文字類型 -->
+                        <select name="keyword_type" class="pic-text-lnput pic-text-lnput-style" style="width: 127px;">
+                            <option value="prod_name"{{if $search_cond.keyword_type=='prod_name'}}selected{{/if}}>商品名稱</option>
+                            <option value="prod_no"{{if $search_cond.keyword_type=='prod_no'}}selected{{/if}}>商品原始貨號</option>
+                            <!--<option value="prod_spec"{{if $search_cond.keyword_type=='prod_spec'}}selected{{/if}}>商品規格</option>-->
+                        </select>
+                        <input name="keyword" type="text" placeholder="請輸入關鍵字" class="pic-text-lnput pic-lnput-enter"
+                        {{if $search_cond.keyword}}value="{{$search_cond.keyword}}"{{/if}}>
+                        <button id="submit_1" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn" style="display: block;">
+                            搜尋
+                        </button>
+                    </div>
+                    <!-- 進階條件 -->
+                    <div class="admweb-v2-adjustment-DateBox">
+                        <div class="admweb-v2-orderlist__form-range_date">
+                            <div class="pic-flex-center-between admweb-v2-adjustment-DropDown">
+                                <div class="admweb-v2-orderlist__form-item">
+                                    <label>銷售頻道</label>
+                                    {{*一般商品(1)/團購商品(5)/拚團商品(6)*}}
+                                    <select name="prod_category" class="pic-text-lnput pic-text-lnput-style">
+                                        <option value="all" {{if $search_cond.prod_category=='all'}}selected{{/if}}>全部</option>
+                                        <option value="1" {{if $search_cond.prod_category=='1'}}selected{{/if}}>一般商品</option>
+                                        <!--<option value="5" {{if $search_cond.prod_category=='5'}}selected{{/if}}>團購商品</option>
+                                        <option value="6" {{if $search_cond.prod_category=='6'}}selected{{/if}}>拚團商品</option>-->
+                                    </select>
+                                </div>
+                                <div class="admweb-v2-orderlist__form-item">
+                                    <label>商品溫層</label>
+                                    {{*常溫(3)/冷藏(10)/冷凍(11)*}}
+                                    <select name="prod_type" class="pic-text-lnput pic-text-lnput-style">
+                                        <option value="all" {{if $search_cond.prod_type=='all'}}selected{{/if}}>全部</option>
+                                        <option value="3" {{if $search_cond.prod_type=='3'}}selected{{/if}}>常溫</option>
+                                        <option value="10" {{if $search_cond.prod_type=='10'}}selected{{/if}}>冷藏</option>
+                                        <option value="11" {{if $search_cond.prod_type=='11'}}selected{{/if}}>冷凍</option>
+                                    </select>
+                                </div>
+                                <div class="admweb-v2-orderlist__form-item admweb-v2-orderlist__form-last">
+                                    <label>是否為隱形商品</label>
+                                    <select name="prod_is_search" class="pic-text-lnput pic-text-lnput-style">
+                                        <option value="all" {{if $search_cond.prod_is_search=='all'}}selected{{/if}}>全部</option>   
+                                        <option value="0" {{if $search_cond.prod_is_search=='0'}}selected{{/if}}>是</option>
+                                        <option value="1" {{if $search_cond.prod_is_search=='1'}}selected{{/if}}>否</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-btn">
+                            搜尋
+                        </button>
+                    </div>
+                    <input type="hidden" name="nav" value="all">
+                    <input type="hidden" name="myAct" value="CHANGE_NAV_TAB">
+                </div>
+            </form>
+        </div>
+        <button class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn" id="js-orderlist__form-toggle--btn">
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+        </button>
+
+        <!-- 貨態頁籤 -->
+        <div class="pic-common-navbarbox pic-common-navbarbox-tow-width-50">
+            <div class="swiper-container pic-navbar" id="pic-navbar">
+                <div class="swiper-wrapper pic-nav-list">
+                    <div id="swiper-tab-1" class="swiper-slide pic-nav-a" data-nav="all"><span>全部</span></div>
+                    <div id="swiper-tab-2" class="swiper-slide pic-nav-a" data-nav="1"><span>架上商品</span></div>
+                    <div id="swiper-tab-3" class="swiper-slide pic-nav-a" data-nav="2"><span>未上架</span></div>
+                    <div id="swiper-tab-4" class="swiper-slide pic-nav-a" data-nav="3"><span>已售完</span></div>
+                </div>
+            </div>
+        </div>
+
+        {{if $m_arrProduct_count > 0}} 
+        <!-- 商品筆數 -->
+        <p class="admweb-v2-FewStrokes pic-margin-10">共{{$m_arrProduct_count}}筆</p>
+        <ul class="admweb-v2-orderlist__list pic-margin-b20">
+            <!-- 配送類型：超商 -->
+            <form  method="post" id="prod_form">
+            <!-- 商品列表 -->
+            <!-- 載入商品 -->
+            {{foreach from=$m_arrProduct item=pno}}
+            {{assign var="prod" value=$m_arrProductByPno[$pno]}}
+            <li class="admweb-v2-orderlist__card" data-pa="{{$prod.main.prod_uid}}">
+                <table class="admweb-v2-orderlist__table">
+                    <thead>
+                        <tr class="admweb-v2-orderlist__table--head">
+                            <th width="30px"></th>
+                            <th width="397px">商品名稱</th>
+                            <th>商品類型</th>
+                            <th>售價</th>
+                            <th>規格</th>
+                            <th>庫存</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="admweb-v2-orderlist__table--tr">
+                            <td>
+                                <div class="admweb-v2-checkbox-name pic-margin-b10">
+                                    <input type="checkbox" name="prod_uid[]" class="admweb-v2-ckbutton-green-checkbox {{if $prod.children}}father{{/if}}" id="pord_uid_{{$prod.main.prod_uid}}" value="{{$prod.main.prod_uid}}">
+                                    <label class="admweb-v2-ckbutton-green-label" for="pord_uid_{{$prod.main.prod_uid}}"></label>
+                                    {{if $prod.children}}
+                                    {{foreach from=$prod.children item=c}}
+                                    <input type="checkbox" name="prod_uid[]" class="admweb-v2-ckbutton-green-checkbox child" value="{{$c.prod_uid}}">
+                                    {{/foreach}}
+                                    {{/if}}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="admweb-v2-product-box">
+                                    <img class="pic-margin-r10" src="{{$prod.main.prod_file}}">
+                                    <div class="admweb-v2-product-name">
+                                        <!-- 常溫(3)/冷藏(10)/冷凍(11) -->
+                                        {{if $prod.main.prod_type==3}}
+                                        <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                                        {{elseif $prod.main.prod_type==10}}
+                                        <span class="admweb-v2-orderlist__badge--refrigeration">冷藏</span>
+                                        {{elseif $prod.main.prod_type==11}}
+                                        <span class="admweb-v2-orderlist__badge--freezing">冷凍</span>
+                                        {{/if}}
+                                        <h2>{{$prod.main.prod_name}}</h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- 一般商品(1)/團購商品(5)/拚團商品(6) -->
+                            {{if $prod.main.prod_category==1}}
+                            <td><span class="admweb-v2-orderlist-delivery--store">一般商品</span></td>
+                            {{elseif $prod.main.prod_category==5}}
+                            <td><span class="admweb-v2-orderlist-group--store">團購商品</span></td>
+                            {{elseif $prod.main.prod_category==6}}
+                            <td><span class="admweb-v2-orderlist-merge--store">拼團商品</span></td>
+                            {{/if}}
+                            <!-- 價格 -->
+                            <td>${{if $prod.children}}{{$prod.price_range.0|formatMoney}}~{{$prod.price_range.1|formatMoney}}{{else}}{{$prod.main.prod_selling_price|formatMoney}}{{/if}}</td>
+                            <!-- 規格 -->
+                            <td>共{{if $prod.children}}{{math equation=x+1 x=$prod.children|@count}}{{else}}1{{/if}}種規格</td>
+                            <!-- 庫存量 -->
+                            <td>{{if $prod.children}}{{$prod.stock_range.0}}~{{$prod.stock_range.1}}{{else}}{{$prod.main.prod_stock}}{{/if}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            {{/foreach}}
+            <input type="hidden" name="myAct" id="prod_form_myAct">
+            </form>
+        </ul>
+        <!-- 頁碼 -->
+        {{if  $m_arrPage.p_num==1 }}
+        <div class="pic-text-center">
+            <p class="pic-page-bottom-text">1 - {{$m_arrProduct_count}} 筆／共 {{$m_arrProduct_count}} 筆</p>
+        </div>
+        {{else}}
+        <div class="pic-flex-center pic-flex-center-column">
+            <ul class="admweb-v2-pagination">
+                {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_prev}}{{/if}}
+                {{$m_arrPage.pager_numeric}}
+                {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_next}}{{/if}}
+            </ul>
+            <p class="admweb-v2-page-bottom-text">{{$m_arrPage.row_start+1}} - {{if $m_arrPage.p == $m_arrPage.p_num}}{{$m_arrProduct_count}}{{else}}{{$m_arrPage.row_start+$m_arrPage.rows_num}}{{/if}} 筆／共 {{$m_arrProduct_count}} 筆</p>
+        </div>
+        {{/if}}
+        {{else}}
+        <!-- 無商品資料  -->
+        <div class="admweb-v2-NoData">
+            <div class="admweb-v2-img-BlacklistNoData"></div>
+            <span>目前無商品資料</span>
+        </div>
+        {{/if}}
+
+        <!-- 底部按鈕 -->
+        <div class="admweb-v2-orderlist__action" id="js-orderlist__action">
+            <div class="admweb-v2-orderlist__action-select_all">
+                <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="select_all_prod"/>
+                <label for="select_all_prod" class="admweb-v2-ckbutton-green-label"> </label>
+                <span>全選</span>
+            </div>
+            <button class="admweb-v2-orderlist__action-col_btn--grow" id="batch_update_stock">
+                <i class="icons-line icon-line-paper-text"></i>整批更新庫存
+            </button>
+            {{if $search_cond.nav!=1}}
+            <button class="admweb-v2-orderlist__action-col_btn--grow" id="batch_display_on">
+                <i class="icons-line icon-line-paper-text"></i>整批上架
+            </button>
+            {{/if}}
+            {{if $search_cond.nav!=2}}
+            <button class="admweb-v2-orderlist__action-col_btn--grow" id="batch_display_off">
+                <i class="icons-line icon-line-paper-text"></i>整批下架
+            </button>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<script>
+    // 全選 / 全不選
+    $('#select_all_prod').click(function () { 
+        if($(this).is(":checked")) $('input[type=checkbox]').prop('checked',true);
+        else $('input[type=checkbox]').prop('checked',false);    
+    });
+
+    $('input[type=checkbox]').click(function () { 
+        if($(this).hasClass('father')){
+            if($(this).prop('checked')){
+                $(this).siblings('input[type=checkbox]').prop('checked',true);
+            }else{
+                $(this).siblings('input[type=checkbox]').prop('checked',false);
+            }
+        }
+    });
+
+    // 檢查是否有選取商品
+    function is_prod_checked(){
+        if($('input[type=checkbox]:checked').length==0){
+            alert('請先選取商品');
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    // 整批更新庫存
+    $('#batch_update_stock').click(function (e) { 
+        e.preventDefault();
+        if(is_prod_checked()){
+            $('#prod_form_myAct').val('BATCH_UPDATE_STOCK');
+            $('#prod_form').submit()
+        }
+    });
+
+    // 整批上架
+    $('#batch_display_on').click(function (e) { 
+        e.preventDefault();
+        if(is_prod_checked()){
+            confirm('確定將選定商品上架？').done(function () {
+                $('#prod_form_myAct').val('BATCH_DISPLAY_ON');    
+                $('#prod_form').submit();
+            });
+        }
+    });
+
+    // 整批下架
+    $('#batch_display_off').click(function (e) { 
+        e.preventDefault();
+        if(is_prod_checked()){            
+            confirm('確定將選定商品下架？').done(function () {
+                $('#prod_form_myAct').val('BATCH_DISPLAY_OFF');    
+                $('#prod_form').submit()
+            });
+        }
+    });
+    
+    // 點擊 關機字 的搜尋按鈕
+    $('#submit_1').click(function (e) { 
+        e.preventDefault();
+        if($('input[name="keyword"]').val() == ''){
+            alert("{{$lang.admweb.product.149}}"); // 請輸入關鍵字
+            return false;
+        }else{
+            $('#search_form').submit();
+        }        
+    });
+
+    // 點擊貨態頁籤
+    $('#pic-navbar .swiper-slide.pic-nav-a').click(function (e) { 
+        e.preventDefault();
+        $('input[name=nav]').val($(this).data('nav'));
+        $('#search_form').submit();
+    });
+  
+    $(document).ready(function () {
+        // 若該頁商品有特定進階條件，就展開條件內容，否則收合進階條件
+        searchFormCollapse();
+        if(typeof(hideMobileLayout) == 'function') hideMobileLayout();
+        if(typeof(markCurrentNavLink) == 'function') markCurrentNavLink();
+        if({{$search_cond|@count}}!=0 && !('{{$search_cond.prod_category}}'=='all' && '{{$search_cond.prod_type}}'=='all' && '{{$search_cond.prod_is_search}}'=='all')){
+            $('#js-orderlist__form-toggle--btn').click();
+        }
+
+        // highlight 選中的頁籤
+        if('{{$search_cond.nav}}'!='' && '{{$search_cond.nav}}'!='all'){
+            $('#pic-navbar .swiper-slide.pic-nav-a[data-nav={{$search_cond.nav}}]').addClass('selected');
+        }else{
+            $('#pic-navbar .swiper-slide.pic-nav-a[data-nav=all]').addClass('selected');
+         }
+    });
+  
+    window.addEventListener('resize', () => {
+        searchFormCollapse();
+        if(typeof(checkNoticeOverflow) == 'function') checkNoticeOverflow();
+    });
+  
+    function searchFormCollapse() {
+        const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+        const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+        const formHeadEle = document.getElementsByClassName('js-orderlist__form-head_search')[0];
+        const defaultHeight = formHeadEle.clientHeight;
+        const headBtn = document.getElementsByClassName('js-orderlist__form-head_search-btn')[0];
+        const wholeHeight = formEle.clientHeight;
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.addEventListener('click', () => {
+            //當前為收合
+            if (formEle.style.height === `${defaultHeight}px`) {
+                formEle.style.height = `${wholeHeight}px`;
+                toggleBtn.innerHTML =
+                    '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+                formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+                headBtn.style.display = 'none';
+            } else {
+                ///當前為展開
+                formEle.style.height = `${defaultHeight}px`;
+                toggleBtn.innerHTML =
+                    '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+                formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+                headBtn.style.display = 'block';
+            }
+        });
+    }
+  </script>

@@ -1,0 +1,2054 @@
+<style>
+  .pic-content {margin-bottom: 39px;}
+  .pic-icon-orange-arrows-2::before{ transform: rotate(90deg);-webkit-transform:rotate(90deg);}
+  .admweb-v2-arrow-img.expanded .pic-icon-orange-arrows-2::before{  transform:rotate(270deg);-webkit-transform:rotate(270deg);}
+
+  .admweb-v2-orderlist__table--tr td:nth-child(4){white-space: initial;width: 143px;}
+  .admweb-v2-orderlist__table--tr td:nth-child(5){width: 60px;}
+  .admweb-v2-orderlist__table--tr td:nth-child(8){width: 102px;white-space: normal;}
+  .admweb-v2-orderlist__form-range_date input{border-radius: 8px;}
+  .admweb-v2-orderlist__form-toggle-btn {padding: 9px 6px 11px 6px;}
+  .admweb-v2-orderlist__table--head th:nth-child(8){width: 163px;}
+  .admweb-v2-orderlist__form-date::before{ background:transparent;}
+  .admweb-v2-list-header-in-fixbottom{display: none;}
+  .icon-arrow-top-01:before{content:"\e910"}
+
+  .admweb-v2-orderlist-click-box .admweb-v2-orderlist__form-item{margin-bottom: 5px;}
+  #search-btn-short.admweb-v2-orderlist__form-head_search-btn{width: 84px;}
+
+.pic-window-order {max-width: 389px;}
+.pic-window-scroll-height .pic-window-marge-box{max-height: 100px;overflow-y: scroll;padding: 24px 10px;}
+.pic-window-scroll-height .pic-window-marge-box::-webkit-scrollbar{display: none;}
+  @media screen and (min-width: 768px){
+  .admweb-v2-orderlist__form-ItemBox{display: grid;grid-template-columns: 1fr 1fr 1fr 1fr;}
+  .admweb-v2-orderlist__form-ItemBox .admweb-v2-orderlist__form-item{margin-right: 20px;}
+  .admweb-v2-orderlist__table--tr .admweb-v2-orderlist-delivery--normal, .admweb-v2-orderlist__table--tr .admweb-v2-orderlist-delivery--store{margin-right: 0px;}
+  }
+  @media screen and (max-width: 768px){
+  .admweb-v2-orderlist__action-select_all{position: fixed;background: #fff;left: 0px;bottom: 0;padding:5px;}
+  .admweb-v2-orderlist__action{padding-left: 34px;} 
+  .admweb-v2-report-btn{height: 43px;}
+  .admweb-v2-orderlist__form-range_date .admweb-v2-orderlist__form-date::before{display: none;}
+  .admweb-v2-orderlist__form-range_date input{padding: 0 5px;}
+  .admweb-v2-orderlist-click-box .admweb-v2-orderlist__form-item{margin-bottom: 0px;}
+  .admweb-v2-orderlist-click-box .admweb-v2-orderlist__form-btn{margin-top: 10px;}
+  .admweb-v2-item-show{display: flex!important;padding: 1px !important;}
+
+  .pic-window-order .pic-flex-none{display:none;}
+  }
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    {{if $m_arrSystem.is_app_mode}}
+      <button onclick="{
+        let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+        let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            window.JavaScriptInterface.backToSellerCenter();
+        } else if (isiOS) {
+            window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+        }
+      }">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{else}}
+      <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{/if}}
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">訂單批次作業</h2>
+  <div class="admweb-v2-orderlist-header-qrcode" onclick="get_my_qrcode();">
+    <i class="icons-line icon-line-QRcode"></i>我的 QRcode
+  </div>
+  <div id="QRcode_box" style="display:none;">{{include file='admweb_2/order_qrcode_pic.htm'}}</div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" name="formSearch" method="post"
+      action="{{$m_inURL}}#all" onsubmit="return send_Search();">
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div class="admweb-v2-orderlist__form-head_search js-orderlist__form-head_search">
+          <select name="search_type" class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select"
+            onchange="exchange_search_content(this);">
+            {{foreach from=$arr_search_type key=s_key item=s_val}}
+            <option value="{{$s_key}}" {{if $m_arrSearch.search_type==$s_key}}selected{{/if}}>{{$s_val}}</option>
+            {{/foreach}}
+          </select>
+
+          <input name="s_data" type="text" placeholder="請輸入訂單編號" class="pic-text-lnput pic-lnput-enter"
+            value="{{$m_arrSearch[$m_arrSearch.search_type]}}" />
+
+          <button type="submit" id="search-btn-short"
+            class="pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn">
+            搜尋
+          </button>
+        </div>
+
+        <div id="js-orderlist__form-click" class="admweb-v2-orderlist-click-box" style="display:none">
+          <div class="admweb-v2-orderlist__form-item">
+            <label for="order-date">訂單日期</label>
+            <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+              <input type="date" name="s_order_date_s" id="s_order_date_s" value="{{$m_arrSearch.s_order_date_s}}"
+                class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter" />
+              <span>-</span>
+              <input type="date" name="s_order_date_e" id="s_order_date_e" value="{{$m_arrSearch.s_order_date_e}}"
+                class="admweb-v2-orderlist__form-date pic-text-lnput pic-lnput-enter" />
+            </div>
+          </div>
+  
+          <div class="admweb-v2-orderlist__form-ItemBox">
+            <div class="admweb-v2-orderlist__form-item">
+              <label for="delivery_type">配送方式</label>
+              <select name="delivery_type" id="delivery_type"
+                class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                <option value="">全部</option>
+                <option value="store">超商</option>
+                <option value="store_b2c">超商大宗寄件</option>
+                <option value="home">宅配</option>
+              </select>
+            </div>
+    
+            <div class="admweb-v2-orderlist__form-item">
+              <label for="website_type">賣場類型</label>
+              <select name="website_type" id="website_type"
+                class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                <option value="" selected>全部</option>
+                <option value="1">一般賣場</option>
+<!--               <option value="2">隱形賣場</option>-->
+               <option value="3">團購賣場</option>
+<!--               <option value="4">拚團賣場</option>-->
+              </select>
+            </div>
+    
+            <div class="admweb-v2-orderlist__form-item">
+              <label for="prod_type_ls">溫層類型</label>
+              <select name="prod_type_ls" id="prod_type_ls"
+                class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select">
+                <option value="">全部</option>
+                <option value="3">常溫</option>
+                <option value="10">冷藏</option>
+                <option value="11">冷凍</option>
+              </select>
+            </div>
+    
+            <button type="submit" class="pic-BgText-color-green admweb-v2-orderlist__form-btn">
+              搜尋
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" name="order_status" value="" />
+      <input type="hidden" name="myAct" value="COMMAND_SEARCH_ORDER" />
+    </form>
+
+    <button class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn"
+      id="js-orderlist__form-toggle--btn">
+      <span>更多進階條件</span><i class="icons-line icon-arrow-down-01"></i>
+    </button>
+
+    <!-- nav -->
+    <div class="admweb-v2-orderlist__nav-outer" style="border-top: solid 1px #66B3A1;">
+      <ul class="admweb-v2-orderlist__nav">
+        <li class="admweb-v2-orderlist__nav-item" data-order_status="">
+          <a id="admweb-v2-item-all" href="#all" class="admweb-v2-orderlist__nav-link">全部</a>
+        </li>
+        {{foreach from=$m_arrOrderStatus key=mf_status item=mf_status_desc}}
+        <li id="admweb-v2-item{{$mf_status}}" class="admweb-v2-orderlist__nav-item" data-order_status="{{$mf_status}}">
+          <a href="#tab{{$mf_status}}" class="admweb-v2-orderlist__nav-link">{{$mf_status_desc}}</a>
+        </li>
+        {{/foreach}}
+      </ul>
+    </div>
+
+    <!-- 注意事項 -->
+    <div class="pic-bg-orange-10 pic-text-orange admweb-v2-orderlist__notice--outer">
+      <div class="admweb-v2-orderlist__notice  admweb-v2-arrow-img" data-overflow>
+        <p data-expand-text class="admweb-v2-orderlist__notice--text"></p>
+        <button class="pic-bg-orange-10 pic-text-orange admweb-v2-orderlist__notice--btn pic-icon-orange-arrows-2">運費/出貨說明展開</button>
+      </div>
+    </div>
+
+    <!-- 訂單列表 -->
+    <div class="pic-content" id="pic-content"></div>
+
+
+    <!-- 置底按鈕:全部 -->
+    <div class="admweb-v2-orderlist__action" id="js-orderlist__action"></div>
+  </div>
+
+  <div class="js-admweb-v2--alert admweb-v2-orderlist--alert admweb-v2-text-hint" style="display: none">
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="pic-window-order">
+        <p class="pic-window-marge-box"></p>
+        <div class="pic-window-button-box">
+          <button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert()">
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{{* 載入中 *}}
+<div class="loadingMask" style="display: none">
+  <div class="loadingBlock">
+    <div class="loadingBlock_img"><img src="images/loadingIcon.gif" alt="" /></div>
+    <div class="loadingBlock_txt">頁面讀取中</div>
+  </div>
+</div>
+{{* 匯出報表 *}}
+<form id="formExport" name="formExport" method="post" action="download_order_file.php" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}}>
+  <input type="hidden" name="file_name" value="{{$m_arrExDownload.file_name}}">
+  <input type="hidden" name="file_code" value="{{$m_arrExDownload.file_code}}">
+  <textarea name="file_content_json" rows="1" style="display:none"></textarea>
+  <input type="hidden" name="isHead" value="{{$m_arrExDownload.isHead}}">
+  <input type="hidden" name="type" value="{{$m_arrExDownload.type}}">
+</form>
+
+<script>
+  var arrSearch = [];
+
+  arrSearch['order_status'] = "{{$m_arrSearch.order_status|default:'11'}}";
+  arrSearch['search_type'] = "{{$m_arrSearch.search_type}}";
+  arrSearch['s_data'] = "{{$m_arrSearch[$m_arrSearch.search_type]}}";
+  arrSearch['s_order_date_s'] = "{{$m_arrSearch.s_order_date_s}}";
+  arrSearch['s_order_date_e'] = "{{$m_arrSearch.s_order_date_e}}";
+  arrSearch['delivery_type'] = "{{$m_arrSearch.delivery_type}}";
+  arrSearch['website_type']	  = "{{$m_arrSearch.website_type}}";
+  arrSearch['prod_type_ls'] = "{{$m_arrSearch.prod_type_ls}}";
+  arrSearch['PageIdx'] = "{{$m_arrSearch.PageIdx|default:'1'}}";
+
+  (function () {
+    markCurrentNavLink();
+  })();
+  window.addEventListener('resize', () => {
+    // searchFormCollapse();
+    checkNoticeOverflow();
+  });
+
+  var Namechange = false;
+
+  $('#js-orderlist__form-toggle--btn').click(function(){
+    $('#js-orderlist__form-click').slideToggle();
+    $('#search-btn-short').toggle();
+    $('.admweb-v2-orderlist__form-head_search').css('grid-template-columns',' auto 1fr auto');
+    $('.admweb-v2-orderlist__form-head_search').css('grid-template-columns',' auto 1fr auto');
+    Namechange = ! Namechange;
+    $('#js-orderlist__form-toggle--btn span').text(Namechange ? '收合進階條件': '更多進階條件');
+
+    $('#js-orderlist__form-toggle--btn .icons-line').toggleClass('icon-arrow-top-01');
+  })
+
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function toggleProgressBar(btn) {
+    const progressEleStyle = btn.nextElementSibling.style;
+    const eleHeight = btn.nextElementSibling.children[0].clientHeight;
+    if (
+      !progressEleStyle.height ||
+      progressEleStyle.height === `${eleHeight}px`
+    ) {
+      progressEleStyle.height = '0';
+      btn.querySelector('i').classList = 'icons-line icon-arrow-down-01';
+    } else {
+      progressEleStyle.height = `${eleHeight}px`;
+      btn.querySelector('i').classList = 'icons-line icon-arrow-top-01';
+    }
+  }
+  window.addEventListener('popstate', () => {
+    markCurrentNavLink();
+  });
+
+  // 狀態列
+  function markCurrentNavLink(tab_status)
+  {
+    const targetHash = tab_status || window.location.hash || '#tab11';
+    const targetEle = document.querySelector(`[href="${targetHash}"]`);
+    const linkEles = document.querySelectorAll(
+      '.admweb-v2-orderlist__nav-link'
+    );
+    scrollTabToCenter(`[href="${targetHash}"]`);
+
+    linkEles.forEach((item) =>
+      item.classList.remove('admweb-v2-orderlist__nav-link--active')
+    );
+    targetEle.classList.add('admweb-v2-orderlist__nav-link--active')
+
+    arrSearch['PageIdx'] = (parseInt(`{{$smarty.get.PageIdx}}`) > 1 ) ? parseInt(`{{$smarty.get.PageIdx}}`) : 1;
+
+    if (targetHash == "#all") {
+      arrSearch['order_status'] = '';
+    } else {
+      arrSearch['order_status'] = targetEle.parentElement.dataset.order_status;
+    }
+
+    if (tab_status === undefined) {
+      arrSearch['search_type'] = $("select[name='search_type']").val();
+      arrSearch['s_data'] = $("input[name='s_data']").val();
+    }
+
+    if (!"{{$arr_data.reset_bar}}" || ("{{$arr_data.reset_bar}}" && (tab_status || window.location.hash)))
+      getOrderByAPI();
+  }
+
+  function scrollTabToCenter(targetEle){
+    let pos = $(targetEle)
+      .parent('.admweb-v2-orderlist__nav-item')
+      .position().left;
+      const eleWidth = $(targetEle).width();
+    const currentscroll = $('.admweb-v2-orderlist__nav').scrollLeft();
+    const divwidth = $('.admweb-v2-orderlist__nav').width();
+    pos = pos + currentscroll - divwidth / 2 + eleWidth / 2;
+    $('.admweb-v2-orderlist__nav').animate({
+      scrollLeft: pos
+    });
+  }
+
+  // 置底按鈕
+  function showActionBtns(order_status, Jdata)
+  {
+    let actBtn_htm = `
+    <div class="admweb-v2-orderlist__action-select_all">
+      <input
+        type="checkbox"
+        class="admweb-v2-ckbutton-green-checkbox"
+        id="selectAll"
+        value="all"
+        onchange="selectAllOrder()"
+      />
+      <label for="selectAll" class="admweb-v2-ckbutton-green-label"> </label>
+      <span>全選</span>
+    </div>`;
+
+    let is_web = (!"{{$mobileDeviceDirected}}") ? true : false;
+    let paper_class = "admweb-v2-orderlist__action-row_btn";
+    let get_home_case_no = false,
+      get_store_case_no = false,
+      get_store_case_no_b2c = false,
+      print_delivery = false,
+      print_home_order = false,
+      print_store_order = false,
+      send_my_qrcode = false,
+      order_shipped = false,
+      return_package = false,
+      re_delivery = false,
+      order_refund = false;
+
+    switch (order_status) {
+      case '11':
+        paper_class = "admweb-v2-orderlist__action-col_btn";
+        break;
+      case '21':
+        paper_class = "admweb-v2-orderlist__action-col_btn";
+        break;
+    }
+
+    if (parseInt(order_status) > 0) {
+      let oList = Jdata.order_list;
+
+      $.each(oList, function (key, m_order) {
+        if (parseInt(m_order.order_status) == 11) {
+          print_delivery = true;
+
+          if (m_order.can_print_no == false) {
+            if (m_order.is_store_order == false) {
+              get_home_case_no = true;
+            } else {
+              if (m_order.can_get_no) {
+                get_store_case_no = true;
+              }
+            }
+          }else{
+            get_store_case_no_b2c = true;
+          }
+
+        } else if (parseInt(m_order.order_status) == 21 || (parseInt(m_order.order_status) == 11 && m_order.can_print_no)) {
+          if (m_order.is_store_order) {
+            print_store_order = true;
+          } else {
+            print_home_order = true;
+          }
+          if (!is_web && m_order.is_store_order && parseInt(m_order.order_status) == 21 && m_order.store_type == 'c2c') {
+            send_my_qrcode = true;
+          }
+
+        } else if(parseInt(m_order.order_status) == 22){
+          if(Jdata.setTcat == false){
+            paper_class = "admweb-v2-orderlist__action-col_btn--grow";
+
+            if(m_order.is_store_order == false){
+              order_shipped = true;
+              return_package = true;
+            }
+          }else{
+            print_home_order = true;
+          }
+
+        } else if(parseInt(m_order.order_status) == 40){
+          order_refund = true;
+
+        } else if(m_order.is_store_order == false && parseInt(m_order.order_status) == 42){
+          re_delivery = true;
+        }
+      });
+    }
+
+    actBtn_htm += `
+    <button class="${paper_class} admweb-v2-report-btn" onclick="export_order();">
+      <i class="icons-line icon-line-paper-text"></i> 報表
+    </button>`;
+
+    if (print_delivery) {
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn" onclick="print_order(1);">
+      <i class="icons-line icon-line-Print"></i> 出貨單
+    </button>`;
+    }
+
+    if (get_store_case_no) {
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="batchStoreShipment();">
+      <i class="icons-line icon-line-box-product"></i> 超商整批出貨
+    </button>`;
+    }
+
+    if (get_store_case_no_b2c) {
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="batchStoreShipment_b2c();">
+      <i class="icons-line icon-line-box-product"></i> 超商大宗寄件整批出貨
+    </button>`;
+    }
+
+    if (get_home_case_no) {
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="batchDeliveryShipment();">
+      <i class="icons-line icon-line-truck"></i> 宅配整批出貨
+    </button>`;
+    }
+
+    if (print_store_order) {
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="printStoreLabel();">
+      <i class="icons-line icon-line-Print"></i> 列印超商標籤
+    </button>`;
+    }
+
+    if (print_home_order) {
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="printDeliveryLabel();">
+      <i class="icons-line icon-line-Print"></i> 列印宅配標籤
+    </button>`;
+    }
+
+    if (send_my_qrcode) {
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="sendQRcodeToMachine();">
+      <i class="icons-line icon-line-QRcode"></i> 傳送至我的 QRcode
+    </button>`;
+    }
+
+    if(return_package){
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="return_package();">
+      <i class="icons-line icon-line-box-ArrowBack"></i> 配送異常退回
+    </button>`;
+    }
+
+    if (order_shipped){
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow admweb-v2-order-detail-BtnRow" onclick="order_shipped();">
+      <i class="icons-line icon-line-tick"></i> 已送達
+    </button>`;
+    }
+
+    if(re_delivery){
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="re_delivery();">
+      <i class="icons-line icon-line-truck"></i> 重新出貨
+    </button>`;
+    }
+
+    if(order_refund){
+      actBtn_htm += `
+    <button class="admweb-v2-orderlist__action-col_btn--grow" onclick="order_refund();">
+      <i class="icons-line icon-line-emoney-bold-02"></i> 驗收及退款
+    </button>`;
+    }
+
+    $('#js-orderlist__action').html(actBtn_htm);
+    document.getElementById(`js-orderlist__action`).style.display = 'flex';
+  }
+
+  const expandableEles = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice'
+  );
+  const expandableBtns = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice--btn'
+  );
+  checkNoticeOverflow();
+  function checkNoticeOverflow() {
+    expandableEles.forEach((expandableEle) => {
+      if (expandableEle.classList.contains('expanded')) return;
+      const expandableText = expandableEle.querySelector(
+        '.admweb-v2-orderlist__notice--text'
+      );
+
+      const overflowing =
+        expandableText.scrollHeight > expandableText.offsetHeight;
+      expandableEle.dataset.overflow = overflowing;
+    });
+  }
+  expandableBtns.forEach((button) => {
+    button.addEventListener('click', toggleNoticeText);
+    setNoticeButtonText(button);
+  });
+  function toggleNoticeText(e) {
+    const expandableEle = e.target.closest('.admweb-v2-orderlist__notice');
+    expandableEle.classList.toggle('expanded');
+    setNoticeButtonText(e.target);
+  }
+
+  function setNoticeButtonText(button) {
+    const expandableEle = button.closest('.admweb-v2-orderlist__notice');
+    const expanded = expandableEle.classList.contains('expanded');
+    button.innerHTML = expanded
+            ? '運費/出貨說明收合'
+            : '運費/出貨說明展開';
+  }
+  
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    alert.style.display = 'none';
+    $('.pic-window-button-box').show();
+    $('.pic-window-order').removeClass('admweb-v2-QRcode-frame');
+    $('.pic-window-order').removeClass('pic-window-scroll-height');
+  }
+
+  function editAlertContent(content) {
+    const alertEle = document.querySelector('.js-admweb-v2--alert');
+    const alertTextEle = alertEle.querySelector('.pic-window-marge-box');
+
+    if (typeof content == 'string' && (content.indexOf('<br/>') >= 0 || content.indexOf('<br>') >= 0)) {
+      var splits;
+      if(content.indexOf('<br/>') >= 0)
+        splits = content.split('<br/>');
+      else
+        splits = content.split('<br>');
+
+      alertTextEle.innerHTML = '';
+      for (let i = 0; i < splits.length; i++) {
+        const txt = splits[i];
+        let txt_node = document.createTextNode(txt);
+        alertTextEle.appendChild(txt_node);
+
+        if(i != (splits.length-1))
+          alertTextEle.appendChild(document.createElement("br"));
+      }
+    } else if (typeof content === 'object') {
+      alertTextEle.innerHTML = filterScriptTags(content.html());
+    } else {
+      alertTextEle.innerText = content;
+    }
+
+    showAlert(alertEle);
+  }
+
+  // 取得至我的 QRcode
+  function get_my_qrcode()
+  {
+    $('.pic-window-button-box').hide();
+    $('.pic-window-order').addClass('admweb-v2-QRcode-frame');
+
+	if (typeof imgSrc != "undefined" && imgSrc.startsWith('https://chart.apis.google.com')) {
+	}else{
+		get_my_qrcode_bbc();
+	}
+	editAlertContent($("#QRcode_box"));
+  }
+
+
+  //我的 QRcode
+  function sendQRcodeToMachine()
+  {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let value = [];
+    let can_send = true;
+
+    eles.forEach((ele) => {
+      if($(ele).data('store_type') != 'c2c'){
+        can_send = false;
+      }
+      ele.checked && value.push($(ele).data('delivery_case_no'))
+    });
+
+    let delivery_case_no = Array.from(new Set(value));
+    if (delivery_case_no.length === 0) {
+      editAlertContent(`勾選的訂單無可上傳至我的 QRcode，請重勾選訂單。`);
+      return;
+    }
+
+    if(can_send == false){
+      editAlertContent(`勾選的訂單含 B2C 訂單，不可上傳至我的 QRcode，請重勾選訂單。`);
+      return;
+    }
+    $.ajax({
+      url: "../api/api.app_ibon.php",
+      type: "POST",
+      dataType: "json",
+      headers: {
+        authorization: "Bearer {{$jwt_token}}"
+      },
+      data: JSON.stringify({
+        service: "SEND_TO_MY_QRCODE",
+        LoginID: "{{$adm_arrMember.mem_login_token}}",
+        LoginIDType: "0",
+        service_methode: "bbc",
+        EsmmNoList: delivery_case_no.join(','),
+        "{{$nocsrfTokenId}}": "{{$nocsrfToken}}"
+      }),
+      success: function (Jdata) {
+        if (Jdata.result == "C000") {
+          editAlertContent(Jdata.data.AlertMsg);
+        } else {
+          editAlertContent(`傳送至【我的 QRcode】失敗`);
+        }
+      }, error: function (re) {
+        console.log('傳送到我的 QR CODE', 'error', re);
+      }
+    });
+  }
+
+  //超商標籤
+  function printStoreLabel()
+  {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_home_order = false;
+    let value = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == false)
+        has_home_order = true;
+
+      ele.checked && value.push(ele.value);
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (has_home_order || checkboxVals.length === 0) {
+      editAlertContent(`勾選的訂單無【超商】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+
+    //列印超商標籤
+    print_order(2);
+  }
+
+  //宅配標籤
+  function printDeliveryLabel()
+  {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_store_order = false;
+    let value = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == true)
+        has_store_order = true;
+
+      ele.checked && value.push(ele.value);
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (has_store_order || checkboxVals.length === 0) {
+      editAlertContent(`勾選的訂單無【宅配】訂單可列印標籤，請重勾選訂單。`);
+      return;
+    }
+
+    //列印宅配標籤
+    print_order(3);
+  }
+
+  //超商整批出貨
+  function batchStoreShipment()
+  {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_home_order = false;
+    let value = [];
+    let can_get_no = true;
+    let c2c_order = true;
+    let order_prod_type = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == false)
+        has_home_order = true;
+
+      if ($(ele).data('can_get_no') == false) {
+        can_get_no = false;
+      }
+
+      if($.inArray($(ele).data('order_prod_type'), order_prod_type) == -1){
+        order_prod_type.push($(ele).data('order_prod_type'));
+      }
+
+      if ($.inArray(parseInt($(ele).data('delivery_type')), [408, 409, 410, 411]) > -1) {
+        c2c_order = false;
+      }
+
+      ele.checked && value.push(ele.value);
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選的訂單無【超商】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+    if (can_get_no == false) {
+      // editAlertContent(`勾選之訂單已取號，請重勾選訂單。`);
+      // return;
+    }
+    if (has_home_order || c2c_order == false || order_prod_type.length > 1) {
+      editAlertContent(`請勾選同一溫層【超商】的待出貨訂單，請重新勾選訂單。`);
+      return;
+    }
+
+    bulk_shipment(2);
+  }
+
+  //超商大宗寄件整批出貨
+  function batchStoreShipment_b2c()
+  {
+    const eles = document.querySelectorAll(
+            '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_home_order = false;
+    let value = [];
+    let can_get_no = true;
+    let b2c_order = true;
+    let order_prod_type = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == false)
+        has_home_order = true;
+
+      if ($(ele).data('can_get_no') == false) {
+        can_get_no = false;
+      }
+
+      if($.inArray($(ele).data('order_prod_type'), order_prod_type) == -1){
+        order_prod_type.push($(ele).data('order_prod_type'));
+      }
+
+      if ($.inArray(parseInt($(ele).data('delivery_type')), [404, 405, 406, 407]) > -1) {
+        b2c_order = false;
+      }
+      ele.checked && value.push(ele.value);
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選的訂單無【超商大宗寄件】待出貨訂單，請重新勾選訂單。`);
+      return;
+    }
+
+    if (can_get_no == false) {
+      // editAlertContent(`勾選之訂單已取號，請重勾選訂單。`);
+      // return;
+    }
+
+    if (has_home_order || b2c_order == false || order_prod_type.length > 1) {
+      editAlertContent(`請勾選同一溫層【超商大宗寄件】的待出貨訂單，請重新勾選訂單。`);
+      return;
+    }
+
+    bulk_shipment(2);
+  }
+
+  //宅配整批出貨
+  function batchDeliveryShipment()
+  {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_store_order = false;
+    let value = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == true)
+        has_store_order = true;
+
+      ele.checked && value.push(ele.value);
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (checkboxVals.length === 0) {
+      editAlertContent(`勾選的訂單無【宅配】待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+
+    if (has_store_order) {
+      editAlertContent(`請勾選【宅配】的待出貨訂單，請重勾選訂單。`);
+      return;
+    }
+
+    //do some action
+    bulk_shipment(1);
+  }
+
+  function getSelectedCheckboxValue(methode)
+  {
+    const eles = document.querySelectorAll(
+      '.js-admweb-v2--order-checkbox:checked'
+    );
+    let value = [];
+    eles.forEach((ele) => {
+      switch (methode) {
+        case 'print_delivery':
+          ele.checked && value.push($(ele).data('delivery_uid'))
+          break;
+
+        default:
+          ele.checked && value.push(ele.value);
+          break;
+      }
+    });
+    return Array.from(new Set(value));
+  }
+
+  //全選
+  function selectAllOrder()
+  {
+    const isSelectedAll = document.getElementById('selectAll').checked;
+    const eles = document.querySelectorAll('.js-admweb-v2--order-checkbox');
+    eles.forEach((ele) =>
+      isSelectedAll ? (ele.checked = true) : (ele.checked = false)
+    );
+  }
+
+  function exchange_search_content(_this)
+  {
+    let show_content = '';
+
+    switch ($(_this).val()) {
+      case 'delivery_case_no_ls':
+        show_content = "請輸入寄件編號";
+        break;
+
+      case 'prod_name_ls':
+        show_content = "請輸入商品名稱";
+        break;
+
+      case 'order_addressee':
+        show_content = "請輸入收件人";
+        break;
+
+      default:
+        show_content = "請輸入訂單編號";
+        break;
+    }
+
+    $("input[name=s_data]").attr('placeholder', show_content).val('');
+  }
+
+  function send_Search()
+  {
+    let sDate = $('#s_order_date_s').val();
+    let eDate = $('#s_order_date_e').val();
+
+    let sDate_ori = new Date(sDate.replace(/-/g, "/"));
+    let eDate_ori = new Date(eDate.replace(/-/g, "/"));
+
+    if ((Date.parse(sDate)).valueOf() > (Date.parse(eDate)).valueOf()) {
+      let change_d = sDate;
+
+      sDate = eDate;
+      eDate = change_d;
+      $('#s_order_date_s').val(sDate.replace(/\//g, "-"));
+      $('#s_order_date_e').val(eDate.replace(/\//g, "-"));
+    }
+
+    let sDate_eff = new Date(eDate.replace(/-/g, "/"));
+    let eDate_eff = new Date(sDate.replace(/-/g, "/"));
+
+    sDate_eff.setMonth(sDate_eff.getMonth() - 3);
+    eDate_eff.setMonth(eDate_eff.getMonth() + 3);
+
+    let tmp_d = false;
+
+    if (((Date.parse(sDate_ori)).valueOf() < (Date.parse(sDate_eff)).valueOf()) ||
+      ((Date.parse(eDate_ori)).valueOf() > (Date.parse(eDate_eff)).valueOf())) {
+      tmp_d = true;
+    }
+
+    if (tmp_d) {
+      alert("查詢期間最多三個月");
+      return false;
+    }
+  }
+
+  //換頁
+  function change_page(pg)
+  {
+    arrSearch['PageIdx'] = pg;
+    getOrderByAPI();
+
+    //加入margin-top距離
+    const header = $('.admweb-v2-orderlist-header').height() + 50;
+    $('html,body').animate({
+      scrollTop: $('#pic-content').offset().top - header
+    }, '500');
+  }
+
+  function filterScriptTags(str)
+  {
+    const regex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+    if (str) {
+      return str.replace(regex, "");
+    }
+    return "";
+  }
+
+  // 取得訂單歷程
+  function getODStatusShow(_this)
+  {
+    let order_uid = $(_this).data("order_uid");
+    let progress_status = $(_this).data("progress_status").toString();
+    let ori_text = filterScriptTags($(_this).data("order_status_desc"));
+    let progress = $("#progress_" + order_uid);
+    let display_flag = false;
+
+    switch (progress_status) {
+      case '0':
+        $(_this).data("progress_status", '1');
+        $(_this).text("載入中");
+
+        $('.loadingMask').show();
+
+        $.ajax({
+          url: "{{$m_inURL}}",
+          type: "POST",
+          async: false,
+          dataType: "json",
+          data: {
+            myAct: "GET_ORDER_STATUS_SHOW",
+            order_uid: order_uid,
+            '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+          },
+          success: function(Jdata) {
+            if (Jdata != null) {
+              progress.html('');
+              jsProgress = progress.get(0);
+
+              //訂單歷程
+              let m_arrODSShow = Jdata;
+
+              if(m_arrODSShow.length > 0){
+                let outter = document.createElement('div');
+                outter.className = 'admweb-v2-orderlist__progress';
+
+                for (m = 0 ; m < m_arrODSShow.length ; m++) {
+                  let item = document.createElement('div');
+                  item.className = `admweb-v2-orderlist__progress-item`;
+                  if (m_arrODSShow[m].order_class)
+                    item.classList.add('admweb-v2-orderlist__progress-item--success');
+
+                  let circle = document.createElement('span');
+                  circle.className = 'admweb-v2-orderlist__progress-circle';
+
+                  let text = document.createElement('p');
+                  text.className = 'admweb-v2-orderlist__progress-text';
+                  text.textContent = filterScriptTags(m_arrODSShow[m].os_desc);
+
+                  let time = document.createElement('span');
+                  time.className = 'admweb-v2-orderlist__progress-time';
+                  time.textContent = filterScriptTags(m_arrODSShow[m].os_time);
+
+                  item.appendChild(circle);
+                  item.appendChild(text);
+                  item.appendChild(time);
+
+                  outter.appendChild(item);
+                }
+
+                jsProgress.appendChild(outter);
+
+                $(_this).data('progress_status', '2');
+
+                display_flag = true;
+
+              }else{
+                $(_this).attr('onclick', '').data('progress_status', '3');
+                progress.remove();
+              }
+
+              let i = document.createElement('i');
+              _this.textContent = `訂單狀態：${ori_text}`;
+              i.className = 'icons-line icon-arrow-down-01';
+              _this.appendChild(i);
+
+              $('.loadingMask').hide();
+
+            } else {
+              $(_this).text('載入失敗');
+            }
+          }
+        });
+        break;
+
+      case '1': // 是否要重新查詢
+        break;
+
+      case '2': // 已撈取過資料
+        display_flag = true;
+        break;
+
+      case '3':
+        $(_this).attr('onclick', '');
+        progress.remove();
+        break;
+    }
+
+    if (display_flag)
+      toggleProgressBar(_this);
+  }
+
+  function getOrderStatusDesc(order_status)
+  {
+    let desc;
+    switch (order_status) {
+      case '0': // 帳款確認中
+        desc = `ATM虛擬帳號及超商代碼消費者須於3天完成匯款，若未完成繳費，系統將自動取消訂單。`;
+        break;
+      case '11': // 待出貨
+      case '21': // 出貨中
+        desc = `訂單出貨及取號提醒：<br/>
+1. 交寄期限：店到店訂單須於取號後7天（含第7天）內交寄，超過期限將無法出貨；大宗寄件訂單須於取號後15天（含第15天）內寄件，若未能於期限內出貨，請勿上傳訂單，若超過交寄期限，請點取消訂單後退款，請消費者重新訂購。<br/>
+2. 大宗寄件：若當日要進驗，請於上午 11 :00 前上傳訂單。<br/>
+3. 冷凍包裹：寄件前請務必預冷12小時以上，並確認未漏水。<br/>
+4. 運費：店到店常溫寄件優惠運費優惠35元（離島費用依官網公告）、冷凍寄件運費優惠99元（僅限本島）；大宗寄件運費常溫運費40元；冷凍寄件費用120元。<br/>`;
+        break;
+      case '24': // 貨到門市
+        desc = `超商訂單抵達門市後以信件和簡訊通知消費者領取，常溫訂單取貨截止日為抵達門市的七天內取件；冷凍包裹為抵達門市的四天內取件，實際取貨截止日依通知的日期為主。`;
+        break;
+      case '31': // 訂單取消
+        desc = `訂單取消後若消費者有使用線上付款之付款方式，系統會自動將款項退還給消費者。`;
+        break;
+      case '40': // 退貨申請
+        desc = `請聯繫消費者確認包裹退貨事項及收取退貨包裹方式，收到退貨包裹後請於四天內點驗收及退款，若有問題可點爭議，進入爭議流程。`;
+        break;
+      case '41': // 物流驗退
+        desc = `退貨完成後訂單進入物流驗退，系統會自動將款項退還給消費者。`;
+        break;
+      case '42': // 配送異常退回
+        desc = `配送異常訂單提醒：<br/>
+1. 超商訂單：因不提供原訂單重新出貨，請將訂單取消後以利退款作業進行，若消費者還要包裹，請重新下新訂單。<br/>
+2. 宅配訂單：可點重新出貨，再次進行配送，或將訂單取消進行退款。`;
+        break;
+      case '45': // 爭議審核中
+        desc = `訂單已進入爭議流程，待平台人員審核中，謝謝！`;
+        break;
+      default: // 全部/已出貨/已送達
+        desc = `店到店常溫寄件優惠運費優惠35元（離島費用依官網公告）、冷凍寄件運費優惠99元（僅限本島）；大宗寄件運費常溫運費40元；冷凍寄件費用120元。`;
+        break;
+    }
+    return desc;
+  }
+
+  const symbol = "{{getWebColsName idx='prod_currency_unit'}}";
+
+  // 撈訂單資料
+  function getOrderByAPI()
+  {
+    $('.loadingMask').show();
+
+    $.ajax({
+      url: "{{$m_inURL}}",
+      type: "POST",
+      dataType: "json",
+      data: {
+        myAct: "GET_ORDER_LIST",
+        order_status: arrSearch['order_status'],
+        search_type: arrSearch['search_type'],
+        s_data: arrSearch['s_data'],
+        s_order_date_s: arrSearch['s_order_date_s'],
+        s_order_date_e: arrSearch['s_order_date_e'],
+        delivery_type: arrSearch['delivery_type'],
+        website_type: arrSearch['website_type'],
+        prod_type_ls: arrSearch['prod_type_ls'],
+        PageIdx: arrSearch['PageIdx'],
+        is_search: "{{$arr_data.reset_bar}}",
+        '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+      },
+      success: function (Jdata) {
+        $('.loadingMask').hide();
+
+        // 說明
+        $('.admweb-v2-orderlist__notice--btn').html('');
+        let desc = getOrderStatusDesc(arrSearch['order_status']);
+        if (desc)
+          document.querySelector('.admweb-v2-orderlist__notice--text').innerHTML = desc;
+
+        $('.admweb-v2-orderlist__notice').removeClass('expanded');
+
+        document.querySelectorAll(
+                '.admweb-v2-orderlist__notice--btn'
+        ).forEach((button)=> {
+          setNoticeButtonText(button)
+        });
+
+        checkNoticeOverflow();
+
+        // 訂單資料
+        const picContent = document.querySelector('.pic-content');
+        picContent.innerHTML = '';
+
+        if (Jdata.order_list.length > 0) {
+          let OrderList = Jdata.order_list;
+          let is_web = (!"{{$mobileDeviceDirected}}") ? true : false;
+
+          let div1 = document.createElement('div');
+
+          let div2 = document.createElement('div');
+          div2.className = 'admweb-v2-orderlist-overview';
+          let span1 = document.createElement('span');
+          span1.textContent = `訂單日期：${Jdata.order_date_range}`;
+          let span2 = document.createElement('span');
+          span2.textContent = `共 ${Jdata.total_count} 筆`;
+          div2.appendChild(span1);
+          div2.appendChild(span2);
+          div1.appendChild(div2);
+
+          let ul = document.createElement('ul');
+          ul.className = 'admweb-v2-orderlist__list';
+
+          for (let k = 0; k < OrderList.length; k++) {
+            let m_order = OrderList[k];
+
+            let li = document.createElement('li');
+            li.className = 'admweb-v2-orderlist__card';
+
+            if (is_web) {
+              let table = document.createElement('table');
+              table.className = 'admweb-v2-orderlist__table';
+              let strColumn = m_order.order_status.toString() == '42' && m_order.is_store_order == true
+                      ? `訂單處理`
+                      : ``;
+
+              table.innerHTML = `
+        <thead>
+          <tr class="admweb-v2-orderlist__table--head">
+            <th></th>
+            <th>訂單編號</th>
+            <th>訂單狀態</th>
+            <th>訂單時間</th>
+            <th>收件人</th>
+            <th>賣場類型</th>
+            <th style="width: 9%">配送方式</th>
+            <th>付款方式</th>
+            <th>付款單號</th>
+            <th>購買數量</th>
+            <th>購買總計<br />(含運費)</th>
+            <th>${strColumn}</th>
+            <th></th>
+          </tr>
+        </thead>`;
+
+              let tbody = document.createElement('tbody');
+              let tr = document.createElement('tr');
+              tr.className = 'admweb-v2-orderlist__table--tr';
+
+              let td, input, span, a, p;
+
+              td = document.createElement('td');
+
+              // checkbox
+              input = document.createElement('input');
+              input.type = 'checkbox';
+              input.className = 'js-admweb-v2--order-checkbox admweb-v2-ckbutton-green-checkbox';
+              input.id = m_order.order_uid;
+              input.value = m_order.order_uid;
+              input.setAttribute('data-delivery_uid', m_order.delivery_uid);
+              input.setAttribute('data-delivery_case_no', m_order.delivery_case_no);
+              input.setAttribute('data-delivery_type', m_order.delivery_type);
+              input.setAttribute('data-setTcat', Jdata.setTcat);
+              input.setAttribute('data-is_store_order', m_order.is_store_order);
+              input.setAttribute('data-can_print_no', m_order.can_print_no);
+              input.setAttribute('data-can_get_no', m_order.can_get_no);
+              input.setAttribute('data-order_prod_type', m_order.order_prod_type.prod_type);
+              input.setAttribute('data-store_type', m_order.store_type);
+
+              let label = document.createElement('label');
+              label.className = 'admweb-v2-ckbutton-green-label';
+              label.setAttribute('for', m_order.order_uid);
+              td.appendChild(input);
+              td.appendChild(label);
+              tr.appendChild(td);
+
+              // 訂單溫層/訂單編號
+              td = document.createElement('td');
+              span = document.createElement('span');
+              span.className = m_order.order_prod_type.prod_type_class;
+              span.textContent = m_order.order_prod_type.prod_type_desc;
+              a = document.createElement('a');
+              a.className = 'admweb-v2-orderlist--order_no';
+              a.textContent = m_order.order_uid;
+              td.appendChild(span);
+              td.appendChild(a);
+              tr.appendChild(td);
+
+              // 訂單狀態
+              td = document.createElement('td');
+              td.textContent = m_order.order_status_desc;
+              tr.appendChild(td);
+
+              // 訂單時間
+              td = document.createElement('td');
+              td.textContent = m_order.order_date;
+              tr.appendChild(td);
+
+              // 收件人
+              td = document.createElement('td');
+              td.textContent = m_order.order_addressee;
+              tr.appendChild(td);
+
+              // 賣場類型
+              td = document.createElement('td');
+              td.textContent = m_order.website_type;
+              tr.appendChild(td);
+
+              // 配送方式
+              td = document.createElement('td');
+              span = document.createElement('span');
+              span.className = m_order.delivery_type_class;
+              span.textContent = m_order.delivery_type_desc;
+              p = document.createElement('p');
+              p.className = 'admweb-v2-orderlist-delivery_no';
+              if (m_order.is_store_order) {
+                a = document.createElement('a');
+                a.href = m_order.Etracking_path;
+                a.target = '_blank';
+                a.className = 'pic-text-gray-100';
+                a.textContent = m_order.delivery_case_no;
+                p.appendChild(a);
+              } else {
+                p.textContent = m_order.delivery_case_no;
+              }
+              td.appendChild(span);
+              td.appendChild(p);
+              tr.appendChild(td);
+
+              // 付款方式
+              td = document.createElement('td');
+              td.textContent = m_order.payment_type_desc;
+              tr.appendChild(td);
+
+              // 付款單號
+              td = document.createElement('td');
+              td.textContent = m_order.payment_case_no;
+              tr.appendChild(td);
+
+              // 購買數量
+              td = document.createElement('td');
+              td.textContent = m_order.prod_qty_amt;
+              tr.appendChild(td);
+
+              // 購買總計(含運費)
+              td = document.createElement('td');
+              td.textContent = `${symbol}${m_order.order_total}`;
+              tr.appendChild(td);
+
+              // 訂單處理
+              td = document.createElement('td');
+              if (typeof m_order.ODSShow.os != "undefined" && m_order.ODSShow.os.toString() == '42-6'
+                      && m_order.is_store_order == true && m_order.ODSShow.g_store_type.toString() == '1') {
+                td.className = 'admweb-v2-orderlist-process';
+                td.textContent = '您預設的退件門市已閉店，請重選門市';
+              }
+              tr.appendChild(td);
+
+              // 訂單詳情
+              td = document.createElement('td');
+              a = document.createElement('a');
+              a.className = 'admweb-v2-orderlist__card-top_status-link pic-BgText-color-white-green';
+              a.href = m_order.ou_detail_path;
+              a.innerHTML = `訂單詳情<i class="icons-line icon-arrow-right-01"></i>`;
+              td.appendChild(a);
+              tr.appendChild(td);
+
+              tbody.appendChild(tr);
+              table.appendChild(tbody);
+              li.appendChild(table);
+
+            } else {  // mobile
+              let div, span, a, dt, dd, p;
+
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-top';
+
+              let div1 = document.createElement('div');
+              div1.className = 'admweb-v2-checkbox-name';
+
+              // checkbox
+              let input = document.createElement('input');
+              input.type = 'checkbox';
+              input.className = 'js-admweb-v2--order-checkbox admweb-v2-ckbutton-green-checkbox';
+              input.id = m_order.order_uid;
+              input.value = m_order.order_uid;
+              input.setAttribute('data-delivery_uid', m_order.delivery_uid);
+              input.setAttribute('data-delivery_case_no', m_order.delivery_case_no);
+              input.setAttribute('data-delivery_type', m_order.delivery_type);
+              input.setAttribute('data-setTcat', Jdata.setTcat);
+              input.setAttribute('data-is_store_order', m_order.is_store_order);
+              input.setAttribute('data-can_print_no', m_order.can_print_no);
+              input.setAttribute('data-can_get_no', m_order.can_get_no);
+              input.setAttribute('data-order_prod_type', m_order.order_prod_type.prod_type);
+              input.setAttribute('data-store_type', m_order.store_type);
+              div1.appendChild(input);
+
+              let label = document.createElement('label');
+              label.className = 'admweb-v2-ckbutton-green-label';
+              label.setAttribute('for', m_order.order_uid);
+              div1.appendChild(label);
+
+              p = document.createElement('p');
+              span = document.createElement('span');
+              span.className = m_order.order_prod_type.prod_type_class;
+              span.textContent = m_order.order_prod_type.prod_type_desc;
+              p.appendChild(span);
+              span = document.createElement('span');
+              span.className = 'pic-text-gray';
+              span.textContent = '訂單編號';
+              p.appendChild(span);
+              span = document.createElement('span');
+              span.textContent = m_order.order_uid;
+              p.appendChild(span);
+              div1.appendChild(p);
+              div.appendChild(div1);
+
+              div1 = document.createElement('div');
+              div1.className = 'admweb-v2-orderlist__card-top_status';
+              span = document.createElement('span');
+              span.textContent = m_order.order_status_desc;
+              div1.appendChild(span);
+              a = document.createElement('a');
+              a.className = 'admweb-v2-orderlist__card-top_status-link pic-BgText-color-white-green pic-font-size-12';
+              a.href = m_order.ou_detail_path;
+              a.innerHTML = `訂單詳情<i class="icons-line icon-arrow-right-01"></i>`;
+              div1.appendChild(a);
+              div.appendChild(div1);
+              li.appendChild(div);
+
+              let dl = document.createElement('dl');
+              dl.className = 'admweb-v2-orderlist__card-detail';
+
+              // 訂單時間
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-desc';
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '訂單時間';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              dd.textContent = m_order.order_date;
+              div.appendChild(dd);
+              dl.appendChild(div);
+
+              // 收件人
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-desc';
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '收件人';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              dd.textContent = m_order.order_addressee;
+              div.appendChild(dd);
+              dl.appendChild(div);
+
+              // 賣場類型
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-desc';
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '賣場類型';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              dd.textContent = m_order.website_type;
+              div.appendChild(dd);
+              dl.appendChild(div);
+
+              // 配送方式
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-desc';
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '配送方式';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              span = document.createElement('span');
+              span.className = m_order.delivery_type_class;
+              span.textContent = m_order.delivery_type_desc;
+              dd.appendChild(span);
+              p = document.createElement('p');
+              p.className = 'admweb-v2-orderlist-delivery_no';
+              if (m_order.is_store_order) {
+                a = document.createElement('a');
+                a.href = m_order.Etracking_path;
+                a.target = '_blank';
+                a.className = 'pic-text-gray-100';
+                a.textContent = m_order.delivery_case_no;
+                p.appendChild(a);
+              } else {
+                p.textContent = m_order.delivery_case_no;
+              }
+              dd.appendChild(p);
+              div.appendChild(dd);
+              dl.appendChild(div);
+
+              // 付款方式
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-desc';
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '付款方式';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              dd.textContent = m_order.payment_type_desc;
+              div.appendChild(dd);
+              dl.appendChild(div);
+
+              // 付款單號
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-desc';
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '付款單號';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              dd.textContent = m_order.payment_case_no;
+              div.appendChild(dd);
+              dl.appendChild(div);
+
+              // 購買數量
+              div = document.createElement('div');
+              div.className = 'admweb-v2-orderlist__card-desc--multi';
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '購買數量';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              dd.textContent = m_order.prod_qty_amt;
+              div.appendChild(dd);
+              dt = document.createElement('dt');
+              dt.className = 'admweb-v2-orderlist__card-desc-dt';
+              dt.textContent = '購買總計(含運費)';
+              div.appendChild(dt);
+              dd = document.createElement('dd');
+              dd.className = 'admweb-v2-orderlist__card-desc-dd';
+              let strong = document.createElement('strong');
+              strong.className = 'pic-text-green';
+              strong.textContent = `${symbol}${m_order.order_total}`;
+              dd.appendChild(strong);
+              div.appendChild(dd);
+              dl.appendChild(div);
+
+              // 訂單狀態
+              if (typeof m_order.ODSShow.os != "undefined" && m_order.ODSShow.os.toString() == '42-6'
+                      && m_order.is_store_order == true && m_order.ODSShow.g_store_type.toString() == '1') {
+                div = document.createElement('div');
+                div.className = 'admweb-v2-orderlist__card-desc';
+                dt = document.createElement('dt');
+                dt.className = 'admweb-v2-orderlist__card-desc-dt';
+                dt.textContent = '訂單狀態';
+                div.appendChild(dt);
+                dd = document.createElement('dd');
+                dd.className = 'admweb-v2-orderlist__card-desc-dd';
+                dd.textContent = '您預設的退件門市已閉店，請重選門市';
+                div.appendChild(dd);
+                dl.appendChild(div);
+              }
+
+              li.appendChild(dl);
+
+            } // end web or mobile
+
+            // 訂單歷程
+            let container = document.createElement('div');
+            container.className = 'admweb-v2-orderlist__progress-container';
+            let btn = document.createElement('button');
+            btn.className = 'pic-bg-green-5 pic-text-green admweb-v2-orderlist__progress-btn';
+            btn.setAttribute('data-order_uid', m_order.order_uid);
+            btn.setAttribute('data-progress_status', '0');
+            btn.setAttribute('data-order_status_desc', m_order.order_status_desc);
+            btn.setAttribute('onclick', 'getODStatusShow(this);');
+            btn.textContent = `訂單狀態：${m_order.order_status_desc}`;
+            let i = document.createElement('i');
+            i.className = 'icons-line icon-arrow-down-01';
+            btn.appendChild(i);
+            container.appendChild(btn);
+
+            // 進度條
+            let progress = document.createElement('div');
+            progress.className = 'admweb-v2-orderlist__progress-outer';
+            progress.id = `progress_${m_order.order_uid}`;
+            progress.style.height = '0px';
+            container.appendChild(progress);
+            li.appendChild(container);
+            ul.appendChild(li);
+          } // end foreach order
+
+          div1.appendChild(ul);
+          picContent.appendChild(div1);
+
+          // 頁碼區塊
+          DividePage(Jdata);
+
+        } else {
+          picContent.innerHTML = `
+<div class="admweb-v2-NoData">
+  <div class="admweb-v2-img-NoData"></div>
+  <span>目前無訂單資料</span>
+</div>`;
+        }
+
+        if (Jdata.order_list.length > 0) {
+          showActionBtns(arrSearch['order_status'], Jdata);
+        }else{
+          $('#js-orderlist__action').html('');
+        }
+
+        var state = {
+          title: "title",
+          url: Jdata.order_query_path
+        };
+        window.history.replaceState(state, null, Jdata.order_query_path);
+      },
+      error: function (re) {
+        console.log("GET_ORDER_LIST", 'error', re);
+      }
+    });
+  }
+
+  //頁碼分頁
+  function DividePage(Jdata)
+  {
+    const picContent = document.querySelector('.pic-content');
+
+    //頁碼區塊
+    let dataPage = ``;
+    let PageIdx = parseInt(arrSearch['PageIdx']);
+    let pages = parseInt(Jdata.total_page);
+
+    if (pages > 5) { // 五頁以上
+      const container = document.createElement('div');
+      container.className = `pic-flex-center pic-flex-center-column`;
+
+      const ul = document.createElement('ul');
+      ul.classList.add('admweb-v2-pagination');
+
+      if (PageIdx > 1) {
+        const li1 = document.createElement('li');
+        li1.classList.add('admweb-v2-page-num-box');
+        const a1 = document.createElement('a');
+        a1.classList.add('admweb-v2-page-link-arrows');
+        a1.href = 'javascript:change_page(\'1\')';
+        a1.setAttribute('aria-label', 'Previous');
+        const span1 = document.createElement('span');
+        span1.classList.add('admweb-v2-icon-page-left-first-arrows');
+        span1.setAttribute('aria-hidden', true);
+        a1.appendChild(span1);
+        li1.appendChild(a1);
+        ul.appendChild(li1);
+
+        const li2 = document.createElement('li');
+        li2.classList.add('admweb-v2-page-num-box');
+        const a2 = document.createElement('a');
+        a2.classList.add('admweb-v2-page-link-arrows');
+        a2.href = `javascript:change_page(${PageIdx - 1})`;
+        a2.setAttribute('aria-label', 'Previous');
+        const span2 = document.createElement('span');
+        span2.classList.add('admweb-v2-icon-black-left-arrows');
+        span2.setAttribute('aria-hidden', true);
+        a2.appendChild(span2);
+        li2.appendChild(a2);
+        ul.appendChild(li2);
+      }
+
+      let s_page = (PageIdx % 5 > 0) ? (PageIdx - PageIdx % 5 + 1) : (PageIdx - 4);
+      let e_page = s_page + 4;
+      if(e_page > pages) {
+        s_page = s_page - (e_page - pages);
+        e_page = pages;
+      }
+
+      for (let pager_numeric = s_page; pager_numeric <= e_page; pager_numeric++) {
+        const li = document.createElement('li');
+        li.classList.add('admweb-v2-page-num-box');
+        if (PageIdx === pager_numeric) {
+          li.classList.add('admweb-v2-page-num-active');
+        }
+        const a = document.createElement('a');
+        a.classList.add('admweb-v2-page-link-num');
+        a.href = `javascript:change_page(${pager_numeric})`;
+        a.textContent = pager_numeric;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
+
+      if (PageIdx < pages) {
+        const next_page = PageIdx + 1;
+        const li3 = document.createElement('li');
+        li3.classList.add('admweb-v2-page-num-box');
+        const a3 = document.createElement('a');
+        a3.classList.add('admweb-v2-page-link-arrows');
+        a3.href = `javascript:change_page(${next_page})`;
+        a3.setAttribute('aria-label', 'Next');
+        const span3 = document.createElement('span');
+        span3.classList.add('admweb-v2-icon-black-right-arrows');
+        span3.setAttribute('aria-hidden', true);
+        a3.appendChild(span3);
+        li3.appendChild(a3);
+        ul.appendChild(li3);
+
+        const li4 = document.createElement('li');
+        li4.classList.add('admweb-v2-page-num-box');
+        const a4 = document.createElement('a');
+        a4.classList.add('admweb-v2-page-link-arrows');
+        a4.href = `javascript:change_page(${pages})`;
+        a4.setAttribute('aria-label', 'Next');
+        const span4 = document.createElement('span');
+        span4.classList.add('admweb-v2-icon-page-right-last-arrows');
+        span4.setAttribute('aria-hidden', true);
+        a4.appendChild(span4);
+        li4.appendChild(a4);
+        ul.appendChild(li4);
+      }
+
+      const p = document.createElement('p');
+      p.classList.add('admweb-v2-page-bottom-text');
+      p.textContent = `${Jdata.start_at} - ${Jdata.end_at} 筆／共 ${Jdata.total_count} 筆`;
+
+      container.appendChild(ul);
+      container.appendChild(p);
+      picContent.appendChild(container);
+
+    } else if (pages > 1 && pages <= 5) { // 五頁以下
+      const div = document.createElement('div');
+      div.classList.add('pic-flex-center', 'pic-flex-center-column');
+      const ul = document.createElement('ul');
+      ul.classList.add('admweb-v2-pagination');
+      for (let pager_numeric = 1; pager_numeric <= pages; pager_numeric++) {
+        const li = document.createElement('li');
+        li.classList.add('admweb-v2-page-num-box');
+        if (PageIdx === pager_numeric) {
+          li.classList.add('admweb-v2-page-num-active');
+        }
+        const a = document.createElement('a');
+        a.classList.add('admweb-v2-page-link-num');
+        a.href = `javascript:change_page(${pager_numeric})`;
+        a.textContent = pager_numeric;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
+      const p = document.createElement('p');
+      p.classList.add('admweb-v2-page-bottom-text');
+      p.textContent = `${Jdata.start_at} - ${Jdata.end_at} 筆／共 ${Jdata.total_count} 筆`;
+
+      div.appendChild(ul);
+      div.appendChild(p);
+      picContent.appendChild(div);
+
+    } else { //一頁以下
+      const div = document.createElement('div');
+      div.classList.add('pic-flex-center');
+      div.id = 'page_type_1';
+      const p = document.createElement('p');
+      p.classList.add('pic-page-bottom-text');
+      p.textContent = `${Jdata.start_at} - ${Jdata.end_at} 筆／共 ${Jdata.total_count} 筆`;
+      div.appendChild(p);
+      picContent.appendChild(div);
+    }
+  }
+
+  // 匯出報表
+  function export_order()
+  {
+    const checkboxVals = getSelectedCheckboxValue();
+
+    if (checkboxVals.length === 0) {
+      editAlertContent(`請勾選訂單。`);
+      return;
+    }
+
+    let data = {};
+    data['web_uid'] = "{{$sys_arrWebsite.web_uid}}";
+    data['order_uid'] = checkboxVals.join(',');
+
+    $("form[name='formExport'] textarea[name='file_content_json']").val(JSON.stringify(data));
+    $("#formExport").submit();
+  }
+
+  // 列印
+  function print_order(print_methode)
+  {
+    const checkboxVals = getSelectedCheckboxValue("print_delivery");
+
+    if (checkboxVals.length === 0) {
+      editAlertContent(`請勾選訂單。`);
+      return;
+    }
+
+    let delivery_uid = checkboxVals.join(',');
+
+    let form = document.createElement('form');
+    form.action = "admweb.main.php?action=order_delivery_print_pic";
+    form.method = "POST";
+
+    let input1 = document.createElement('input');
+    input1.type = "hidden";
+    input1.name = "myAct";
+    input1.value = "COMMAND_PRINT_DELIVERY";
+    form.appendChild(input1);
+
+    let input2 = document.createElement('input');
+    input2.type = "hidden";
+    input2.name = "delivery_uid";
+    input2.value = delivery_uid;
+    form.appendChild(input2);
+
+    let input3 = document.createElement('input');
+    input3.type = "hidden";
+    input3.name = "print_methode";
+    input3.value = print_methode;
+    form.appendChild(input3);
+
+    $(form).appendTo( document.body );
+    $(form).submit();
+  }
+
+  // 整批出貨
+  function bulk_shipment(shipment_methode)
+  {
+    const checkboxVals = getSelectedCheckboxValue("print_delivery");
+
+    if (checkboxVals.length === 0) {
+      editAlertContent(`請重勾選訂單。`);
+      return;
+    }
+
+    let delivery_uid = checkboxVals.join(',');
+
+    let form = document.createElement('form');
+    form.action = "admweb.main.php?action=bulk_shipment_pic";
+    form.method = "POST";
+
+    let input1 = document.createElement('input');
+    input1.type = "hidden";
+    input1.name = "myAct";
+    input1.value = "COMMAND_BULK_SHIPMENT_LIST";
+    form.appendChild(input1);
+
+    let input2 = document.createElement('input');
+    input2.type = "hidden";
+    input2.name = "delivery_uid";
+    input2.value = delivery_uid;
+    form.appendChild(input2);
+
+    let input3 = document.createElement('input');
+    input3.type = "hidden";
+    input3.name = "shipment_methode";
+    input3.value = shipment_methode;
+    form.appendChild(input3);
+
+    $(form).appendTo( document.body );
+    $(form).submit();
+  }
+
+  // 已送達
+  function order_shipped()
+  {
+    $('.pic-window-order').addClass('pic-window-scroll-height');
+    const eles = document.querySelectorAll(
+            '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_store_order = false;
+    let value = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == true)
+        has_store_order = true;
+
+      ele.checked && value.push($(ele).data('delivery_uid'))
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (has_store_order || checkboxVals.length === 0) {
+      editAlertContent(`請勾選【宅配】已出貨訂單，請重新勾選訂單。`);
+      return;
+    }
+
+    confirm('確認消費者已收到包裹，並將包裹狀態變更為"已送達"嗎？').done(function () {
+      let delivery_uid = checkboxVals.join(',');
+
+      $.ajax({
+        url: "{{$m_inURL}}",
+        type: "POST",
+        dataType: "json",
+        data: {
+          myAct: "COMMAND_PICKUP",
+          delivery_uid: delivery_uid,
+          '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+        },
+        success: function (Jdata) {
+          let msg = '';
+          $.each(Jdata, function(k, item){
+            msg += `【${item.od}】${item.msg}<br/>`;
+          });
+          editAlertContent(msg);
+
+          markCurrentNavLink('#tab23');
+        }
+      });
+    });
+  }
+
+  // 配送異常退回
+  function return_package()
+  {
+    const eles = document.querySelectorAll(
+            '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_store_order = false;
+    let value = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == true)
+        has_store_order = true;
+
+      ele.checked && value.push($(ele).data('delivery_uid'))
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (has_store_order || checkboxVals.length === 0) {
+      editAlertContent(`請勾選【宅配】訂單，請重新勾選訂單。`);
+      return;
+    }
+
+    confirm('確認包裹無人收取，並將包裹狀態變更為\"配送異常退回\"嗎？').done(function () {
+      let delivery_uid = checkboxVals.join(',');
+
+      $.ajax({
+        url: "{{$m_inURL}}",
+        type: "POST",
+        dataType: "json",
+        data: {
+          myAct: "COMMAND_RETURN_EXT",
+          delivery_uid: delivery_uid,
+          '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+        },
+        success: function (Jdata) {
+          let msg = '';
+          $.each(Jdata, function(k, item){
+            msg += `【${item.od}】${item.msg}<br/>`;
+          });
+          editAlertContent(msg);
+
+          markCurrentNavLink('#tab42');
+        }
+      });
+    });
+  }
+
+  // 重新出貨
+  function re_delivery()
+  {
+    const eles = document.querySelectorAll(
+            '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let has_store_order = false;
+    let value = [];
+
+    eles.forEach((ele) => {
+      if ($(ele).data('is_store_order') == true)
+        has_store_order = true;
+
+      ele.checked && value.push($(ele).data('delivery_uid'))
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    if (has_store_order || checkboxVals.length === 0) {
+      editAlertContent(`請勾選【宅配】訂單，請重新勾選訂單。`);
+      return;
+    }
+
+    confirm('確認要將包裹狀態變更為"待出貨"嗎？').done(function () {
+      let delivery_uid = checkboxVals.join(',');
+
+      $.ajax({
+        url: "{{$m_inURL}}",
+        type: "POST",
+        dataType: "json",
+        data: {
+          myAct: "COMMAND_OD_RESET_42",
+          delivery_uid: delivery_uid,
+          '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+        },
+        success: function (Jdata) {
+          let msg = '';
+          $.each(Jdata, function(k, item){
+            msg += `【${item.od}】${item.msg}<br/>`;
+          });
+          editAlertContent(msg);
+
+          markCurrentNavLink('#tab11');
+        }
+      });
+    });
+  }
+
+  // 重新出貨
+  function order_refund()
+  {
+    const eles = document.querySelectorAll(
+            '.js-admweb-v2--order-checkbox:checked'
+    );
+
+    let value = [];
+
+    eles.forEach((ele) => {
+      ele.checked && value.push($(ele).data('delivery_uid'))
+    });
+    const checkboxVals = Array.from(new Set(value));
+
+    confirm('確認要將包裹"驗收及退款"嗎？').done(function () {
+      let delivery_uid = checkboxVals.join(',');
+
+      $.ajax({
+        url: "{{$m_inURL}}",
+        type: "POST",
+        dataType: "json",
+        data: {
+          myAct: "COMMAND_REFUND",
+          delivery_uid: delivery_uid,
+          '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+        },
+        success: function (Jdata) {
+          let msg = '';
+          $.each(Jdata, function(k, item){
+            msg += `【${item.od}】${item.msg}<br/>`;
+          });
+          editAlertContent(msg);
+
+          markCurrentNavLink('#tab41');
+        }
+      });
+    });
+  }
+</script>
+
+{{if $mobileDeviceDirected}}
+<script>
+  var imgSrc = '';
+  function get_my_qrcode_bbc()
+  {
+    $.ajax({
+      url: "../api/api.app_ibon.php",
+      type: "POST",
+      dataType: "json",
+      headers: {
+        authorization: "Bearer {{$jwt_token}}"
+      },
+      data: JSON.stringify({
+        service: "GET_MY_QRCODE",
+        LoginID: "{{$adm_arrMember.mem_login_token}}",
+        LoginIDType: "0",
+        service_methode: "bbc",
+        "{{$nocsrfTokenId}}" : "{{$nocsrfToken}}"
+      }),
+      success: function (Jdata){console.log(Jdata)
+        if(Jdata.result == 'C000'){
+          imgSrc = Jdata.data.qrcode_path;
+          $('.admweb-v2-window-QRcodeImg').css("background", "url(" + Jdata.data.qrcode_path + ")");
+        }
+      }
+    });
+  }
+
+  function goNextStep(_this)
+  {
+    let next_step = parseInt($(_this).data('step_no')) + 1;
+
+    $('.admweb-v2-QRcode-img-steps').removeClass(`admweb-v2-QRcode-img-steps-${$(_this).data('step_no')}`)
+            .addClass(`admweb-v2-QRcode-img-steps-${next_step}`);
+    if(next_step == 3){
+      $('.admweb-v2-window-QRcode-btn').attr('onclick', 'endStep(this);').text('結束');
+    }
+
+    $(".QRcode-step"+next_step).addClass('admweb-v2-window-QRcode-steps-item--success');
+    $(_this).data('step_no', next_step);
+  }
+
+  function endStep(_this)
+  {
+    $('.QRcode-step2, .QRcode-step3').removeClass('admweb-v2-window-QRcode-steps-item--success');
+    $('.admweb-v2-QRcode-img-steps').removeClass(`admweb-v2-QRcode-img-steps-3`)
+            .addClass(`admweb-v2-QRcode-img-steps-1`);
+
+    $(_this).data('step_no', '1');
+
+    $('.admweb-v2-window-QRcode-btn').attr('onclick', 'goNextStep(this);').text('下一步');
+
+    closeAlert();
+  }
+</script>
+{{/if}}

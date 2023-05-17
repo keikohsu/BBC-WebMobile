@@ -1,0 +1,837 @@
+<style>
+	  .admweb-v2-list-header-in-fixbottom{display: none;}
+</style>
+<div class="admweb-v2-orderlist-header">
+	<div class="admweb-v2-orderlist-header-actions">
+		{{if $m_arrSystem.is_app_mode}}
+			<button onclick="{
+				let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+				let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if (isAndroid) {
+					window.JavaScriptInterface.backToSellerCenter();
+				} else if (isiOS) {
+					window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+				}
+			}">
+				<i class="icons-line icon-arrow-left-01"></i>
+			</button>
+		{{else}}
+			<button onclick="history.back()">
+				<i class="icons-line icon-arrow-left-01"></i>
+			</button>
+		{{/if}}
+		<button onclick="toggleMenuHandler()">
+			<i class="icons-line icon-line-hamburger"></i>
+		</button>
+	</div>
+	<h2 class="admweb-v2-orderlist-header-title">金物流設定</h2>
+	<span></span>
+</div>
+
+<div class="pic-default pic-flex admweb-v2-order_detail">
+	<div class="admweb-v2-seller-front-left-box">
+		{{include file="admweb_2/admweb.main_menu.htm"}}
+	</div>
+	<div class="admweb-v2-orderlist__inner pic-text-gray-100 pic-text-gray-100">
+		<div class="admweb-v2-store_delivery__nav-list" data-tab-navs>
+			<a class="admweb-v2-store_delivery__nav-item" href="#delivery" id="delivery_tab">
+				物流設定
+			</a>
+			<a class="admweb-v2-store_delivery__nav-item" href="#payment" id="payment_tab">
+				金流設定
+			</a>
+		</div>
+
+		<div data-tab-panels>
+			<!-- 物流設定 內容 -->
+			
+			<div class="admweb-v2-order_detail__content" id="delivery_tab_content">
+				<form name="form_del_type" id="form_del_type" action="" method="post">
+				<section class="admweb-v2-store_delivery__card" 
+				    {{if $m_arrSystem.website_delivery_pic_close_store == '1'}}style="display: none;" {{/if}}
+					>
+					<div class="admweb-v2-order_detail__card--title">
+						<h3>
+							<i class="icons-line icon-line-shop-bold-02 pic-margin-r5"></i>7-ELEVEN超商取貨
+						</h3>
+					</div>
+					<fieldset class="pic-margin-t5">
+						<div class="admweb-v2-store_delivery__fieldset">
+							<legend class="admweb-v2-store_delivery__fieldset-legend">
+								寄件方式
+							</legend>
+							<div class="admweb-v2-store_delivery__fieldset-fields-type1">
+								<div class="admweb-v2-store_delivery__fieldset--radio">
+									<label class="" for="store_del_a">
+										<input class="admweb-v2-radio-green" type="radio" id="store_del_a" name="store_del" value="store_del_a"
+										    {{if $arrBtnCheck.store_del_a == '1'}}checked{{/if}}/>
+										<div class="admweb-v2-label-check-green"></div>
+										<p>店鋪寄件</p>
+										<!-- <a href="#" class="admweb-v2-order_detail__order-info-btn">
+											更新退貨門市<i class="icons-line icon-arrow-right-01"></i></a> -->
+									</label>
+								</div>
+
+								<div class="admweb-v2-store_delivery__fieldset--radio">
+									<label class="" for="store_del_b">
+										<input class="admweb-v2-radio-green" type="radio" id="store_del_b" name="store_del" value="store_del_b" 
+										    {{if $arrBtnCheck.store_del_b == '1'}}checked{{/if}}
+
+										    {{if $arrApplyStatus.b2c_type3 == '0' && $arrApplyStatus.b2c_type11 == '0'}}
+										    onchange="openAlert('bulk-shipment_3')"
+											{{/if}}
+
+											{{if $arrApplyStatus.b2c_type3 == '1' && $arrApplyStatus.b2c_type11 == '1'}}
+										    onchange="openAlert('bulk-shipment-reviewing_3')"
+											{{/if}}
+
+											/>
+										<div class="admweb-v2-label-check-green"></div>
+										<p>大宗寄件</p>
+
+										{{if $arrApplyStatus.b2c_type3 == '2'}}
+										<div>
+											<span class="admweb-v2-store_delivery__badge--success">常溫/審核通過</span>
+											<a href="#" class="admweb-v2-order_detail__order-info-btn" onclick="redirectToBulk('3');">前往更新
+												<i class="icons-line icon-arrow-right-01"></i>
+											</a>
+										</div>
+										{{elseif $arrApplyStatus.b2c_type3 == '1'}}
+										<div>
+											<span class="admweb-v2-store_delivery__badge--danger">常溫/審核中</span>
+											<a href="#" class="admweb-v2-order_detail__order-info-btn" onclick="openAlert('bulk-shipment-reviewing_3')">查看申請資料
+												<i class="icons-line icon-arrow-right-01"></i>
+											</a>
+										</div>
+										{{else}}
+										<div>
+										<span class="admweb-v2-store_delivery__badge--disable">常溫/未開通</span>
+										<a href="#" class="admweb-v2-order_detail__order-info-btn" onclick="openAlert('bulk-shipment_3')">點我申請
+											<i class="icons-line icon-arrow-right-01"></i>
+										</a>
+									</div>
+										{{/if}}
+
+										{{if $arrApplyStatus.b2c_type11 == '2'}}
+										<div class="admweb-v2-store_delivery-btn-box">
+											<span class="admweb-v2-store_delivery__badge--success">冷凍/審核通過</span>
+											<a href="#" class="admweb-v2-order_detail__order-info-btn" onclick="redirectToBulk('11');">前往更新
+												<i class="icons-line icon-arrow-right-01"></i>
+											</a>
+										</div>
+										{{elseif $arrApplyStatus.b2c_type11 == '1'}}
+										<div class="admweb-v2-store_delivery-btn-box">
+											<span class="admweb-v2-store_delivery__badge--danger">冷凍/審核中</span>
+											<a href="#" class="admweb-v2-order_detail__order-info-btn" onclick="openAlert('bulk-shipment-reviewing_11')">查看申請資料
+												<i class="icons-line icon-arrow-right-01"></i>
+											</a>
+										</div>
+										{{else}}
+										<div class="admweb-v2-store_delivery-btn-box">
+											<span class="admweb-v2-store_delivery__badge--disable">冷凍/未開通</span>
+											<a href="#" class="admweb-v2-order_detail__order-info-btn" onclick="openAlert('bulk-shipment_11')">點我申請
+												<i class="icons-line icon-arrow-right-01"></i>
+											</a>
+										</div>
+										{{/if}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="admweb-v2-store_delivery__fieldset">
+							<legend class="admweb-v2-store_delivery__fieldset-legend">
+								付款方式
+							</legend>
+							<div class="admweb-v2-store_delivery__fieldset-fields-type2">
+								<div class="admweb-v2-checkbox-name">
+									<input colname="付款方式" id="store_pay_a" name="arr_store_pay[]" type="checkbox" value="store_pay_a" class="admweb-v2-ckbutton-green-checkbox" 
+									{{if $arrBtnCheck.store_pay_a == '1'}}checked{{/if}}/>
+									<label class="admweb-v2-ckbutton-green-label" for="store_pay_a"></label>
+									<p>取貨付款</p>
+								</div>
+								<div class="admweb-v2-checkbox-name">
+									<input colname="付款方式" id="store_pay_b" name="arr_store_pay[]" type="checkbox" value="store_pay_b" class="admweb-v2-ckbutton-green-checkbox"
+									{{if $arrBtnCheck.store_pay_b == '1'}}checked{{/if}}
+									{{if $arrApplyStatus.pay_uni != '2'}}
+									disabled
+									{{/if}}
+									/>
+									<label class="admweb-v2-ckbutton-green-label {{if $arrApplyStatus.pay_uni != '2'}}admweb-v2-ckbutton-green-label-none{{/if}}" for="store_pay_b"></label>
+									<p>線上支付
+										<span class="pic-font-size-12" style="color: var(--pic-color-grey-40);">線上支付 包含信用卡付款，分期付款，ATM轉帳匯款，超商代碼繳費...等支付功能</span>
+										{{if $arrApplyStatus.pay_uni != '2'}}
+										<br>
+										<span class="pic-font-size-12 pic-text-red">＊您尚未開通線上支付金流，需開通完成方可使用此服務。</span>
+										<a href="javascript:void(0);" class="admweb-v2-order_detail__order-info-btn" onclick="paymentTabShow();">前往金流設定
+											<i class="icons-line icon-arrow-right-01"></i>
+										</a>
+										{{/if}}
+									</p>
+								</div>
+								<!--{{if $arrApplyStatus.pay_uni != '2'}}
+								<p class="pic-font-size-12 pic-text-red admweb-v2-md-hidden">
+									＊您尚未開通線上支付金流，需開通完成方可使用此服務。
+								</p>
+								{{/if}}-->
+							</div>
+						</div>
+					</fieldset>
+
+				</section>
+
+				<div class="admweb-v2-store_delivery__card">
+					<div class="admweb-v2-order_detail__card--title">
+						<h3>
+							<i class="icons-line icon-line-truck pic-margin-r5"></i>宅配
+						</h3>
+					</div>
+					<fieldset class="pic-margin-t5" data-input-fieldset>
+						<div class="admweb-v2-store_delivery__fieldset">
+							<legend class="admweb-v2-store_delivery__fieldset-legend">
+								<span data-input-legend>寄件方式</span>
+								<!-- openPopupHandler 傳入 要監聽的input name -->
+								
+								<div class="admweb-v2-store_delivery__popup-btn" onclick="openPopupHandler(this,'home_del')">
+									<span data-input-text>
+										{{if $arrBtnCheck.home_del_a == '1'}}不啟用{{/if}} 
+										{{if $arrBtnCheck.home_del_b == '1'}}自有宅配{{/if}} 
+										{{if $arrBtnCheck.home_del_c == '1'}}黑貓宅急便{{/if}} 
+									</span>
+									<i class="icons-line icon-arrow-right-01"></i>
+								</div>
+								
+							</legend>
+
+							<div class="admweb-v2-store_delivery__fieldset-fields-type1 admweb-v2-sp-hidden" data-input-fields>
+								<div class="admweb-v2-store_delivery__fieldset--radio">
+									<label class="" for="home_del_a">
+										<input class="admweb-v2-radio-green home_del" type="radio" id="home_del_a"
+											name="home_del" value="home_del_a" {{if $arrBtnCheck.home_del_a == '1'}}checked{{/if}} 
+											data-input_title = "不啟用"/>
+											
+										<div class="admweb-v2-label-check-green"></div>
+										<p>不啟用</p>
+									</label>
+								</div>
+
+								<div class="admweb-v2-store_delivery__fieldset--radio">
+									<label class="" for="home_del_b">
+										<input class="admweb-v2-radio-green home_del" type="radio" id="home_del_b"
+											name="home_del" value="home_del_b" {{if $arrBtnCheck.home_del_b == '1'}}checked{{/if}}
+											{{if $arrApplyStatus.pay_uni != '2'}}
+											onchange="openAlert('click-delivery')"
+											{{/if}}
+
+											{{if $arrApplyStatus.pay_uni == '2' && !$wpstatus_key}}
+											onchange="openAlert('click-delivery_wpstatus_false')"
+											{{/if}}
+
+											data-input_title = "自有宅配"
+											/>
+
+										<div class="admweb-v2-label-check-green"></div>
+										<p>自有宅配</p>
+									</label>
+								</div>
+
+								<div class="admweb-v2-store_delivery__fieldset--radio">
+									<label class="" for="home_del_c">
+										<input class="admweb-v2-radio-green home_del" type="radio" id="home_del_c"
+											name="home_del" value="home_del_c" {{if $arrBtnCheck.home_del_c == '1'}}checked{{/if}}
+											{{if $arrApplyStatus.pay_uni != '2'}}
+											onchange="openAlert('click-delivery')"
+											{{/if}}
+
+											{{if $arrApplyStatus.pay_uni == '2' && !$wpstatus_key}}
+											onchange="openAlert('click-delivery_wpstatus_false')"
+											{{/if}}
+											
+											data-input_title = "黑貓宅急便"
+											/>
+
+										<div class="admweb-v2-label-check-green"></div>
+										<p>黑貓宅急便</p>
+									</label>
+								</div>
+
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset class="field_home_pay" style="display:none">
+						<div class="admweb-v2-store_delivery__fieldset">
+							<legend class="admweb-v2-store_delivery__fieldset-legend">
+								付款方式
+								<div class="admweb-v2-store_delivery__popup-btn">
+									<span data-input-text>線上支付</span>
+								</div>
+							</legend>
+							<div class="admweb-v2-store_delivery__fieldset-fields-type2bn admweb-v2-sp-hidden">
+								<div class="admweb-v2-checkbox-name">
+									<input id="home_pay_a" name="home_pay" type="checkbox" value="home_pay_a"
+										class="admweb-v2-ckbutton-green-checkbox" {{if $arrBtnCheck.home_pay_a == '1'}}checked{{/if}} 
+										{{if $arrApplyStatus.pay_uni != '2'}}disabled{{/if}}
+										/>
+									<label class="admweb-v2-ckbutton-green-label" for="home_pay_a" style="display: none;"></label>
+									<p>線上支付</p>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<!-- 設定黑貓宅急便 才顯示  -->
+					<fieldset class="field_home_pay_tcat" style="display:none">
+						<div class="admweb-v2-store_delivery__fieldset">
+							<legend class="admweb-v2-store_delivery__fieldset-legend">
+								<span class="pic-GeneralStore-red">*</span>黑貓宅急便設定
+							</legend>
+							<div class="admweb-v2-store_delivery__fieldset-fields-type2">
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="web_tcat_customer_id">契客代號</label>
+									<input type="text" placeholder="請輸入契客代號" id="web_tcat_customer_id" name="web_tcat_customer_id"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrTcatInfo.web_tcat_customer_id}}"/>
+								</div>
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="web_tcat_customer_pwd">契客授權碼</label>
+									<input type="text" placeholder="請輸入契客授權碼" id="web_tcat_customer_pwd" name="web_tcat_customer_pwd"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrTcatInfo.web_tcat_customer_pwd}}"/>
+								</div>
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="com_contact">公司聯絡人</label>
+									<input type="text" placeholder="請輸入公司聯絡人" id="com_contact" name="com_contact"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrTcatInfo.com_contact}}"/>
+								</div>
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="com_tel">公司電話</label>
+									<input type="text" placeholder="請輸入公司電話" id="com_tel" name="com_tel"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrTcatInfo.com_tel}}"/>
+								</div>
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="com_address">地址</label>
+									<input type="text" placeholder="請輸入地址" id="com_address" name="com_address"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrTcatInfo.com_address}}"/>
+								</div>
+								<p class="pic-font-size-12 pic-text-red">
+									＊填寫契客代號、授權碼、公司聯絡人、公司電話、地址，可由系統列印黑貓託運單。
+								</p>
+								<div class="admweb-v2-store_delivery__warn">
+									{{if $arrApplyStatus.pay_uni != '2'}}
+									<p class="pic-font-size-12 pic-text-red">
+										＊您尚未開通線上支付金流，需開通完成方可使用此服務。
+									</p>
+									{{/if}}
+									<a href="https://www.t-cat.com.tw/" class="admweb-v2-order_detail__order-info-btn" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}} rel="noreferrer noopenner">申請黑貓宅急便
+										<i class="icons-line icon-arrow-right-01"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<fieldset class="field_home_pay" style="display:none">
+						<div class="admweb-v2-store_delivery__fieldset">
+							<legend class="admweb-v2-store_delivery__fieldset-legend">
+								宅配運費
+							</legend>
+							<div class="admweb-v2-store_delivery__fieldset-fields-type2">
+								<p class="pic-padding-10 pic-text-orange pic-bg-orange-10 pic-font-size-12">
+									每筆訂單將依照溫層所設定之運費與消費者收費
+								</p>
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="normal">常溫運費</label>
+									<input type="text" placeholder="請輸入常溫運費金額" id="carr_prod_3" name="carr_prod_3"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrHomeDelCarriage.prod_type_3}}"/>
+								</div>
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="cool">冷藏運費</label>
+									<input type="text" placeholder="請輸入冷藏運費金額" id="carr_prod_10" name="carr_prod_10"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrHomeDelCarriage.prod_type_10}}"/>
+								</div>
+								<div class="admweb-v2-store_delivery__type-field">
+									<label for="cold">冷凍運費</label>
+									<input type="text" placeholder="請輸入冷凍運費金額" id="carr_prod_11" name="carr_prod_11"
+										class="pic-text-lnput pic-lnput-enter" value="{{$arrHomeDelCarriage.prod_type_11}}"/>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				
+				<input type="hidden" name="myAct" value="COMMAND_WEB_DEL_SETTING">
+			    </form>
+				<div class="admweb-v2-store_delivery__actions">
+					<div class="admweb-v2-order_detail__action">
+						<button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row" onclick="formDelTypePost();">
+							<i class="icons-line icon-line-tick"></i>儲存
+						</button>
+					</div>
+				</div>
+			</div>
+		    
+
+			<!-- 金流設定 內容 -->
+			<div class="admweb-v2-order_detail__content" id="payment_tab_content">
+				<div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+					<p class="admweb-v2-store_delivery__notice-title">金流啟用注意事項</p>
+					<p>
+						使用ATM、代碼繳費，產生退款交易手續費(訂單取消、退貨)，需由賣家自行吸收
+					</p>
+				</div>
+				<div class="admweb-v2-order_detail__card">
+					<div class="admweb-v2-order_detail__card--title">
+						<h3 class="pic-margin-b10">
+							<i class="icons-line icon-line-emoney-bold-02 pic-margin-r5"></i>線上支付金流
+							{{if $arrApplyStatus.pay_uni == '2'}}
+							<span class="admweb-v2-store_delivery__badge--success">審核通過</span>
+							{{elseif $arrApplyStatus.pay_uni == '1'}}
+							<span class="admweb-v2-store_delivery__badge--danger">審核中</span>
+							{{else}}
+							<span class="admweb-v2-store_delivery__badge--disable">未開通</span>
+							{{/if}}
+						</h3>
+					</div>
+					
+					<form name="form_pay_type" id="form_pay_type" action="" method="post">
+					<dl style="--custom-grid-width: 100px 1fr 100px">
+						{{section name=i loop=$arrPaymentApply}}
+						<div class="admweb-v2-store_delivery__payment-item">
+							<dt>{{$arrPaymentApply[i].title}}</dt>
+							<dd>{{$arrPaymentApply[i].fee}}</dd>
+							<dd>
+								{{if $arrPaymentApply[i].apply_status == '1'}}
+								<div class="admweb-v2-content-enter admweb-v2-form-poke-box">
+									<div class="admweb-v2-form-poke admweb-v2-form-switch">
+										<input class="admweb-v2-form-input-poke" name="payment_apply[]" type="checkbox" role="switch" 
+										    value="{{$arrPaymentApply[i].payment_type}}" {{if $arrPaymentApply[i].wp_status == '1'}}checked{{/if}} />
+									</div>
+								</div>
+								{{elseif $arrPaymentApply[i].apply_status == '9'}}
+								<span class="admweb-v2-store_delivery__badge--danger">審核中</span>
+								{{else}}
+								<span class="admweb-v2-store_delivery__badge--disable">{{$arrPaymentApply[i].apply_desc}}</span>
+								{{/if}}
+								<input type="hidden" name="myAct" value="COMMAND_PAY_EDIT">
+							</dd>
+						</div>
+						{{/section}}
+					</dl>
+				    </form>
+
+					<form name="form_create_merchant" id="form_create_merchant" action="" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}} method="post">
+						<input type="hidden" name="myAct" value="COMMAND_CREATE_PAYUNI_MERCHANT">
+					</form>
+
+				</div>
+				<div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+					<p class="admweb-v2-store_delivery__notice-title">
+						PAYUNi客服及帳務連絡資訊
+					</p>
+					<p>電話：02-6605-0810</p>
+					<p>信箱：service@payuni.com.tw</p>
+					<a class="pic-text-orange" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}} style="text-decoration: underline;" href="https://mall.iopenmall.tw/website/uploads/PAYUNi-member%20manual-20221101.pdf" title="PAYUNi會員平台操作手冊">PAYUNi會員平台操作手冊</a>
+					<br>
+					<a class="pic-text-orange" {{if !$m_arrSystem.is_app_mode}}target="_blank"{{/if}} style="text-decoration: underline;" href="https://mall.iopenmall.tw/website/uploads/PAYUNi-Simple%20account%20inquiry-iOPEN%20MALL.pdf" title="PAYUNi簡易帳務查詢手冊">PAYUNi簡易帳務查詢手冊</a>
+				</div>
+				<div class="admweb-v2-store_delivery__actions">
+					<div class="admweb-v2-order_detail__action">
+						{{if $arrApplyStatus.pay_uni == '2'}}
+						<button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row" onclick="formPayTypePost();">
+							<i class="icons-line icon-line-tick"></i>儲存
+						</button>
+						{{elseif $arrApplyStatus.pay_uni == '0'}}
+						<button class="admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row" onclick="formCreateMerchantPost();">
+							申請線上支付金流<i class="icons-line icon-line-Arrow-Right"></i>
+						</button>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="js-admweb-v2__alert" style="display: none">
+		<div id="pic-icon" class="pic-window-bg">
+			<div class="admweb-v2__alert-content">
+				<p class="admweb-v2__alert-text js-admweb-v2__alert-text">text</p>
+				<div class="admweb-v2__alert-action js-admweb-v2__alert-action">
+					<button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert()">
+						確認
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="admweb-v2__popup js-admweb-v2__popup" style="display: none" onclick="closePopup()">
+		<div class="admweb-v2__popup--inner js-admweb-v2__popup--inner">
+			<h3 class="admweb-v2__popup--title js-admweb-v2__popup--title">
+				寄件方式
+			</h3>
+			<div class="admweb-v2__popup--content js-admweb-v2__popup--content"></div>
+			<div class="js-admweb-v2__popup--action pic-confirm-box pic-flex-center pic-icon-margin-r pic-line-light15"></div>
+		</div>
+	</div>
+</div>
+
+<script>
+	(function () {
+		// hideMobileLayout();
+		getPcSideMenuWidth();
+
+
+		$('.home_del').change(function(){ 
+
+			var home_del = $('input[name="home_del"]:checked').val();
+			$('.field_home_pay').hide();
+			$('.field_home_pay_tcat').hide();
+
+			if (home_del == 'home_del_b') {
+				$('.field_home_pay').show();
+			}
+			if (home_del == 'home_del_c') {
+				$('.field_home_pay').show();
+				$('.field_home_pay_tcat').show();
+			}
+		});
+
+		var home_del_del = $('input[name="home_del"]:checked').val();
+		document.getElementById(home_del_del).dispatchEvent(new Event('change'));
+	})();
+	function getPcSideMenuWidth() {
+		const pcSidMenuEle = document.querySelector(
+			'.admweb-v2-seller-front-left-box'
+		);
+		pcSidMenuEle
+			.closest('.admweb-v2-order_detail')
+			.style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+	}
+	function toggleMenuHandler() {
+		document
+			.querySelector('.admweb-v2-seller-front-left-box')
+			.classList.toggle('pic-phone-open-menu');
+		const hamBtn = document
+			.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+			.querySelector('i');
+		if (hamBtn.classList.contains('icon-arrow-left-01')) {
+			document.querySelectorAll(
+				'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'block';
+		} else {
+			document.querySelectorAll(
+				'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'none';
+		}
+		hamBtn.classList.toggle('icon-arrow-left-01');
+	}
+	// function hideMobileLayout() {
+	// 	if (window.matchMedia('(max-width: 768px)').matches) {
+	// 		document.querySelector(
+	// 			'.admweb-v2-list-header-in-fixbottom'
+	// 		).style.display = 'none';
+	// 		document.querySelector('.admweb-v2-list-header').style.display = 'none';
+	// 	}
+	// }
+	// Tab
+	const DOM = {
+		nav: document.querySelector('[data-tab-navs]'),
+		navItems: document.querySelectorAll('[data-tab-navs] > a'),
+		panels: document.querySelectorAll('[data-tab-panels] > div')
+	};
+	DOM.nav.addEventListener('click', (e) => {
+		const clickedTab = e.target;
+		const activeIndex = Array.from(DOM.navItems).indexOf(clickedTab);
+		setActivePanel(activeIndex);
+		setActiveNav(activeIndex);
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	});
+	function setActivePanel(activeIndex) {
+		DOM.panels.forEach((ele) => (ele.style.display = 'none'));
+		DOM.panels[activeIndex].style.display = 'block';
+	}
+	function setActiveNav(activeIndex) {
+		DOM.navItems.forEach((ele) => ele.classList.remove('active'));
+		DOM.navItems[activeIndex].classList.add('active');
+	}
+	(function () {
+		setActivePanel(0);
+		setActiveNav(0);
+	})();
+
+	// js-admweb-v2__alert
+	function showAlert(alert) {
+		alert.style.display = 'block';
+	}
+	function closeAlert(ori_checked_id) {
+		const alert = document.querySelector('.js-admweb-v2__alert');
+		alert.style.display = 'none';
+		document.getElementById(ori_checked_id).checked = true;
+
+		closePopup();
+
+	}
+	function editAlertContent({ text, actions }) {
+		const alertEle = document.querySelector('.js-admweb-v2__alert');		
+		document.querySelector('.js-admweb-v2__alert-text').innerHTML = '';
+
+		if(text.indexOf('<br>') >= 0){
+			var splits;
+			splits = text.split('<br>');
+
+			for (let i = 0; i < splits.length; i++) {
+				const txt = splits[i];
+				let txt_node = document.createTextNode(txt);
+				document.querySelector('.js-admweb-v2__alert-text').append(txt_node);
+
+				if(i != (splits.length-1))
+				document.querySelector('.js-admweb-v2__alert-text').append(document.createElement("br"));
+			}
+		}else{
+			alertEle.querySelector('.js-admweb-v2__alert-text').textContent = text;
+		}
+
+		const defaultBtn = document.createElement('button');
+		defaultBtn.classList.add('pic-window-button-OneBtn', 'pic-BgText-color-green');
+		defaultBtn.setAttribute('onclick', 'closeAlert()');
+		defaultBtn.innerText = '確認';
+		
+		alertEle.querySelector('.js-admweb-v2__alert-action').innerHTML = '';
+		if (typeof actions == 'object') {
+			for (let i = 0; i < actions.length; i++) {
+				const element = actions[i];
+				alertEle.querySelector('.js-admweb-v2__alert-action').append(element);        
+			}
+		}else{
+			alertEle.querySelector('.js-admweb-v2__alert-action').append(defaultBtn);
+		}
+		showAlert(alertEle);
+	}
+
+	function openAlert(type) {
+		let content;
+
+		switch (type) {
+			case 'bulk-shipment-reviewing_3': {
+				const defaultBtn1 = document.createElement('button');
+				defaultBtn1.classList.add('pic-BgText-color-white-green');
+				defaultBtn1.textContent = '取消';
+				defaultBtn1.setAttribute('onclick', 'closeAlert("store_del_a")');
+
+				const defaultBtn2 = document.createElement('button');
+				defaultBtn2.classList.add('pic-BgText-color-green');
+				defaultBtn2.textContent = '前往查看';
+				defaultBtn2.setAttribute('onclick', "redirectToBulk('3')");
+
+				content = {
+					text: '貼心提醒<br>超商大宗寄件已進行審核<br>再請您耐心等候申請結果！',
+					actions: [defaultBtn1, defaultBtn2]
+				};
+				break;
+			}
+			case 'bulk-shipment-reviewing_11': {
+				const defaultBtn1 = document.createElement('button');
+				defaultBtn1.classList.add('pic-BgText-color-white-green');
+				defaultBtn1.textContent = '取消';
+				defaultBtn1.setAttribute('onclick', 'closeAlert("store_del_a")');
+
+				const defaultBtn2 = document.createElement('button');
+				defaultBtn2.classList.add('pic-BgText-color-green');
+				defaultBtn2.textContent = '前往查看';
+				defaultBtn2.setAttribute('onclick', "redirectToBulk('11')");
+
+				content = {
+					text: '貼心提醒<br>超商大宗寄件已進行審核<br>再請您耐心等候申請結果！',
+					actions: [defaultBtn1, defaultBtn2]
+				};
+				break;
+			}
+			
+			case 'bulk-shipment_3': {
+				const defaultBtn1 = document.createElement('button');
+				defaultBtn1.classList.add('pic-BgText-color-white-green');
+				defaultBtn1.textContent = '取消';
+				defaultBtn1.setAttribute('onclick', 'closeAlert("store_del_a")');
+
+				const defaultBtn2 = document.createElement('button');
+				defaultBtn2.classList.add('pic-BgText-color-green');
+				defaultBtn2.textContent = '前往申請';
+				defaultBtn2.setAttribute('onclick', "redirectToBulk('3')");
+
+				content = {
+					text: '希望開啟大宗寄件嗎？<br>須先通過審核流程哦！',
+					actions: [defaultBtn1, defaultBtn2]
+				};
+				break;
+			}
+			case 'bulk-shipment_11': {
+				const defaultBtn1 = document.createElement('button');
+				defaultBtn1.classList.add('pic-BgText-color-white-green');
+				defaultBtn1.textContent = '取消';
+				defaultBtn1.setAttribute('onclick', 'closeAlert("store_del_a")');
+
+				const defaultBtn2 = document.createElement('button');
+				defaultBtn2.classList.add('pic-BgText-color-green');
+				defaultBtn2.textContent = '前往申請';
+				defaultBtn2.setAttribute('onclick', "redirectToBulk('11')");
+				
+				content = {
+					text: '希望開啟大宗寄件嗎？<br>須先通過審核流程哦！',
+					actions: [defaultBtn1, defaultBtn2]				
+				};
+				break;
+			}
+			case 'click-delivery': {
+				const defaultBtn1 = document.createElement('button');
+				defaultBtn1.classList.add('pic-BgText-color-white-green');
+				defaultBtn1.textContent = '取消';
+				defaultBtn1.setAttribute('onclick', 'homeDelTrunOff()');
+
+				const defaultBtn2 = document.createElement('button');
+				defaultBtn2.classList.add('pic-BgText-color-green');
+				defaultBtn2.textContent = '前往申請';
+				defaultBtn2.setAttribute('onclick', "paymentTabShow()");
+				
+
+				content = {
+					text: '提醒您，完成設定「線上支付金流」後才可使用「宅配」功能哦！',
+					actions: [defaultBtn1, defaultBtn2]
+				};
+				break;
+			}
+			case 'click-delivery_wpstatus_false': {
+				const defaultBtn1 = document.createElement('button');
+				defaultBtn1.classList.add('pic-BgText-color-white-green');
+				defaultBtn1.textContent = '取消';
+				defaultBtn1.setAttribute('onclick', 'homeDelTrunOff()');
+
+				const defaultBtn2 = document.createElement('button');
+				defaultBtn2.classList.add('pic-BgText-color-green');
+				defaultBtn2.textContent = '前往設定';
+				defaultBtn2.setAttribute('onclick', "paymentTabShow()");
+				
+				content = {
+					text: '提醒您，完成設定「線上支付金流」後才可使用「宅配」功能哦！',
+					actions: [defaultBtn1, defaultBtn2]
+				};
+				break;
+			}
+			default:
+				content = {
+					text: '您目前尚有未出貨訂單，需完成出貨後才可切換寄件方式。'
+				};
+				break;
+		}
+		editAlertContent(content);
+	}
+
+	// popup
+	function createPopupContent(inputName, legendEle, fieldEles) {
+		const windowEle = document.querySelector('.js-admweb-v2__popup');
+		const titleEle = windowEle.querySelector('.js-admweb-v2__popup--title');
+		const contentEle = windowEle.querySelector('.js-admweb-v2__popup--content');
+		const actionEle = windowEle.querySelector('.js-admweb-v2__popup--action');
+		contentEle.innerHTML = null;
+		titleEle.innerText = legendEle.innerText;
+		for (let i = 0; i < fieldEles.length; i++) {
+			const ele = fieldEles[i].cloneNode(true);
+			const radio = ele.querySelector('input[type="radio"]');
+			const id = radio.id;
+			radio.id += i;
+			ele.querySelector('label').setAttribute('for', id + i);
+			contentEle.appendChild(ele);
+
+			ori_ele = document.querySelector('#' + id);
+            ori_ele.checked = false;
+
+            new_ele = document.querySelector('#' + id + i);
+            new_ele.setAttribute('ori_id', id);
+            new_ele.checked = false;
+		}
+		updateDefaultPopupText(inputName);
+		actionEle.innerHTML = `<a onclick="confirmPopup('${inputName}')" class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">儲存</a>`;
+	}
+
+	function openPopupHandler(ele, inputName) {
+		const filedsetEle = ele.closest('[data-input-fieldset]');
+		const textEle = ele.querySelector('[data-input-text]');
+		const legendEle = filedsetEle.querySelector('[data-input-legend]');
+		const fieldEles = filedsetEle.querySelectorAll('[data-input-fields] > *');
+
+		createPopupContent(inputName, legendEle, fieldEles);
+		$('.js-admweb-v2__popup').show();
+		$('.js-admweb-v2__popup--inner').slideDown();
+	}
+	function confirmPopup(inputName) {
+		$('.js-admweb-v2__popup--inner').slideUp();
+		$('.js-admweb-v2__popup').hide();
+		updatePopupText(inputName);
+	}
+	const popupEle = document.querySelector('.js-admweb-v2__popup--inner');
+	popupEle.addEventListener('click', (event) => {
+		event.stopPropagation();
+	});
+	function closePopup() {
+		$('.js-admweb-v2__popup--inner').slideUp();
+		$('.js-admweb-v2__popup').hide();
+	}
+	function updatePopupText(inputName) {
+		const inputEles = document.querySelectorAll(`input[name=${inputName}]`);
+		const filedsetEle = inputEles[0].closest('[data-input-fieldset]');
+		const textEle = filedsetEle.querySelector('[data-input-text]');
+		textEle.innerText = $('input[name=' + inputName + ']:checked').data('input_title');
+
+		ori_id = $('input[name=' + inputName + ']:checked').attr('ori_id');
+        if (ori_id) {
+            checked_id = $('input[name=' + inputName + ']:checked').attr('id');
+			document.getElementById(checked_id).checked = false;
+			document.getElementById(ori_id).checked = true;
+			document.getElementById(ori_id).dispatchEvent(new Event('change'));
+        }
+	}
+
+	function updateDefaultPopupText(inputName) {
+        const inputEles = document.querySelectorAll(`input[name=${inputName}]`);
+        const filedsetEle = inputEles[0].closest('[data-input-fieldset]');
+        const textEle = filedsetEle.querySelector('[data-input-text]');
+
+        for (let i = 0; i < inputEles.length; i++) {
+            inputEles[i].checked = false;
+        }
+
+        textEle.innerText = '[請選擇]';
+    }
+
+	function formDelTypePost() {
+		let home_del = $('input[name="home_del"]:checked').val();
+		if (!home_del) {alert('請選擇[宅配寄件方式]'); return false; }
+		$('#form_del_type').submit();
+	}
+
+	function formPayTypePost() {
+		$('#form_pay_type').submit();
+	}
+
+	function formCreateMerchantPost() {
+		$('#form_create_merchant').submit();
+	}
+	
+	function paymentTabShow() {
+		$('#delivery_tab').removeClass('active');
+		$('#payment_tab').addClass('active');
+		$('#delivery_tab_content').hide();
+		$('#payment_tab_content').show();
+
+		homeDelTrunOff();
+	}
+
+	function redirectToBulk(prod_type) {
+        window.location.href = "{{$bulk_url}}" + prod_type;
+	}
+
+	function homeDelTrunOff() {
+		closeAlert('home_del_a');
+		$('.field_home_pay').hide();
+		$('.field_home_pay_tcat').hide();
+	}
+</script>
+

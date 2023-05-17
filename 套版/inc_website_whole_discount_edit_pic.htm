@@ -1,0 +1,373 @@
+<style>
+/* 活動規則 */
+.admweb-v2-eventRule .admweb-v2-settings-frame-RadioBox{ flex-direction: column;}
+.admweb-v2-eventRule .admweb-v2-eventRule_radio{ width: 100%; display: flex; flex-direction: row; margin-bottom: 5px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input{ display: flex; flex-direction: row; align-items: center; margin-left: 0; padding: 0 5px; background: #EDFBF7; border-radius: 8px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input .pic-text-lnput{ width: 200px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input span{ margin: 12px;}
+.admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input span:nth-child(1){ margin-left: 0;}
+/* 活動圖片 */
+.admweb-v2-eventAddPhoto .pic-AddImag{ width: 270px;}
+/* 活動時間 */
+.admweb-v2-eventTime span.admweb-v2-DateBox.iopen-icon-date.pic-margin-r5{ width: 174px;}
+.admweb-v2-eventTime .admweb-v2-input-date-content_title{ margin-right: 9px;}
+.admweb-v2-eventTime .admweb-v2-DateNotation{ margin: 0 9px;}
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+    
+    <!-- 右側內容 Start -->
+    <div class="admweb-v2-adjustment">
+
+    <!------------------------------------ 活動基本設定 Start -------------------------------------->
+    <div class="admweb-v2-settings-frame pic-margin-10">
+        <div class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>活動基本設定</h2>
+        </div>
+
+        <!-- 活動設定 -->
+        <ul class="admweb-v2-outside-white-box">
+            <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>活動類型</p>
+            </li>
+            <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+            <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioId1">
+                <input class="admweb-v2-radio-green" type="radio" id="radioId1" name="wmkt_type_top" checked value="34" {{if $m_arrWebsiteMarketing.wmkt_type==34}}checked{{/if}}>
+                <div class="admweb-v2-label-check-green"></div>
+                滿額折價
+                </label>
+    
+            </div>
+    
+            <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioId2">
+                <input class="admweb-v2-radio-green" type="radio" id="radioId2" name="wmkt_type_top" value="33" {{if $m_arrWebsiteMarketing.wmkt_type==33}}checked{{/if}}/>
+                <div class="admweb-v2-label-check-green"></div>
+                滿額折扣
+                </label>
+            </div>
+    
+            </li>
+        </ul>
+        
+        <!-- 活動規則 -->
+        <ul class="admweb-v2-outside-white-box admweb-v2-eventRule">
+            <li class="admweb-v2-edit-name">
+                <p><span class="pic-text-red">*</span>活動規則</p>
+            </li>
+            <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                <div class="admweb-v2-content-enter admweb-v2-eventRule_input">
+                    <span>消費滿</span>
+                    <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入金額"
+                           id="wmkt_total_money_top" name="wmkt_total_money_top" value="{{$m_arrWebsiteMarketing.wmkt_total_money}}">
+                    <span id="wmkt_type_word">元，可折</span>
+                    <input type="text" id="amt_pct" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入金額">
+                    <span id="wmkt_type_word2">元</span>
+                </div>
+            </li>
+        </ul>
+
+        <!-- 活動名稱-->
+        <ul class="admweb-v2-outside-white-box">
+            <li class="admweb-v2-edit-name">
+                <p><span class="pic-text-red">*</span>活動名稱</p><span id="wmkt_title_top-length" class="pic-quantity">0/20</span>
+            </li>
+            <li class="admweb-v2-content-enter">
+                <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入活動名稱" id="wmkt_title_top"
+                       name="wmkt_title_top" maxlength="20" value="{{$m_arrWebsiteMarketing.wmkt_title}}">
+                <p class="pic-red-text-restrict" id="text_over" style="display: none;">字數不能超過20個字</p>
+                <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+            </li>
+        </ul>
+    
+        <!-- 活動時間-->
+        <ul class="admweb-v2-outside-white-box admweb-v2-eventTime">
+            <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>活動時間</p>
+            </li>
+            <li class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+            <div class="admweb-v2-input-date-content">
+                <div class="admweb-v2-input-date-content_title">起始時間</div>
+                <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input id="wmkt_time_start_date" class="pic-text-lnput datepicker" type="text"
+                       value="{{$m_arrWebsiteMarketing.wmkt_time_start|date_format:'%Y/%m/%d'}}"
+                       onchange="setTime('wmkt_time_start')" readonly>
+                </span>
+
+                <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_start_h" onchange="setTime('wmkt_time_start')">
+                    {{section name=i loop=24 start=0}}
+                    <option {{if $m_arrWebsiteMarketing.wmkt_time_start|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                    {{/section}}
+                </select>
+                <div class="admweb-v2-DateNotation">:</div>
+                <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_start_m" onchange="setTime('wmkt_time_start')">
+                    {{section name=i loop=60 start=0}}
+                    <option {{if $m_arrWebsiteMarketing.wmkt_time_start|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                    {{/section}}
+                </select>
+                <div class="admweb-v2-DateNotation">-</div>
+                <div class="admweb-v2-input-date-content_title">結束時間</div>
+                <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                  <input id="wmkt_time_end_date" class="pic-text-lnput datepicker" type="text"
+                         value="{{$m_arrWebsiteMarketing.wmkt_time_end|date_format:'%Y/%m/%d'}}"
+                         onchange="setTime('wmkt_time_end')" readonly>
+                </span>
+                <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_end_h" onchange="setTime('wmkt_time_end')">
+                    {{section name=i loop=24 start=0}}
+                    <option {{if $m_arrWebsiteMarketing.wmkt_time_end|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                    {{/section}}
+                </select>
+                <div class="admweb-v2-DateNotation">:</div>
+                <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_end_m" onchange="setTime('wmkt_time_end')">
+                    {{section name=i loop=60 start=0}}
+                    <option {{if $m_arrWebsiteMarketing.wmkt_time_end|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                    {{/section}}
+                </select>
+            </div>
+            </li>
+        </ul>
+
+        <!-- 狀態 -->
+        <ul class="admweb-v2-outside-white-box">
+            <li class="admweb-v2-edit-name">
+                <p><span class="pic-text-red">*</span>狀態</p>
+            </li>
+            <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="status_top_1">
+                    <input class="admweb-v2-radio-green" type="radio" id="status_top_1" name="status_top"
+                           {{if $m_arrWebsiteMarketing.wmkt_status!=0}}checked{{/if}} value="1"
+                           onchange="$('#wmkt_status').val($('input[name=status_top]:checked').val())"/>
+                    <div class="admweb-v2-label-check-green"></div>
+                    有效
+                </label>
+                </div>
+    
+                <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="status_top_0">
+                    <input class="admweb-v2-radio-green" type="radio" id="status_top_0" name="status_top"
+                           {{if $m_arrWebsiteMarketing.wmkt_status==0}}checked{{/if}} value="0"
+                           onchange="$('#wmkt_status').val($('input[name=status_top]:checked').val())"/>
+                    <div class="admweb-v2-label-check-green"></div>
+                    無效
+                </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!------------------------------------ 活動基本設定 End -------------------------------------->
+
+    <form id="formWmkt" name="formWmkt" action="" method="post" onsubmit="return _CS_checkAdd(this);"
+          enctype="multipart/form-data">
+        <input id="wmkt_type" type="hidden" name="wmkt_type" value="{{$m_arrWebsiteMarketing.wmkt_type}}">
+        <input id="wmkt_total_money" type="hidden" name="wmkt_total_money"
+               value="{{$m_arrWebsiteMarketing.wmkt_total_money}}">
+        <input id="wmkt_discount_amt" type="hidden" name="wmkt_discount_amt"
+               value="{{$m_arrWebsiteMarketing.wmkt_discount_amt}}">
+        <input id="wmkt_discount_pct" type="hidden" name="wmkt_discount_pct"
+               value="{{$m_arrWebsiteMarketing.wmkt_discount_pct}}">
+        <input id="wmkt_title" type="hidden" name="wmkt_title" value="{{$m_arrWebsiteMarketing.wmkt_title}}">
+        <input id="wmkt_time_start" type="hidden" name="wmkt_time_start"
+               value="{{$m_arrWebsiteMarketing.wmkt_time_start}}">
+        <input id="wmkt_time_end" type="hidden" name="wmkt_time_end"
+               value="{{$m_arrWebsiteMarketing.wmkt_time_end}}">
+        <input id="wmkt_status" type="hidden" name="wmkt_status" value="{{$m_arrWebsiteMarketing.wmkt_status}}">
+        <input type="hidden" name="myAct" value="">
+    </form>
+            <!-- 右側內容 End-->
+
+    <!------------------------------------ 底部按鈕 Start -------------------------------------->
+    <div class="admweb-v2-orderlist__action admweb-v2-settings-BottomBtn">
+        <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+            <!-- 灰色 按鈕字 -->
+            <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-white-green pic-margin-r5"
+               href="javascript:btn_cancel();"><i class="icons-line icon-line-X"></i>取消</a>
+            <a id="save_button" class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-green pic-margin-l5"
+               href="javascript:void(0);" onclick="$('#formWmkt').submit()">
+                <i class="icons-line icon-line-tick"></i>儲存
+            </a>
+        </div>
+    </div>
+    <!------------------------------------ 底部按鈕 End -------------------------------------->
+
+    </div>
+</div>
+
+<script>
+function WindowOpen() {
+    $("#admweb-v2-ProductWindow").show()
+}
+
+function WindowClose() {
+    $(".pic-window-bg").hide()
+}
+</script>
+
+<script>
+
+    /********************
+     　計算 input 內容長度
+     ********************/
+    $(function(){
+        var inInput = $("#wmkt_title_top");
+        document.getElementById('wmkt_title_top').addEventListener('input', function (){
+            inputLength(this);
+        })
+        inputLength(inInput);
+    });
+
+    //*** 內容長度呈現 ******
+    function inputLength(ele){
+        var length = $(ele).val().length;
+        var maxlength = $(ele).attr("maxlength");
+        var div_id = $(ele).attr("name")+"-length";
+        document.getElementById(div_id).innerText = length + "/" + maxlength;
+        $('#wmkt_title').val($(ele).val());
+        if(length>=20) $('#text_over').show();
+        else $('#text_over').hide();
+        if($(ele).val().length==0){
+            setButtonStatus('0')
+        } else {
+            setButtonStatus('1')
+        }
+    }
+
+    $(document).ready(function(){
+        /*{{* 設定 datepicker 套件在碰到視窗底部後不反轉 *}}*/
+        $.extend($.datepicker, {
+            _checkOffset: function(inst, offset, isFixed) {
+                return offset;
+            }
+        });
+        $(".datepicker").datepicker({
+            dateFormat: 'yy/mm/dd',
+            changeYear: true,
+            changeMonth: true,
+            monthNamesShort: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+            dayNamesMin: ['日','一','二','三','四','五','六'],
+            minDate: null,
+            yearRange: '2023:2050',
+            position: { my: "left top", at: "left bottom", collision: "none" }
+        }).attr('size', 10);
+
+        $("#wmkt_time_start_date").datepicker("option","onClose",function(dateText,inst){
+            $("#wmkt_time_end_date").datepicker("option","minDate",dateText);
+        });
+        $("#wmkt_time_end_date").datepicker("option","onClose",function(dateText,inst){
+            $("#wmkt_time_start_date").datepicker("option","maxDate",dateText);
+        });
+
+        $("#formWmkt").find("input[name='csrf_token']").remove(); //{{* 拿掉統一給form的csrf_token *}}
+        var csrfToken = '{{$nocsrfToken}}';
+        var csrfTokenInput = document.createElement("input");
+        $(csrfTokenInput).attr ('type', 'hidden').attr('name', 'csrf_token').val (csrfToken);
+        $("#formWmkt").prepend(csrfTokenInput);
+
+        $("input[name='wmkt_type_top']").on('change', function (){
+            $("#wmkt_type").val($("input[name='wmkt_type_top']:checked").val())
+
+            if($("input[name='wmkt_type_top']:checked").val() == '34') {
+                $("#wmkt_type_word").text('元，可折');
+                $("#wmkt_type_word2").text('元');
+                $("#amt_pct").attr('placeholder','請輸入金額');
+                $("#wmkt_discount_amt").val($("#amt_pct").val());
+                $("#wmkt_discount_pct").val(0);
+                setButtonStatus('1');
+            }
+            else {
+                $("#wmkt_type_word").text('元，可享');
+                $("#wmkt_type_word2").text('折');
+                $("#amt_pct").attr('placeholder','請輸入折數(ex:9,則表示9折)');
+                $("#wmkt_discount_pct").val($("#amt_pct").val());
+                $("#wmkt_discount_amt").val(0);
+                setButtonStatus('1')
+            }
+        })
+
+        $("#wmkt_total_money_top").on('input', function (){
+            $(this).val($(this).val().replace(/[^\d]/g,''))
+            $('#wmkt_total_money').val($(this).val());
+            if($(this).val() == ''){
+                setButtonStatus('0');
+            } else {
+                setButtonStatus('1');
+            }
+        })
+
+        $("#amt_pct").on('input', function (){
+            $(this).val($(this).val().replace(/[^\d]/g,''))
+            if($("input[name='wmkt_type_top']:checked").val() == '34') {
+                $('#wmkt_discount_amt').val($(this).val());
+                $('#wmkt_discount_pct').val('0');
+            } else {
+                $('#wmkt_discount_pct').val($(this).val());
+                $('#wmkt_discount_amt').val('0');
+            }
+            if ($(this).val() == '') {
+                setButtonStatus('0');
+            } else {
+                setButtonStatus('1');
+            }
+        })
+
+        if('{{$smarty.get.add_wmkt}}'=='1'){
+            $("input[name='myAct']").val('COMMAND_ADD');
+            setButtonStatus('0');
+        } else {
+            $("input[name='myAct']").val('COMMAND_EDIT');
+            setButtonStatus('1');
+            if($("input[name='wmkt_type_top']:checked").val() == '34'){
+                $("#amt_pct").attr('value','{{$m_arrWebsiteMarketing.wmkt_discount_amt}}');
+            }else{
+                $("#amt_pct").attr('value','{{if $m_arrWebsiteMarketing.wmkt_discount_pct%10==0}}{{$m_arrWebsiteMarketing.wmkt_discount_pct/10}}{{else}}{{$m_arrWebsiteMarketing.wmkt_discount_pct}}{{/if}}');
+            }
+            $("input[name='wmkt_type_top']").change();
+        }
+
+        setButtonStatus('1');
+    });
+
+    function setTime(id){
+        var date = document.getElementById(id + "_date").value.replace(/\//g, '-');
+        var hour = document.getElementById(id + "_h").value;
+        var min = document.getElementById(id + "_m").value;
+        document.getElementById(id).value = date + ' ' + hour + ':' + min + ':00';
+    }
+
+    function setButtonStatus(status){
+        if($("#wmkt_total_money_top").val() == '') status = '0';
+        if($("#wmkt_title_top").val() == '') status = '0';
+        if($("#amt_pct").val() <= 0 ) status='0';
+        if(($("input[name='wmkt_type_top']:checked").val() == '33') && ($("#amt_pct").val() >= 100 )) status='0';
+
+        if(status == '1') {
+            $("#save_button").addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('pointer-events', '');
+        } else {
+            $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+        }
+    }
+
+    function _CS_checkAdd(_this){
+        if(_this.wmkt_title.value.search(/[\\\/'"&()=;<>]/)>0){
+            alert('請確認活動名稱中是否有特殊符號。')
+            return false;
+        }
+
+    }
+
+    function btn_cancel(){
+        confirm('您尚未儲存目前編輯之內容，<br/>請問是否確認取消編輯？').done(function () {
+            window.history.back();
+        });
+    }
+</script>

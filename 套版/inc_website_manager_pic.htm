@@ -1,0 +1,1120 @@
+<style>
+/*公用權限設定清單*/
+.admweb-v2-PermissionsBox > ul{ display: flex; flex-wrap: wrap;}
+.admweb-v2-PermissionsBox > ul > li{ width: 25%; padding: 5px;}
+.admweb-v2-PermissionsBox > ul > li h3{ display: flex; align-items: center;}
+.admweb-v2-PermissionsBox > ul > li i{ font-size: 20px; margin-right: 5px;}
+.admweb-v2-PermissionsBox .admweb-v2-PermissionsBox-list{ border-radius:8px; padding: 15px; color:var(--pic-color-grey-100); border: 1px solid var(--pic-color-grey-10); height: 100%;}
+.admweb-v2-PermissionsBox .admweb-v2-PermissionsBox-list h3{ font-size: 17px; margin-bottom: 15px;}
+.admweb-v2-PermissionsBox .admweb-v2-PermissionsBox-list > p{ font-size: 14px; line-height: 20px; margin-bottom: 10px; width: auto; color:var(--pic-color-grey-100);}
+.admweb-v2-PermissionsBox .admweb-v2-PermissionsBox-list p{ width: calc(100% - 30px); font-size: 14px; line-height: 24px; color:var(--pic-color-grey-100);}
+.admweb-v2-PermissionsBox .admweb-v2-PermissionsBox-list span{ color:var(--pic-color-grey-100);}
+.admweb-v2-PermissionsBox .admweb-v2-checkbox-name .admweb-v2-ShippingMethod{ width: calc(100% - 30px); color:var(--pic-color-grey-100);}
+
+.admweb-v2-manager__list{ text-align: center;}
+
+.admweb-v2-Manager-icon-style{ border-radius: 5px; padding: 5px 6px; font-size: 12px; margin-right: 5px; display: inline-block;}
+.admweb-v2-Manager-Identity { background: var(--pic-light-green-20); border: 1px solid var(--pic-green); color: var(--pic-green);}
+.admweb-v2-Manager-state-o { background: var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); color: var(--pic-red);}
+.admweb-v2-Manager-state-x { background: var(--pic-color-grey-5); border: 1px solid var(--pic-color-grey-20); color: var(--pic-color-grey-30);}
+
+
+/*確定會員狀態*/
+.admweb-v2-Confirm-Mem{ display: flex; align-items: center; justify-content: center; font-size: 13px; padding: 10px;}
+.admweb-v2-Confirm-Mem-success,.admweb-v2-Confirm-Mem-success i{ color: var(--pic-green);}
+.admweb-v2-Confirm-Mem-fail,.admweb-v2-Confirm-Mem-fail i{ color: var(--pic-red);}
+
+    @media screen and (max-width: 1400px){
+			.admweb-v2-PermissionsBox > ul > li{ width: 33.3%;}
+		}
+    @media screen and (max-width: 1200px){
+			.admweb-v2-PermissionsBox > ul > li{ width: 50%;}
+		}
+    @media screen and (max-width: 980px){
+			.admweb-v2-PermissionsBox > ul > li{ width: 100%;}
+		}
+
+/*特別調整 不搬到功用*/
+.admweb-v2-orderlist__card{ padding: 0;}
+.admweb-v2-orderlist__list{ background: none;}
+.admweb-v2-ImgEditBtn{ width: 52px; padding: 5px; border-radius: 6px;}
+.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:first-child{ justify-content: center;}
+.admweb-v2-orderlist__table{ color:var(--pic-color-grey-100) ;}
+.admweb-v2-adjustment .admweb-v2-orderlist__action>button{ width: auto;}
+.admweb-v2-order_detail__action-btn--outline{ background:#fff!important; color:var(--pic-green)!important; border-radius:6px; border: 1px solid var(--pic-green)!important; }
+.admweb-v2-checkbox-name .admweb-v2-ShippingMethod,.admweb-v2-label-green{ color:var(--pic-color-grey-100);}
+</style>
+
+<div class="pic-default pic-flex admweb-v2-add-product">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="pic-front-pages-right admweb-v2-adjustment" style="width: 100%;">
+    <!--頁籤-->
+    <div class="pic-common-navbarbox pic-common-navbarbox-tow-width-50">
+      <div class="swiper-container pic-navbar" id="pic-navbar">
+          <div class="swiper-wrapper pic-nav-list">
+            <div id="swiper-tab-1" class="swiper-slide pic-nav-a" navid="0"><span>成員管理</span></div>
+            <div id="swiper-tab-2" class="swiper-slide pic-nav-a" navid="1"><span>角色群組管理</span></div>
+          </div>
+      </div>
+    </div>
+    <!--頁籤end-->
+    <div id="manager_list_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--成員管理-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>成員管理</h2>
+      </div>
+      <ul class="admweb-v2-orderlist__list admweb-v2-manager__list" style="padding:0;">
+        <li class="admweb-v2-orderlist__card">
+          <!-- 電腦版 -->
+          <table class="admweb-v2-orderlist__table">
+            <thead>
+              <tr class="admweb-v2-orderlist__table--head">
+                <th>成員姓名/手機</th>
+                <th>身分</th>
+                <th>狀態</th>
+                <th>編輯</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{foreach key=k item=v from=$m_arrWebManager_list}}
+              <tr class="admweb-v2-orderlist__table--tr">
+                <td>{{$v.mem_name_mask}}/{{$v.mem_telcellphone_mask}}</td>
+                <td><span class="admweb-v2-Manager-icon-style admweb-v2-Manager-Identity">{{$v.macro_name}}</span></td>
+                <td><span class="admweb-v2-Manager-icon-style admweb-v2-Manager-state-{{if $v.wadm_status == '1'}}o{{else}}x{{/if}}">{{if $v.wadm_status == '1'}}有效{{else}}無效{{/if}}</span></td>
+                <td><a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="javascript:void(0);" onclick="set_edit_manager_sec('{{$v.wadm_uid}}', '{{$v.mem_name}}', '{{$v.mem_telcellphone}}', '{{$v.wadm_status}}', '{{$v.uid}}')"><i class="icons-line icon-line-edit"></i>編輯</a></td>
+              </tr>
+              {{/foreach}}
+            </tbody>
+          </table>
+    
+        </li>
+      </ul>
+    </div>
+
+    <div id="marco_list_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--角色管理-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>角色管理</h2>
+      </div>
+      <ul class="admweb-v2-orderlist__list admweb-v2-manager__list" style="padding:0;">
+        <li class="admweb-v2-orderlist__card">
+          <!-- 電腦版 -->
+          <table class="admweb-v2-orderlist__table">
+            <thead>
+              <tr class="admweb-v2-orderlist__table--head">
+                <th>角色</th>
+                <th>角色描述</th>
+                <th>編輯</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{foreach key=k item=v from=$m_web_manager_adm_per_macro_list}}
+              <tr class="admweb-v2-orderlist__table--tr">
+                <td><span class="admweb-v2-Manager-icon-style admweb-v2-Manager-Identity">{{$v.macro_name}}</span></td>
+                <td>{{$v.marco_desc}}</td>
+                <td><a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="javascript:void(0);" onclick="set_edit_marco_sec('{{$v.uid}}', '{{$v.macro_name}}', '{{$v.marco_desc}}', '{{$v.status}}');">
+                  <i class="icons-line icon-line-edit"></i>編輯</a>
+                </td>
+              </tr>
+              {{/foreach}}
+            </tbody>
+          </table>
+    
+        </li>
+      </ul>
+    </div>
+
+    <div id="add_manager_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--新增成員-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>新增成員</h2>
+      </div>
+      <!--會員姓名-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>會員姓名</p></li>
+        <li class="admweb-v2-content-enter">
+          <input name="mem_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入會員姓名" value="">
+        </li>
+      </ul>
+      <!--會員手機-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>會員手機</p></li>
+        <li class="admweb-v2-content-enter">
+          <input name="mem_telcellphone" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="會員手機" value="">
+        </li>
+      </ul>
+      <button onclick="search_mem();" type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-btn" style="width: 145px; margin: 0 auto;">會員搜尋</button>
+      <div id="msg_for_mem_yes" class="msg_for admweb-v2-Confirm-Mem admweb-v2-Confirm-Mem-success">
+        <i id="icon_for_mem_yes" class="icons-line icon-line-O pic-margin-r5"></i>已確認此會員帳號
+      </div>
+      <div id="msg_for_mem_no" class="msg_for admweb-v2-Confirm-Mem admweb-v2-Confirm-Mem-fail">
+        <i id="icon_for_mem_no" class="icons-line icon-line-X pic-margin-r5"></i>此帳號或會員姓名錯誤，請確認後重新查詢。
+      </div>
+    </div><!--新增成員end-->
+
+    <div id="add_manager_to_marco_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--設定成員角色-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>設定成員角色</h2>
+      </div>
+      <!--角色設定-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色設定</p></li>
+        <li class="admweb-v2-content-enter">
+          <select id="sel_marco" name="sel_marco" class="pic-text-lnput pic-text-lnput-style pic-margin-b10" style="width: 100%;">
+            <option value="0">請選擇角色</option>
+            {{foreach key=k item=v from=$m_web_manager_adm_per_macro_list}}
+            <option value="{{$v.uid}}">{{$v.macro_name}}</option>
+            {{/foreach}}
+          </select>
+          <div id="marco_menu_use_1" class="admweb-v2-PermissionsBox">
+            <ul>
+              {{section name=i loop=$m_arrWebUseMenu_m}}
+              <li>
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-shop-bold-02"></i>{{$m_arrWebUseMenu_m[i].web_use_name}}</h3>
+                  {{assign_use_menuByPuid use_p_uid = $m_arrWebUseMenu_m[i].web_use_uid}}
+                  {{section name=j loop=$m_arrWebUseMenu_s}}
+                  <p>{{$m_arrWebUseMenu_s[j].web_use_name}}</p>
+                  {{/section}}
+                </div>
+              </li><!--1.店家管理end-->
+              {{/section}}
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div><!--設定成員角色end-->
+
+    <div id="manager_edit_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--編輯成員-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>編輯成員</h2>
+      </div>
+      <!--會員姓名-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>會員姓名</p></li>
+        <li class="admweb-v2-content-enter">
+          <div class="pic-margin-b10 pic-margin-t10" name="edit_manager_name" id="edit_manager_name">會員姓名改這邊</div>
+        </li>
+      </ul>
+      <!--會員手機-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>會員手機</p></li>
+        <li class="admweb-v2-content-enter">
+          <div class="pic-margin-b10 pic-margin-t10" name="edit_manager_tel" id="edit_manager_tel">會員手機改這邊</div>
+        </li>
+      </ul>
+      <!--角色狀態-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色狀態</p></li>
+        <li class="admweb-v2-content-enter">
+          <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="radioId1">
+                <input  class="admweb-v2-radio-green" type="radio" id="radioId1" name="edit_manager_status" value="1">
+                <div class="admweb-v2-label-check-green"></div>
+                有效
+              </label>
+            </div>
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="radioId2">
+                <input class="admweb-v2-radio-green" type="radio" id="radioId2" name="edit_manager_status" value="0">
+                <div class="admweb-v2-label-check-green"></div>
+                無效
+              </label>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <!--角色設定-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色設定</p></li>
+        <li class="admweb-v2-content-enter">
+          <select id="edit_manager_sel_marco" name="edit_manager_sel_marco" class="pic-text-lnput pic-text-lnput-style pic-margin-b10" style="width: 100%;">
+            <option value="0">請選擇角色</option>
+            {{foreach key=k item=v from=$m_web_manager_adm_per_macro_list}}
+            <option value="{{$v.uid}}">{{$v.macro_name}}</option>
+            {{/foreach}}
+          </select>
+          <div id="marco_menu_use_2" class="admweb-v2-PermissionsBox">
+            <ul>
+              <li><!--1.店家管理-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-shop-bold-02"></i>店家管理</h3>
+                  <p>店家基本資料設定</p>
+                  <p>權限管理</p>
+                  <p>金物流設定</p>
+                </div>
+              </li><!--1.店家管理end-->
+              <li><!--2.訂單管理-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-paper-text"></i>訂單管理</h3>
+                  <p>我的訂單</p>
+                </div>
+              </li><!--2.訂單管理end-->
+              <li><!--3.商品管理-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-box-product"></i>商品管理</h3>
+                  <p>我的商品</p>
+                  <p>新增商品</p>
+                  <p>商品分類設定</p>
+                  <p>商品大量上傳</p>
+                </div>
+              </li><!--3.商品管理end-->
+              <li><!--4.商店布置-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-lattice"></i>商店布置</h3>
+                  <p>首頁佈置</p>
+                </div>
+              </li><!--4.商店布置end-->
+              <li><!--5.行銷活動-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-info-edit-bold-02"></i>行銷活動</h3>
+                  <p>我的行銷活動</p>
+                </div>
+              </li><!--5.行銷活動end-->
+              <li><!--6.會員管理-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-paper-text"></i>會員管理</h3>
+                  <p>會員清單</p>
+                </div>
+              </li><!--6.會員管理end-->
+              <li><!--7.帳務管理-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-emoney-bold-02"></i>帳務管理</h3>
+                  <p>銀行帳務填寫</p>
+                  <p>對帳表</p>
+                  <p>退款列表</p>
+                </div>
+              </li><!--7.店家管理end-->
+              <li><!--8.行銷活動-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-earphone"></i>客服管理</h3>
+                  <p>客服問答</p>
+                </div>
+              </li><!--8.行銷活動end-->
+              <li><!--9.數據中心-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-data-bold-02"></i>數據中心</h3>
+                  <p>賣家數據中心</p>
+                  <p>報表專區</p>
+                </div>
+              </li><!--9.會員管理end-->
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div><!--編輯成員end-->
+
+    <div id="marco_add_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--新增角色-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>新增角色</h2>
+      </div>
+      <!--會員姓名-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色名稱</p></li>
+        <li class="admweb-v2-content-enter">
+          <input id="add_marco_name" name="add_marco_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入角色名稱">
+        </li>
+      </ul>
+      <!--角色描述-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色描述</p></li>
+        <li class="admweb-v2-content-enter">
+          <input id="add_marco_desc" name="add_marco_desc" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入此角色的描述說明，幫助查看及快速設定">
+        </li>
+      </ul>
+    </div><!--新增角色end-->
+
+    <div id="marco_edit_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--編輯角色-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>編輯角色</h2>
+      </div>
+      <!--會員姓名-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色名稱</p></li>
+        <li class="admweb-v2-content-enter">
+          <input id="edit_marco_name" name="edit_marco_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入角色名稱">
+        </li>
+      </ul>
+      <!--角色描述-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色描述</p></li>
+        <li class="admweb-v2-content-enter">
+          <input id="edit_marco_desc" name="edit_marco_desc" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入此角色的描述說明，幫助查看及快速設定">
+        </li>
+      </ul>
+      <!--角色狀態-->
+      <!-- <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色狀態</p></li>
+        <li class="admweb-v2-content-enter">
+          <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="edit_marco_status1">
+                <input  class="admweb-v2-radio-green" type="radio" id="edit_marco_status1" name="edit_marco_status" checked="" value="1">
+                <div class="admweb-v2-label-check-green"></div>
+                有效
+              </label>
+            </div>
+            <div class="admweb-v2-radio-green-box">
+              <label class="admweb-v2-label-green" for="edit_marco_status0">
+                <input class="admweb-v2-radio-green" type="radio" id="edit_marco_status0" name="edit_marco_status" value="0">
+                <div class="admweb-v2-label-check-green"></div>
+                無效
+              </label>
+            </div>
+          </div>
+        </li>
+      </ul> -->
+    </div><!--新增角色end-->
+
+    <div id="marco_func_edit_sec" class="ind_sec admweb-v2-settings-frame pic-margin-10"><!--設定權限-->
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>設定權限</h2>
+      </div>
+      <!--角色設定-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>角色設定</p></li>
+        <li class="admweb-v2-content-enter">
+          <div class="admweb-v2-checkbox-name pic-margin-b10">
+            <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id0_1">
+            <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id0_1"></label>
+            <p><span class="admweb-v2-ShippingMethod">全選</span></p>
+          </div>
+          <div class="admweb-v2-PermissionsBox">
+            <ul>
+              {{section name=i loop=$m_arrWebUseMenu_m}}
+              <li><!--1.店家管理-->
+                <div class="admweb-v2-PermissionsBox-list">
+                  <h3><i class="icons-line icon-line-paper-text"></i>{{$m_arrWebUseMenu_m[i].web_use_name}}</h3>
+                  {{assign_use_menuByPuid use_p_uid = $m_arrWebUseMenu_m[i].web_use_uid}}
+                  {{section name=j loop=$m_arrWebUseMenu_s}}
+                  <div class="admweb-v2-checkbox-name pic-margin-b10">
+                    <input name="web_use_uid[]" value="{{$m_arrWebUseMenu_s[j].web_use_uid}}" type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id1_{{$m_arrWebUseMenu_s[j].web_use_uid}}">
+                    <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id1_{{$m_arrWebUseMenu_s[j].web_use_uid}}"></label>
+                    <p><span class="admweb-v2-ShippingMethod">{{$m_arrWebUseMenu_s[j].web_use_name}}</span></p>
+                  </div>
+                  {{/section}}
+                </div>
+              </li><!--1.店家管理end-->
+              {{/section}}
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div><!--設定權限end-->
+
+    <!---無資料--->
+    <div id="no_data_sec" class="ind_sec admweb-v2-NoData">
+      <div class="admweb-v2-img-BlacklistNoData"></div>
+      <span>目前無資料</span>
+    </div>
+    <!---無資料end--->
+    <!---頁碼--->
+    {{if $m_arrPage_A.total_page == 1}}
+    <div id="page_for_manager" class="paging_sec pic-text-center">
+      <p class="pic-page-bottom-text">1 - {{$m_arrPage_A.total}} 筆／共 {{$m_arrPage_A.total}} 筆</p>
+    </div>
+    {{elseif $m_arrPage_A.total_page > 1 && $m_arrPage_A.total_page < 5}}
+    <div id="page_for_manager" class="paging_sec pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        {{section name=page_i loop=$m_arrPage_A.total_page}}
+        <li class="admweb-v2-page-num-box {{if $smarty.section.page_i.iteration == $smarty.get.page_A || (!$smarty.get.page_A && $smarty.section.page_i.iteration == 1)}}admweb-v2-page-num-active{{/if}}">
+          <a class="admweb-v2-page-link-num" href="{{$m_inURL}}&sec=manager_list_sec&page_A={{$smarty.section.page_i.iteration}}">{{$smarty.section.page_i.iteration}}</a>
+        </li>
+        {{/section}}
+      </ul>
+      <p class="admweb-v2-page-bottom-text">{{$m_arrPage_A.start}} - {{$m_arrPage_A.end}} 筆／共 {{$m_arrPage_A.total}} 筆</p>
+    </div>
+    {{else}}
+    <div id="page_for_manager" class="paging_sec pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=manager_list_sec&page_A=1" aria-label="Previous">
+            <span class="admweb-v2-icon-page-left-first-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+        {{if $smarty.get.page_A > 1}}
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=manager_list_sec&page_A={{math equation="x-1" x=$smarty.get.page_A}}" aria-label="Previous">
+            <span class="admweb-v2-icon-black-left-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+        {{/if}}
+        {{section name=page_i loop=$m_arrPage_A.total_page}}
+        <li class="admweb-v2-page-num-box {{if $smarty.section.page_i.iteration == $smarty.get.page_A || (!$smarty.get.page_A && $smarty.section.page_i.iteration == 1)}}admweb-v2-page-num-active{{/if}}">
+          <a class="admweb-v2-page-link-num" href="{{$m_inURL}}&sec=manager_list_sec&page_A={{$smarty.section.page_i.iteration}}">
+            {{$smarty.section.page_i.iteration}}</a>
+        </li>
+        {{/section}}
+        
+        {{if $smarty.get.page_A < $m_arrPage_A.total_page}}
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=manager_list_sec&page_A={{math equation="x+1" x=$smarty.get.page_A}}" aria-label="Next">
+            <span class="admweb-v2-icon-black-right-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+        {{/if}}
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=manager_list_sec&page_A={{$m_arrPage_A.total_page}}" aria-label="Next">
+            <span class="admweb-v2-icon-page-right-last-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ul>
+      <p class="admweb-v2-page-bottom-text">{{$m_arrPage_A.start}} - {{$m_arrPage_A.end}} 筆／共 {{$m_arrPage_A.total}} 筆</p>
+    </div>
+    {{/if}}
+
+    {{if $m_arrPage_B.total_page == 1}}
+    <div id="page_for_marco" class="paging_sec pic-text-center">
+      <p class="pic-page-bottom-text">1 - {{$m_arrPage_B.total}} 筆／共 {{$m_arrPage_B.total}} 筆</p>
+    </div>
+    {{elseif $m_arrPage_B.total_page > 1 && $m_arrPage_B.total_page < 5}}
+    <div id="page_for_marco" class="paging_sec pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        {{section name=page_i loop=$m_arrPage_B.total_page}}
+        <li class="admweb-v2-page-num-box {{if $smarty.section.page_i.iteration == $smarty.get.page_B || (!$smarty.get.page_B && $smarty.section.page_i.iteration == 1)}}admweb-v2-page-num-active{{/if}}">
+          <a class="admweb-v2-page-link-num" href="{{$m_inURL}}&sec=marco_list_sec&page_B={{$smarty.section.page_i.iteration}}">{{$smarty.section.page_i.iteration}}</a>
+        </li>
+        {{/section}}
+      </ul>
+      <p class="admweb-v2-page-bottom-text">{{$m_arrPage_B.start}} - {{$m_arrPage_B.end}} 筆／共 {{$m_arrPage_B.total}} 筆</p>
+    </div>
+    {{else}}
+    <div id="page_for_marco" class="paging_sec pic-flex-center pic-flex-center-column">
+      <ul class="admweb-v2-pagination">
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=marco_list_sec&page_B=1" aria-label="Previous">
+            <span class="admweb-v2-icon-page-left-first-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+        {{if $smarty.get.page_B > 1}}
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=marco_list_sec&page_B={{math equation="x-1" x=$smarty.get.page_B}}" aria-label="Previous">
+            <span class="admweb-v2-icon-black-left-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+        {{/if}}
+        {{section name=page_i loop=$m_arrPage_B.total_page}}
+        <li class="admweb-v2-page-num-box {{if $smarty.section.page_i.iteration == $smarty.get.page_B || (!$smarty.get.page_B && $smarty.section.page_i.iteration == 1)}}admweb-v2-page-num-active{{/if}}">
+          <a class="admweb-v2-page-link-num" href="{{$m_inURL}}&sec=marco_list_sec&page_B={{$smarty.section.page_i.iteration}}">
+            {{$smarty.section.page_i.iteration}}</a>
+        </li>
+        {{/section}}
+        
+        {{if $smarty.get.page_B < $m_arrPage_B.total_page}}
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=marco_list_sec&page_B={{math equation="x+1" x=$smarty.get.page_B}}" aria-label="Next">
+            <span class="admweb-v2-icon-black-right-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+        {{/if}}
+        <li class="admweb-v2-page-num-box">
+          <a class="admweb-v2-page-link-arrows" href="{{$m_inURL}}&sec=marco_list_sec&page_B={{$m_arrPage_B.total_page}}" aria-label="Next">
+            <span class="admweb-v2-icon-page-right-last-arrows" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ul>
+      <p class="admweb-v2-page-bottom-text">{{$m_arrPage_B.start}} - {{$m_arrPage_B.end}} 筆／共 {{$m_arrPage_B.total}} 筆</p>
+    </div>
+    {{/if}}
+    <!---頁碼end--->
+
+    <!---置底按鈕--->
+    <div class="admweb-v2-orderlist__action" id="js-orderlist__action">
+      <button id="btn_cancel" class="admweb-v2-order_detail__action-btn--outline btm_btn"><i class="icons-line icon-line-X"></i>取消</button>
+      <button id="btn_add_manager" class="admweb-v2-order_detail__action-btn btm_btn" onclick="set_display('add_manager_sec');"><i class="icons-line iopen-icon-white-add-front"></i>新增成員</button>
+      <button id="btn_add_marco" class="admweb-v2-order_detail__action-btn btm_btn" onclick="set_display('marco_add_sec');"><i class="icons-line iopen-icon-white-add-front"></i>新增角色</button>
+      <button id="btn_add" class="admweb-v2-order_detail__action-btn btm_btn" onclick=""><i class="icons-line iopen-icon-white-add-front"></i>新增</button>
+      <button id="btn_save" class="admweb-v2-order_detail__action-btn btm_btn" onclick=""><i class="icons-line iopen-icon-white-add-front"></i>儲存</button>
+    </div>
+  </div>
+  
+</div>
+
+<form id="form_add_manager" name="form_add_manager" method="post" action="{{$m_inURL}}">
+    <input id="form_mem_name" type="hidden" name="mem_name" value="">
+    <input id="form_mem_telcellphone" type="hidden" name="mem_telcellphone" value="">
+    <input id="form_uid" type="hidden" name="uid" value="">
+    <input type="hidden" name="myAct" value="ADD_MANAGER">
+</form>
+
+<form id="form_edit_manager" name="form_edit_manager" method="post" action="{{$m_inURL}}">
+  <input id="form_edit_mem_name" type="hidden" name="form_edit_mem_name" value="">
+  <input id="form_edit_mem_tel" type="hidden" name="form_edit_mem_tel" value="">
+  <input id="form_edit_wadm_uid" type="hidden" name="form_edit_wadm_uid" value="">
+  <input id="form_edit_wadm_status" type="hidden" name="form_edit_wadm_status" value="">
+  <input id="form_edit_marco_uid" type="hidden" name="form_edit_marco_uid" value="">
+  <input type="hidden" name="myAct" value="EDIT_MANAGER">
+</form>
+
+<form id="form_edit_marco" name="form_edit_marco" method="post" action="{{$m_inURL}}&sec=marco_list_sec&page_B={{$smarty.get.page_B}}">
+  <input id="form_edit_marco_marco_uid" type="hidden" name="form_edit_marco_marco_uid" value="">
+  <input id="form_edit_marco_name" type="hidden" name="form_edit_marco_name" value="">
+  <input id="form_edit_marco_desc" type="hidden" name="form_edit_marco_desc" value="">
+  <input id="form_edit_marco_status" type="hidden" name="form_edit_marco_status" value="">
+  <input id="form_edit_marco_wuse_uid" type="hidden" name="form_edit_marco_wuse_uid" value="">
+  <input type="hidden" name="myAct" value="EDIT_MARCO">
+</form>
+
+<form id="form_add_marco" name="form_edit_marco" method="post" action="{{$m_inURL}}&sec=marco_list_sec&page_B={{$smarty.get.page_B}}">
+  <input id="form_add_marco_name" type="hidden" name="form_add_marco_name" value="">
+  <input id="form_add_marco_desc" type="hidden" name="form_add_marco_desc" value="">
+  <input id="form_add_marco_wuse_uid" type="hidden" name="form_add_marco_wuse_uid" value="">
+  <input type="hidden" name="myAct" value="ADD_MARCO">
+</form>
+
+<script>
+  //頁籤切換
+  $(function () {
+      var $switch = $('.admweb-v2-top-list li');
+      var $switch_top = $('.swiper-wrapper .swiper-slide');
+
+      // $($switch.eq(0).addClass('active').find('li'));
+      $switch.click(function () {
+        $(this).addClass('active').siblings('.active').removeClass('active');
+      });
+
+      // $($switch_top.eq(0).addClass('selected').find('swiper-slide'));
+      $switch_top.click(function () {
+        $(this).addClass('selected').siblings('.selected').removeClass('selected');
+      });
+  });
+
+  now_section = '{{$smarty.get.sec}}' ? '{{$smarty.get.sec}}' : 'manager_list_sec';
+
+  //頁面載入執行
+  $(function () {
+    
+      var alert_msg = "{{$alert_msg}}";
+      if(alert_msg){
+          alert(alert_msg);
+      }
+
+      set_display(now_section);
+
+      //管理員
+      $("#swiper-tab-1").on('click', function(){
+          set_display('manager_list_sec');
+      })
+      //角色
+      $("#swiper-tab-2").on('click', function(){
+          set_display('marco_list_sec');
+      })
+
+      //設定新成員角色 帶出角色權限選單
+      $("#sel_marco").on('change', function(){
+          $("#marco_menu_use_1").html('');
+          if($(this).val()){
+              var marco_uid = $(this).val();
+              $.ajax({
+                  url: "",
+                  type: "POST",
+                  dataType: "json",
+                  data: {
+                      isAjax: 1,
+                      service: "get_marco_menu",
+                      uid: marco_uid,
+                      '{{$nocsrfTokenId}}': '{{$nocsrfToken}}' 
+                  },
+                  success: function (re) {
+                      console.log("get_marco_menu",'success',re);
+                      if(re.result=='C00'){
+                          let htm = '';
+                          if(re.data.length > 0){                   
+                              let data = re.data;
+                              htm += '<ul>' +'\n';
+                              for (let i = 0; i < data.length; i++) {
+                                var menu_1 = data[i];  
+                                htm += '  <li>' +'\n';
+                                htm += '    <div class="admweb-v2-PermissionsBox-list"> ' +'\n';
+                                if(menu_1.web_use_name == '店家管理'){
+                                    class_name = "icon-line-shop-bold-02";
+                                }else if(menu_1.web_use_name == '訂單管理'){
+                                    class_name = "icon-line-paper-text";
+                                }else if(menu_1.web_use_name == '商品管理'){
+                                    class_name = "icon-line-box-product";
+                                }else if(menu_1.web_use_name == '商店布置'){
+                                    class_name = "icon-line-lattice";
+                                }else if(menu_1.web_use_name == '行銷活動'){
+                                    class_name = "icon-line-info-edit-bold-02";
+                                }else if(menu_1.web_use_name == '會員管理'){
+                                    class_name = "icon-line-paper-text";
+                                }else if(menu_1.web_use_name == '帳務管理'){
+                                    class_name = "icon-line-emoney-bold-02";
+                                }else if(menu_1.web_use_name == '客服管理'){
+                                    class_name = "icon-line-earphone";
+                                }else if(menu_1.web_use_name == '數據中心'){
+                                    class_name = "icons-line icon-data-bold-02";
+                                }
+                                htm += '      <h3><i class="icons-line '+class_name+'"></i>'+filterScriptTags(menu_1.web_use_name)+'</h3> ' +'\n';
+                  
+                                var sub_menu = menu_1.sub_menu;
+                                for (let j = 0; j < sub_menu.length; j++){
+                                    var menu_2 = sub_menu[j];  
+                                    htm += '<p>'+filterScriptTags(menu_2.web_use_name)+'</p> ' +'\n';
+                                }
+
+                                htm += '    </div> ' +'\n';
+                                htm += '  </li>' +'\n';  
+                              }
+                              htm += '</ul>' +'\n';
+                          }
+                          document.getElementById('marco_menu_use_1').innerHTML = htm;
+                          $("#marco_menu_use_1").show();
+                      }
+                  },
+                  error: function (re){
+                      
+                  }
+              })
+          }
+      })
+  
+      //編輯成員的角色 帶出角色全縣選單
+      $("#edit_manager_sel_marco").on('change', function(){
+          var marco_uid = $(this).val();
+          $("#marco_menu_use_2").html('');
+          $.ajax({
+              url: "",
+              type: "POST",
+              dataType: "json",
+              data: {
+                  isAjax: 1,
+                  service: "get_marco_menu",
+                  uid: marco_uid,
+                  '{{$nocsrfTokenId}}': '{{$nocsrfToken}}' 
+              },
+              success: function (re) {
+                  console.log("get_marco_menu",'success',re);
+                  if(re.result=='C00'){
+                      let htm = '';
+                      if(re.data.length > 0){                   
+                          let data = re.data;
+                          htm += '<ul>' +'\n';
+                          for (let i = 0; i < data.length; i++) {
+                              var menu_1 = data[i];  
+                              htm += '  <li>' +'\n';
+                              htm += '    <div class="admweb-v2-PermissionsBox-list"> ' +'\n';
+
+                              if(menu_1.web_use_name == '店家管理'){
+                                  class_name = "icon-line-shop-bold-02";
+                              }else if(menu_1.web_use_name == '訂單管理'){
+                                  class_name = "icon-line-paper-text";
+                              }else if(menu_1.web_use_name == '商品管理'){
+                                  class_name = "icon-line-box-product";
+                              }else if(menu_1.web_use_name == '商店布置'){
+                                  class_name = "icon-line-lattice";
+                              }else if(menu_1.web_use_name == '行銷活動'){
+                                  class_name = "icon-line-info-edit-bold-02";
+                              }else if(menu_1.web_use_name == '會員管理'){
+                                  class_name = "icon-line-paper-text";
+                              }else if(menu_1.web_use_name == '帳務管理'){
+                                  class_name = "icon-line-emoney-bold-02";
+                              }else if(menu_1.web_use_name == '客服管理'){
+                                  class_name = "icon-line-earphone";
+                              }else if(menu_1.web_use_name == '數據中心'){
+                                  class_name = "icons-line icon-data-bold-02";
+                              }
+                              htm += '      <h3><i class="icons-line '+class_name+'"></i>'+filterScriptTags(menu_1.web_use_name)+'</h3> ' +'\n';
+                
+                              var sub_menu = menu_1.sub_menu;
+                              for (let j = 0; j < sub_menu.length; j++){
+                                  var menu_2 = sub_menu[j];  
+                                  htm += '<p>'+filterScriptTags(menu_2.web_use_name)+'</p> ' +'\n';;
+                              }
+
+                              htm += '    </div> ' +'\n';
+                              htm += '  </li>' +'\n';  
+                          }
+                          htm += '</ul>' +'\n';
+                      }
+                      document.getElementById('marco_menu_use_2').innerHTML = htm;
+                      $("#marco_menu_use_2").show();
+                  }
+              },
+              error: function (re){
+                  
+              }
+          })
+      })
+
+      //新增按鈕
+      $("#btn_add").on('click', function(){
+          //新增成員
+          if(now_section == 'add_manager_sec'){
+              add_manager();
+          }
+          //新增角色
+          if(now_section == 'marco_add_sec'){
+              add_marco();
+          }
+      })
+
+      //儲存按鈕
+      $("#btn_save").on('click', function(){   
+          //編輯成員
+          if(now_section == 'manager_edit_sec'){
+              edit_manager();
+          }
+          //編輯角色
+          if(now_section == 'marco_edit_sec'){
+              edit_marco();
+          }        
+      })
+
+      //取消按鈕
+      $("#btn_cancel").on('click', function(){
+          if(now_section == 'manager_edit_sec' || now_section == 'add_manager_sec'){
+              _my_act = 'manager_list_sec';
+          }
+          if(now_section == 'marco_edit_sec' || now_section == 'marco_add_sec'){
+              _my_act = 'marco_list_sec';
+          }
+
+          confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function (){
+              set_display(_my_act);
+          });
+        
+      })
+
+      //編輯角色 全選權限
+      $("#ckbutton-id0_1").on('click', function(){
+          if($(this).prop('checked')){
+              $("input[name='web_use_uid[]']").prop('checked', 'checked');
+          }else{
+              $("input[name='web_use_uid[]']").prop('checked', false);
+          }        
+      })
+  });
+
+  //編輯角色
+  function edit_marco(){
+      var marco_name = $("#edit_marco_name").val();
+      var marco_desc = $("#edit_marco_desc").val();
+      //var marco_status = $("input[name='edit_marco_status']:checked").val(); 
+      var web_use_uids = '';
+      $("input[name='web_use_uid[]']:checked").each(function( index ) {
+          if(web_use_uids != '') web_use_uids += ',';
+          web_use_uids += $(this).val();
+      });
+
+      if(marco_name == ''){
+          alert('請輸入角色名稱。');
+          return false;
+      }
+
+      if(marco_desc == ''){
+          alert('請輸入角色描述。');
+          return false;
+      }
+
+      if(web_use_uids == ''){
+          alert('請勾選權限。');
+          return false;
+      }
+
+      $("#form_edit_marco_name").val(marco_name);
+      $("#form_edit_marco_desc").val(marco_desc);
+      $("#form_edit_marco_wuse_uid").val(web_use_uids);
+      //$("#form_edit_marco_status").val(marco_status);
+      $("#form_edit_marco").submit();
+  }
+
+  //新增角色
+  function add_marco(){
+      var marco_name = $("#add_marco_name").val();
+      var marco_desc = $("#add_marco_desc").val();
+      var web_use_uids = '';
+      $("input[name='web_use_uid[]']:checked").each(function( index ) {
+          if(web_use_uids != '') web_use_uids += ',';
+          web_use_uids += $(this).val();
+      });
+
+      if(marco_name == ''){
+          alert('請輸入角色名稱。');
+          return false;
+      }
+
+      if(marco_desc == ''){
+          alert('請輸入角色描述。');
+          return false;
+      }
+
+      if(web_use_uids == ''){
+          alert('請勾選權限。');
+          return false;
+      }
+
+      $("#form_add_marco_name").val(marco_name);
+      $("#form_add_marco_desc").val(marco_desc);
+      $("#form_add_marco_wuse_uid").val(web_use_uids);
+      $("#form_add_marco").submit();
+  }
+  
+  //編輯成員
+  function edit_manager(){
+      var mem_name = $("#edit_manager_name").text();
+      var mem_telcellphone = $("#edit_manager_tel").text(); 
+      var wadm_status = $("input[name='edit_manager_status']:checked").val(); 
+      var marco_uid = $("#edit_manager_sel_marco").val();
+
+      if($("#form_edit_wadm_uid").val() == ''){
+          alert('資料有誤。');
+          return false;
+      }
+
+      if(marco_uid == '0'){
+          alert('請選擇成員角色。');
+          return false;
+      }
+
+      //提交
+      $("#form_edit_mem_name").val(mem_name);
+      $("#form_edit_mem_tel").val(mem_telcellphone);
+      $("#form_edit_wadm_status").val(wadm_status);
+      $("#form_edit_marco_uid").val(marco_uid);
+      $("#form_edit_manager").submit();
+  }
+
+  //新增成員
+  function add_manager(){
+      var mem_name = $("input[name='mem_name']").val();
+      var mem_telcellphone = $("input[name='mem_telcellphone']").val(); 
+      var uid = $("#sel_marco").val();
+
+      if(mem_name == ''){
+          $("#msg_for_mem_yes").hide();
+          $("#marco_menu_use_1").html('');
+          $("#add_manager_to_marco_sec").hide();
+          alert('請輸入會員名稱後重新查詢。');
+          return false;
+      }
+      if(mem_telcellphone == ''){
+          $("#msg_for_mem_yes").hide();
+          $("#marco_menu_use_1").html('');
+          $("#add_manager_to_marco_sec").hide();
+          alert('請輸入會員手機後重新查詢。');
+          return false;
+      }
+      if(uid == '0'){
+          alert('請選擇成員角色。');
+          return false;
+      }
+      //提交
+      $("#form_mem_name").val(mem_name);
+      $("#form_mem_telcellphone").val(mem_telcellphone);
+      $("#form_uid").val(uid);
+      $("#form_add_manager").submit();
+  }
+
+  //搜尋會員
+  function search_mem(){
+      var mem_name = $("input[name='mem_name']").val();
+      var mem_telcellphone = $("input[name='mem_telcellphone']").val();
+
+      if(!mem_name){
+          alert('請輸入會員姓名。');
+          return false;
+      }
+      if(!mem_telcellphone){
+          alert('請輸入會員手機。');
+          return false;
+      }
+
+      $.ajax({
+          url: "",
+          type: "POST",
+          dataType: "json",
+          data: {
+              isAjax: 1,
+              service: "search_mem",
+              mem_name: mem_name,
+              mem_telcellphone: mem_telcellphone,
+              '{{$nocsrfTokenId}}': '{{$nocsrfToken}}' 
+          },
+          success: function (re) {
+              console.log("search_mem",'success',re);
+              if(re.result=='C00'){
+                  $("#msg_for_mem_no").hide();
+                  $("#msg_for_mem_yes").show();
+                  $("#add_manager_to_marco_sec").show();
+                  $("#btn_add").show();
+              }else{
+                  if(re.result=='E01'){
+                      strAlert = '此會員非OP會員，請確認後重新查詢。';
+                  }else if(re.result=='E02'){
+                      strAlert = '此會員已是管理員，請確認後重新查詢。';
+                  }else{
+                      strAlert = '此帳號或會員姓名錯誤，請確認後重新查詢。';
+                  }
+
+                  $("#msg_for_mem_no").html('<i id="icon_for_mem_no" class="icons-line icon-line-X pic-margin-r5"></i>');
+                  let text = document.createTextNode(strAlert);
+                  document.getElementById("msg_for_mem_no").appendChild(text);
+
+                  $("#msg_for_mem_no").show();
+                  $("#msg_for_mem_yes").hide();
+              }
+          },
+          error: function (re){
+              
+          }
+      })
+  }
+
+  //編輯成員區域顯示
+  function set_edit_manager_sec(wadm_uid, mam_name, mem_telcellphone, wadm_status, marco_uid){
+      $("#form_edit_wadm_uid").val(wadm_uid);
+
+      $("#edit_manager_name").text(mam_name);
+      $("#edit_manager_tel").text(mem_telcellphone);
+
+      //$("input[name='edit_manager_status']").attr('checked',false);
+
+      if(wadm_status == '1'){
+          $("input[name='edit_manager_status']:eq(0)").prop('checked',true);
+      }else{
+          $("input[name='edit_manager_status']:eq(1)").prop('checked',true);
+      }
+
+      $("#edit_manager_sel_marco").val(marco_uid);
+      
+      set_display('manager_edit_sec');
+  }
+
+  //編輯角色區域顯示
+  function set_edit_marco_sec(marco_uid, marco_name, marco_desc, marco_status){
+      $("#form_edit_marco_marco_uid").val(marco_uid);
+      $("#edit_marco_name").val(marco_name);
+      $("#edit_marco_desc").val(marco_desc);
+      set_marco_func_edit_sec(marco_uid);
+      set_display('marco_edit_sec');
+  }
+
+  //角色權限設定區域
+  function set_marco_func_edit_sec(marco_uid = ''){
+      $.ajax({
+          url: "",
+          type: "POST",
+          dataType: "json",
+          data: {
+              isAjax: 1,
+              service: "get_marco_menu",
+              uid: marco_uid,
+              '{{$nocsrfTokenId}}': '{{$nocsrfToken}}' 
+          },
+          success: function (re) {
+              console.log("get_marco_menu",'success',re);
+              if(re.result=='C00'){
+                  let htm = '';
+                  if(re.data.length > 0){                   
+                      let data = re.data;
+                      for (let i = 0; i < data.length; i++) { 
+                          var menu_1 = data[i];                       
+                          var sub_menu = menu_1.sub_menu;
+                          for (let j = 0; j < sub_menu.length; j++){
+                              var menu_2 = sub_menu[j];  
+                              var id = 'ckbutton-id1_'+menu_2.web_use_uid;
+                              document.getElementById(id).checked = true;
+                          }
+                      }
+                  }
+              }          
+          },
+          error: function (re){
+              
+          }
+      })
+  }
+  
+  //控制顯示
+  function set_display(_my_act = ''){
+      $(".ind_sec").hide();
+      $(".paging_sec").hide(); 
+      $(".btm_btn").hide(); //底部按鈕
+      $("#marco_menu_use_1").hide('');
+
+      $("swiper-tab-1").removeClass('selected');
+      $("swiper-tab-2").removeClass('selected');
+
+      $("#ckbutton-id0_1").prop('checked', false);
+      $("input[name='web_use_uid[]']").prop('checked', false);
+      
+      if(_my_act == '') _my_act = 'manager_list_sec';
+      now_section = _my_act;
+
+      switch(_my_act){
+          case 'marco_list_sec': //角色列表
+              $("#btn_add_marco").show();
+              {{if $m_web_manager_adm_per_macro_list}}
+              $("#marco_list_sec").show();
+              $("#page_for_marco").show();
+              {{else}}
+              $("#no_data_sec").show();
+              {{/if}}
+              $("#swiper-tab-2").addClass('selected');
+              
+              break;
+
+          case 'add_manager_sec': //新增成員
+              $("#add_manager_sec").show();
+              $(".msg_for").hide();
+              $("#btn_cancel").show();
+              break;
+
+          case 'manager_edit_sec' : //成員編輯
+              $("#edit_manager_sel_marco").change();
+              $("#manager_edit_sec").show();
+              $("#btn_cancel").show();
+              $("#btn_save").show();      
+              break;
+
+          case "marco_add_sec": //新增角色
+              $("#marco_add_sec").show();
+              $("input[name='web_use_uid[]']").prop('checked', false);
+              $("#marco_func_edit_sec").show();
+              $("#btn_cancel").show();
+              $("#btn_add").show();
+              break;
+
+          case 'marco_edit_sec':
+              $("#marco_edit_sec").show();
+              $("#marco_func_edit_sec").show();
+              $("#btn_cancel").show();
+              $("#btn_save").show(); 
+              break;
+
+          default :
+              $("#btn_add_manager").show();
+              {{if $m_arrWebManager_list}}
+              $("#manager_list_sec").show();
+              $("#page_for_manager").show();
+              {{else}}
+              $("#no_data_sec").show();
+              {{/if}}
+
+              $("#swiper-tab-1").addClass('selected');
+              
+              break; 
+      }
+  }
+    
+  function filterScriptTags(input) {
+      if (typeof input === 'string') {
+          // 如果是字串，過濾 script 標籤及其內容
+          return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+      } else if (Array.isArray(input)) {
+          // 如果是陣列，遞迴處理每個元素
+          return input.map(filterScriptTags);
+      } else if (typeof input === 'object') {
+          // 如果是物件，遞迴處理每個屬性值
+          const sanitizedObject = {};
+          for (const key in input) {
+              sanitizedObject[key] = filterScriptTags(input[key]);
+          }
+          return sanitizedObject;
+      } else {
+          // 其他型態直接回傳
+          return input;
+      }
+  }
+</script>

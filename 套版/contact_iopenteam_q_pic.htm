@@ -1,0 +1,183 @@
+<style>
+  .admweb-v2-list-header-in-fixbottom{display: none;}
+  .pic-text-lnput-style{background-position: 98.5% 9px;}
+  @media screen and (max-width: 768px) {
+    .admweb-v2-NewProduct-title{ padding-bottom: 10px;border-bottom: 1px solid #F8F8F8;}
+  .admweb-v2-orderlist__card-detail{    margin-top: 8px;}
+  .admweb-v2-settings-frame .admweb-v2-outside-white-box .admweb-v2-edit-name:first-child{ margin-top: 10px;}
+    .admweb-v2-phone-upload-box .admweb-v2-BulkUpload-data {display: flex;flex-wrap: wrap;flex-direction: column;}
+    .admweb-v2-phone-upload-box .admweb-v2-BulkUpload-data .admweb-v2-file-name{width: 100%;}
+    .admweb-v2-phone-upload-box .admweb-v2-BulkUpload-data .pic-BgText-color-green {width: 100%;display: flex;justify-content: center;}
+  
+    .admweb-v2-phone-upload-box .admweb-v2-BulkUpload-data .admweb-v2-categories-btn{ margin-left: 0px;margin-top: 5px;}
+    .pic-text-lnput.pic-text-lnput-textarea{margin-bottom: 0px;}
+    /* .pic-text-warn{margin-bottom: 3px;} */
+    /* select.pic-text-lnput-style{margin-bottom: 4px;} */
+    .admweb-v2-settings-frame{padding: 15px;}
+  }
+
+</style>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <!-- 左側選單 Start -->
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <!-- 左側選單 End -->
+
+
+  <div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+  
+        <button onclick="toggleMenuHandler()">
+            <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu">
+                <i class="icons-line icon-line-hamburger"></i>
+            </div>
+        </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">聯繫客服</h2>
+    <div class="admweb-v2-orderlist-header-qrcode">
+    </div>
+  </div>
+
+  <!-- 右側內容 Start -->
+  <div class="pic-front-pages-right admweb-v2-adjustment">
+    <form method="post" onsubmit="return _CS_checkAdd(this);" enctype="multipart/form-data">
+    <div class="admweb-v2-settings-frame pic-margin-10">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-earphone"></i>聯繫客服</h2>
+      </div>
+
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>聯絡信箱</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input name="qaq_email" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入聯絡信箱">
+          <p class="pic-text-warn">※請填寫正確的信箱，後續客服相關通知信件會寄送到該信箱</p>
+        </li>
+      </ul>
+
+      <!-- 問題描述-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>問題類別</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <select class="pic-text-lnput pic-text-lnput-style" name="qaq_category_uid">
+            <option value="0">請選擇問題類型</option>
+            {{foreach from=$arr_qaq_category_type item=qaq_category_type}}
+            <option value="{{$qaq_category_type.data_type}}">{{$qaq_category_type.data_desc}}</option>
+            {{/foreach}}
+          </select>
+        </li>
+      </ul>
+
+      <!-- 問題類別-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>問題描述</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" placeholder="請輸入欲詢問的問題內容"
+            required="" name="qaq_contents"></textarea>
+        </li>
+      </ul>
+
+      <!-- 上傳附件-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p>上傳附件</p>
+        </li>
+        <li class="admweb-v2-content-enter admweb-v2-phone-upload-box pic-flex-center-column">
+          <div class="admweb-v2-BulkUpload-data">
+            <span class="admweb-v2-file-name pic-bg-gray-10 pic-OneRow-simplify">
+              <text id="qaq_file_name">請上傳檔案</text>
+              <a href="javascript:void(0)" class="iopen-icon-black-delete" onclick="del_qaq_file()"></a>
+            </span>
+            <a onclick="$('input[name=qaq_file]').click();" href="javascript:void(0)"
+              class="pic-BgText-color-green admweb-v2-categories-btn pic-white-space">
+              <i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>
+              請選擇檔案
+            </a>
+            <input type="file" id="qaq_file" name="qaq_file" style="display: none" targetID="qaq_file"
+                   accept="image/gif, image/jpeg, image/png, image/svg"/>
+          </div>
+          <p class="pic-text-warn">※請提供相關圖片<br>※圖片檔案大小最大為 2.0 MB； 需為 jpg, jpeg, png, gif 檔案。若檔案太大或格式限制無法順利上傳，建議改以連結方式提供。</p>
+        </li>
+      </ul>
+    </div>
+    <div class="admweb-v2-orderlist__action admweb-v2-BulkUpload-bottom-btn">
+      <!-- 按鈕 -->
+      <a id="send_btn" class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0)" onclick="$('form').submit()">
+        <i class="icons-line icon-line-tick"></i>送出
+      </a>
+    </div>
+
+      <input type="hidden" name="myAct" value="add_question">
+    </form>
+  </div>
+  <!-- 右側內容 End-->
+</div>
+
+<script>
+  // 漢堡函式
+  function toggleMenuHandler() {
+    document
+            .querySelector('.admweb-v2-seller-front-left-box')
+            .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+            .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+            .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+              '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+              '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+
+  function _CS_checkAdd(_this) {
+    if (_this.qaq_email.value=="")
+    { alert('請輸入聯絡信箱'); return false;}
+    // 檢查email格式是否正確
+    if (!ij_isEmail( _this.qaq_email.value ))
+    { alert('請確認聯絡信箱格式是否正確'); return false;}
+    if (_this.qaq_category_uid.value=="0")
+    { alert('請選擇問題類別'); return false;}
+    if (_this.qaq_contents.value=="")
+    { alert('請輸入問題描述'); return false;}
+
+    $("#send_btn").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+  }
+
+  var FunctionMenuName1 = false;
+  var HtmlHeaderTitle = $('.admweb-v2-orderlist-header-title').html()
+
+  $('.admweb-v2-orderlist-header-actions .icon-line-hamburger').on('click', function() {
+    FunctionMenuName1 = !FunctionMenuName1;
+		$(".admweb-v2-orderlist-header-title").text(FunctionMenuName1 ? '賣家功能選單' : HtmlHeaderTitle);
+		$("body").toggleClass('disscroll');
+		$(".admweb-v2-orderlist-header-qrcode").toggle();
+});
+
+  function del_qaq_file(){
+    document.getElementById('qaq_file_name').textContent = '請上傳檔案';
+    document.querySelector("input[name='qaq_file']").value = '';
+  }
+
+  $(function(){
+    $("input[name='qaq_file']").change(function () {
+      if ($("input[name='qaq_file']").val() != '') {
+        document.getElementById('qaq_file_name').textContent = this.files[0].name;
+      }
+    });
+  })
+
+</script>

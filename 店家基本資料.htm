@@ -1,0 +1,216 @@
+<style>
+  .admweb-v2-EditLogo-large{ width: 270px!important; height: 120px!important; overflow: hidden;border: 1px solid #BEBDC3; cursor: pointer;}
+  .admweb-v2-EditLogo-large img{ width: 100%!important; max-width: 100%!important; height: auto!important;}
+  .admweb-v2-EditLogo-large .admweb-v2-EditLogo-btn{ position: absolute; bottom: 4px; margin-left: -56px; left: 50%; width: 112px; display: flex; align-items: center; justify-content: space-between;}
+  .admweb-v2-Edit-download-btn a{width: 150px; justify-content: center; line-height: 40px; height: 40px;}
+  .admweb-v2-PdImg-EditDelete .admweb-v2-ImgAshbinBtn,.admweb-v2-PdImg-EditDelete .admweb-v2-ImgEditBtn{ position: unset;}
+  .admweb-v2-Edit-CompanyInfo{ font-size: 14px; line-height: 20px; color: var(--pic-color-grey-100);}
+  </style>
+  
+  <div class="pic-default pic-flex admweb-v2-add-product">
+    <div class="admweb-v2-seller-front-left-box">
+      {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <div class="pic-front-pages-right admweb-v2-adjustment" style="width: 100%;">
+      <div class="admweb-v2-settings-frame pic-margin-10"><!--基本資料設定-->
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>基本資料設定</h2>
+        </div>
+        <!--賣場名稱-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場名稱</p><span id="prod_name-length" class="pic-quantity">0/30</span>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品名稱" maxlength="60" value="" colname="商品名稱">
+            <p class="pic-red-text-restrict">字數不能超過30個字</p>
+            <p class="pic-text-warn">※請勿使用&amp;()=;’”&lt;&gt;\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+        </ul>
+        <!--賣場電腦版Logo-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場電腦版Logo</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large">
+                <img src="https://picsum.photos/300/200/?random=10">
+                <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i class="icons-line icon-line-edit"></i>編輯</a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i class="icons-line icon-line-ashbin"></i>刪除</a>
+                </div>
+              </div>
+             <!-- <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>-->
+            </div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+          </li>
+        </ul>
+        <!--賣場手機版Logo-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場手機版Logo</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <!--<div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large">
+                <img src="https://picsum.photos/300/200/?random=10">
+                  <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i class="icons-line icon-line-edit"></i>編輯</a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i class="icons-line icon-line-ashbin"></i>刪除</a>
+                </div>
+              </div>-->
+             <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>
+             </div>
+             <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+          </li>
+        </ul>
+        <!--賣場小Logo-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場小Logo</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <!--<div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large">
+                <img src="https://picsum.photos/300/200/?random=10">
+                  <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i class="icons-line icon-line-edit"></i>編輯</a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i class="icons-line icon-line-ashbin"></i>刪除</a>
+                </div>
+              </div>-->
+             <div class="pic-AddImag admweb-v2-EditLogo-large"><span class="iopen-icon-black-add"></span>上傳圖片</div>
+             </div>
+             <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+          </li>
+        </ul>
+        <!--管理者信箱-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>管理者信箱</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入您的信箱" value="">
+            <p class="pic-text-warn">這並非你的登入信箱，這邊設定的信箱會接收不同類型的通知，Ex：訂單、商品缺貨、帳務通知等等。</p>
+          </li>
+        </ul>
+        <!--賣場模式-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>賣場模式</p></li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm1">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm1" name="prod_typem" checked="" value="3">
+                  <div class="admweb-v2-label-check-green"></div>
+                  營業中
+                </label>
+              </div>
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm2">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm2" name="prod_typem" value="10">
+                  <div class="admweb-v2-label-check-green"></div>
+                  休假中
+                </label>
+              </div>
+            </div>
+            <p class="pic-text-warn">設定休假中即不開放消費者下單。</p>
+          </li>
+        </ul>
+        <!--賣場揭露資訊-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>賣場揭露資訊</p></li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm11">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm11" name="prod_typem1" checked="" value="3">
+                  <div class="admweb-v2-label-check-green"></div>
+                  揭露公司資料
+                </label>
+              </div>
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm12">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm12" name="prod_typem1" value="10">
+                  <div class="admweb-v2-label-check-green"></div>
+                  不用揭露聯繫資料
+                </label>
+              </div>
+            </div>
+            <div class="admweb-v2-Edit-CompanyInfo pic-margin-b10">
+              統一編號：12345678<br>
+              公司名稱：XXXX股份有限公司
+            </div>
+            <div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">註:如需更換或增加退貨取件人，請至權限管理功能設定網站成員。</div>
+            <p class="pic-text-warn">
+              營業資訊揭露說明:<br>
+              1.因應財政部法規，營業人需於網路販售平台揭露「營業人名稱」及「統一編」賣家若屬營業人請務必揭露公司相關資訊，避免觸法。<br>
+              2.揭露的公司資訊將顯示於「賣家介紹」，提供買家查詢及財政部審查。
+            </p>
+            <div class="admweb-v2-orderlist__card--tooltip"><span class="pic-td-icon-merge"></span>如何申請税籍登記</div>
+          </li>
+        </ul>
+        <!--賣場合約下載-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p>賣場合約下載</p></li>
+          <li class="admweb-v2-content-enter admweb-v2-Edit-download-btn">
+            <a onclick="prodSortWindowOpen()" href="javascript:void(0)" class="pic-BgText-color-green admweb-v2-categories-btn"><i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>下載</a>
+          </li>
+        </ul>
+      </div><!--end-->
+  
+      <div class="admweb-v2-settings-frame pic-margin-10"><!--退貨門市設定-->
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>退貨門市設定</h2>
+        </div>
+        <!--退貨取件人-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>退貨取件人</p></li>
+          <li class="admweb-v2-content-enter">
+            <div style="display: flex; max-width: 400px;">
+              <select class="pic-text-lnput pic-text-lnput-style pic-margin-b10" style="width:calc(100% - 150px);" id="com_branch_no" name="com_branch_no"><option value="王小明">王小明</option></select>
+              <a href="javascript:void(0)" style=" width: 150px; height: 40px; display: flex; align-items: center; justify-content: center;" class="pic-BgText-color-green admweb-v2-categories-btn"><i class="icons-line icon-line-ArrowParper pic-margin-r5"></i>確認</a>  
+            </div>
+            <div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">註:如需更換或增加退貨取件人，請至權限管理功能設定網站成員。</div>
+          </li>
+        </ul>
+        <!--退貨門市-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>退貨門市</p></li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm1-1">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm1-1" name="prod_typem-1" checked="" value="3">
+                  <div class="admweb-v2-label-check-green"></div>
+                  退回原寄送門市
+                </label>
+              </div>
+              <div class="admweb-v2-radio-green-box" style="width: 150px;">
+                <label class="admweb-v2-label-green" for="radioIdm2-1">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm2-1" name="prod_typem-1" value="10">
+                  <div class="admweb-v2-label-check-green"></div>
+                  指定退貨門市
+                </label>
+              </div>
+                <input style="width: auto;" name="prod_name" type="text" class="pic-text-lnput pic-lnput-enter" value="7-11京林門市">
+                <a href="javascript:void(0)" style=" height: 40px;" class="pic-BgText-color-green admweb-v2-categories-btn"><i class="icons-line icon-line-ArrowParper pic-margin-r5"></i>選擇預設退貨門市</a>
+            </div>
+          </li>
+        </ul>
+        <div class=" pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+          <p class="admweb-v2-order_delivery__notice-title"> 退貨提醒：</p>
+          <ol class="admweb-v2-order_delivery__notice-list">
+            <li>當買家超過7天未領貨，貨品將直接退還到您所指定的門市，系統將會發送簡訊及信件通知取件。</li>
+            <li>包裹退回門市後，請提供與取件者全名相符之證件，方能完成取貨。</li>
+          </ol>
+        </div>
+      </div><!--退貨門市設定end-->
+      <!--置底按鈕-->
+      <div class="admweb-v2-orderlist__action">
+        <a class="admweb-v2-I-Btn pic-BgText-color-white-green" href="javascript:void(0);"><i class="icons-line icon-line-X"></i>取消</a>
+        <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0);"><i class="icons-line iopen-icon-white-add-front"></i>儲存</a>
+      </div>
+      <!--置底按鈕end-->
+    </div>
+  </div>

@@ -1,0 +1,539 @@
+<style>
+.admweb-v2-EditLogo-large{ width: 270px!important; height: 120px!important; overflow: hidden;border: 1px solid #BEBDC3; cursor: pointer;}
+.admweb-v2-EditLogo-large img{ width: 100%!important; max-width: 100%!important; height: auto!important;}
+.admweb-v2-EditLogo-large .admweb-v2-EditLogo-btn{ position: absolute; bottom: 4px; margin-left: -56px; left: 50%; width: 112px; display: flex; align-items: center; justify-content: space-between;}
+.admweb-v2-Edit-download-btn a{width: 150px; justify-content: center; line-height: 40px; height: 40px;}
+.admweb-v2-PdImg-EditDelete .admweb-v2-ImgAshbinBtn,.admweb-v2-PdImg-EditDelete .admweb-v2-ImgEditBtn{ position: unset;}
+.admweb-v2-Edit-CompanyInfo{ font-size: 14px; line-height: 20px; color: var(--pic-color-grey-100);}
+</style>
+
+<div class="pic-default pic-flex admweb-v2-add-product">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="pic-front-pages-right admweb-v2-adjustment" style="width: 100%;">
+    <form name="formWeb" action="" method="post" onsubmit="return _CS_checkAdd(this);" enctype="multipart/form-data">
+      <div class="admweb-v2-settings-frame pic-margin-10"><!--基本資料設定-->
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>基本資料設定</h2>
+        </div>
+        <!--賣場名稱-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場名稱</p><span id="web_name-length" class="pic-quantity">0/60</span>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input id="web_name" name="web_name" type="text" class="pic-text-lnput pic-lnput-enter"
+                   placeholder="請輸入賣場名稱" maxlength="60" value="{{$m_arrWebsite.web_name}}" colname="賣場名稱">
+            <p class="pic-red-text-restrict" id="text_over" >字數不能超過60個字</p>
+            <p class="pic-text-warn">※請勿使用&amp;()=;’”&lt;&gt;\等特殊符號，避免提交後賣場無法使用。</p>
+          </li>
+        </ul>
+        <!--賣場電腦版Logo-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場電腦版Logo</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <div class="admweb-v2-PdImg-EditDelete pic-EditImag_web_logo admweb-v2-EditLogo-large" style="{{if !$m_arrWebsite.web_logo}}display:none;{{/if}}">
+                <img src="{{if $m_arrWebsite.web_logo}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$m_arrWebsite.web_logo}}{{/if}}" id="pic_web_logo">
+                <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic_web_logo" href="javascript:void(0)">
+                    <i class="icons-line icon-line-edit"></i>編輯
+                  </a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red pic_web_logo_delete" href="javascript:void(0)">
+                    <i class="icons-line icon-line-ashbin"></i>刪除
+                  </a>
+                </div>
+              </div>
+              <div class="pic-AddImag pic-AddImag_web_logo admweb-v2-EditLogo-large pic_web_logo" style="{{if $m_arrWebsite.web_logo}}display:none;{{/if}}">
+                <span class="iopen-icon-black-add"></span>上傳圖片
+              </div>
+              <input type="file" id="web_logo" name="web_logo" style="display: none" targetID="pic_web_logo"
+                     accept="image/gif, image/jpeg, image/png, image/svg, .jfif"/>
+            </div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為{{$m_arrWebStyle.wstl_logo_w}} * {{$m_arrWebStyle.wstl_logo_h}}px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+          </li>
+        </ul>
+        <!--賣場手機版Logo-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場手機版Logo</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <div class="admweb-v2-PdImg-EditDelete pic-EditImag_mbl_web_logo admweb-v2-EditLogo-large" style="{{if !$m_arrWebsite.mbl_web_logo}}display:none;{{/if}}">
+                <img src="{{if $m_arrWebsite.mbl_web_logo}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$m_arrWebsite.mbl_web_logo}}{{/if}}" id="pic_mbl_web_logo">
+                <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic_mbl_web_logo" href="javascript:void(0)">
+                    <i class="icons-line icon-line-edit"></i>編輯
+                  </a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red pic_mbl_web_logo_delete"
+                     href="javascript:void(0)">
+                    <i class="icons-line icon-line-ashbin"></i>刪除
+                  </a>
+                </div>
+              </div>
+              <div class="pic-AddImag pic-AddImag_mbl_web_logo admweb-v2-EditLogo-large pic_mbl_web_logo" style="{{if $m_arrWebsite.mbl_web_logo}}display:none;{{/if}}">
+                <span class="iopen-icon-black-add"></span>上傳圖片
+              </div>
+              <input type="file" id="mbl_web_logo" name="mbl_web_logo" style="display: none" targetID="pic_mbl_web_logo"
+                     accept="image/gif, image/jpeg, image/png, image/svg, .jfif"/>
+            </div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為{{$mbl_arrWebStyle.wstl_logo_w}} * {{$mbl_arrWebStyle.wstl_logo_h}}px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+          </li>
+        </ul>
+        <!--賣場小Logo-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>賣場小Logo</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-PdImg">
+              <div class="admweb-v2-PdImg-EditDelete pic-EditImag_web_logo_small admweb-v2-EditLogo-large" style="{{if !$m_arrWebsite.web_logo_small}}display:none;{{/if}}">
+                <img src="{{if $m_arrWebsite.web_logo_small}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$m_arrWebsite.web_logo_small}}{{/if}}" id="pic_web_logo_small">
+                <div class="admweb-v2-EditLogo-btn">
+                  <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic_web_logo_small" href="javascript:void(0)">
+                    <i class="icons-line icon-line-edit"></i>編輯
+                  </a>
+                  <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red pic_web_logo_small_delete"
+                     href="javascript:void(0)">
+                    <i class="icons-line icon-line-ashbin"></i>刪除
+                  </a>
+                </div>
+              </div>
+              <div class="pic-AddImag pic-AddImag_web_logo_small admweb-v2-EditLogo-large pic_web_logo_small" style="{{if $m_arrWebsite.web_logo_small}}display:none;{{/if}}">
+                <span class="iopen-icon-black-add"></span>上傳圖片
+              </div>
+              <input type="file" id="web_logo_small" name="web_logo_small" style="display: none" targetID="pic_web_logo_small"
+                     accept="image/gif, image/jpeg, image/png, image/svg, .jfif"/>
+            </div>
+            <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為{{$m_arrWebStyle.wstl_small_logo_w}} * {{$m_arrWebStyle.wstl_small_logo_h}}px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+          </li>
+        </ul>
+        <!--管理者信箱-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p>管理者信箱</p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input name="web_bcc_mail" type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入您的信箱" value="{{$m_arrWebsite.web_bcc_mail}}">
+            <p class="pic-text-warn">這並非你的登入信箱，這邊設定的信箱會接收不同類型的通知，Ex：訂單、商品缺貨、帳務通知等等。</p>
+          </li>
+        </ul>
+        <!--賣場模式-->
+        <!-- <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>賣場模式</p></li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm1">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm1" name="web_shopping_cart"
+                         {{if $m_arrWebsite.web_shopping_cart!=0}}checked{{/if}} value="1">
+                  <div class="admweb-v2-label-check-green"></div>
+                  營業中
+                </label>
+              </div>
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm2">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm2" name="web_shopping_cart"
+                         {{if $m_arrWebsite.web_shopping_cart==0}}checked{{/if}} value="0">
+                  <div class="admweb-v2-label-check-green"></div>
+                  休假中
+                </label>
+              </div>
+            </div>
+            <p class="pic-text-warn">設定休假中即不開放消費者下單。</p>
+          </li>
+        </ul> -->
+        <!--賣場揭露資訊-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>賣場揭露資訊</p></li>
+          {{if $m_arrCompany.com_bank_set_type==2}}
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+              <div class="admweb-v2-radio-green-box">
+                  揭露公司資料
+              </div>
+            </div>
+            <div class="admweb-v2-Edit-CompanyInfo pic-margin-b10">
+              統一編號：{{$m_arrCompany.com_utcode}}<br>
+              公司名稱：{{$m_arrCompany.com_name}}
+            </div>
+            <div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+              註:如需修改公司名稱和統一編號，請至<a href="admweb.main.php?action=seller_bank_account_pic">賣家銀行帳戶</a>功能修改。
+            </div>
+            <p class="pic-text-warn">
+              營業資訊揭露說明:<br>
+              1.因應財政部法規，營業人需於網路販售平台揭露「營業人名稱」及「統一編號」賣家若屬營業人請務必揭露公司相關資訊，避免觸法。<br>
+              2.揭露的公司資訊將顯示於「賣家介紹」，提供買家查詢及財政部審查。
+            </p>
+            <div class="admweb-v2-orderlist__card--tooltip">
+              <a href="https://www.gov.tw/News3_Content.aspx?n=2&s=513472" target="_blank">
+              <span class="pic-td-icon-merge"></span>如何申請税籍登記
+              </a>
+            </div>
+          </li>
+          {{else}}
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+              <div class="admweb-v2-radio-green-box">
+                  不用揭露聯繫資料
+              </div>
+            </div>
+          </li>
+          {{/if}}
+        </ul>
+        <!--賣場合約下載-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p>賣場合約下載</p></li>
+          <li class="admweb-v2-content-enter admweb-v2-Edit-download-btn">
+            <a onclick="downloadPDFfile(1)" href="" download="賣場合約.pdf" id="download_pdf_1"
+               class="pic-BgText-color-green admweb-v2-categories-btn"><i
+                    class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>下載</a>
+          </li>
+        </ul>
+        <!--賣場合約下載-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p>物流金流服務附約</p></li>
+          <li class="admweb-v2-content-enter admweb-v2-Edit-download-btn">
+            <a onclick="downloadPDFfile(2)" href="" download="物流金流服務附約.pdf" id="download_pdf_2"
+               class="pic-BgText-color-green admweb-v2-categories-btn"><i
+                    class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>下載</a>
+          </li>
+        </ul>
+      </div><!--end-->
+
+      <div class="admweb-v2-settings-frame pic-margin-10"><!--退貨門市設定-->
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>超商取貨店到店退貨門市設定</h2>
+        </div>
+        <!--退貨取件人-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>退貨取件人</p></li>
+          <li class="admweb-v2-content-enter">
+            <div style="display: flex; max-width: 400px;">
+              <select class="pic-text-lnput pic-text-lnput-style pic-margin-b10" style="width:calc(100% - 150px);"
+                      id="web_cvs_return_mem" name="web_cvs_return_mem">
+                {{if $m_arrMemberlist|@count < 1}}
+                <option value=""></option>
+                {{/if}}
+                {{foreach from=$m_arrMemberlist item=cvs_return_mem}}
+                <option value="{{$cvs_return_mem.mem_uid}}" {{if $cvs_return_mem.mem_uid==$m_arrWebsite.web_cvs_return_mem}}selected{{/if}}>{{$cvs_return_mem.mem_name}}</option>
+                {{/foreach}}
+              </select>
+              <a href="javascript:void(0)"
+                 style=" width: 150px; height: 40px; display: flex; align-items: center; justify-content: center; display: none"
+                 class="pic-BgText-color-green admweb-v2-categories-btn"><i
+                      class="icons-line icon-line-ArrowParper pic-margin-r5"></i>確認</a>
+            </div>
+            <div class="pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+              註:如需更換或增加退貨取件人，請至<a href="admweb.main.php?action=website_manager_pic">權限管理功能</a>設定網站成員。
+            </div>
+          </li>
+        </ul>
+        <!--退貨門市-->
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name"><p><span class="pic-text-red">*</span>退貨門市</p></li>
+          <li class="admweb-v2-content-enter">
+            <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+              <div class="admweb-v2-radio-green-box">
+                <label class="admweb-v2-label-green" for="radioIdm1-1">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm1-1" name="map_show_type_404"
+                         {{if $web_cvs_return_store.404.show_type!="2"}}checked{{/if}} value="1">
+                  <div class="admweb-v2-label-check-green"></div>
+                  退回原寄送門市
+                </label>
+              </div>
+              <div class="admweb-v2-radio-green-box" style="width: 150px;">
+                <label class="admweb-v2-label-green" for="radioIdm2-1">
+                  <input class="admweb-v2-radio-green" type="radio" id="radioIdm2-1" name="map_show_type_404"
+                         {{if $web_cvs_return_store.404.show_type=="2"}}checked{{/if}} value="2">
+                  <div class="admweb-v2-label-check-green"></div>
+                  指定退貨門市
+                </label>
+              </div>
+              <input style="width: auto;" name="store_name" type="text" class="pic-text-lnput pic-lnput-enter choose_store"
+                     value="{{$web_cvs_return_store.404.store_name|default:'選擇門市'}}" onclick='change_store("9", "404");' disabled>
+              <input type="hidden" name="store_no" value="{{$web_cvs_return_store.404.store_no}}">
+              <input type="hidden" name="store_tel" value="{{$web_cvs_return_store.404.store_tel}}">
+              <input type="hidden" name="address_chi" value="{{$web_cvs_return_store.404.address_chi}}">
+              <input name="mapType[]" value="404" type="hidden" />
+              <input type="hidden" name="delivery_type" value="404">
+              <a href="javascript:change_store('9', '404');" style=" height: 40px;"
+                 class="pic-BgText-color-green admweb-v2-categories-btn choose_store"><i
+                      class="icons-line icon-line-ArrowParper pic-margin-r5"></i>選擇預設退貨門市</a>
+            </div>
+          </li>
+        </ul>
+        <div class=" pic-padding-10 pic-bg-orange-10 pic-text-orange pic-font-size-12">
+          <p class="admweb-v2-order_delivery__notice-title"> 退貨提醒：</p>
+          <ol class="admweb-v2-order_delivery__notice-list">
+            <li>當買家超過7天未領貨，貨品將直接退還到您所指定的門市，系統將會發送簡訊及信件通知取件。</li>
+            <li>包裹退回門市後，請提供與取件者全名相符之證件，方能完成取貨。</li>
+          </ol>
+        </div>
+      </div><!--退貨門市設定end-->
+      <!--置底按鈕-->
+      <div class="admweb-v2-orderlist__action">
+        <a class="admweb-v2-I-Btn pic-BgText-color-white-green" href="javascript:void(0)" onclick="cancel_btn();">
+          <i class="icons-line icon-line-X"></i>取消</a>
+        <input name="myAct" type="hidden" value="COMMAND_EDIT" />
+        <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0)" onclick="$('form[name=formWeb]').submit();">
+          <i class="icons-line iopen-icon-white-add-front"></i>儲存</a>
+      </div>
+      <!--置底按鈕end-->
+    </form>
+    <form name="formChangeStore" method="post" action="">
+      <input id="g_web_name" name="g_web_name" type="hidden" value="" />
+      <input id="g_web_bcc_mail" name="g_web_bcc_mail" type="hidden" value="" />
+      <input id="g_web_shopping_cart" name="g_web_shopping_cart" type="hidden" value="" />
+      <input id="g_com_expose_data" name="g_com_expose_data" type="hidden" value="" />
+      <input id="g_web_cvs_return_mem" name="g_web_cvs_return_mem" type="hidden" value="" />
+      <input id="g_store_type" name="g_store_type" type="hidden" value="" />
+      <input id="g_delivery_type" name="g_delivery_type" type="hidden" value="" />
+      <input name="myAct" type="hidden" value="COMMAND_CHANGE_STORE" />
+    </form>
+  </div>
+</div>
+
+<script>
+  formWeb = $("form[name='formWeb']")
+  /********************
+   　計算 input 內容長度
+   ********************/
+  $(function(){
+    var inInput = $("#web_name");
+    document.getElementById('web_name').addEventListener('input', function (){
+      inputLength(this);
+    })
+    inputLength(inInput);
+  });
+
+  //*** 內容長度呈現 ******
+  function inputLength(ele){
+    var length = $(ele).val().length;
+    var maxlength = $(ele).attr("maxlength");
+    var div_id = $(ele).attr("name")+"-length";
+    document.getElementById(div_id).innerText = length + "/" + maxlength;
+    if(length>=60) $('#text_over').show();
+    else $('#text_over').hide();
+  };
+
+  $(function () {
+    $(".pic_web_logo").click(function () {
+      $("input[name='web_logo']").click();
+    });
+    $("input[name='web_logo']").change(function () {
+      if ($("input[name='web_logo']").val() != '') {
+        $(".pic-AddImag_web_logo").hide();
+        $(".pic-EditImag_web_logo").show();
+        readURL_logo(this);
+      }
+    });
+    $(".pic_web_logo_delete").click(function () {
+      $("#pic_web_logo").attr('src','')
+      $("input[name='web_logo']").val('')
+      $(".pic-AddImag_web_logo").show();
+      $(".pic-EditImag_web_logo").hide();
+    });
+
+    $(".pic_mbl_web_logo").click(function () {
+      $("input[name='mbl_web_logo']").click();
+    });
+    $("input[name='mbl_web_logo']").change(function () {
+      if ($("input[name='mbl_web_logo']").val() != '') {
+        $(".pic-AddImag_mbl_web_logo").hide();
+        $(".pic-EditImag_mbl_web_logo").show();
+        readURL_logo(this);
+      }
+    });
+    $(".pic_mbl_web_logo_delete").click(function () {
+      $("#pic_mbl_web_logo").attr('src','')
+      $("input[name='mbl_web_logo']").val('')
+      $(".pic-AddImag_mbl_web_logo").show();
+      $(".pic-EditImag_mbl_web_logo").hide();
+    });
+
+    $(".pic_web_logo_small").click(function () {
+      $("input[name='web_logo_small']").click();
+    });
+    $("input[name='web_logo_small']").change(function () {
+      if ($("input[name='web_logo_small']").val() != '') {
+        $(".pic-AddImag_web_logo_small").hide();
+        $(".pic-EditImag_web_logo_small").show();
+        readURL_logo(this);
+      }
+    });
+    $(".pic_web_logo_small_delete").click(function () {
+      $("#pic_web_logo_small").attr('src','');
+      $("input[name='web_logo_small']").val('');
+      $(".pic-AddImag_web_logo_small").show();
+      $(".pic-EditImag_web_logo_small").hide();
+    });
+
+    if($("input[name='map_show_type_404']:checked").val() == 1){
+      $(".choose_store").hide();
+    }
+    $("input[name='map_show_type_404']").change(function() {
+      if($("input[name='map_show_type_404']:checked").val() == 1){
+        $(".choose_store").hide();
+      } else {
+        $(".choose_store").show();
+      }
+    })
+
+    var myFile, dataTransfer;
+    if(sessionStorage.getItem('pic_web_logo') && sessionStorage.getItem('pic_web_logo_name')) {
+      $("#pic_web_logo").attr('src', sessionStorage.getItem('pic_web_logo'));
+      myFile = dataURLtoFile(sessionStorage.getItem('pic_web_logo'), sessionStorage.getItem('pic_web_logo_name'));
+      dataTransfer = new DataTransfer();
+      dataTransfer.items.add(myFile);
+      document.getElementById('web_logo').files = dataTransfer.files;
+      sessionStorage.removeItem('pic_web_logo');
+      sessionStorage.removeItem('pic_web_logo_name');
+    }
+    if(sessionStorage.getItem('pic_mbl_web_logo') && sessionStorage.getItem('pic_mbl_web_logo_name')) {
+      $("#pic_mbl_web_logo").attr('src', sessionStorage.getItem('pic_mbl_web_logo'));
+      myFile = dataURLtoFile(sessionStorage.getItem('pic_mbl_web_logo'), sessionStorage.getItem('pic_mbl_web_logo_name'));
+      dataTransfer = new DataTransfer();
+      dataTransfer.items.add(myFile);
+      document.getElementById('mbl_web_logo').files = dataTransfer.files;
+      sessionStorage.removeItem('pic_mbl_web_logo');
+      sessionStorage.removeItem('pic_mbl_web_logo_name');
+    }
+    if(sessionStorage.getItem('pic_web_logo_small') && sessionStorage.getItem('pic_web_logo_small_name')) {
+      $("#pic_web_logo_small").attr('src', sessionStorage.getItem('pic_web_logo_small'));
+      myFile = dataURLtoFile(sessionStorage.getItem('pic_web_logo_small'), sessionStorage.getItem('pic_web_logo_small_name'));
+      dataTransfer = new DataTransfer();
+      dataTransfer.items.add(myFile);
+      document.getElementById('web_logo_small').files = dataTransfer.files;
+      sessionStorage.removeItem('pic_web_logo_small');
+      sessionStorage.removeItem('pic_web_logo_small_name');
+    }
+
+  });
+
+  function dataURLtoFile(dataurl, filename) {
+    // base64字串轉檔案
+    var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+    while(n--){
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+  }
+
+  function readURL_logo(input){
+    if(input.files && input.files[0]){
+      var imageTagID = input.getAttribute("targetID");
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        src = e.target.result
+        var newImg = new Image();
+        newImg.src = src;
+        if (e.total > 2000000) {
+          alert('圖片檔案大小超過2.0MB限制，請重新上傳').done(function(){
+            $(input).siblings('.admweb-v2-PdImg-EditDelete').find('.admweb-v2-EditLogo-btn>.admweb-v2-ImgAshbinBtn').click();
+          });
+          return false;
+        }
+        newImg.onload = function(e){
+          var height = newImg.height;
+          var width = newImg.width;
+          if(height>2000 || width>2000){
+            alert('圖片解析度上限為 2000*2000px，請重新上傳').done(function(){
+              $(".pic_"+id+"_delete").trigger('click');
+            });
+            return false;
+          }else{
+            var img = document.getElementById(imageTagID);
+            img.setAttribute("src", src)
+          }
+        }
+
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function downloadPDFfile(pdf_type){
+    $.ajax({
+      url: "",
+      type: "POST",
+      dataType: "json",
+      async: false,
+      data: {
+        pdf_type:pdf_type,
+        myAct:"get_PDF_file"
+      },
+      success: function (result){
+        $("#download_pdf_"+pdf_type).attr('href', '../'+result);
+        // window.open('../'+result, '_blank')
+      }
+    })
+  }
+
+  function change_store(g_store_type, g_delivery_type)
+  {
+    if(document.getElementById('web_logo').files.length>0) {
+      sessionStorage.setItem('pic_web_logo', $("#pic_web_logo").attr('src'));
+      sessionStorage.setItem('pic_web_logo_name', document.getElementById('web_logo').files[0]['name']);
+    }
+    if(document.getElementById('mbl_web_logo').files.length>0) {
+      sessionStorage.setItem('pic_mbl_web_logo', $("#pic_mbl_web_logo").attr('src'));
+      sessionStorage.setItem('pic_mbl_web_logo_name', document.getElementById('mbl_web_logo').files[0]['name']);
+    }
+    if(document.getElementById('web_logo_small').files.length>0) {
+      sessionStorage.setItem('pic_web_logo_small', $("#pic_web_logo_small").attr('src'));
+      sessionStorage.setItem('pic_web_logo_small_name', document.getElementById('web_logo_small').files[0]['name']);
+    }
+
+    $("#g_web_name").val($("input[name='web_name']").val());
+    $("#g_web_bcc_mail").val($("input[name='web_bcc_mail']").val());
+    $("#g_web_shopping_cart").val($("input[name='web_shopping_cart']:checked").val());
+    $("#g_com_expose_data").val($("input[name='com_expose_data']:checked").val());
+    $("#g_web_cvs_return_mem").val($("#web_cvs_return_mem").val());
+
+    $("#g_store_type").val(g_store_type);
+    $("#g_delivery_type").val(g_delivery_type);
+
+    document.formChangeStore.submit();
+  }
+
+  function _CS_checkAdd(_this){
+    if(_this.web_name.value == ''){
+      alert('請輸入賣場名稱')
+      return false;
+    }
+    if($("#pic_web_logo").attr('src') == ''){
+      alert('請上傳賣場Logo')
+      return false;
+    }
+    if($("#pic_mbl_web_logo").attr('src') == ''){
+      alert('請上傳賣場手機版Logo')
+      return false;
+    }
+    if($("#pic_web_logo_small").attr('src') == ''){
+      alert('請上傳賣場小Logo')
+      return false;
+    }
+
+    if(_this.map_show_type_404.value == '2'){
+      if(_this.store_name.value == '選擇門市'){
+        alert('請選擇取貨門市')
+        return false;
+      }
+    }
+  }
+  function cancel_btn(){
+    confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function (){
+      location.reload();
+    });
+  }
+
+</script>

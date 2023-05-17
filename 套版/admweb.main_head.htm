@@ -1,0 +1,519 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<title>{{$web_title}}</title>
+
+ <!-- basic styles -->
+    
+    <!-- <link href="../assets/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <!-- <link rel="stylesheet" href="../assets/css/font-awesome.min.css" /> -->
+    
+    <!--[if IE 7]>
+              <link rel="stylesheet" href="../assets/css/font-awesome-ie7.min.css" />
+            <![endif]-->
+    
+    <!-- page specific plugin styles -->
+    
+    <!-- fonts -->
+    
+    <link rel="stylesheet" href="../assets/css/ace-fonts.css" />
+    
+    <!-- ace styles -->
+    
+    <!-- <link rel="stylesheet" href="../assets/css/ace.min.css" /> -->
+    <link rel="stylesheet" href="../assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
+    
+    <!--[if lte IE 8]>
+              <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
+            <![endif]-->
+<link rel="stylesheet" type="text/css" href="../css/reset.css" />
+
+    <!-- inline styles related to this page -->
+    
+    <!-- ace settings handler -->
+    
+    <script src="../assets/js/ace-extra.min.js"></script>
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    
+    <!--[if lt IE 9]>
+            <script src="../assets/js/html5shiv.js"></script>
+            <script src="../assets/js/respond.min.js"></script>
+            <![endif]-->
+<!-- basic scripts --> 
+
+<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='../javascripts/jquery/jquery.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]--> 
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!--[if IE]>
+    <script type="text/javascript">
+     window.jQuery || document.write("<script src='../assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+    </script>
+    <![endif]--> 
+    
+    <script type="text/javascript">
+                if("ontouchend" in document) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+            </script> 
+    <script src="../assets/bootstrap-441/js//bootstrap.min.js"></script> 
+    <!-- <script src="../assets/js/typeahead-bs2.min.js"></script>  -->
+    
+    <!-- page specific plugin scripts --> 
+    
+    <!--[if lte IE 8]>
+              <script src="../assets/js/excanvas.min.js"></script>
+            <![endif]--> 
+    
+    <script src="../assets/js/jquery.ui.touch-punch.min.js"></script> <!-- 手機點擊 -->
+    <script src="../assets/js/chosen.jquery.min.js"></script> 
+    <!-- <script src="../assets/js/fuelux/fuelux.spinner.min.js"></script>  -->
+    <script src="../assets/js/date-time/bootstrap-datepicker.min.js"></script> 
+    <script src="../assets/js/date-time/bootstrap-timepicker.min.js"></script> 
+    <script src="../assets/js/date-time/daterangepicker.min.js"></script> 
+    <script src="../assets/js/bootstrap-colorpicker.min.js"></script> 
+    <script src="../assets/js/jquery.knob.min.js"></script> 
+    <script src="../assets/js/jquery.autosize.min.js"></script> 
+    <script src="../assets/js/jquery.inputlimiter.1.3.1.min.js"></script> 
+    <script src="../assets/js/jquery.maskedinput.min.js"></script> 
+    <!-- <script src="../assets/js/bootstrap-tag.min.js"></script>  -->
+    
+    <!-- ace scripts --> 
+    
+    <!-- <script src="../assets/js/ace-elements.min.js"></script>  -->
+    <script src="../assets/js/ace.min.js"></script> 
+
+<link href="../css/pagination.css" rel="stylesheet" type="text/css" />
+<link href="../javascripts/jquery/css/jpicker-1.1.6.min.css" rel="stylesheet" type="text/css" />
+<link href="../javascripts/jquery/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"></link>
+
+<script type="text/javascript" src="../javascripts/jquery/jquery-1.9.1.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="../javascripts/ij-ajax/ij-ajax.js"></script>
+<script language="JavaScript" type="text/javascript" src="../javascripts/jquery/jpicker-1.1.6.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="../javascripts/drag_sort.js"></script>
+<!-- <script language="JavaScript" type="text/javascript" src="../javascripts/kc/ckeditor/ckeditor.js"></script>
+<script language="JavaScript" type="text/javascript" src="../javascripts/kc/ckfinder/ckfinder.js"></script> -->
+<script language="javascript" type="text/javascript" src="../javascripts/jquery/jquery.cookie.js"></script><!--cookie-->
+<script language="javascript" type="text/javascript" src="../javascripts/jquery/fancybox/jquery.fancybox.pack.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script language="javascript">
+
+	var IJ = new IJ("../javascripts/ij-ajax/");
+	IJ.loadJs();
+	
+	var sBasePath = '../javascripts/fckeditor/';
+
+	function _openMemberSearch( jsAct, formName, elName, lang, _args )
+	{
+		var open_uri = '../openwin/openwin.index.php?action=member_search' + 
+						'&jsAct=' + jsAct +
+						'&form_name=' + formName +
+						'&el_name=' + elName +
+						'&openwin_lang=' + lang;
+		if(_args)
+			open_uri += _args;
+		
+		window.open(open_uri,
+					'memberSearch',
+					'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=300');
+	}
+	
+	function _openMemberSearchAll( jsAct, _document, formName, 
+									elName, lang, _args )
+	{
+		var open_uri = '../openwin/openwin.index.php?action=member_search_all' + 
+						'&jsAct=' + jsAct +
+						'&_document=' + _document +
+						'&form_name=' + formName +
+						'&el_name=' + elName +
+						'&openwin_lang=' + lang;
+		if(_args)
+			open_uri += _args;
+		
+		window.open(open_uri,
+					'memberSearchAll',
+					'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=300');
+	}
+	
+	function _openEditWindow( open_uri )
+	{
+		window.open(open_uri,
+					'editWindow',
+					'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=780,height=580');
+	}
+
+	function _openMaskIframe( open_uri )
+	{
+		var objMasking;
+		objMasking = new Masking( 'ij_masking', 100, 0 );
+		objMasking.oMasking.style.top = 40;
+		objMasking.iframeOpenUri( open_uri );
+		objMasking.display();
+	}
+
+	function _openProductSort( jsAct, formName, elName, lang, _args )
+	{
+		var open_uri = '../openwin/openwin.index.php?action=product_sort' + 
+						'&jsAct=' + jsAct +
+						'&form_name=' + formName +
+						'&el_name=' + elName +
+						'&openwin_lang=' + lang;
+		if(_args)
+			open_uri += _args;
+		
+		window.open(open_uri,
+					'productSort',
+					'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=500');
+	}
+	function _openBrandsSort( jsAct, formName, elName, lang, _args )
+	{
+		//開啟品牌分類
+		var open_uri = '../openwin/openwin.index.php?action=brands_sort' + 
+						'&jsAct=' + jsAct +
+						'&form_name=' + formName +
+						'&el_name=' + elName +
+						'&openwin_lang=' + lang;
+		if(_args)
+			open_uri += _args;
+		
+		window.open(open_uri,
+					'brandSort',
+					'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=500');
+	}
+		{{if $_arr_system_gift ==1}}
+			function _openProductSearch( jsAct, formName, elName, lang, _args, gift)
+			{
+				var open_uri = '../openwin/openwin.index.php?action=product_search' + 
+								'&jsAct=' + jsAct +
+								'&form_name=' + formName +
+								'&el_name=' + elName +	
+								'&openwin_lang=' + lang +
+								'&gift=' + gift;
+								
+				if(_args)
+					open_uri += _args;
+				
+				window.open(open_uri,
+							'productSearch',
+							'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=500');
+			}
+		{{else}}
+			function _openProductSearch( jsAct, formName, elName, lang, _args, from )
+			{
+				var open_uri = '../openwin/openwin.index.php?action=product_search' + 
+								'&jsAct=' + jsAct +
+								'&form_name=' + formName +
+								'&el_name=' + elName +
+								'&gift=0' + 
+								'&openwin_lang=' + lang +
+								'&from=' + from;
+				if(_args)
+					open_uri += _args;
+				
+				window.open(open_uri,
+							'productSearch',
+							'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=300');
+			}
+		{{/if}}
+			function _openWebsiteSearch( jsAct, formName, elName, lang, _args )
+			{
+				var open_uri = '../openwin/openwin.index.php?action=website_search' +
+						'&jsAct=' + jsAct +
+						'&form_name=' + formName +
+						'&el_name=' + elName +
+						'&gift=0' +
+						'&openwin_lang=' + lang;
+				if(_args)
+					open_uri += _args;
+
+				window.open(open_uri,
+						'websiteSearch',
+						'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=600,height=300');
+			}
+
+	function _openEpaperMemberSearch( jsAct, formName, elName, lang, _args )
+	{
+		var open_uri = '../openwin/openwin.index.php?action=epaper_member_search' +
+				'&jsAct=' + jsAct +
+				'&form_name=' + formName +
+				'&el_name=' + elName +
+				'&openwin_lang=' + lang;
+		if(_args)
+			open_uri += _args;
+
+		window.open(open_uri,
+				'epaperMemberSearch',
+				'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=800,height=800');
+	}
+
+	function _openFCKeditor( formName, elName )
+	{
+		var open_uri = '../openwin/openwin.index.php?action=myFCKeditor' + 
+						'&form_name=' + formName +
+						'&el_name=' + elName;
+		
+		window.open(open_uri,
+					'myFCKeditor',
+					'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=700,height=450');
+	}
+
+</script>
+	<link href="../css/new_admweb2.css?20230418" rel="stylesheet" type="text/css">
+	<link href="../css/admweb_pic.css?20230418" rel="stylesheet" type="text/css"><!--pic頁面共用css-->
+	<link href="../css/admweb_pic_v2.css?20230418" rel="stylesheet" type="text/css"><!--pic改色系用-->
+	<!-- Matomo -->
+    {{if $m_arrSystem.jsonMatomoSetting.is_use}}
+    <script>
+        var type = ""
+        if (window.navigator.userAgent.includes("PartnerAPP")){
+            type = "App"
+        }else{
+            type = "Web"
+        }
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['setCustomDimension', customDimensionId = 1, customDimensionValue = type]);
+
+        {{if $sys_arrMember.mem_uid}}
+        var mem_uid_T = '{{$sys_arrMember.mem_uid}}';
+        _paq.push(['setUserId',mem_uid_T]); 
+        {{/if}}
+
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="{{$m_arrSystem.jsonMatomoSetting.server}}";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '{{$sys_arrWebsite.web_uid}}']); //web_uid
+            var websiteIdDuplicate = 1; //同步資料到數據中心site
+            _paq.push(['addTracker', u+'matomo.php', websiteIdDuplicate]);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    {{/if}}
+    <!-- End Matomo Code -->
+</head>
+
+<body>
+<!--pic版頭-->
+
+{{if $arr_admWebsite|@count == 1}}
+<style>
+	.admweb-v2-list-shop-DropMenu-box::after{content: ''; background:url() !important;}
+</style>
+{{/if}}
+
+<!--0307暫時的css-->
+<style>.admweb-v2-list-header-in-fixbottom .admweb-v2-list-fix-bottom li{width: calc(100%/ 3);}</style>
+
+<div class="admweb-v2-list-header">
+<div class="admweb-v2-list-head-top-box pic-flex-align-items">
+	<div id="pic-menu-open" class="admweb-v2-list-hamburger-menu">
+		<i class="icons-line icon-line-hamburger"></i>
+	</div>
+		<div class="admweb-v2-list-logo pic-flex-center pic-width-100">
+			<a href="{{$m_arrSystem.root_url}}"><!-- 商城首頁 -->
+				{{if !$mobileDeviceDirected}}
+				<img class="pic-margin-l15" src="../css/images/admweb_pic/iopen-mall-LOGO.svg" width="200" height="50" />
+				{{else}}
+				<img src="../css/images/admweb_pic/iopen-mall-LOGO.svg" width="112" height="28" />
+				{{/if}}
+			</a>
+			<a href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php"
+			   class="admweb-v2-list-index-title admweb-v2-list-logo-title">賣家中心</a>
+			{{*麵包屑*}}
+			{{foreach from=$m_arrBreadCrumbs item=arrBC}}
+				<span>></span>
+				<a href="{{if $arrBC.has_link}}{{$arrBC.web_use_path}}{{else}}javascript: void(0);{{/if}}"
+				   class="admweb-v2-list-index-title admweb-v2-list-logo-title"
+				   {{if !$arrBC.has_link}}style="cursor: default;"{{/if}}>
+					{{$arrBC.web_use_name}}
+				</a>
+			{{/foreach}}
+		</div>
+	</div>
+	<div class="admweb-v2-list-header-right">
+		<a class="admweb-v2-list-header-go-store pic-bg-green-5" href="https://{{$m_arrSystem.domainname}}/{{$sys_arrWebsite.web_byeurl}}/" target="_blank">前往賣場</a>
+
+		<div class="admweb-v2-list-shop-DropMenu-box">
+			<div id="admweb-v2-list-ListDown-ShopName" class="admweb-v2-list-ListDown-shop-name">
+				<div class="pic-flex-align-items admweb-v2-list-ListDown-images">
+					{{if $sys_arrWebsite.web_logo_small}}
+					<img src="{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$sys_arrWebsite.web_logo_small}}">
+					{{else}}
+					<img src="{{$m_arrSystem.root_url}}css/images/iopen_logo.svg">
+					{{/if}}
+					<span class="admweb-v2-list-ListDown-ShopName-text">{{$sys_arrWebsite.web_name}}</span> 
+				</div>
+				<span class="admweb-v2-list-ListDown-shop-triangle" style="display: none;"></span>
+			</div>
+
+			{{math equation="x-y" assign=w_cnt x=$arr_admWebsite|@count y=1}}
+			<ul id="admweb-v2-list-ShopName-other" class="admweb-v2-list-ListDown pic-icon-gray-close admweb-v2-list-box-{{if $w_cnt<5}}{{$w_cnt}}{{else}}5{{/if}}" style="display: none;">
+				<span class="pic-icon-black-close"></span>
+				{{foreach from=$arr_admWebsite item=admWeb}}
+				{{if $admWeb.web_uid != $sys_arrWebsite.web_uid}}
+				<!-- <li onclick="javascript:location.href='https://{{$m_arrSystem.domainname}}/{{$admWeb.web_byeurl}}/admweb/admweb.main.php';"> -->
+				<li data="{{$admWeb.web_byeurl}}">
+				<!-- <li> -->
+					<div class="admweb-v2-list-ListDown-ImgName">						
+						{{if $admWeb.web_logo_small}}
+						<img src="{{$m_arrSystem.uploads_url}}website_{{$admWeb.web_uid}}/{{$edit_lang}}/{{$admWeb.web_logo_small}}">
+						{{else}}
+						<img src="{{$m_arrSystem.root_url}}css/images/iopen_logo.svg">
+						{{/if}}
+						<div class="admweb-v2-list-ListDown-ShopName-text-box">
+							<span class="admweb-v2-list-ListDown-ShopName-text">{{$admWeb.web_name}}</span>
+						</div>
+					</div>
+					<div class="pic-rdobutton-radio-box">
+						<input name="" class="pic-rdobutton-radio" type="radio" id="ShopName-3" value="0">
+						<label class="pic-rdobutton-label" for="ShopName-3"></label>
+						<div class="pic-label-check"></div>
+					</div>
+				</li>
+				{{/if}}
+				{{/foreach}}
+			</ul>
+		</div>
+		<div class="admweb-v2-list-head-btn-icon admweb-v2-list-head-btn-notice">
+			<a class="admweb-v2-list-icon-bell" href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php?action=notification_center">
+				<i class="icons-line icon-line-bell"></i> 
+				<span class="admweb-v2-list-notice-text">通知中心</span>
+				{{if $notificationCount[0].count !=0}}
+				<span class="admweb-v2-list-notice-num">{{if $notificationCount[0].count<=99}}{{$notificationCount[0].count}}{{else}}99+{{/if}}</span>
+				{{/if}}
+			</a>
+		</div>
+		<!-- 電腦版 -->
+		{{if !$mobileDeviceDirected}}
+		<div class="admweb-v2-list-head-btn-icon admweb-v2-list-head-btn-logout admweb-v2-list-OpenHamburger-web">
+			<a href="admweb.main.php?myAct=logout" id="adm_logout"><i class="icons-line icon-logout-01"></i> 
+				<span class="admweb-v2-list-notice-text">會員登出</span>
+			</a>
+		</div>
+		{{else}}
+		<!-- 手機板 -->
+		<div id="admweb-v2-list-OpenHamburger-ShowLogout"style="display:none;" class="admweb-v2-list-head-btn-icon admweb-v2-list-head-btn-logout">
+			<a href="admweb.main.php?myAct=logout" id="adm_logout"><i class="icons-line icon-logout-01"></i> 
+				<span class="admweb-v2-list-notice-text">會員登出</span>
+			</a>
+		</div>
+		{{/if}}
+	</div>
+</div>
+<!--pic版頭-->
+
+<!-- 手機版 -->
+{{if !$m_arrSystem.is_app_mode}}
+	<div class="admweb-v2-list-header-in-fixbottom">
+		<div class="admweb-v2-list-fix-bottom">
+			<ul>
+				<li ><a href="{{$m_arrSystem.root_url}}" >
+						<i class="icons-line icon-line-home-bag"></i><p>商城首頁</p></a></li>
+				<li> <a href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php?action=order_control_pic">
+						<i class="icons-line icon-line-paper-text"></i><p>我的訂單</p></a></li>
+				<li><a href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php?action=product_pic">
+						<i class="icons-line icon-line-box-product"></i><p>我的商品</p></a></li>
+				<li><a href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php?action=website_page_pic">
+						<i class="icons-line icon-line-lattice"></i> <p>商店佈置</p></a></li>
+				<li><a href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php?action=account_statement_pic"><i class="icons-line icon-line-emoney-bold-02">
+						</i><p>對帳單</p></a></li>
+				<li class="admweb-v2-list-btn-fixbottom-seller admweb-v2-list-logo-seller">
+					<a href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php"><p>賣家中心</p></a></li>
+			</ul>
+		</div>
+	</div>
+{{/if}}
+
+<!-- 側邊功能選單 end -->
+<script language="javascript">
+
+	{{if $arr_admWebsite|@count != 1}}
+	// 展開管理的賣場列表
+	$("#admweb-v2-list-ListDown-ShopName").click(function () {
+		$(this).next("ul").slideToggle();
+		$(".admweb-v2-list-ListDown-shop-triangle").toggle();
+	})
+
+	$(".pic-icon-black-close").click(function () {
+		$("#admweb-v2-list-ShopName-other").slideToggle();
+	})
+	{{/if}}
+
+	// 手機版左上漢堡選單
+	$(".admweb-v2-list-header #pic-menu-open").click(function () {
+		$(".icon-line-hamburger").toggleClass("admweb-v2-list-icon-btn-ch");
+		$(".icon-line-hamburger").removeClass("icon-arrow-left-01");
+		$(".admweb-v2-list-icon-btn-ch").addClass("icon-arrow-left-01");
+
+		// 顯示登出icon 隱藏其他同階元素
+		$('#admweb-v2-list-OpenHamburger-ShowLogout').toggle();
+		$('#admweb-v2-list-OpenHamburger-ShowLogout').siblings().toggle();
+
+		$("body").toggleClass('disscroll');
+	})
+
+	$(".admweb-v2-list-layout-header #pic-menu-open").click(function () {
+		$("body").toggleClass('disscroll');
+	})
+
+	$(function(){	
+		$(".admweb_nav .aside_list > li").hover(function(){
+			$(this).find(".sub_aside_list").show();
+			},function(){
+			$(this).find(".sub_aside_list").hide();
+		});
+
+	});
+
+	$('#admweb-v2-list-ShopName-other > li').click(function (e) { 
+		e.preventDefault();
+		//TEST00 Checkmarkx Client DOM XSS
+		location.href = encodeURI(`https://{{$m_arrSystem.admweb_domainname}}/${$(this).attr('data')}/admweb/admweb.main.php`);
+	});
+	
+	{{if $m_arrWebUseMenu_m|@count >6 }}
+	$(function(){
+		if( "{{$m_arrWebUseMenu_m|@count}}" > 1){
+			$(".admweb_nav .aside_list > li").last().find(".sub_aside_list").addClass("sub_aside_list01")
+		}
+	});
+	{{/if}}
+
+	{{if $m_arrSystem.admweb_service_qrcode_string != ''}}
+	$(function(){
+		$Src_qrcode = QRCode("{{$m_arrSystem.admweb_service_qrcode_string}}",150,150);
+		$("#qrcode").attr('src',$Src_qrcode);
+	});
+	//產生QR CODE (連到GOOGLE)
+	function QRCode(content, width, height){
+		// 預設寬高為 120x120
+		width = !!width ? width : 120 ;
+		height = !!height ? height : 120;
+		// 編碼
+		//content = encodeURIComponent(content);
+		return 'http://chart.apis.google.com/chart?cht=qr&chl=' + content + '&chs=' + width + 'x' + height;
+	}
+	{{/if}}
+</script>
+
+{{*客製化 alert/confirm 版型*}}
+{{if $m_arrSystem.custom_dialog}}
+	{{include file="../../templates/alert_confirm.htm"}}
+{{/if}}

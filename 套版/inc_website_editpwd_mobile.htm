@@ -1,0 +1,165 @@
+<!-- 版頭 -->
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+      <button onclick="history.back()">
+          <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+      <button onclick="toggleMenuHandler()">
+          <i class="icons-line icon-line-hamburger"></i>
+      </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">{{$lang.admweb.editpwd.0}}</h2>
+  <span></span>
+</div>
+
+<!-- 主要頁面 -->
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <!-- 選單漢堡內容 -->
+  <div class="admweb-v2-seller-front-left-box">
+  {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <!-- 主要頁面 -->
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <form name='formA' method='post' action='{{$m_inURL}}' enctype="multipart/form-data" onSubmit="return _CS_checkAdd(this);">
+      <div class="admweb-v2-settings-frame pic-margin-10">
+        <div class="admweb-v2-NewProduct-title">
+          <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-password-01"></i>{{$lang.admweb.editpwd.0}}<!--{{*修改密碼 *}}--></h2>
+        </div>
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>{{$lang.admweb.editpwd.1}}<!--{{*請輸入舊密碼 *}}--></p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input name="old_pwd" id="old_pwd" type="password" class="pic-text-lnput pic-lnput-enter" value="">
+          </li>
+        </ul>
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>{{$lang.admweb.editpwd.2}}<!--{{*請輸入新密碼 *}}--></p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input name="new_pwd" id="new_pwd" type="password" class="pic-text-lnput pic-lnput-enter" value="">
+          </li>
+        </ul>
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>{{$lang.admweb.editpwd.3}}<!--{{*請再輸入新密碼 *}}--></p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input name="check_pwd" id="check_pwd" type="password" class="pic-text-lnput pic-lnput-enter" value="">
+          </li>
+        </ul>
+        <ul class="admweb-v2-outside-white-box">
+          <li class="admweb-v2-edit-name">
+            <p><span class="pic-text-red">*</span>{{$lang.admweb.editpwd.7}}<!--{{*認證碼 *}}--></p>
+          </li>
+          <li class="admweb-v2-content-enter">
+            <input name="login_authimg_str" type="text" class="pic-text-lnput pic-lnput-enter" style="width:200px; display: inline;" id="login_authimg_str" size="5" maxlength="5" />
+            <img id="login_authimg_img" src="../images/authimg.php" align="absmiddle" border="0" />
+            <button name="button" type="button" style="border:0; background-color: transparent; cursor: pointer;
+            vertical-align: middle;" onclick="JavaScript:_reloadAuthimgImg('login_authimg_img');">
+            <i class="icons-line icon-line-round-bold-02"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <!--置底按鈕-->
+      <div class="admweb-v2-settings-BottomBtn">
+        <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+          <button class="admweb-v2-I-Btn pic-BgText-color-green" style="width:100%; cursor: pointer;" name="btn_submit" type="submit" id="btn_submit">
+            <i class="icons-line icon-line-tick"></i>{{$lang.admin.basic.17}}<!--{{*確定 *}}--> 
+          </button>
+        </div>
+      </div>
+      <!--置底按鈕end-->
+      <input name="myAct" type="hidden" value="COMMAND_EDIT">
+    </form>
+  </div>
+</div>
+
+
+<script language="javascript">
+(function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+})();
+
+function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector('.admweb-v2-seller-front-left-box');
+    pcSidMenuEle.closest('.admweb-v2-order_detail').style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+}
+
+function toggleMenuHandler() {
+    document.querySelector('.admweb-v2-seller-front-left-box').classList.toggle('pic-phone-open-menu');
+    const hamBtn = document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1].querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+        document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block';
+    } else {
+        document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+}
+
+function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        document.querySelector('.admweb-v2-list-header-in-fixbottom').style.display = 'none';
+        document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+}
+function _CS_checkAdd( _this ){
+	if (_this.old_pwd.value=="")
+	{ alert('{{$lang.admweb.editpwd.1}}'); return false;} /*{{* 請輸入舊密碼 *}}*/
+	if (_this.new_pwd.value=="")
+	{ alert('{{$lang.admweb.editpwd.2}}'); return false;} /*{{* 請輸入新密碼 *}}*/
+	if (_this.new_pwd.value==_this.old_pwd.value)
+	{ alert('{{$lang.admweb.editpwd.9}}'); return false;} /*{{* 新密碼與舊密碼相同 *}}*/
+
+	/**** 嚴謹密碼 ****/
+	{{if $m_arrSystem.strict_password == 1}}
+
+		if (_this.new_pwd.value.length<12)
+		{ alert('{{$lang.admweb.editpwd.14}}'); return false;} /*{{* 新密碼不得小於12碼 *}}*/
+		if (!_this.new_pwd.value.match(/[a-z]/) ||
+			!_this.new_pwd.value.match(/[A-Z]/) ||
+			!_this.new_pwd.value.match(/[^a-zA-Z0-9]/))
+		{ alert('{{$lang.admweb.editpwd.15}}'); return false;} /*{{* 密碼須包含大小寫英文、數字與符號 *}}*/
+
+	{{elseif $limited_mem_psw_rule}}
+
+	if (_this.new_pwd.value.trim().length < {{$limited_mem_psw_rule.length}})
+	{ alert('請輸入7碼以上英數字'); return false;}
+
+	if ({{$limited_mem_psw_rule.lower}} && !_this.new_pwd.value.trim().match(/[a-z]/))
+	{ alert('請輸入至少一個小寫字母'); return false;}
+
+	if ({{$limited_mem_psw_rule.upper}} && !_this.new_pwd.value.trim().match(/[A-Z]/))
+	{ alert('請輸入至少一個大寫字母'); return false;}
+
+	if ({{$limited_mem_psw_rule.number}} && !_this.new_pwd.value.trim().match(/[0-9]/))
+	{ alert('請輸入至少一個數字'); return false;}
+
+	{{else}}
+
+		if (_this.new_pwd.value.length<6)
+		{ alert('{{$lang.admweb.editpwd.5}}'); return false;} /*{{* 新密碼不得小於6碼 *}}*/
+		if (!_this.new_pwd.value.match(/^[^"'\/\\]+$/i))
+		{ alert('{{$lang.admweb.editpwd.12}}'); return false;} /*{{* 密碼有非法字元 *}}*/
+
+	{{/if}}
+	/**** 嚴謹密碼END ****/
+
+	if (_this.check_pwd.value=="")
+	{ alert('{{$lang.admweb.editpwd.3}}'); return false;} /*{{* 請再輸入新密碼 *}}*/
+	if (_this.check_pwd.value!=_this.new_pwd.value)
+	{ alert('{{$lang.admweb.editpwd.6}}'); return false;} /*{{* 新密碼不一致 *}}*/
+	if (_this.login_authimg_str.value=='')
+	{ alert('{{$lang.admweb.editpwd.10}}'); return false;} /*{{* 請輸入認證碼 *}}*/
+	if (_this.login_authimg_str.value.length!=5)
+	{ alert('{{$lang.admweb.editpwd.11}}'); return false;} /*{{* 認證碼長度為5碼 *}}*/
+}
+
+function _reloadAuthimgImg( imgId ){
+	var r = Math.round(Math.random()*9999);
+	document.getElementById( imgId ).src = '../images/authimg.php?' + r;
+}
+</script>

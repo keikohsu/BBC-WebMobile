@@ -1,0 +1,970 @@
+<style>
+  .admweb-v2-orderlist__form-date::before{background:transparent;}
+  .pic-icon-orange-arrows-2::before{ transform: rotate(90deg);-webkit-transform:rotate(90deg);}
+  .admweb-v2-orderlist__notice.expanded .pic-icon-orange-arrows-2::before{  transform:rotate(270deg);-webkit-transform:rotate(270deg);}
+  .admweb-v2-orderlist__form-head_search{grid-template-columns: auto 1fr;}
+  .admweb-v2-orderlist__notice.expanded .admweb-v2-orderlist__notice--text{ height: auto;}
+  .admweb-v2-order_detail__product-item td:first-child,.admweb-v2-order_detail__product-item td:nth-child(2){white-space: nowrap;}
+  .admweb-v2-order_detail__product-item td:nth-child(5){ width: 115px;}
+  .admweb-v2-order_detail__product-item td:nth-child(6){ width: 50px;white-space: nowrap;}
+  .admweb-v2-order_detail__product-item td:nth-child(10){width: 100px;}
+  .admweb-v2-order_detail__product-item .admweb-v2-orderlist-delivery--store{height: 30px; padding: 6px;}
+  .icon-arrow-top-01:before{content:"\e910"}
+  .icon-arrow-down-01:before{content:"\e911"}
+  .admweb-v2-search__form-item{margin-bottom: 5px;}
+  .admweb-v2-search_fix{display: flex;width: 100%;}
+  .admweb-v2-Add-grid-template-columns{grid-template-columns:auto 1fr 84px;}
+  .admweb-v2-search_fix .admweb-v2-orderlist__form-btn{margin-left: 5px; width: 25%;height: 38px;}
+  @media screen and (max-width: 768px){
+    .admweb-v2-search__form-item .admweb-v2-orderlist__form-range_date input{ padding: 10px 5px;}
+    .admweb-v2-search__form-item .admweb-v2-orderlist__form-range_date{ gap: 1px;}
+    .admweb-v2-search__form-item{grid-template-columns:78px 1fr;}
+    .admweb-v2-search__form-item label{white-space: nowrap;}
+    .admweb-v2-orderlist__form-head_search-outer > div{ margin-left: 0px;}
+    .admweb-v2-list-header-in-fixbottom{display: none;}
+  }
+</style>
+
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    {{if $m_arrSystem.is_app_mode}}
+      <button onclick="{
+        let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+        let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+          window.JavaScriptInterface.backToSellerCenter();
+        } else if (isiOS) {
+          window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+        }
+      }">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{else}}
+      <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{/if}}
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">對帳單</h2>
+  <div class="admweb-v2-orderlist-header-qrcode"></div>
+</div>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <form name="formSearch" method="post" action="{{$m_inURL}}"
+          class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form"
+      style="--custom-grid-width: 82px 1fr"
+    >
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div id="admweb-v2-orderlist__form-head_search" class="admweb-v2-orderlist__form-head_search js-orderlist__form-head_search">
+          <select name="s_no_type"
+                  class="pic-text-lnput pic-text-lnput-style admweb-v2-orderlist-select"
+                  onchange="exchange_search_content(this);"
+          >
+            {{foreach from=$arr_search_type key=s_key item=s_val}}
+            <option value="{{$s_key}}" {{if $m_arrSearch.s_no_type == $s_key}}selected{{/if}}>{{$s_val}}</option>
+            {{/foreach}}
+          </select>
+
+          <input name="s_no" type="text"placeholder="請輸入對帳單編號" class="pic-text-lnput pic-lnput-enter" value="{{$m_arrSearch[$m_arrSearch.s_no_type]}}"/>
+
+          <button
+            type="submit" id="search-btn-short"
+            class="
+              pic-BgText-color-green
+              admweb-v2-orderlist__form-head_search-btn
+              js-orderlist__form-head_search-btn
+            "
+            style="display: none;"
+          >
+            搜尋
+          </button>
+        </div>
+
+        <div id="js-orderlist__form-click"  style="display:block">
+          <div class="admweb-v2-search__form-item">
+            <label for="order-date">對帳單日期</label>
+            <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+              <input
+                type="date"
+                name="s_date_start"
+                id="s_date_start"
+                value="{{$m_arrSearch.s_date_start}}"
+                class="
+                  admweb-v2-orderlist__form-date
+                  pic-text-lnput pic-lnput-enter
+                "
+              />
+              <span>-</span>
+              <input
+                type="date"
+                name="s_date_end"
+                id="s_date_end"
+                value="{{$m_arrSearch.s_date_end}}"
+                class="
+                  admweb-v2-orderlist__form-date
+                  pic-text-lnput pic-lnput-enter
+                "
+              />
+            </div>
+          </div>
+  
+          <div class="admweb-v2-search_fix">
+            <div class="admweb-v2-search__form-item admweb-v2-search__form-item--last" style=" width: 80%;">
+              <label for="billing_org">對帳單位</label>
+              <select
+                name="billing_org"
+                id="billing_org"
+                class="
+                  pic-text-lnput pic-text-lnput-style
+                  admweb-v2-orderlist-select
+                "
+              >
+                <option value="">全部</option>
+                {{foreach from=$arr_billing_org key=org_k item=org_desc}}
+                <option value="{{$org_k}}">{{$org_desc}}</option>
+                {{/foreach}}
+              </select>
+            </div>
+    
+            <button type="submit" class="pic-BgText-color-green admweb-v2-orderlist__form-btn" >
+              搜尋
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <input type="hidden" name="r_status" value="" />
+      <input type="hidden" name="myAct" value="COMMAND_SEARCH" />
+    </form>
+
+    <button class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn" id="js-orderlist__form-toggle--btn">
+      <span>收合進階條件</span> <i class="icons-line icon-arrow-top-01"></i>
+    </button>
+
+    <!-- nav -->
+    <div
+      class="admweb-v2-store_delivery__nav-list admweb-v2-nav--sp-scroll"
+      data-tab-navs
+      style="--custom-nav-width: 28vw"
+    >
+      {{foreach from=$m_arrRemittanceStatus key=r_status item=r_status_desc}}
+      <a id="admweb-v2-store-item{{$r_status}}" class="admweb-v2-store_delivery__nav-item" href="#type{{$r_status}}" data-r_status="{{$r_status}}"> {{$r_status_desc}} </a>
+      {{/foreach}}
+      <a id="admweb-v2-store-ItemAll{{$r_status}}" class="admweb-v2-store_delivery__nav-item" href="#all" data-r_status=""> 全部 </a>
+    </div>
+
+    <!-- 注意事項 -->
+    <div class="pic-bg-orange-10 pic-text-orange admweb-v2-orderlist__notice--outer">
+      <div class="admweb-v2-orderlist__notice" data-overflow>
+        <div data-expand-text class="admweb-v2-orderlist__notice--text"></div>
+        <button id="js-orderlist__form-toggle--btn-1" class="pic-bg-orange-10 pic-text-orange admweb-v2-orderlist__notice--btn pic-icon-orange-arrows-2"></button>
+      </div>
+    </div>
+
+    <div data-tab-panels>
+      <section class="pic-content" id="pic-content"></section>
+    </div>
+
+    <!--<div class="admweb-v2-order_delivery__actions">
+      <div class="admweb-v2-order_detail__action">
+        <button
+          class="
+            admweb-v2-order_detail__action-btn
+            admweb-v2-order_detail__action-btn--sp-row
+          "
+        >
+          <i class="icons-line icon-line-paper-text admweb-v2__icon-xs"></i
+          >匯出報表
+        </button>
+      </div>
+    </div>-->
+  </div>
+
+  <div
+    class="js-admweb-v2--alert admweb-v2-orderlist--alert"
+    style="display: none"
+  >
+    <div id="pic-icon" class="pic-window-bg">
+      <div class="pic-window-order">
+        <p class="pic-window-marge-box">text</p>
+        <div class="pic-window-button-box">
+          <button
+            class="pic-window-button-OneBtn pic-BgText-color-green"
+            onclick="closeAlert()"
+          >
+            確認
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{* 載入中 *}}
+<div class="loadingMask" style="display: none">
+  <div class="loadingBlock">
+    <div class="loadingBlock_img"><img src="images/loadingIcon.gif" alt="" /></div>
+    <div class="loadingBlock_txt">頁面讀取中</div>
+  </div>
+</div>
+
+<script>
+  var arrSearch = [];
+
+  arrSearch['r_status']	      = "{{$m_arrSearch.r_status|default:'11'}}";
+  arrSearch['billing_org']    = "{{$m_arrSearch.billing_org}}";
+  arrSearch['s_date_start']   = "{{$m_arrSearch.s_date_start}}";
+  arrSearch['s_date_end']     = "{{$m_arrSearch.s_date_end}}";
+  arrSearch['s_no_type']	  = "{{$m_arrSearch.s_no_type}}";
+  arrSearch['s_no']	          = "{{$m_arrSearch.s_no}}";
+
+  arrSearch['PageIdx']	      = "{{$m_arrSearch.PageIdx|default:'1'}}";
+
+  (function () {
+    // hideMobileLayout();
+    initialFormHeight();
+    getPcSideMenuWidth();
+  })();
+  window.addEventListener('resize', getPcSideMenuWidth);
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-orderlist')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  // function hideMobileLayout() {
+  //   if (window.matchMedia('(max-width: 768px)').matches) {
+  //     document.querySelector(
+  //       '.admweb-v2-list-header-in-fixbottom'
+  //     ).style.display = 'none';
+  //     document.querySelector('.admweb-v2-list-header').style.display = 'none';
+  //   }
+  // }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  // 預設搜尋表單高度
+  function initialFormHeight() {
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const wholeHeight = formEle.clientHeight;
+    // formEle.style.height = `${defaultHeight}px`;
+  }
+
+  var Namechange = false;
+  $('#js-orderlist__form-toggle--btn').click(function(){
+    $('#js-orderlist__form-click').slideToggle();
+    $('#search-btn-short').toggle();
+    $('.admweb-v2-orderlist__form-head_search').toggleClass('admweb-v2-Add-grid-template-columns');
+
+    Namechange = ! Namechange;
+    $('#js-orderlist__form-toggle--btn span').text(Namechange ? '更多進階條件': '收合進階條件');
+    $('#js-orderlist__form-toggle--btn .icons-line').toggleClass('icon-arrow-down-01');
+    
+  })
+
+
+  // 注意事項收合展開
+  const expandableEles = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice'
+  );
+  const expandableBtns = document.querySelectorAll(
+    '.admweb-v2-orderlist__notice--btn'
+  );
+  checkNoticeOverflow();
+  function checkNoticeOverflow() {
+    expandableEles.forEach((expandableEle) => {
+      if (expandableEle.classList.contains('expanded')) return;
+      const expandableText = expandableEle.querySelector(
+        '.admweb-v2-orderlist__notice--text'
+      );
+      const overflowing =
+        expandableText.scrollHeight > expandableText.offsetHeight;
+      expandableEle.dataset.overflow = overflowing;
+    });
+  }
+  expandableBtns.forEach((button) => {
+    button.addEventListener('click', toggleNoticeText);
+    setNoticeButtonText(button);
+  });
+  function toggleNoticeText(e) {
+    const expandableEle = e.target.closest('.admweb-v2-orderlist__notice');
+    expandableEle.classList.toggle('expanded');
+    setNoticeButtonText(e.target);
+  }
+  function setNoticeButtonText(button) {
+    const expandableEle = button.closest('.admweb-v2-orderlist__notice');
+    const expanded = expandableEle.classList.contains('expanded');
+    button.innerHTML = expanded
+      ? '說明收合'
+      : '說明展開';
+  }
+
+  function showAlert(alert) {
+    alert.style.display = 'block';
+  }
+  function closeAlert() {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    alert.style.display = 'none';
+  }
+  function editAlertContent(content) {
+    const alert = document.querySelector('.js-admweb-v2--alert');
+    showAlert(alert);
+    alert.querySelector('.pic-window-marge-box').innerHTML = content;
+  }
+  
+
+
+  // $('#js-orderlist__form-toggle--btn').click(function(){
+  //   $('#js-orderlist__form-toggle--btn-1 .icons-line').toggleClass('icon-arrow-top-01');
+  // })
+
+
+
+  // Tab
+  const DOM = {
+    nav: document.querySelector('[data-tab-navs]'),
+    navItems: document.querySelectorAll('[data-tab-navs] > a')
+  };
+  DOM.nav.addEventListener('click', (e) => {
+    const clickedTab = e.target;
+    const activeIndex = Array.from(DOM.navItems).indexOf(clickedTab);
+    setActiveNav(activeIndex);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  function setActiveNav(activeIndex)
+  {
+    DOM.navItems.forEach((ele) => ele.classList.remove('active'));
+    DOM.navItems[activeIndex].classList.add('active');
+
+    arrSearch['r_status'] = DOM.navItems[activeIndex].dataset.r_status;
+    getListByAPI();
+  }
+  (function () {
+    setActiveNav(3);
+  })();
+
+  // 切換 搜尋類別
+  function exchange_search_content(_this)
+  {
+    let show_content = '';
+
+    switch($(_this).val()){
+      case 'order_uid':
+        show_content = "請輸入訂單編號";
+        break;
+
+      case 'delivery_case_no':
+        show_content = "請輸入配送單號";
+        break;
+
+      default:
+        show_content = "請輸入對帳單編號";
+        break;
+    }
+
+    $("input[name=s_no]").attr('placeholder', show_content).val('');
+  }
+
+  function send_Search()
+  {
+    let sDate = $('#s_date_start').val();
+    let eDate = $('#s_date_end').val();
+
+    let sDate_ori = new Date(sDate.replace(/-/g,"/"));
+    let eDate_ori = new Date(eDate.replace(/-/g,"/"));
+
+    if((Date.parse(sDate)).valueOf() > (Date.parse(eDate)).valueOf()){
+      let change_d = sDate;
+
+      sDate = eDate;
+      eDate = change_d;
+      $('#s_date_start').val(sDate.replace(/\//g,"-"));
+      $('#s_date_end').val(eDate.replace(/\//g,"-"));
+    }
+
+    let sDate_eff = new Date(eDate.replace(/-/g,"/"));
+    let eDate_eff = new Date(sDate.replace(/-/g,"/"));
+
+    sDate_eff.setMonth(sDate_eff.getMonth() - 3);
+    eDate_eff.setMonth(eDate_eff.getMonth() + 3);
+
+    let tmp_d = false;
+
+    if(((Date.parse(sDate_ori)).valueOf() < (Date.parse(sDate_eff)).valueOf()) ||
+            ((Date.parse(eDate_ori)).valueOf() > (Date.parse(eDate_eff)).valueOf())){
+      tmp_d = true;
+    }
+
+    if( tmp_d ){
+      alert("查詢期間最多三個月");
+      return false;
+    }
+  }
+
+  //換頁
+  function change_page(pg)
+  {
+    arrSearch['PageIdx'] = pg;
+    getListByAPI();
+
+    //加入margin-top距離
+    const header = $('.admweb-v2-orderlist-header').height() + 50;
+    $('html,body').animate({
+      scrollTop:$('#pic-content').offset().top - header
+    }, '500');
+  }
+
+  const symbol = "{{getWebColsName idx='prod_currency_unit'}}";
+
+  // 撈資料
+  function getListByAPI()
+  {
+    $('.loadingMask').show();
+
+    $.ajax({
+      url: "{{$m_inURL}}",
+      type: "POST",
+      dataType: "json",
+      data: {
+        myAct: "GET_LIST",
+        r_status: arrSearch['r_status'],
+        billing_org: arrSearch['billing_org'],
+        s_date_start: arrSearch['s_date_start'],
+        s_date_end: arrSearch['s_date_end'],
+        s_no_type: arrSearch['s_no_type'],
+        s_no: arrSearch['s_no'],
+        PageIdx: arrSearch['PageIdx'],
+        is_search: "{{$arr_data.reset_bar}}",
+        '{{$nocsrfTokenId}}': '{{$nocsrfToken}}'
+      },
+      success: function (Jdata) {
+        $('.loadingMask').hide();
+
+        // 說明
+        $('.admweb-v2-orderlist__notice--btn').html('');
+        // $('.admweb-v2-orderlist__notice--text').html(Jdata.show_notice_desc);
+
+        $('.admweb-v2-orderlist__notice').removeClass('expanded');
+
+        document.querySelectorAll(
+                '.admweb-v2-orderlist__notice--btn'
+        ).forEach((button)=> {
+          setNoticeButtonText(button)
+        });
+
+        checkNoticeOverflow();
+
+        // 列表資料
+        const picContent = document.querySelector('.pic-content');
+        picContent.innerHTML = '';
+
+        if (Jdata.billing_list.length > 0) {
+          let BillingList = Jdata.billing_list;
+          let is_web = (!"{{$mobileDeviceDirected}}") ? true : false;
+
+          let div1 = document.createElement('div');
+
+          let div2 = document.createElement('div');
+          div2.className = 'admweb-v2-orderlist-overview';
+          let span1 = document.createElement('span');
+          span1.textContent = `對帳單日期：${Jdata.date_range}`;
+          let span2 = document.createElement('span');
+          span2.textContent = `共 ${Jdata.total_count} 筆`;
+          div2.appendChild(span1);
+          div2.appendChild(span2);
+          div1.appendChild(div2);
+
+          let ul = document.createElement('ul');
+          ul.className = 'admweb-v2-orderlist__list';
+          for (let i = 0; i < BillingList.length; i++) {
+            let m_billing = BillingList[i];
+
+            let li = document.createElement('li');
+            li.className = 'admweb-v2-orderlist__card';
+
+            if (is_web) {
+              let table = document.createElement('table');
+              table.className = 'admweb-v2-orderlist__table';
+              table.innerHTML = 
+                `<thead>
+                  <tr class="admweb-v2-orderlist__table--head">
+                    <th>對帳單編號</th>
+                    <th>批號</th>
+                    <th>對帳單位</th>
+                    <th>對帳單日期<br/><span style="font-size:12px">對帳區間</span></th>
+                    <th>匯款時間</th>
+                    <th>狀態</th>
+                    <th>應撥款金額</th>
+                    <th style="padding: 12px 15px">跨行匯費</th>
+                    <th>實際撥款金額</th>
+                    <th>匯款銀行-帳號</th>
+                  </tr>
+                </thead>`;
+
+              let tbody = document.createElement('tbody');
+              let tr = document.createElement('tr');
+              tr.className = 'admweb-v2-order_detail__product-item';
+              let td, span;
+
+              // 對帳單編號
+              td = document.createElement('td');
+              span = document.createElement('span');
+              span.setAttribute('style', "color:#008062;margin-right:9px; font-size:12px;");
+              span.textContent = m_billing.wbilm_no;
+              td.appendChild(span);
+              tr.appendChild(td);
+
+              // 批號
+              td = document.createElement('td');
+              td.textContent = m_billing.wbilm_batch_no;
+              tr.appendChild(td);
+
+              // 對帳單位
+              td = document.createElement('td');
+              span = document.createElement('span');
+              span.className = m_billing.billing_org_class;
+              span.textContent = m_billing.billing_org_name;
+              td.appendChild(span);
+              tr.appendChild(td);
+
+              // 對帳單日期
+              td = document.createElement('td');
+              td.textContent = m_billing.wbilm_add_date;
+              td.innerHTML += `<br/>`;
+              span = document.createElement('span');
+              span.setAttribute('style', "font-size:12px;");
+              span.textContent = ` ${m_billing.billing_range} `;
+              td.appendChild(span);
+              tr.appendChild(td);
+
+              // 匯款時間
+              td = document.createElement('td');
+              td.textContent = m_billing.remittance_date;
+              tr.appendChild(td);
+
+              // 狀態
+              td = document.createElement('td');
+              span = document.createElement('span');
+              span.className = `${m_billing.r_status_class} pic-sort-frame`;
+              span.textContent = m_billing.r_status_desc;
+              td.appendChild(span);
+              tr.appendChild(td);
+
+              // 應撥款金額
+              td = document.createElement('td');
+              td.textContent = `${symbol}${m_billing.wbil_payable_amt}`;
+              tr.appendChild(td);
+
+              // 跨行匯費
+              td = document.createElement('td');
+              span = document.createElement('span');
+              span.className = 'pic-text-green';
+              span.textContent = `${symbol}${m_billing.remittance_fee_amt}`;
+              td.appendChild(span);
+              tr.appendChild(td);
+
+              // 實際撥款金額
+              td = document.createElement('td');
+              span = document.createElement('span');
+              span.className = 'pic-text-green';
+              span.textContent = `${symbol}${m_billing.actual_payable_amt}`;
+              td.appendChild(span);
+              tr.appendChild(td);
+
+              // 匯款銀行-帳號
+              td = document.createElement('td');
+              td.textContent = m_billing.remittance_bank;
+              tr.appendChild(td);
+
+              tbody.appendChild(tr);
+              table.appendChild(tbody);
+              li.appendChild(table);
+
+              // 對帳單詳情
+              let a = document.createElement('a');
+              a.classList.add(
+                'admweb-v2-account__table_status-link', 'pic-BgText-color-white-green',
+                'pic-font-size-12', 'admweb-v2-sp-hidden'
+              );
+              a.href = m_billing.billing_detail_path;
+              a.innerHTML = `對帳單詳情<i class="icons-line icon-arrow-right-01"></i>`;
+              li.appendChild(a);
+
+              ul.appendChild(li);
+            } else {
+              let dl = document.createElement('dl');
+              dl.className = "admweb-v2-account__info admweb-v2-md-hidden pic-margin-t5";
+              let div_1 = document.createElement('div');
+              div_1.style = "--custom-grid-width: 82px";
+              let div_2 = document.createElement('div');
+              div_2.style = "--custom-grid-width: 105px";
+
+              let div, dt, dd, a, span;
+
+              // 對帳單編號
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "對帳單編號";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd pic-flex-center-between";
+              dd.textContent = m_billing.wbilm_no;
+              a = document.createElement('a');
+              a.className = "admweb-v2-orderlist__card-top_status-link pic-BgText-color-white-green pic-font-size-12";
+              a.href = m_billing.billing_detail_path;
+              a.innerHTML = `對帳單詳情<i class="icons-line icon-arrow-right-01"></i>`;
+              dd.appendChild(a);
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_1.appendChild(div);
+
+              // 批號
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "批號";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              dd.textContent = m_billing.wbilm_batch_no;
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_1.appendChild(div);
+
+              // 對帳單位
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "對帳單位";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              span = document.createElement('span');
+              span.className = m_billing.billing_org_class;
+              span.textContent = m_billing.billing_org_name;
+              dd.appendChild(span);
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_1.appendChild(div);
+
+              // 對帳單日期
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "對帳單日期";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              dd.textContent = m_billing.wbilm_add_date;
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_1.appendChild(div);
+
+              // 對帳區間
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "對帳區間";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              dd.textContent = m_billing.billing_range;
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_1.appendChild(div);
+
+              // 匯款時間
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "匯款時間";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              dd.textContent = m_billing.remittance_date;
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_1.appendChild(div);
+
+              dl.appendChild(div_1);
+
+              // 狀態
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "狀態";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              span = document.createElement('span');
+              span.className = `${m_billing.r_status_class} pic-sort-frame`;
+              span.textContent = m_billing.r_status_desc;
+              dd.appendChild(span);
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_2.appendChild(div);
+
+              // 應撥款金額
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "狀態";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              span = document.createElement('span');
+              span.className = `pic-text-green`;
+              span.textContent = `${symbol}${m_billing.wbil_payable_amt}`;
+              dd.appendChild(span);
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_2.appendChild(div);
+
+              // 跨行匯費
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "跨行匯費";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              span = document.createElement('span');
+              span.className = `pic-text-green`;
+              span.textContent = `${symbol}${m_billing.remittance_fee_amt}`;
+              dd.appendChild(span);
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_2.appendChild(div);
+
+              // 實際撥款金額
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "實際撥款金額";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              span = document.createElement('span');
+              span.className = `pic-text-green`;
+              span.textContent = `${symbol}${m_billing.actual_payable_amt}`;
+              dd.appendChild(span);
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_2.appendChild(div);
+
+              // 匯款銀行-帳號
+              div = document.createElement('div');
+              div.className = "admweb-v2-order_detail__info-desc";
+              dt = document.createElement('dt');
+              dt.className = "admweb-v2-order_detail__info-desc-dt";
+              dt.textContent = "匯款銀行-帳號";
+              dd = document.createElement('dd');
+              dd.className = "admweb-v2-order_detail__info-desc-dd";
+              dd.textContent = m_billing.remittance_bank;
+              div.appendChild(dt);
+              div.appendChild(dd);
+              div_2.appendChild(div);
+
+              dl.appendChild(div_2);
+              li.appendChild(dl);
+              ul.appendChild(li);
+            }
+          }
+          div1.appendChild(ul);
+          picContent.appendChild(div1);
+
+          DividePage(Jdata);
+        } else {
+          // 目前無對帳單資料
+          picContent.innerHTML = `
+            <div class="admweb-v2-NoData">
+              <div class="admweb-v2-img-NoData"></div>
+              <span>目前無對帳單資料</span>
+            </div>
+            <div></div>
+          `;
+        }
+
+        var state = {
+          title: "title",
+          url: Jdata.billing_detail_path
+        };
+        window.history.replaceState(state, null, Jdata.billing_detail_path);
+      },
+      error: function (re){
+        console.log("GET_LIST",'error',re);
+      }
+    });
+  }
+
+  //頁碼分頁
+  function DividePage(Jdata)
+  {
+    const picContent = document.querySelector('.pic-content');
+
+    //頁碼區塊
+    let PageIdx = parseInt(arrSearch['PageIdx']);
+    let pages = parseInt(Jdata.total_page);
+
+    if (pages > 5) { // 五頁以上
+      const container = document.createElement('div');
+      container.className = `pic-flex-center pic-flex-center-column`;
+
+      const ul = document.createElement('ul');
+      ul.classList.add('admweb-v2-pagination');
+
+      if (PageIdx > 1) {
+        const li1 = document.createElement('li');
+        li1.classList.add('admweb-v2-page-num-box');
+        const a1 = document.createElement('a');
+        a1.classList.add('admweb-v2-page-link-arrows');
+        a1.href = 'javascript:change_page(\'1\')';
+        a1.setAttribute('aria-label', 'Previous');
+        const span1 = document.createElement('span');
+        span1.classList.add('admweb-v2-icon-page-left-first-arrows');
+        span1.setAttribute('aria-hidden', true);
+        a1.appendChild(span1);
+        li1.appendChild(a1);
+        ul.appendChild(li1);
+
+        const li2 = document.createElement('li');
+        li2.classList.add('admweb-v2-page-num-box');
+        const a2 = document.createElement('a');
+        a2.classList.add('admweb-v2-page-link-arrows');
+        a2.href = `javascript:change_page(${PageIdx - 1})`;
+        a2.setAttribute('aria-label', 'Previous');
+        const span2 = document.createElement('span');
+        span2.classList.add('admweb-v2-icon-black-left-arrows');
+        span2.setAttribute('aria-hidden', true);
+        a2.appendChild(span2);
+        li2.appendChild(a2);
+        ul.appendChild(li2);
+      }
+
+      let s_page = (PageIdx % 5 > 0) ? (PageIdx - PageIdx % 5 + 1) : (PageIdx - 4);
+      let e_page = s_page + 4;
+      if(e_page > pages) {
+        s_page = s_page - (e_page - pages);
+        e_page = pages;
+      }
+
+      for (let pager_numeric = s_page; pager_numeric <= e_page; pager_numeric++) {
+        const li = document.createElement('li');
+        li.classList.add('admweb-v2-page-num-box');
+        if (PageIdx === pager_numeric) {
+          li.classList.add('admweb-v2-page-num-active');
+        }
+        const a = document.createElement('a');
+        a.classList.add('admweb-v2-page-link-num');
+        a.href = `javascript:change_page(${pager_numeric})`;
+        a.textContent = pager_numeric;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
+
+      if (PageIdx < pages) {
+        const next_page = PageIdx + 1;
+        const li3 = document.createElement('li');
+        li3.classList.add('admweb-v2-page-num-box');
+        const a3 = document.createElement('a');
+        a3.classList.add('admweb-v2-page-link-arrows');
+        a3.href = `javascript:change_page(${next_page})`;
+        a3.setAttribute('aria-label', 'Next');
+        const span3 = document.createElement('span');
+        span3.classList.add('admweb-v2-icon-black-right-arrows');
+        span3.setAttribute('aria-hidden', true);
+        a3.appendChild(span3);
+        li3.appendChild(a3);
+        ul.appendChild(li3);
+
+        const li4 = document.createElement('li');
+        li4.classList.add('admweb-v2-page-num-box');
+        const a4 = document.createElement('a');
+        a4.classList.add('admweb-v2-page-link-arrows');
+        a4.href = `javascript:change_page(${pages})`;
+        a4.setAttribute('aria-label', 'Next');
+        const span4 = document.createElement('span');
+        span4.classList.add('admweb-v2-icon-page-right-last-arrows');
+        span4.setAttribute('aria-hidden', true);
+        a4.appendChild(span4);
+        li4.appendChild(a4);
+        ul.appendChild(li4);
+      }
+
+      const p = document.createElement('p');
+      p.classList.add('admweb-v2-page-bottom-text');
+      p.textContent = `${Jdata.start_at} - ${Jdata.end_at} 筆／共 ${Jdata.total_count} 筆`;
+
+      container.appendChild(ul);
+      container.appendChild(p);
+      picContent.appendChild(container);
+
+    } else if (pages > 1 && pages <= 5) { // 五頁以下
+      const div = document.createElement('div');
+      div.classList.add('pic-flex-center', 'pic-flex-center-column');
+      const ul = document.createElement('ul');
+      ul.classList.add('admweb-v2-pagination');
+      for (let pager_numeric = 1; pager_numeric <= pages; pager_numeric++) {
+        const li = document.createElement('li');
+        li.classList.add('admweb-v2-page-num-box');
+        if (PageIdx === pager_numeric) {
+          li.classList.add('admweb-v2-page-num-active');
+        }
+        const a = document.createElement('a');
+        a.classList.add('admweb-v2-page-link-num');
+        a.href = `javascript:change_page(${pager_numeric})`;
+        a.textContent = pager_numeric;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
+      const p = document.createElement('p');
+      p.classList.add('admweb-v2-page-bottom-text');
+      p.textContent = `${Jdata.start_at} - ${Jdata.end_at} 筆／共 ${Jdata.total_count} 筆`;
+
+      div.appendChild(ul);
+      div.appendChild(p);
+      picContent.appendChild(div);
+
+    } else { //一頁以下
+      const div = document.createElement('div');
+      div.classList.add('pic-flex-center');
+      div.id = 'page_type_1';
+      const p = document.createElement('p');
+      p.classList.add('pic-page-bottom-text');
+      p.textContent = `${Jdata.start_at} - ${Jdata.end_at} 筆／共 ${Jdata.total_count} 筆`;
+      div.appendChild(p);
+      picContent.appendChild(div);
+    }
+  }
+
+</script>

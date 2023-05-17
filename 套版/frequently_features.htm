@@ -1,0 +1,95 @@
+<style>
+	.admweb-v2-list-header {display: flex;}
+	.admweb-v2-window-CommonFunctions{width: 100%; height:100%;margin-top: 76px;padding: 0px;background: #d5d5d5;}
+	.admweb-v2-window-CommonFunctions h4{margin:20px 0;}
+	.admweb-v2-window-CommonFunctions .admweb-v2-FunctionsBox{max-width: 98px;margin-right: 10px;}
+	.admweb-v2-window-CommonFunctions .admweb-v2-functions-icon{width: 68px;height: 68px;}
+	.admweb-v2-window-CommonFunctions .admweb-v2-functions-icon .icons-solid{font-size:45px;}
+	.admweb-v2-window-CommonFunctions .admweb-v2-functions-icon i.icons-solid::before{ width: 65px;height: 45px;}
+
+	@media screen and (max-width: 768px){
+	.admweb-v2-list-header {display: none;}
+	.admweb-v2-window-CommonFunctions{margin-top: 60px;}
+	.admweb-v2-window-CommonFunctions .admweb-v2-FunctionsBox {max-width: 85px;margin-right: 0px;}
+	.admweb-v2-window-CommonFunctions .admweb-v2-FunctionsBox a{right: 0px;}
+}
+
+</style>
+
+<div class="pic-default pic-flex admweb-v2-window-CommonFunctions">
+	<div class="admweb-v2-seller-front-left-box">
+		{{include file="admweb_2/admweb.main_menu.htm"}}
+	</div>
+	<div class="admweb-v2-FrontPages-right">
+		<div class="admweb-v2-window-CommonFunctions-haed">
+			<div class="admweb-v2-orderlist-header-actions">
+				{{if $m_arrSystem.is_app_mode}}
+					<button onclick="{
+						let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+						let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+						if (isAndroid) {
+							window.JavaScriptInterface.backToSellerCenter();
+						} else if (isiOS) {
+							window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+						}
+					}"><i class="icons-line icon-arrow-left-01"></i></button>
+				{{else}}
+					<button onclick="history.back()"><i class="icons-line icon-arrow-left-01"></i></button>
+				{{/if}}
+				<button onclick="toggleMenuHandler()"><i class="icons-line icon-line-hamburger"></i></button>
+			</div>
+			<h2  class="admweb-v2-orderlist-header-title">更多服務</h2>
+			<span class="pic-window-close"></span>
+		</div>
+		<div class="admweb-v2-window-CommonFunctions-box">
+			<h3 class="pic-margin-b10">功能列表</h3>
+			{{section name=i loop=$m_arrWebUseMenu_m}}
+			<div class="admweb-v2-window-CommonFunctions-row">
+				<h4 class="">{{$m_arrWebUseMenu_m[i].web_use_name}}</h4>
+				<ul class="admweb-v2-ToDoList">
+					{{getWebUseMenuByWuidPuidPers web_use_uid=$m_arrWebUseMenu_m[i].web_use_uid}}
+					{{foreach from=$m_arrWebUseMenu_s item=i key=k}}
+					<li class="admweb-v2-FunctionsBox">
+						<a href="{{$i.web_use_path}}">
+							<div class="admweb-v2-functions-icon">
+								<i class="icons-solid {{$i.web_use_icon}}"></i>
+							</div>
+						</a>
+						{{$i.web_use_name}}
+					</li>
+					{{/foreach}}
+				</ul>
+			</div>
+			{{/section}}
+		</div>
+
+	</div>
+</div>
+
+<script>
+	function toggleMenuHandler() {
+		document
+				.querySelector('.admweb-v2-seller-front-left-box')
+				.classList.toggle('pic-phone-open-menu');
+		const hamBtn = document
+				.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+				.querySelector('i');
+		if (hamBtn.classList.contains('icon-arrow-left-01')) {
+			document.querySelectorAll(
+					'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'block';
+		} else {
+			document.querySelectorAll(
+					'.admweb-v2-orderlist-header-actions button'
+			)[0].style.display = 'none';
+		}
+		hamBtn.classList.toggle('icon-arrow-left-01');
+	}
+
+	var HtmlCommonFunctionsTitle = $('.admweb-v2-orderlist-header-title').html()
+	$('.admweb-v2-window-CommonFunctions-haed .icon-line-hamburger').on('click', function() {
+    FunctionMenuName = !FunctionMenuName;
+		$(".admweb-v2-orderlist-header-title").text(FunctionMenuName ? '賣家功能選單' : HtmlCommonFunctionsTitle);
+});
+</script>
+

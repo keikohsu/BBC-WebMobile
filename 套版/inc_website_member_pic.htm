@@ -1,0 +1,261 @@
+<style>
+.admweb-v2-adjustment .admweb-v2-orderlist__table--tr td:first-child{width: 100%;}
+</style>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+<div class="admweb-v2-adjustment">
+  <div class="admweb-v2-blacklist-form">
+    <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" id="searchFrom" action="{{$m_inURL}}" method="post">
+      <div class="admweb-v2-orderlist__form-head_search-outer">
+        <div class="
+            admweb-v2-orderlist__form-head_search
+            js-orderlist__form-head_search
+          " style="grid-template-columns: 128px 1fr 84px;">
+          <select id="search_condition" name="search_condition" class="pic-text-lnput pic-text-lnput-style">
+            <option value="mem_account">會員帳號</option>
+            <option value="mem_name">姓名</option>
+            <option value="mem_telcellphone">行動電話</option>
+            <option value="mem_email">E-mail</option>
+        </select>
+          <input id="search_value" name="search_value" type="text" placeholder="請輸入會員帳號" class="pic-text-lnput pic-lnput-enter" value="{{$m_arrSearch.search_value}}">
+          <button type="submit" class="iopen-search
+              pic-BgText-color-green
+              admweb-v2-orderlist__form-head_search-btn
+              js-orderlist__form-head_search-btn
+            " style="display: block;">
+            搜尋
+          </button>
+          <input type="hidden" name="myAct" value="COMMAND_SEARCH_CONDITIONS">
+        </div>
+        <div class="admweb-v2-adjustment-DateBox">
+          <label for="order-date">註冊日期</label>
+          <div class="admweb-v2-orderlist__form-range_date" id="order-date">
+            <div class="admweb-v2-input-date-content">
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="member_create_sdate" id="member_create_sdate" class="pic-text-lnput datepicker" type="text" value="{{$m_arrSearch.member_create_sdate}}">
+              </span>
+              <span class="pic-margin-r5">-</span>
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="member_create_edate" id="member_create_edate" class="pic-text-lnput datepicker" type="text" value="{{$m_arrSearch.member_create_edate}}">
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-btn">
+            搜尋
+          </button>
+
+        </div>
+
+      </div>
+    </form>
+
+    <!-- 下拉 -->
+
+  </div>
+  <button class="
+  pic-text-gray-30 pic-bg-green-5
+  admweb-v2-orderlist__form-toggle-btn
+" id="js-orderlist__form-toggle--btn">更多進階條件 <i class="icons-line icon-arrow-down-01"></i></button>
+
+  <p class="admweb-v2-FewStrokes pic-margin-10">{{if $m_arrSearch.member_create_sdate or $m_arrSearch.member_create_edate}}<span class="pic-margin-r10">註冊日期：{{$m_arrSearch.member_create_sdate}} ~ {{$m_arrSearch.member_create_edate}}</span>{{/if}}
+    共&nbsp;{{$memberCount|default:0}}&nbsp;筆  </p>
+  <ul class="admweb-v2-orderlist__list pic-margin-b20">
+    <!-- 配送類型：超商 -->
+    <li class="admweb-v2-orderlist__card">
+      <!-- 電腦版 -->
+      <table class="admweb-v2-orderlist__table">
+
+        <thead>
+          <tr class="admweb-v2-orderlist__table--head">
+            <th>會員帳號</th>
+            <th>姓名</th>
+            <th>行動電話</th>
+            <th>E-mail</th>
+            <th>註冊日期</th>
+            <th>累績購物金額</th>
+            <th  style="width: 50px;">編輯</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {{if $m_arrMember|@count > 0 }}
+        {{section name=i loop=$m_arrMember}}
+          <tr class="admweb-v2-orderlist__table--tr">
+            <td>
+              {{if $m_arrMember[i].web_mem_buy_max >= 0}}
+              <span class="pic-sort-color-green pic-sort-frame pic-margin-r10">黑名單</span>
+              {{/if}}
+              &nbsp;{{$m_arrMember[i].mem_account}}</td>
+            <td>{{$m_arrMember[i].mem_name}}</td>
+            <td>{{$m_arrMember[i].mem_telcellphone}}</td>
+            <td>{{$m_arrMember[i].mem_email}}</td>
+            <td>&nbsp;{{$m_arrMember[i].register_auto_date|@default:$lang.admweb.member.46}}</td>
+            <td>&nbsp;${{$m_arrMember[i].order_total_amount|formatMoney}}</td>
+            {{if $m_arrMember[i].web_mem_buy_max < 0}}
+            <td><a class="admweb-v2-orderlist__card-top_status-link pic-BgText-color-green pic-flex-center" onclick="blacklist_member('{{$m_arrMember[i].mem_uid}}')"><i class="icons-line icon-remove-01"></i>設為黑名單</a></td>
+            {{/if}}
+          </tr>
+        {{/section}}
+        {{/if}}
+        </tbody>
+      </table>
+    </li>
+  </ul>
+  {{if !$m_arrMember}}
+<!--目前無會員資料  -->
+  <div class="admweb-v2-NoData">
+    <div class="admweb-v2-img-BlacklistNoData"></div>
+    <span>目前無會員資料</span>
+  </div>
+  {{/if}}
+
+  <div class="pic-flex-center pic-flex-center-column">
+    {{if $memberCount > 0}}
+    <ul class="admweb-v2-pagination">
+      {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_prev}}{{/if}}
+      {{$m_arrPage.pager_numeric}}
+      {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_next}}{{/if}}
+    </ul>
+    <p class="admweb-v2-page-bottom-text">{{$memberGet.start}}{{if $memberCount > 1}} - {{$memberGet.end}}{{/if}} 筆／共&nbsp;{{$memberCount}}&nbsp;筆</p>
+    {{/if}}
+  </div>
+  
+</div>
+
+
+
+</div>
+
+<script>
+  $( document ).ready(function() {
+    $(".datepicker").datepicker({
+      dateFormat: 'yy/mm/dd',
+      changeYear: true,
+      changeMonth: true,
+      monthNamesShort: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+      dayNamesMin: ['日','一','二','三','四','五','六'],
+      minDate: null
+    }).attr('size', 10);
+
+    $("#member_create_sdate").datepicker("option","onClose",function(dateText,inst){
+      $("#member_create_edate").datepicker("option","minDate",dateText);
+    });
+    $("#member_create_edate").datepicker("option","onClose",function(dateText,inst){
+      $("#member_create_sdate").datepicker("option","maxDate",dateText);
+    });
+
+    var o = '{{$m_arrSearch.search_condition}}';
+    $('#search_condition').val(o);
+    switch(o){
+      case 'mem_account':
+        $('#search_value').attr('placeholder', '請輸入會員帳號');
+        break;
+      case 'mem_name':
+        $('#search_value').attr('placeholder', '請輸入會員姓名');
+        break;
+      case 'mem_telcellphone':
+      $('#search_value').attr('placeholder', '請輸入會員電話');
+        break;
+      case 'mem_email':
+        $('#search_value').attr('placeholder', '請輸入會員信箱');
+        break;
+      }
+    
+    {{if $m_arrSearch.member_create_sdate or $m_arrSearch.member_create_edate}}
+    $('#js-orderlist__form-toggle--btn').click();
+    {{/if}}
+
+  });
+
+  document.getElementById('search_condition').addEventListener('change', function () {
+      switch(this.value){
+      case 'mem_account':
+        $('#search_value').attr('placeholder', '請輸入會員帳號');
+        break;
+      case 'mem_name':
+        $('#search_value').attr('placeholder', '請輸入會員姓名');
+        break;
+      case 'mem_telcellphone':
+      $('#search_value').attr('placeholder', '請輸入會員電話');
+        break;
+      case 'mem_email':
+        $('#search_value').attr('placeholder', '請輸入會員信箱');
+        break;
+      }
+  })
+
+  let s_value = document.getElementById('search_value').value;
+  let s_condition = $('#search_condition').value;
+  
+  function blacklist_member($mem_uid){
+    confirm('確認會員設成黑名單後，該會員將無法進行購買。').done(function () {
+      $.ajax({
+        url: '{{$m_inURL}}',
+        type: 'POST',
+        data: {
+          ban_member: $mem_uid,
+          myAct: 'COMMAND_ADD_BLACKLIST',
+          search_condition:s_condition,
+          search_value:s_value
+        },
+        success: function(response){
+          console.log('success');
+          location.reload();
+        },
+        error: function (){
+          console.log('ajax error.');
+        }
+      })
+    })
+  }
+
+  $(function () {
+    var $switch = $('.admweb-v2-top-list li');
+    $($switch.eq(0).addClass('active').find('li'));
+    $switch.click(function () {
+      $(this).addClass('active').siblings('.active').removeClass('active');
+    });
+  });
+  
+
+  (function () {
+    searchFormCollapse();
+    hideMobileLayout();
+    markCurrentNavLink();
+  })();
+  window.addEventListener('resize', () => {
+    searchFormCollapse();
+    checkNoticeOverflow();
+  });
+  
+  function searchFormCollapse() {
+    const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName('js-orderlist__form-head_search')[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const headBtn = document.getElementsByClassName('js-orderlist__form-head_search-btn')[0];
+    const wholeHeight = formEle.clientHeight;
+    formEle.style.height = `${defaultHeight}px`;
+    toggleBtn.addEventListener('click', () => {
+      //當前為收合
+      if (formEle.style.height === `${defaultHeight}px`) {
+        formEle.style.height = `${wholeHeight}px`;
+        toggleBtn.innerHTML =
+          '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+        formHeadEle.style.gridTemplateColumns = '136px 3fr';
+        headBtn.style.display = 'none';
+      } else {
+        ///當前為展開
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.innerHTML =
+          '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+        formHeadEle.style.gridTemplateColumns = '136px 1fr 84px';
+        headBtn.style.display = 'block';
+      }
+    });
+  }
+
+</script>

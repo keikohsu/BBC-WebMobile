@@ -1,0 +1,902 @@
+<style>
+    .admweb-v2-phone-haed{display: none;}
+  	@media screen and (max-width:768px){
+      .admweb-v2-orderlist i.icon-arrow-left-01{font-size: 24px;}
+      .admweb-v2-orderlist i.icon-line-hamburger{ font-size: 15px;}
+      .admweb-v2-phone-haed{display: block;}
+      .admweb-v2-phone-haed{height: 48px;}
+      .admweb-v2-list-header-in-fixbottom,.admweb-v2-list-header{display: none;}
+      .admweb-v2-SettingsTitle{margin-bottom: 10px;}
+      .admweb-v2-settings-frame .admweb-v2-outside-white-box .admweb-v2-edit-name:first-child {margin-top: 0px;}
+      .admweb-v2-BulkUpload-phone-orderlist .admweb-v2-orderlist__card-desc-dt{height: 100%;display: flex;align-items: center;}
+      .admweb-v2-BulkUpload-check-btn .admweb-v2-checkbox-name span{ width: calc(100% - 40px);}
+    }
+
+    /* 遮罩閃爍效果 */
+    .blink {
+        animation: blink-animation 1s linear infinite;
+        -webkit-animation: blink-animation 1s infinite;
+        background-color: #EFEFEF;
+    }
+    @keyframes blink-animation {
+        to {
+            background-color: #FFF;
+        }
+    }
+    @-webkit-keyframes blink-animation {
+        to {
+            background-color: #FFF;
+        }
+    }
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+
+    <!-- 右側內容 Start -->
+    <!-- 版頭 -->
+    <div class="admweb-v2-orderlist-header">
+        <div class="admweb-v2-orderlist-header-actions">
+            <a onclick="history.back()">
+                <i class="icons-line icon-arrow-left-01"></i>
+            </a>
+            <a onclick="toggleMenuHandlertwo()">
+                <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+                    <i class="icons-line icon-line-hamburger"></i>
+                </div>
+            </a>
+        </div>
+        <h2 class="admweb-v2-orderlist-header-title">商品大量上傳</h2>
+        <div class="admweb-v2-orderlist-header-qrcode"></div>
+    </div>
+    
+    <!-- 主畫面 -->
+    <div class="pic-front-pages-right admweb-v2-adjustment">
+        <!-- 選擇 上傳方式 START -->
+        <div class="admweb-v2-settings-frame pic-margin-10" id="upload_type">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-box-product"></i>商品大量上傳</h2>
+            </div>
+            <p class="pic-padding-10 pic-margin-b10 pic-text-orange pic-bg-orange-10 pic-font-size-12 ">選擇您想上傳商品的方式</p>
+
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p>商品大量上傳</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+                    <div class="admweb-v2-BulkUpload-btn pic-flex">
+                        <a href="javascript:void(0)" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+                            商品大量上傳<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+                        </a>
+                    </div>
+                    <p class="pic-text-warn">※提供iOPEN Mall商品範例檔案，依照規範格式上傳您的商品。</p>
+                </li>
+            </ul>
+
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p>他台商品大量上傳</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+                    <div class="admweb-v2-BulkUpload-btn pic-flex">
+                        <a href="javascript:void(0)" class="pic-BgText-color-white-green admweb-v2-categories-btn" onclick="show_shopee_mass_input()">
+                            他台商品大量上傳<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+                        </a>
+                    </div>
+                    <p class="pic-text-warn">※於他台匯出您的商品資料，將他台商品檔案上傳至iOPEN Mall。<br />
+                        ※注意：不支援大量上傳圖片，匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。</p>
+                </li>
+            </ul>
+
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p>搬家賣貨便商品</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+                    <div class="admweb-v2-BulkUpload-btn pic-flex">
+                        <a href="javascript:void(0)" class="pic-BgText-color-white-green admweb-v2-categories-btn ">
+                            搬家賣貨便商品<i class="icons-line icon-line-Arrow-Right  pic-margin-l5"></i>
+                        </a>
+                    </div>
+                    <p class="pic-text-warn">※提供您一次性將賣貨便的商品快速搬家至iOPEN Mall。<br />
+                        ※注意：賣貨便部分商品資料無法搬家至iOPEN Mall，匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。</p>
+                </li>
+            </ul>
+        </div>
+        <!-- 選擇 上傳方式 END -->
+
+        <!--========================== 他台 START==========================-->
+
+        <!-- 他台商品大量上傳 STEP1 -->
+        <!-- 上傳商品檔案 STEP1-1 -->
+        <div class="admweb-v2-settings-frame pic-margin-10 admweb-v2-settings-shopee" id="shopee_mass_upload_main" style="display: none;">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-box-product"></i>他台商品大量上傳</h2>
+            </div>
+            <p class="pic-padding-10 pic-margin-b10 pic-text-orange pic-bg-orange-10 pic-font-size-12 ">
+                至他台平台「我的商品」功能內批次工具的更新商品資料，下載商品資料：商品標題及描述、價格及庫存</p>
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>上傳商品檔案</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+                    <div class="admweb-v2-BulkUpload-NameFileBox pic-margin-b5" id="shopee_basic_info">
+                        mass_update_basic_info檔案：
+                        <div class="admweb-v2-BulkUpload-NameFileBox-2">
+                            <span class="admweb-v2-file-name admweb-v2-adjustment-file-name pic-bg-gray-10 pic-OneRow-simplify" style="display: none;">
+                                <span></span>
+                                <a href="javascript:del_mass_upload('shopee_basic_info');" class="iopen-icon-black-delete"></a>
+                            </span>
+                            <a href="javascript:mass_upload('shopee_basic_info');" class="pic-BgText-color-green admweb-v2-categories-btn">
+                                <i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>
+                                請選擇檔案
+                            </a>
+                            <input type="file" name="shopee_basic_info" style="display: none;" accept=".xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx" id="shopee_basic_info_xls">
+                        </div>
+                    </div>
+                    
+                    <div class="admweb-v2-BulkUpload-NameFileBox pic-margin-b5" id="shopee_sales_info">
+                        mass_update_sales_info檔案：
+                        <div class="admweb-v2-BulkUpload-NameFileBox-2">
+                            <span class="admweb-v2-file-name admweb-v2-adjustment-file-name pic-bg-gray-10 pic-OneRow-simplify" style="display: none;">
+                                <span></span>
+                                <a href="javascript:del_mass_upload('shopee_sales_info');" class="iopen-icon-black-delete"></a>
+                            </span>
+                            <a href="javascript:mass_upload('shopee_sales_info');" class="pic-BgText-color-green admweb-v2-categories-btn">
+                                <i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>
+                                請選擇檔案
+                            </a>
+                            <input type="file" name="shopee_sales_info" style="display: none;" accept=".xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx" id="shopee_sales_info_xls">
+                        </div>
+                    </div>
+
+                    <div class="admweb-v2-BulkUpload-NameFileBox-row-3 pic-margin-b5" id="shopee_dts_info">
+                        mass_update_dts_info檔案：
+                        <div class="admweb-v2-BulkUpload-NameFileBox-2">
+                            <span class="admweb-v2-file-name admweb-v2-adjustment-file-name pic-bg-gray-10 pic-OneRow-simplify" style="display: none;">
+                                <span></span>
+                                <a href="javascript:del_mass_upload('shopee_dts_info');" class="iopen-icon-black-delete"></a>
+                            </span>
+                            <a href="javascript:mass_upload('shopee_dts_info');" class="pic-BgText-color-green admweb-v2-categories-btn">
+                                <i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>
+                                請選擇檔案
+                            </a>
+                            <input type="file" name="shopee_dts_info" style="display: none;" accept=".xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx" id="shopee_dts_info_xls">
+                        </div>
+                    </div>
+                    <p class="pic-text-warn">
+                        ※限制一次匯入500個商品
+                        <br/>※需完成上傳以上三個檔案才可進行匯入商品，檔名需符合mass_update_basic_info、mass_update_sales_info、mass_update_dts_info 
+                        <br/>※注意：匯入商品後，系統預設商品為下架狀態，再請賣家設定完成後將商品上架。
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 商品資料 STEP1-2 -->
+        <div class="admweb-v2-settings-frame pic-margin-10 admweb-v2-settings-shopee" id="shopee_mass_upload_main_preview" style="display: none;">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-home-bag"></i>商品資訊</h2>
+            </div>
+            <p class="pic-text-center pic-padding-10 pic-text-orange pic-bg-orange-10 pic-font-size-12">
+                <span id="shopee_data_count"></span>
+            </p>
+
+            <!-- 若有失敗的商品才顯示下列失敗內容 -->
+            <div class="admweb-v2-BulkUpload-pd-detail" id="shopee_data_error_info" style="display: none;">
+                {{if !$mobileDeviceDirected}}
+                <table class="admweb-v2-order_detail__product-table">
+                    <thead>
+                        <tr class="admweb-v2-order_detail__product-info">
+                            <th>商品狀態</th>
+                            <!-- <th style="width: 20%">商品圖片</th> -->
+                            <th>商品名稱/規格</th>
+                            <th style="width:35%">失敗原因</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                {{/if}}
+            </div>
+        </div>
+        
+        <!-- 進階設定 STEP2 -->
+        <div class="admweb-v2-settings-frame pic-margin-10 admweb-v2-settings-shopee admweb-v2-settings-last" id="shopee_mass_upload_advanced" style="display: none;">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-home-bag"></i>進階設定</h2>
+            </div>
+            <p class="pic-padding-10 pic-margin-b10 pic-text-orange pic-bg-orange-10 pic-font-size-12 ">
+                至他台平台「我的商品」功能內批次工具的更新商品資料，下載商品資料：媒體資訊
+            </p>
+
+            <!-- 上傳商品檔案 STEP2-1 -->
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>上傳商品圖片檔案</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-categories-box pic-flex-center-column">
+                    <div class="admweb-v2-BulkUpload-NameFileBox-row-3 pic-margin-b5" id="shopee_media_info">
+                        mass_update_media_info檔案：
+                        <div class="admweb-v2-BulkUpload-NameFileBox-2">
+                            <span class="admweb-v2-file-name admweb-v2-adjustment-file-name pic-bg-gray-10 pic-OneRow-simplify" style="display: none;">
+                                <span></span>
+                                <a href="javascript:del_mass_upload('shopee_media_info');" class="iopen-icon-black-delete"></a>
+                            </span>
+                            <a href="javascript:mass_upload('shopee_media_info');" class="pic-BgText-color-green admweb-v2-categories-btn">
+                                <i class="icons-line icon-line-ArrowParper  pic-margin-r5"></i>
+                                請選擇檔案
+                            </a>
+                            <input type="file" name="shopee_media_info" style="display: none;" accept=".xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx" id="shopee_media_info_xls">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 上傳商品圖片檔案 STEP2-2 -->
+            <ul class="admweb-v2-outside-white-box" style="display: none;">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>上傳商品圖片檔案</p>
+                </li>
+
+                <li class="admweb-v2-content-enter" id="shopee_mass_upload_advanced_preview">
+                    {{if !$mobileDeviceDirected}}
+                    <table class="admweb-v2-order_detail__product-table">
+                        <thead>
+                            <tr class="admweb-v2-order_detail__product-info pic-text-center">
+                                <th width="30%">商品ID</th>
+                                <th>商品圖片連結</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    {{/if}}
+                </li>
+            </ul>
+
+            <p class="pic-text-center pic-padding-10 pic-text-orange pic-bg-orange-10 pic-font-size-12" style="display: none;">
+                <span id="shopee_img_count"></span>
+            </p>
+        </div>
+        <!--========================== 他台 END==========================-->
+
+        <!--========================== 遮罩 START==========================-->
+        <!-- LOGO 加載 -->
+        <div class="pic-window-bg" style="display: none;" id="sh_loading_mask">
+            <div class="admweb-v2-mask-img blink">
+                <span>商品資料匯入中，<br/>請勿離開此畫面</span>
+            </div>
+        </div>
+        <!--========================== 遮罩 END==========================-->
+
+        <!--置底按鈕 START-->
+        <div class="admweb-v2-orderlist__action admweb-v2-BulkUpload-bottom-btn">
+            <!-- 他台大量上傳 按紐 -->
+            <div class="admweb-v2-BulkUpload-check-btn">
+                <!-- 匯入商品 -->
+                <a class="admweb-v2-I-Btn pic-BgText-color-gray" style="display: none; cursor: auto;" id="confirm_shopee_xls_upload">
+                    <i class="icons-line icon-line-ArrowParper"></i>匯入商品資料
+                </a>
+                <!-- 同意圖片 -->
+                <div class="admweb-v2-checkbox-name" style="display: none;" id="agree_sh_img_upload_checkbox">
+                    <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_10">
+                    <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_10"></label>
+                    <span>我知悉且明白將自他台下載商品圖片上傳至iOPEN Mall，亦已確認從他台下載商品圖片皆為我有權利使用之檔案。</span>
+                </div>
+                <a class="admweb-v2-I-Btn pic-BgText-color-gray" href="javascript:void(0);" style="display: none; cursor: auto;" id="agree_sh_img_upload">
+                    <i class="icons-line icon-line-tick"></i>確認上傳
+                </a>
+                <!-- 編輯商品 -->
+                <a class="admweb-v2-I-Btn pic-BgText-color-green" href="admweb.main.php?action=product_pic" style="display: none;" id="to_edit_prod">
+                    <i class="icons-line icon-line-info-edit-bold-02"></i>前往編輯商品
+                </a>
+            </div>
+        </div>
+        <!--置底按鈕 END-->
+    </div>
+    <!-- 右側內容 End-->
+</div>
+
+<script>
+    $(".admweb-v2-commodity-block h2").click(function () {
+        $(this).find(".pic-icon-black-arrows-rotate-up").toggleClass("pic-arrows-rotate");
+        $(this).next(".admweb-v2-slideToggle").slideToggle();
+        $(".admweb-v2-NewProduct-title").toggleClass("pic-padding-0")
+    })
+
+    function toggleMenuHandlertwo() {
+        document.querySelector('.admweb-v2-seller-front-left-box').classList.toggle('pic-phone-open-menu');
+        const hamBtn = document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1].querySelector('i');
+        if (hamBtn.classList.contains('icon-arrow-left-01')) {
+            document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block';
+        } else {
+            document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none';
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01');
+    }
+</script>
+
+<!-- {{* XLS 套件*}} -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+    // 全域變數，存他台資料用
+    const arr_existing_sp_df_id = {{if $arr_existing_sp_df_id|@count > 0}}{{$arr_existing_sp_df_id|@json_encode}}{{else}}[]{{/if}};
+    const arr_existing_sp_df_img = {{if $arr_existing_sp_df_img|@count > 0}}{{$arr_existing_sp_df_img|@json_encode}}{{else}}[]{{/if}};
+    var shopee_img_raw_arr = [];
+    var shopee_img_suc_obj = {};
+
+    // 檢查是否為數字
+    const isNumber = n => $.isNumeric(n);
+
+    function show_shopee_mass_input(){
+        $('#shopee_mass_upload_main').show();
+        $('#upload_type').hide();
+        $('#confirm_shopee_xls_upload').show();
+    }
+
+    show_shopee_mass_input();
+    
+    // 選擇上傳檔案
+    function mass_upload(id){
+        $(`input[name=${id}]`).click();
+    }
+
+    // 刪除上傳檔案
+    function del_mass_upload(id){
+        $(`#${id}_xls`).val('');
+        $(`#${id}>div>span`).hide().find('span').text('');
+        $(`#${id} a`).show();
+        $('#shopee_img_count').text('').parent().hide();
+
+        // 圖片路徑檔
+        if(id =='shopee_media_info'){
+            $('#agree_sh_img_upload').addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('cursor','auto').attr('href','javascript:void(0);');
+            $('#agree_sh_img_upload_checkbox input').prop('checked',false);
+
+            if(shopee_img_raw_arr.length>0){
+                shopee_img_raw_arr = [];
+                shopee_img_suc_obj = {};
+                $('#shopee_mass_upload_advanced ul').eq(1).hide();
+                $('#agree_sh_img_upload_checkbox').hide();
+                $('#agree_sh_img_upload').hide();
+                {{if !$mobileDeviceDirected}}
+                $('#shopee_mass_upload_advanced_preview tbody').empty();
+                {{else}}
+                $('#shopee_mass_upload_advanced_preview').empty();
+                {{/if}}
+            }
+        }
+
+        // 商品主檔三個檔案
+        else check_shopee_xls_files_cnt();
+    }
+
+    // 有選擇檔案的時候 檢查是否已滿足3個檔案的條件 + 抓檔名 => 順便檢查檔名
+    $('input[type=file]').change(function (e) {
+        let check_str = $(this).attr('name').replace('shopee','mass_update');
+        let file_name = e.target.files[0].name;
+
+        if(file_name.indexOf(check_str)==0){
+            $(this).siblings('span').show().find('span').text(file_name);
+            $(this).siblings('a').hide();
+    
+            // 圖片路徑檔
+            if(file_name.indexOf('media')>0) read_media_info_file();
+            // 主檔的三個檔案
+            else check_shopee_xls_files_cnt();
+        }else{
+            $(this).val('');
+            alert('該檔案名稱與要求不符，請檢查檔案是否正確');
+        }        
+    });
+
+    //------------------------- shopee mass upload STEP 1 -------------------------
+    // 檢查是否上傳3個檔案
+    function check_shopee_xls_files_cnt(){
+        let check = true;
+
+        $('#shopee_mass_upload_main input[type=file]').each(function (i, e) {
+            if($(e).val()=='') check = false;
+        });
+
+        if(check) $('#confirm_shopee_xls_upload').addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('cursor','pointer').attr('href','javascript:save_sh_mass_upload_main();');
+        else $('#confirm_shopee_xls_upload').addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('cursor','auto').attr('href','javascript:void(0);');
+    }
+
+    // 匯入商品資料：檢查並組合商品資料變數
+    function save_sh_mass_upload_main(){
+        $('#sh_loading_mask').show();
+
+        let len = $(`#shopee_mass_upload_main input[type=file]`).length-1;
+
+        // 匯入後不可再編輯 => 隱藏上傳和刪除的按鈕
+        $('#confirm_shopee_xls_upload').hide();
+        $('#shopee_mass_upload_main .iopen-icon-black-delete').hide();
+
+        let ids = []; // 把3個檔案的input id 存成陣列 稍後要呼叫各個檔案時使用 => 待優化
+        $(`#shopee_mass_upload_main input[type=file]`).each(function (i, e) {
+            let id = $(e).attr('id');
+            ids.push(id);
+        });
+
+        var analysis = (id)=>{
+            return new Promise((resolve, reject) => {
+                let file = document.getElementById(id).files[0];
+                let file_name = id.replace('_xls','');
+                file_name = file_name.replace('shopee','mass_update');
+
+                if(!file) throw new Error(`${file_name} 未能正確讀取檔案，請檢查檔案是否有誤`);
+                else{
+                    const reader = new FileReader()
+                    reader.readAsArrayBuffer(file);
+
+                    reader.onload = function(e) {
+                        var data = new Uint8Array(e.target.result);
+                        var workbook = XLSX.read(data, {type: 'array'});
+                        var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                        var sheet_to_json = XLSX.utils.sheet_to_json(firstSheet, {range: {s:{c:0, r:0}, e:{c:12, r:510}}});            
+        
+                        let re_obj = {};
+                        re_obj[file_name] = sheet_to_json;
+
+                        console.log(re_obj);
+
+                        resolve(re_obj);
+                    }
+                }
+            });
+        };
+
+        var arr_analysis_Promise = [analysis('shopee_basic_info_xls'), analysis('shopee_sales_info_xls'), analysis('shopee_dts_info_xls')];
+
+        // 使用 Promise.all，一次取得所有結果，需等待所有 Promise resolve 或其中一個被 reject 時終止
+        get_promises_result = async function(){
+            const results = await Promise.all(arr_analysis_Promise)
+                                    .then(
+                                        (result_obj) => {
+                                            let xls_info_data_obj = check_shopee_xls_arr(result_obj);
+
+                                            // console.log('check_shopee_xls_arr', 'result_obj', result_obj)
+
+                                            get_xls_info_htm(xls_info_data_obj);
+                                        }
+                                    )
+                                    .catch(error => alert(error));
+        }
+
+        get_promises_result();
+    }
+
+    // 判別失敗條件 成功或失敗筆數 組成htm
+    function get_xls_info_htm(xls_info_data_obj){
+        let count_suc = 0;
+        let count_fail = 0;
+        let data = xls_info_data_obj.data;
+        let obj_fail = {};
+        let data_upload = {};
+
+        console.log('get_xls_info_htm   get xls_info_data_obj',xls_info_data_obj);
+
+        for (const et_title_variation_id in data) {
+            if (Object.hasOwnProperty.call(data, et_title_variation_id)) {
+                if(et_title_variation_id!=''){
+                    const e = data[et_title_variation_id]; // e 是每筆商品
+    
+                    let err = [];
+                    let err_str = '';
+                    let prod_status = '';
+
+                    // {{*檢查key 是否存在已經儲存的資料中*}} 
+                    if(arr_existing_sp_df_id.indexOf(et_title_variation_id) >=0 ) err.push('該商品的商品選項ID已存在系統中');
+    
+                    // {{*檢查格式*}} 
+                    if(!isNumber(e.et_title_product_id) || e.et_title_product_id=='') err.push('商品ID格式錯誤');
+                    if(!isNumber(e.et_title_variation_id) || e.et_title_variation_id=='') err.push('商品選項ID格式錯誤');
+
+                    if(e.et_title_variation_name !== undefined){
+                        let matches =e.et_title_variation_name.match(/\,/g);
+                        if(matches!=null && matches.length>1) err.push('商品規格包含2個以上逗號（,）無法儲存');
+                    }
+                    
+                    // {{*不得為空*}} 
+                    if(e.et_title_product_name=='') err.push('商品名稱不得為空值');
+    
+                    // {{*純數字*}}
+                    if(!isNumber(e.ps_minimum_purchase_quantity)) err.push('最低購買數量格式錯誤');
+                    if(!isNumber(e.et_title_variation_price)) err.push('價格格式錯誤');
+                    if(!isNumber(e.et_title_variation_stock)) err.push('庫存格式錯誤');
+                    if(!isNumber(e.et_title_product_dts)) err.push('備貨天數格式錯誤');
+    
+                    // {{*他台本身來的錯誤，或檔案資料不匹配*}} 
+                    if(e.et_title_product_dts === undefined || e.et_title_product_dts == '') err=['此商品僅有 mass_update_sales_info 資料，無 mass_update_dts_info 資料'];
+                    if(e.et_title_reason != '' && e.et_title_reason !== undefined) err=[e.et_title_reason];
+
+                    if(err.length > 0){
+                        prod_status = '失敗';
+                        err_str = err.join('<br/>');
+    
+                        if(e.et_title_variation_name=='') e_spec = '';
+                        else e_spec = '<br/>規格：' + e.et_title_variation_name;
+    
+                        {{if !$mobileDeviceDirected}}
+                        let htm = `
+                        <tr class="admweb-v2-order_detail__product-item">
+                            <td><span class="admweb-v2-Manager-icon-style admweb-v2-Manager-state-o">${prod_status}</span>
+                            </td>
+                            <td class="admweb-v2-order_detail__product-title">
+                                <p class="admweb-v2-order_detail__product-name">
+                                    商品名稱：${e.et_title_product_name}
+                                    ${e_spec}
+                                </p>
+                            </td>
+                            <td class="admweb-v2-order_detail__product-price pic-text-red">
+                                ${err_str}
+                            </td>
+                        </tr>
+                        `;
+                        $('#shopee_data_error_info tbody').append(htm);
+                        {{else}}
+                        let htm = `
+                        <div class="pic-commodity-details">
+                            <div class="pic-commodity-details-content pic-margin-lr5">
+                                <span class="admweb-v2-Manager-icon-style admweb-v2-Manager-state-o">${prod_status}</span>
+                                <span class="admweb-v2-pd-text-warn">${err_str}</span>
+                                <p class="pic-OneRow-simplify-2 pic-commodity-details-pd-title">
+                                    商品名稱：${e.et_title_product_name}
+                                    ${e_spec}
+                                </p>
+                            </div>
+                        </div>
+                        `;
+                        $('#shopee_data_error_info').append(htm);
+                        {{/if}}
+    
+                        $('#shopee_data_error_info').show();
+    
+                        count_fail ++;
+                    }else{
+                        count_suc ++;
+                        data_upload[`${et_title_variation_id}`] = e;
+                    }
+                }
+            }
+        }
+        
+        let re = {data: data_upload}
+        re['count'] = {
+            success: count_suc,
+            fail: count_fail
+        }
+
+        confirm_data_upload('shopee_data_suc_obj', re);
+    }
+
+    // 到這裡的時候，應該3個excel檔都已經讀完，而且需要有資料
+    // 組合info 裡面的變數, 判是否超過500筆（需確認總筆數的定義）
+    function check_shopee_xls_arr(obj){
+        let main_data_obj = {};
+        let main_profile = {}; // 主檔的物件
+        let data = {};
+        let count_sales = 0; // 處理資料 mass_update_sales_info 筆數
+        let count_dts = 0; // 處理資料 mass_update_dts_info 筆數
+        let count = 0; // 處理資料 成功+失敗 總筆數
+
+        for (const i_obj of obj) {
+            for (const key in i_obj) {
+                main_data_obj[key] = i_obj[key];
+            }
+        }
+
+        // 待優化
+        let sequence = ['mass_update_basic_info','mass_update_sales_info','mass_update_dts_info']
+
+        // 待優化
+        sequence.forEach(file_name => {
+            let start = {
+                mass_update_basic_info: false,
+                mass_update_sales_info: false,
+                mass_update_dts_info: false,
+            };
+
+            let stop = {
+                mass_update_basic_info: false,
+                mass_update_sales_info: false,
+                mass_update_dts_info: false,
+            };
+
+            for (const row of main_data_obj[file_name]) {
+
+                if(isNumber(row['et_title_product_id']) && start[file_name] == true && !stop[file_name]){
+
+                    if(file_name == 'mass_update_basic_info'){
+
+                        main_profile[`${row['et_title_product_id']}`]= row; // 主商品的profile
+
+                    }else if(file_name == 'mass_update_sales_info'){
+
+                        if(main_profile[`${row['et_title_product_id']}`]===undefined){
+                            // 無法mapping 回mass_update_basic_info
+                            row['et_title_reason'] = 'mass_update_basic_info, mass_update_sales_info 檔案內容不相符，請確認';
+                        }else{
+                            row['et_title_product_description'] = main_profile[`${row['et_title_product_id']}`]['et_title_product_description'];
+                            row['et_title_reason'] = main_profile[`${row['et_title_product_id']}`]['et_title_reason'];
+                            row['et_title_result'] = main_profile[`${row['et_title_product_id']}`]['et_title_result'];
+                            row['et_title_product_category'] = '';
+                        }
+
+                        data[`${row['et_title_variation_id']}`] = row;
+                        count_sales++;
+                        count++;
+
+                    }else if(file_name == 'mass_update_dts_info'){
+
+                        // 無法mapping 回mass_update_sales_info
+                        if(data[`${row['et_title_variation_id']}`]===undefined){
+                            row['et_title_reason'] = '此商品僅有 mass_update_dts_info 資料，無 mass_update_sales_info 資料'
+                            data[`${row['et_title_variation_id']}`]=row;
+                        }else{
+                            data[`${row['et_title_variation_id']}`]['et_title_product_category'] = Object.hasOwn(row, 'et_title_product_category')? row['et_title_product_category']:'';
+                            // 若他台沒有匯出最低購買數量 就給1
+                            data[`${row['et_title_variation_id']}`]['et_title_product_dts'] = (!Object.hasOwn(row, 'et_title_product_dts'))? '1':((row['et_title_product_dts']!='')?row['et_title_product_dts']:'1');
+                        }
+
+                        count_dts++;
+                        count++;
+                    }
+
+                    // 超過500筆不處理 => 待優化提供alert
+                    if(count_sales == 500){
+                        stop['mass_update_sales_info'] = true;
+                    }else if(count_dts == 500){
+                        stop['mass_update_dtss_info'] = true;
+                    }
+                }
+
+                // 抓到表頭才開始將資料加進變數中
+                if(row['et_title_product_id']=='商品ID'){
+                    start[file_name] = true;
+                }
+            }
+
+        });
+
+        let re_obj = {data: data, count: count};
+
+        return re_obj;
+    }
+
+    //------------------------- shopee mass upload STEP 2 -------------------------
+    
+    function read_media_info_file(){
+        $('#sh_loading_mask').show(); // loading 遮罩
+        var read_media_info_data = new Promise((resolve, reject) => {
+            let file = document.getElementById('shopee_media_info_xls').files[0];
+
+            if (!file){
+                reject('未能正確讀取 mass_update_media_info 檔案，請檢查檔案是否有誤');
+            }
+
+            let sh_range = {s:{c:0, r:0}, e:{c:26, r:10000}};
+
+            var FR = new FileReader();
+            FR.readAsArrayBuffer(file);
+            FR.onload = function(e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, {type: 'array'});
+                var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                
+                shopee_img_raw_arr = XLSX.utils.sheet_to_json(firstSheet, {range: sh_range});
+                
+                // 這裡讀到的是 主商品 的資料、圖片，到後端再塞入子商品的屬性中
+                resolve(shopee_img_raw_arr);
+            };
+        });
+
+        read_media_info_data
+            .then(function(value) {
+                show_media_info_data(value);
+            })
+            .catch(function(error) {
+                alert(error);
+            })
+    }
+
+    // 情境處理 待優化
+    function show_media_info_data(object){
+        let start = false;
+        let count = 0; // 資料筆數
+
+        for (let i = 0; i < object.length; i++) {
+            const row = object[i];
+            
+            // 選項圖片 prod_color_image 是有值的，但只能靠選項mapping 回子商品底下，沒有子商品的id，無法使用子商品的id mapping
+            // 使用主商品的他台商品id mapping, 如果主商品已有圖片 就不處理
+            if(start && row['et_title_product_id']!='' && isNumber(row['et_title_product_id'])){
+                
+                console.log(row)
+                // 需向PM確認提示訊息及訊息顯示方式
+                if(arr_existing_sp_df_img.indexOf(parseInt(row['et_title_product_id'])) >= 0){
+
+                    // console.log(`${row['et_title_product_id']}:${row['et_title_product_name']} 已存在商品圖，不處理`);
+
+                }else{
+
+                    console.log(`${row['et_title_product_id']}:${row['et_title_product_name']} 不存在商品圖`);
+
+                    let htm = prod_htm = '';
+        
+                    for (const key in row) {
+                        if (Object.hasOwnProperty.call(row, key)) {
+                            const ele = row[key];
+        
+                            if(ele == ''){
+                                delete row[key];
+                            }else{
+                                if(key.indexOf('ps_item_cover_image') == 0 || key.indexOf('ps_item_image') == 0){
+                                    count ++;
+                                    {{if !$mobileDeviceDirected}}
+                                    prod_htm += `
+                                    <p class="admweb-v2-order_detail__product-name">
+                                        ${ele}
+                                    </p>
+                                    `;
+                                    {{else}}
+                                    prod_htm += `
+                                    <dt class="admweb-v2-orderlist__card-desc-dt">圖片連結</dt>
+                                    <dd class="admweb-v2-orderlist__card-desc-dd">
+                                        ${ele}
+                                    </dd>
+                                    `;
+                                    {{/if}}
+                                }
+                            }
+                        }
+                    }
+        
+                    {{if !$mobileDeviceDirected}}
+                    htm += `
+                    <tr class="admweb-v2-order_detail__product-item">
+                        <td class="">${row['et_title_product_id']}</td>
+                        <td class="admweb-v2-order_detail__product-title">
+                            ${prod_htm}
+                        </td>
+                    </tr>
+                    `;
+                    $('#shopee_mass_upload_advanced_preview tbody').append(htm);
+                    {{else}}
+                    htm += `
+                    <div class="admweb-v2-BulkUpload-phone-orderlist admweb-v2-orderlist__card-desc">
+                        <dt class="admweb-v2-orderlist__card-desc-dt">商品ID</dt>
+                        <dd class="admweb-v2-orderlist__card-desc-dd">${row['et_title_product_id']}</dd>
+                        ${prod_htm}
+                    </div>
+                    `;
+                    $('#shopee_mass_upload_advanced_preview').append(htm);
+                    {{/if}}
+        
+                    shopee_img_suc_obj[`${row['et_title_product_id']}`] = row;
+                }
+            }
+    
+            if(row['et_title_product_id']=='商品ID') start = true;
+            // 抓到表頭才開始將資料加進變數中
+        }
+
+        shopee_img_suc_obj['count'] = count; // 圖片張數;
+
+        if(count>0){
+            
+            $('#shopee_mass_upload_advanced ul').eq(1).show(); // 商品圖片路徑列表    
+            $('#agree_sh_img_upload_checkbox').show();
+            $('#agree_sh_img_upload').show();
+
+        }else if(object.length==0){ // 後面要直接接編輯商品 或是停在這裡就好？
+            
+            $('#shopee_img_count').text(`上傳圖片失敗成功，您上傳的mass_update_media_info 檔案中，無商品資料。`).parent().show();
+            // alert(`您上傳的mass_update_media_info 檔案中，無商品資料`);
+            // $('#shopee_media_info .iopen-icon-black-delete').hide();
+            // $('#to_edit_prod').show();
+            
+        }else{ // 後面要直接接編輯商品 或是停在這裡就好？
+
+            $('#shopee_img_count').text(`上傳圖片失敗成功，您上傳的mass_update_media_info 檔案中的商品，皆已上傳過圖檔，無法重新上傳。`).parent().show();
+            // alert(`您上傳的mass_update_media_info 檔案中的商品，皆已上傳過圖檔，無法重新上傳`);
+            // $('#shopee_media_info .iopen-icon-black-delete').hide();
+            // $('#to_edit_prod').show();
+        }
+
+        $('#sh_loading_mask').hide(); // loading 遮罩
+    }
+
+    $('#agree_sh_img_upload_checkbox input').on('change', function () {
+        if($(this).is(':checked')){
+            $('#shopee_media_info .iopen-icon-black-delete').hide();
+            $('#agree_sh_img_upload').addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('cursor','pointer').attr('href','javascript:confirm_data_upload("shopee_img_suc_obj");');
+        }else{
+            $('#shopee_media_info .iopen-icon-black-delete').show();
+            $('#agree_sh_img_upload').addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('cursor','auto').attr('href','javascript:void(0);');
+        }
+    });
+
+    function confirm_data_upload(data_type,data){
+
+        // user已同意 圖片路徑 執行上傳
+        if(data_type == 'shopee_img_suc_obj'){
+
+            console.log('shopee_img_suc_obj',shopee_img_suc_obj);
+
+            $.ajax({
+                type: "post",
+                url: "",
+                data: {
+                    isAjax: true,
+                    myAct: 'UPLOAD_SP_IMG_PATH',
+                    data: shopee_img_suc_obj
+                },
+                dataType: "json",
+                success: function (re) {
+                    console.log('UPLOAD_SP_IMG_PATH', 'suc', re)
+
+                    // 此時才會有匯入結果，成功失敗的張數
+                    $('#shopee_img_count').text(`載入完成，共${re.count_suc}筆載入成功，共${re.count_fail}筆載入失敗`).parent().show();
+    
+                    $('#shopee_media_info .iopen-icon-black-delete').hide();
+                    $('#shopee_mass_upload_advanced ul').eq(1).hide();
+                    $('#agree_sh_img_upload_checkbox').hide();
+                    $('#agree_sh_img_upload').hide();
+                    $('#to_edit_prod').show();
+                },
+                error: function (re) {
+                    // 未定義error 處理
+                    console.log('UPLOAD_SP_IMG_PATH', 'err', re, re.responseText)    
+                }
+            });
+        }
+
+        // 商品主檔 執行上傳
+        if(data_type == 'shopee_data_suc_obj'){
+            if(data.count.success==0){
+                $('#shopee_data_count').text(`匯入失敗，成功共${data.count.success}筆商品，錯誤共${data.count.fail}筆商品`);
+                $('#sh_loading_mask').hide(); // loading 遮罩
+                $('#shopee_mass_upload_main_preview').show();
+                $('#shopee_mass_upload_advanced').show();
+
+            }else{
+                // 商品主檔 執行上傳
+                console.log('shopee_data_suc_obj', 'data.data', data.data.length,data.data);
+
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    data: {
+                        isAjax: true,
+                        myAct: 'UPLOAD_SP_PROD_PROFILE',
+                        data: data.data
+                    },
+                    dataType: "json",
+                    success: function (re) {
+                        console.log('UPLOAD_SP_PROD_PROFILE', 'suc', re)
+    
+                        if(data.count.fail==0) $('#shopee_data_count').text(`匯入成功，共${data.count.success}筆商品`);
+                        else $('#shopee_data_count').text(`匯入失敗，成功共${data.count.success}筆商品，錯誤共${data.count.fail}筆商品`);
+    
+                        $('#sh_loading_mask').hide(); // loading 遮罩
+                        $('#shopee_mass_upload_main_preview').show();
+                        $('#shopee_mass_upload_advanced').show();
+                    },
+                    error: function (re) {
+                        // 未定義error 處理                        
+                        console.log('UPLOAD_SP_PROD_PROFILE', 'err', re, re.responseText)
+                        $('#sh_loading_mask').hide(); // loading 遮罩
+                        
+                    }
+                });
+            }
+        }
+    }
+</script>

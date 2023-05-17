@@ -1,0 +1,195 @@
+<style>
+    .pic-window-bg .pic-window { width: 333px;}
+    .pic-window-button-box > a,
+    .admweb-v2-I-Btn{ cursor: pointer;}
+    .admweb-v2-marketing{ padding-top: 60px;}
+    .admweb-v2-marketing .admweb-v2-marketing-inner{ font-size: 14px; overflow-x: auto; flex-grow: 1; background: var(--pic-color-grey-10); position: relative;color: var(--pic-color-grey-100); min-height: calc(100vh - 60px - 62px);}
+    
+    /* 搜尋 */
+    .admweb-v2-marketing .admweb-v2-marketing-form { background: var(--pic-light-green-5); padding: 10px; padding-bottom: 0; overflow: hidden; margin-bottom: 0; transition: height 0.3s ease-in-out; box-sizing: content-box; }
+    .admweb-v2-marketing .admweb-v2-input-date-content .admweb-v2-DateBox{ width: calc(100% / 2);}
+    .admweb-v2-marketing .admweb-v2-marketing-form-item{ display: grid; grid-template-columns: 60px 1fr; align-items: center; gap: 5px; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-item:last-of-type{ grid-column-end: 4; grid-column-start: 1;}
+    .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn { width: 100%; border: none; display: block; padding: 6px; cursor: pointer; margin: 0;}
+    .admweb-v2-marketing .admweb-v2-marketing-form-toggle-btn i {font-size: 20px; vertical-align: bottom;}
+    .admweb-v2-marketing .admweb-v2-marketing-form-head_search { display: grid; grid-template-columns: auto 1fr 84px; gap: 5px; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-head_search-btn { padding: 10px; cursor: pointer; border-radius: 8px; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-btn { border-radius: 8px; display: block; width: 100%; height: 40px; cursor: pointer; }
+    .admweb-v2-marketing .admweb-v2-marketing-form-head-search-outer > div{ margin-bottom: 5px;}
+
+    /* 清單 */
+    .admweb-v2-marketing .admweb-v2-marketing-list{ background: var(--pic-color-grey-10); list-style: none; padding: 0 10px; }
+    .admweb-v2-marketing .admweb-v2-marketing-card{ background: #FFFFFF; border-radius: 10px; padding: 10px;}
+    .admweb-v2-marketing .admweb-v2-marketing-card + .admweb-v2-marketing-card { margin: 10px 0; }
+
+    .admweb-v2-orderlist__card___last-child{ border-bottom: 1px solid var(--pic-color-grey-5);}
+    .admweb-v2-orderlist__card-detail{ margin-top: 0;}
+    .admweb-v2-orderlist__card-actions button{ font-size: 14px;}
+
+   
+    @media screen and (min-width: 768px){
+        .admweb-v2-marketing .admweb-v2-marketing-table{ display: table; }
+        .admweb-v2-marketing .admweb-v2-marketing-card-top,
+        .admweb-v2-marketing .admweb-v2-marketing-card-detail{ display: none;}
+    }
+
+    /* tag */
+    .admweb-v2-marketing-tag-marketing-type{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+    .admweb-v2-marketing-tag-marketing-type i.icons-line{ font-size: 16px; font-weight: normal; margin-right: 2px;}
+    .admweb-v2-marketing-tag-status-valid{ background:var(--pic-light-red-5); border: 1px solid var(--pic-light-red-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-red); font-size: 12px; display: inline-block;}
+    .admweb-v2-marketing-tag-status-invalid{ background:var(--pic-color-grey-5); border: 1px solid var(--pic-color-grey-20); border-radius: 5px; padding: 5px 6px; color: var(--pic-color-grey-30); font-size: 12px; display: inline-block;}
+
+    /* 置底按鈕 */
+    .pic-confirm-box{ margin: 0;}
+
+/* ---------- 針對單頁css_page_marketing_ticket_form_pic ---------- */
+/* page_marketing_ticket_form_pic*/
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-card.admweb-v2-marketing-ticket-form-count { border: solid 1px var(--pic-color-grey-10); padding: 0; margin-top: 10px;}
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-count table.admweb-v2-marketing-table{ width: 100%; font-size: 14px; text-align: center;}
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-count tr.admweb-v2-marketing-table-head{ height: 26px; background: var(--pic-color-grey-5); color: var(--pic-color-grey-60);}
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-count .admweb-v2-marketing-table-head th:first-child{ border-radius: 8px 0px 0px 0px;}
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-count .admweb-v2-marketing-table-head th:last-child{ border-radius: 0px 8px 0px 0px;}
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-count tr.admweb-v2-marketing-table-tr{ height: 36px;}
+/* page_marketing_ticket_form_pic_編號,使用時間,訂單編號*/
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-order_delivery__badge-num{ color: var(--pic-green); white-space: nowrap; }
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-list .admweb-v2-marketing-ticket-form-list-info{ display: flex; align-items: flex-start; margin-bottom: 10px;}
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-list .admweb-v2-marketing-ticket-form-list-info:last-child{ margin-bottom: 0;}
+.admweb-v2-marketing-ticket-form-pic .admweb-v2-marketing-ticket-form-list dl.admweb-v2-orderlist__card-detail{ width: 100%;}
+/* page_marketing_ticket_form_pic_無資料畫面*/
+.admweb-v2-NoData{ margin: 10px; padding: 22px 0; border-radius: 10px; background: #FFFFFF;}
+/* ---------- 針對單頁css_page_marketing_ticket_form_pic_end ---------- */
+</style>
+
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+            <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        <button onclick="toggleMenuHandler()">
+            <i class="icons-line icon-line-hamburger"></i>
+        </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">折價券報表</h2>
+    <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-marketing admweb-v2-product-discount-pic">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+
+    <!-- 右側內容 Start -->
+    <div class="admweb-v2-adjustment admweb-v2-marketing-ticket-form-pic">
+        <div class="admweb-v2-marketing-inner">
+
+            <!------------------------------------ 折價券報表 start ------------------------------------>
+            <div class="admweb-v2-SetFreight admweb-v2-settings-frame pic-margin-10">
+                <div class="admweb-v2-NewProduct-title">
+                    <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>折價券報表</h2>
+                    <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+                </div>
+                <ul class="admweb-v2-outside-white-box admweb-v2-eventType">
+                    <!-- 發行數、領取數、使用數 -->
+                    <li class="admweb-v2-marketing-card admweb-v2-marketing-ticket-form-count">
+                        <table class="admweb-v2-marketing-table">
+                            <thead>
+                            <tr class="admweb-v2-marketing-table-head">
+                                <th>發行數</th>
+                                <th>領取數</th>
+                                <th>使用數</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="admweb-v2-marketing-table-tr">
+                                <td>
+                                    <div class="admweb-v2-marketing-name">
+                                        {{$m_arrMarketingTicketMf.mktmf_publish_qty}}
+                                    </div>
+                                </td>
+                                <td>{{$m_arrMarketingTicketDfCount.status_1}}</td>
+                                <td>{{$m_arrMarketingTicketDfCount.status_2}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <!-- 發行數、領取數、使用數_end -->
+                </ul>
+            </div>
+            <!------------------------------------ 折價券報表 end -------------------------------------->
+
+            {{if $m_arrMarketingTicketDf|@count > 0}}
+            <!------------------------------------ 編號,使用時間,訂單編號 start ------------------------------------>
+            <ul class="admweb-v2-marketing-list pic-margin-b10 admweb-v2-marketing-ticket-form-list">
+                <li class="admweb-v2-marketing-card">
+                    {{foreach from=$m_arrMarketingTicketDf item=mktdf key=i}}
+                    <div class="admweb-v2-marketing-ticket-form-list-info">
+                        <span class="admweb-v2-order_delivery__badge-num">{{$i+1}}</span>
+                        <dl class="admweb-v2-orderlist__card-detail">
+                            <div class="admweb-v2-orderlist__card-desc">
+                                <dt class="admweb-v2-orderlist__card-desc-dt">使用時間</dt>
+                                <dd class="admweb-v2-orderlist__card-desc-dd">{{$mktdf.mktdf_use_date}}</dd>
+                            </div>
+                            <div class="admweb-v2-orderlist__card-desc">
+                                <dt class="admweb-v2-orderlist__card-desc-dt">訂單編號</dt>
+                                <dd class="admweb-v2-orderlist__card-desc-dd">{{$mktdf.order_uid}}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    </tbody>
+                    {{/foreach}}
+                </li>
+            </ul>
+            <!------------------------------------ 編號,使用時間,訂單編號 end ------------------------------------>
+            {{else}}
+            <!-- 尚無使用紀錄 -->
+            <div class="admweb-v2-NoData">
+                <div class="admweb-v2-img-BlacklistNoData"></div>
+                <span>尚無使用紀錄</span>
+            </div>
+            <!-- 尚無使用紀錄end -->
+            {{/if}}
+        </div>
+        <!-- 置底按鈕 -->
+        <div class="pic-btn-footer pic-icon-margin-r">
+            <a class="pic-btn-newstore-100 iopen-icon-white-add-front pic-BgText-color-white-green" href="{{$m_backURL}}">
+                <i class="icons-line icon-arrow-left-01"></i>回上一頁
+            </a>
+        </div>
+    </div>
+    <!-- 右側內容 End-->
+</div>
+
+<script>
+//區塊收合
+$(".admweb-v2-settings-frame .admweb-v2-NewProduct-title > span").click(function(){
+    $(this).toggleClass("pic-arrows-rotate");
+    $(this).parent(".admweb-v2-NewProduct-title").next("ul").slideToggle();
+});
+
+$(function (){
+    hideMobileLayout();
+})
+
+// 隱藏手機原版頭函式
+function hideMobileLayout() {
+if (window.matchMedia('(max-width: 768px)').matches) {
+    document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+    ).style.display = 'none';
+    document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+}
+
+// 漢堡函式
+function toggleMenuHandler(){
+    document.querySelector('.admweb-v2-seller-front-left-box').classList.toggle('pic-phone-open-menu')
+    const hamBtn = document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[1].querySelector('i')
+    if(hamBtn.classList.contains('icon-arrow-left-01')){
+    document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block'
+    }else{
+    document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none'
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01')
+}
+</script>

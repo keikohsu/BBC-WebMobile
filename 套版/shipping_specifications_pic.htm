@@ -1,0 +1,211 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="javascript: location.href='{{$m_inURL}}&myAct=COMMAND_BACK';">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">寄件規範</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail admweb-v2-shipping_spec">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-order_delivery__inner pic-text-gray-100">
+    <div class="admweb-v2-order_detail__content">
+      <div class="admweb-v2-order_detail__card">
+        <p class="admweb-v2-shipping_spec-notice">
+          貼心重要提醒，寄送前請先確認是否符合寄件規範
+        </p>
+        <ul class="admweb-v2-shipping_spec-ul--square">
+          <li>
+            <span class="pic-text-red">寄件：請填寫寄件者及取件者「與證件相符之真實姓名」</span>，以確保雙方權益。
+          </li>
+          <li>
+            <span class="pic-text-red">取件：零元取件者需告知店員真實姓名，並「出示與貨品上取件者姓名相符且有照片之身份證明文件正本」，於單據上「簽名」後方可領取商品</span>
+            <ol class="admweb-v2-shipping_spec-ul--decimal">
+              <li>
+                身份證明文件：身分證、駕照、軍人證、護照、健保卡、居留證、識別證、學生證，影本、圖檔皆無法取件。
+              </li>
+              <li>
+                為確保雙方權益，若取件者未出示上述證件或拒絕簽名，門市無法提供取件服務
+              </li>
+            </ol>
+          </li>
+          <li>
+            完成寄件/取件交易後，恕無法取消寄件或換貨、退款、或退回貨品；寄件者寄件後無法要求提前退回貨品，如有取消寄件或換貨需求，須自行通知取件人不取件後退回原寄件門市。
+          </li>
+          <li>
+            收件範圍如下(若不符者門市將無法提供收件服務)，詳情請見
+            <a href="" class="pic-text-green">賣貨便服務條款</a>及<a href="" class="pic-text-green">幫助中心</a>物流相關內載名之禁運商品。
+            <ol class="admweb-v2-shipping_spec-ul--decimal">
+              <li>
+                材積：
+                <ul class="admweb-v2-shipping_spec-ul--disc">
+                  <li>
+                    常溫店取材積：需長+寬+高總長 ≦ 105cm以下，最長邊 ≦ 45 cm；重量不得超過 5 公斤。
+                  </li>
+                  <li>
+                    冷凍店取材積：須使用 7-ELEVEN 門市販售之冷凍寄件專用箱寄送；重量不得超過 10 公斤，且專用箱尺寸不得任意縮小、放大、變形、組合，若商品無法填滿冷凍寄件專用箱，請用大量緩衝材固定讓商品不至於晃動。
+                  </li>
+                  <li>
+                    常溫店到宅(黑貓宅配)材積：需長+寬+高總長 ≦ 150 cm以下；重量不得超過 20 公斤。
+                  </li>
+                  <li>
+                    冷凍店到宅(黑貓宅配)材積：需長+寬+高總長 ≦ 90 cm以下；重量不得超過 20 公斤。
+                  </li>
+                </ul>
+              </li>
+              <li>
+                包裝：
+                <ul class="admweb-v2-shipping_spec-ul--disc">
+                  <li>門市無提供包裝服務，請自行包裝</li>
+                  <li>
+                    可自備包材並完整包裝(貨品不外露)、上/下方平整且交貨便服務單可完整平貼於貨品上(服務單尺寸為 10 * 14 cm)
+                  </li>
+                  <li>
+                    常溫寄件可購買「交貨便寄件紙箱」或「交貨便寄件專用袋」
+                  </li>
+                  <li>
+                    冷凍店取寄件必須購買「冷凍交貨便寄件紙箱」
+                    <img
+                      src="{{$sys_arrWebsite.website_url}}css/images/bbc/shipping-specifications-img-1.jpg"
+                      alt="冷凍交貨便寄件紙箱"
+                      width="500"
+                      style="max-width: 500px; width: 100%; height: auto;"
+                    />
+                  </li>
+                  <li>為確保品質，不得將多箱貨品以任何形式捆挷為一箱</li>
+                  <li>
+                    箱內商品請妥善包裝運用足夠緩衝材使商品不晃動為主，若因包裝不良導致破損將無法求償。
+                  </li>
+                </ul>
+              </li>
+              <li>
+                禁運品項：繁不及備載內容詳見賣貨便服務條款及幫助中心物流相關之禁運商品
+                <ul class="admweb-v2-shipping_spec-ul--disc">
+                  <li>
+                    現金、有價證券、展演會票券、禮券、有價票券、易碎品(例如：玻璃製品、線香、瓷器、玉器、瓷磚、陶器、美妝品、燈泡燈管、長形易脆品、銅器、金屬製品、花盆、琺瑯製品、光碟片、DVD、CD、硬碟、眼鏡、模型公仔等)
+                  </li>
+                  <li>常溫寄件不可寄送生鮮蔬果魚肉食品、低溫或需恆溫控制商品</li>
+                  <li>限量不可複製品、重要文件、證件類</li>
+                  <li>活體動植物</li>
+                  <li>個人藥品</li>
+                  <li>精密儀器、 3C等貴重物品</li>
+                  <li>
+                    化學藥品、液體(例如：洗髮精、沐浴乳、乳液、洗面乳、洗衣精、清潔劑、飲料、保養品、醬油、牙膏、瓶裝水、鋁箔包、保久乳、髮膠、乳霜、凍狀類、凝膠類、膏狀類、乾洗手、黏土、糖漿、醬料類、酒精、果醬)
+                  </li>
+                  <li>非法禁運商品</li>
+                  <li>冷凍寄件禁運果汁、牛奶、優格、布丁、奶油、果凍、仙草、醬油、糖漿、濃縮液</li>
+                  <li>冷凍寄件禁運中藥、草藥、蛋糕、冰品、冰淇淋、客製化造型蛋糕</li>
+                  <li>冷凍寄件禁運自寄件日當日起算，在三日以內即容易變質、腐壞、損毀及功能喪失等貨品(即保存期限三日(含)內會腐敗之貨品</li>
+                  <li>冷凍寄件包裹須預冷 12 小時至冷凍狀態，且確認包裹未漏水方可寄件。</li>
+                </ul>
+              </li>
+              <li>
+                與寄件包裝規範不符之範例圖片
+                <ul class="admweb-v2-shipping_spec-ul--disc">
+                  <li>
+                    併箱
+                    <img
+                      src="{{$sys_arrWebsite.website_url}}css/images/bbc/shipping-specifications-img-2.jpg"
+                      alt="併箱"
+                      width="280"
+                    />
+                  </li>
+                  <li>
+                    上、下方不平整
+                    <img
+                      src="{{$sys_arrWebsite.website_url}}css/images/bbc/shipping-specifications-img-3.jpg"
+                      alt="上、下方不平整"
+                      width="280"
+                    />
+                  </li>
+                  <li>
+                    未妥善包裝
+                    <img
+                      src="{{$sys_arrWebsite.website_url}}css/images/bbc/shipping-specifications-img-4.jpg"
+                      alt="未妥善包裝"
+                      width="100"
+                    />
+                  </li>
+                  <li>
+                    使用交貨便服務單專用袋寄件
+                    <img
+                      src="{{$sys_arrWebsite.website_url}}css/images/bbc/shipping-specifications-img-5.jpg"
+                      alt="專用袋"
+                      width="100"
+                    />
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+          <li>
+            貨品送達時間會依每日物流排程或交通狀況略有差異，實際送達時間以賣貨便網站公告為主
+          </li>
+          <li>
+            常溫店取寄件範圍限台灣本島、澎湖離島、金門馬祖、蘭嶼綠島等，冷凍店取寄件範圍僅限台灣本島，部分特殊門市(如台鐵門市、高鐵門市等)無提供交寄包裹服務，實際寄送範圍以賣貨便網站公告為主(可能因疫情天災氣候而有所改變)。<br />
+            商品價格請照商品實際真實販售價格設定，遺失毀損將依訂單金額扣除運費理賠。
+          </li>
+          <li>
+            任何問題，歡迎透過客服專線(02)2721-4234、或賣貨便官方 LINE 帳號
+            <a href="" class="pic-text-green">@myship711</a>與我們聯繫(服務時間：週一至週五，09:00~18:00 例假日休息)
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="admweb-v2-order_detail__action admweb-v2-sp-hidden">
+      <button
+        class="admweb-v2-order_detail__action-btn"
+        onclick="javascript: location.href='{{$m_inURL}}&myAct=COMMAND_BACK';"
+      >
+        <i class="icons-line icon-arrow-left-01"></i>回上一頁
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+</script>

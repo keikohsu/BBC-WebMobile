@@ -1,0 +1,253 @@
+<style>
+.admweb-v2-orderlist__table {display: block;}
+.admweb-v2-orderlist__table--head{display: flex;width: 100%;}
+.admweb-v2-orderlist__table--head th{width: calc(100% / 3);padding: 12px 0;}
+.admweb-v2-window-content-scroll{overflow-x: hidden;}
+.admweb-v2-orderlist__table--tr{display: flex;width: 100%;}
+.admweb-v2-orderlist__table--tr td{width: calc(100% / 3);    padding: 12px 0;}
+.admweb-v2-orderlist__table--tr p{text-align: start;margin-right: 5px;    line-height: 27px;}
+.admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:first-child{width:60%;}
+.admweb-v2-orderlist__table thead{ width: 100%;display: block;}
+.admweb-v2-orderlist__table tbody{width: 100%;display: block;}
+.admweb-v2-EventMerchandise-checkbox-box span{padding-left: 5px;}
+.admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:first-child{    margin-left: 10px;}
+.admweb-v2-ProductWindow-bg.pic-window-bg {z-index: 199;}
+.admweb-v2-checkbox-name p{text-align: start;}
+.admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:nth-child(2) p{text-align: center;line-height: 40px;}
+.admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:nth-child(3){line-height: 40px;}
+.admweb-v2-EventMerchandise-window th:first-child{width: 60%;}
+@media screen and (max-width:768px){
+    .admweb-v2-orderlist__table--head th .admweb-v2-checkbox-name{margin-left: 4px;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:first-child{margin-left: 0px;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--head th{width: 35%;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--head th:nth-child(2) {height: 44px;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:nth-child(2) p{line-height: 20px; margin-top: 0px;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--head th:nth-child(3),.admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--head th:nth-child(2){width: 23%;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:nth-child(3),.admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:nth-child(2){line-height: 20px;width: 20%;display: flex;justify-content: center;align-items: center;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr td:first-child {height: 65px;}
+    .admweb-v2-EventMerchandise-window .admweb-v2-orderlist__table--tr { height: 65px;}
+    .admweb-v2-EventMerchandise-window th:first-child{width: 65%;padding-left: 5px;}
+    .admweb-v2-orderlist__table--tr .admweb-v2-ckbutton-green-label{width: 30px;}
+    .admweb-v2-orderlist__table--tr p{ line-height: 30px;margin-top: 7px;}
+}
+</style>
+<div id="admweb-v2-ProductWindow" class="admweb-v2-ProductWindow-bg pic-window-bg" style="display: none;">
+    <div class="admweb-v2-window-container admweb-v2-EventMerchandise-window">
+        <h2>
+            <i class="icons-line icon-line-box-product pic-margin-r5">
+            </i>選擇商品<a class="pic-window-close" onclick="close_add_product_box()"></a>
+        </h2>
+        <div class="admweb-v2-window-content-scroll pic-margin-t10">
+            <table class="admweb-v2-orderlist__table">
+                <thead>
+                    <tr class="admweb-v2-orderlist__table--head">
+                        <th>
+                            <div class="admweb-v2-EventMerchandise-checkbox-box">
+                                <div class="admweb-v2-checkbox-name">
+                                    <div class="pd-check-box">
+                                        <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_all">
+                                        <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_all"></label>
+                                    </div>
+                                    <span>商品</span> 
+                                </div>
+                                <!-- {{if $mobileDeviceDirected}}
+                                商品
+                                {{else}}
+                                商品
+                                {{/if}} -->
+                            </div>
+                        </th>
+                        <th>規格</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="pic-confirm-box pic-flex-center pic-line-light15">
+            <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-white-green pic-margin-r5" href="javascript:close_add_product_box();">
+                <i class="icons-line icon-line-X"></i>取消</a>
+            <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-green pic-margin-l5" href="javascript:confirm_product_checked();">
+                <i class="icons-line icon-line-tick"></i>確認</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const prod_lightbox = $("#admweb-v2-ProductWindow");
+    const ck_all_btn = $("#ckbutton-id_all");
+
+    var obj_wmkt_prod = {}, arr_wmkt_prod = arr_wmkt_puid = checked_prod_uid = [];
+
+    function open_add_product_box() {
+        prod_lightbox.show();
+    }
+
+    function close_add_product_box() {
+        prod_lightbox.hide();
+        prod_lightbox.find("input[type=checkbox][name=prod_uid]:checked").prop('checked', false);
+
+        let checked_prod_uid = [];
+        if (sessionStorage.getItem('checked_prod_uid') != null) {
+            checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+        }
+
+        checked_prod_uid.forEach(ele => {
+            check_puid_in_lightbox(ele);
+        });
+    }
+
+    $(function () {
+        get_all_products();
+    });
+
+    function get_all_products() {
+        let myAct = '{{$get_all_products_myAct}}'!='' ? '{{$get_all_products_myAct}}' : 'GET_WMKT_PRODUCT';
+        $.ajax({
+            type: "post",
+            url: "{{$sys_arrWebsite.website_url}}api/api.product.php",
+            async: false,
+            data: {
+                myAct: myAct,
+                web_uid: {{ $sys_arrWebsite.web_uid }},
+                prod_category: 1,
+            },
+            dataType: "json",
+            success: function (re) {
+                if (re.msg == 'OK') {
+                    obj_wmkt_prod = re.obj;
+                    arr_wmkt_prod = re.arr;
+                    arr_wmkt_puid = re.puid;
+                    arr_wmkt_prod.forEach(e => {
+                        lightbox_prod_html(e);
+                    });
+                }
+            },
+            error: function (re) {
+            }
+        });
+    }
+
+    function lightbox_prod_html(e) {
+        let prod_type_htm = '';
+        
+        if(e.prod_type == 3) prod_type_htm = '<span class="pic-sort-color-orange pic-sort-frame"><i class="icons-line icon-line-General"></i>常溫</span>';
+        else if(e.prod_type == 10) prod_type_htm = ' <span class="pic-sort-color-light-green pic-sort-frame"><i class="icons-line icon-line-Fridge"></i>冷藏</span>';
+        else if(e.prod_type == 11) prod_type_htm = '<span class="pic-sort-color-blue pic-sort-frame"><i class="icons-line icon-line-Freezing"></i>冷凍</span>';
+
+        let htm = `<tr class="admweb-v2-orderlist__table--tr" uid='${e.prod_uid}'>
+            <td>
+                <div class="admweb-v2-checkbox-name pic-margin-r10">
+                    <div class="pd-check-box">
+                        <input type="checkbox" name='prod_uid' class="admweb-v2-ckbutton-green-checkbox" value="${e.prod_uid}" id="prod_${e.prod_uid}">
+                        <label class="admweb-v2-ckbutton-green-label pic-margin-r" for="prod_${e.prod_uid}"></label>
+                    </div>
+                {{if $mobileDeviceDirected}}
+                   <p class="pic-OneRow-simplify-2"> ${prod_type_htm} <br/> ${e.prod_name}</p>
+                </div>
+                {{else}}
+                </div>
+                <p class="pic-OneRow-simplify"> ${prod_type_htm} ${e.prod_name}</p>         
+                {{/if}}
+            </td>
+            <td><p class="pic-OneRow-simplify">${e.prod_spec_cus}</p></td>
+            <td>$${e.prod_selling_price}</td>
+        </tr>`;
+        prod_lightbox.find("tbody").append(htm);
+    }
+
+    ck_all_btn.click(function (e) {
+        if ($(this).prop("checked")) {
+            prod_lightbox.find("input[type=checkbox]").each(function () {
+                $(this).prop("checked", true);
+            });
+        } else {
+            prod_lightbox.find("input[type=checkbox]").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+
+    prod_lightbox.on('click', '.admweb-v2-checkbox-name', function () {
+        if (prod_lightbox.find("input[type=checkbox][name=prod_uid]:checked").length == arr_wmkt_prod.length)
+            ck_all_btn.prop('checked', true);
+        else
+            ck_all_btn.prop('checked', false);
+    });
+
+    function confirm_product_checked() {
+        let checked_prod_uid = [];
+
+        prod_lightbox.find("input[type=checkbox][name=prod_uid]:checked").each(function () {
+            var prod_uid = $(this).attr('id').substr(5);
+            checked_prod_uid.push(prod_uid);
+        });
+
+        checked_prod_uid = JSON.stringify(checked_prod_uid);
+        sessionStorage.setItem('checked_prod_uid', checked_prod_uid);
+        prod_lightbox.hide();
+    }
+
+    //{{********** 選取 反選 lightbox中的商品 **********}} 
+    function check_puid_in_lightbox(prod_uid, checked) {
+        checked = (checked == null) ? true : checked;
+        prod_lightbox.find(`tr[uid=${prod_uid}] input[type=checkbox]`).prop('checked', checked);
+        if (checked === false) {
+            let checked_prod_uid = [];
+            if (sessionStorage.getItem('checked_prod_uid') != null) {
+                checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+            }
+
+            let idx = checked_prod_uid.indexOf(`${prod_uid}`)
+            delete checked_prod_uid[idx];
+            checked_prod_uid = checked_prod_uid.filter(function (ele) { return ele; });
+            checked_prod_uid = JSON.stringify(checked_prod_uid);
+            sessionStorage.setItem('checked_prod_uid', checked_prod_uid);
+        }
+    }
+
+    //{{********** 選中的商品 從lightbox隱藏 **********}} 
+    function hide_product_from_lightbox(prod_uid) {
+        prod_lightbox.find(`tr[uid=${prod_uid}]`).hide();
+    }
+
+    //{{********** 重新顯示商品 從lightbbox 顯示 **********}} 
+    function show_product_to_lightbox(prod_uid) {
+        prod_lightbox.find(`tr[uid=${prod_uid}]`).show();
+    }
+
+    {{*
+
+    // 以下這段是用來取出被選中的商品
+    // 請將以下程式寫在嵌入本檔案的程式中 並依照需求修改
+
+    const intersectionObserver = new IntersectionObserver((entries) => {
+            if (entries[0].intersectionRatio <= 0) { // 關閉視窗
+                if (sessionStorage.getItem('checked_prod_uid') != null) {
+                    // sessionStorage.getItem('checked_prod_uid') 是user按下確認時 lightbox中勾選的商品
+                    checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+
+                } else {
+                    checked_prod_uid = [];
+                }
+
+                checked_prod_uid.forEach(ele => {
+                    // obj_wmkt_prod[ele] 即為選中的商品物件 
+                });
+            } else { // 開啟視窗
+
+            }
+        });
+
+            intersectionObserver.observe(document.querySelector('#admweb-v2-ProductWindow'));
+
+    *}}
+
+    $(function (){
+        window.addEventListener('unload', function () {
+            sessionStorage.removeItem('checked_prod_uid')
+        });
+    })
+
+</script>

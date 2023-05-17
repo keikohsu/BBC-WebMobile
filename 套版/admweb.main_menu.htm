@@ -1,0 +1,108 @@
+
+<!-- 一組功能選單 -->
+{{section name=i loop=$m_arrWebUseMenu_m}}
+<div class="admweb-v2-seller-front-left admweb_web_menu">
+	<div id="admweb-v2-ListDown-title-1" class="admweb-v2-ListDown-btn admweb-v2-seller-title-white-box-left admweb-v2-border-bottom">
+		<div class="admweb-v2-ListDown-title">
+			<div class="admweb-v2-list"><i class="icons-line {{$m_arrWebUseMenu_m[i].web_use_icon}}"></i>{{$m_arrWebUseMenu_m[i].web_use_name}}</div>
+			<div class="pic-icon-black-arrows-rotate-up pic-arrows-rotate pic_margin-r5"></div>
+		</div>
+	</div>
+	<!-- 下拉功能選單 -->
+	<ul id="admweb-v2-ListDown-1" class="admweb-v2-ListDown" style="display: none;">
+	{{getWebUseMenuByWuidPuidPers web_use_uid=$m_arrWebUseMenu_m[i].web_use_uid}}
+	{{foreach from=$m_arrWebUseMenu_s item=i key=k}}
+		{{if $i.web_use_action == "assigntoweb"}}{{assign var="assign2webBox" value="1"}}{{/if}}
+		{{if $i.web_use_action == "product_q_and_a"}}{{assign var="productQA" value="1"}}{{/if}}
+		<li class="admweb_web_menu"><a href="{{$i.web_use_path}}">{{$i.web_use_name}}</a></li>
+	{{/foreach}}
+	</ul>
+</div>
+<!-- 下拉功能選單 end-->
+{{/section}}
+<div class="admweb-v2-seller-front-left">
+	<div id="admweb-v2-ListDown-title-1" class="admweb-v2-ListDown-btn admweb-v2-seller-title-white-box-left admweb-v2-border-bottom">
+		<div class="admweb-v2-ListDown-title">
+			{{if $m_arrSystem.is_app_mode}}
+				<div class="admweb-v2-list"><i class="icons-line icon-line-Index"></i><a style="color: var(--pic-color-grey-100);" onclick="{
+					let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+					let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+					if (isAndroid) {
+						window.JavaScriptInterface.backToSellerCenter('menu');
+					} else if (isiOS) {
+						window.webkit.messageHandlers.backToSellerCenter.postMessage('menu');
+					}
+				}">回賣家中心首頁</a></div>
+			{{else}}
+				<div class="admweb-v2-list"><i class="icons-line icon-line-Index"></i><a style="color: var(--pic-color-grey-100);" href="{{$sys_arrWebsite.website_url_admweb}}admweb.main.php">回賣家中心首頁</a></div>
+			{{/if}}
+		</div>
+	</div>
+</div>
+<div class="pic-confirm-box admweb-v2-confirm-box-logo pic-flex-center-column pic-icon-margin-r pic-line-light15">
+	{{if $m_arrSystem.is_app_mode}}
+		<span class="pic-margin-b8"><a class="pic-btn-newstore-100 pic-BgText-color-orange admweb-v2-seller-711-LOGO" onclick="{
+			let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+			let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			if (isAndroid) {
+				window.JavaScriptInterface.toMyShip();
+			} else if (isiOS) {
+				window.webkit.messageHandlers.toMyShip.postMessage('');
+			}
+        }">前往</a></span>
+	{{else}}
+		<span class="pic-margin-b8"><a class="pic-btn-newstore-100 pic-BgText-color-orange admweb-v2-seller-711-LOGO" href="https://myship.7-11.com.tw/Home/Main" target="_blank">前往</a></span>
+	{{/if}}
+	<span><a class="pic-btn-newstore-100 pic-BgText-color-green admweb-v2-iopen-mall-LOGO" href="https://mall.iopenmall.tw/website/uploads/manual.pdf" target="_blank"><span>教學手冊</span></a></span>
+</div>
+
+<script>
+	$(".admweb-v2-ListDown-btn").click(function () {
+		$(this).toggleClass("admweb-v2-border-bottom");
+		$(this).find(".pic-icon-black-arrows-rotate-up").toggleClass("pic-arrows-rotate");
+		$(this).next("ul").slideToggle();
+	})
+
+	// $("#admweb-v2-ListDown-1").show()
+	// $(".pic-phone-open-menu").addClass();
+	// $("#pic-OpenHamburger-ShowLogout").hide()
+	$("#pic-menu-open").click(function () {
+		$(".admweb-v2-seller-front-left-box").toggleClass("pic-phone-open-menu");
+		$(".pic-header-right .pic-header-go-store").toggle();
+		$(".pic-header-right .admweb-v2-shop-DropMenu-box").toggle();
+		$(".pic-header-right .admweb-v2-head-btn-notice").toggle();
+		$("#admweb-v2-OpenHamburger-ShowLogout").toggle();
+
+		$(".pic-head-top-box").toggleClass("iopen-head-phone-top-box");
+	});
+
+var FunctionMenuName = false;
+var HtmlHeaderTitle = $('.admweb-v2-orderlist-header-title').html()
+
+$('.admweb-v2-orderlist-header-actions .icon-line-hamburger').on('click', function() {
+    FunctionMenuName = !FunctionMenuName;
+		$(".admweb-v2-orderlist-header-title").text(FunctionMenuName ? '賣家功能選單' : HtmlHeaderTitle);
+		$("body").toggleClass('disscroll');
+		$(".admweb-v2-orderlist-header-qrcode").toggle();
+});
+</script>
+
+{{checkWebInfo}}
+<!--{{* 檢查是否可使用賣家功能 *}}-->
+{{if $unfinished_webInfo.status}}
+<script type="text/javascript">
+	$(function(){
+		if(`{{$unfinished_webInfo.btn_path}}` != ''){
+			$('#alert_close').attr('href', `{{$unfinished_webInfo.btn_path}}`).text(`{{$unfinished_webInfo.btn_content}}`);
+
+			alert(`{{$unfinished_webInfo.errMsg}}`);
+		}
+	});
+
+	$(".admweb_web_menu").click(function(){
+		$(".admweb_web_menu > a").removeAttr("href");
+		alert(`{{$unfinished_webInfo.errMsg}}`);
+	});
+</script>
+{{/if}}
+<!--{{* 檢查是否可使用賣家功能 END *}}-->

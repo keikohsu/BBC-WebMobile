@@ -1,0 +1,186 @@
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button type='button' onclick="location.href='{{$pre_url}}';">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">提出爭議</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100 pic-text-gray-100">
+    <div data-tab-panels>
+      {{if !$order_dispute_info}}
+      <div class="admweb-v2-order_detail__content">
+        <form method="post" action="" onsubmit="return _check_info();">
+        <section class="admweb-v2-store_delivery__card">
+          <div class="admweb-v2-order_detail__card--title">
+            <h3>
+              <i class="
+                  icons-line
+                  icon-line-Comment
+                  pic-margin-r5
+                  admweb-v2__icon-xl
+                "
+              ></i>提出爭議
+            </h3>
+          </div>
+          <fieldset class="pic-margin-t5">
+            <div class="admweb-v2-store_delivery__fieldset">
+              <legend class="admweb-v2-store_delivery__fieldset-legend">
+                <span class="pic-GeneralStore-red">*</span>爭議類型
+              </legend>
+              <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                <select name="dispute_reason" class="pic-text-lnput pic-text-lnput-style">
+                  {{foreach from=$dispute_reason key=reason_val item=reason_desc}}
+                  <option value="{{$reason_val}}">{{$reason_desc}}</option>
+                  {{/foreach}}
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="admweb-v2-store_delivery__fieldset">
+              <legend class="admweb-v2-store_delivery__fieldset-legend">
+                <span class="pic-GeneralStore-red">*</span>爭議內容
+              </legend>
+              <div class="admweb-v2-store_delivery__fieldset-fields-type2">
+                <textarea name="dispute_memo"
+                  class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter"
+                  placeholder="請輸入文字說明..."
+                ></textarea>
+              </div>
+            </div>
+          </fieldset>
+        </section>
+        <div class="admweb-v2-store_delivery__actions">
+          <div class="admweb-v2-order_detail__action">
+            <button class="admweb-v2-order_detail__action-btn admweb-v2-orderlist__action-row_btn" type='button' onclick="location.href='{{$pre_url}}';">
+              <i class="icons-line icon-arrow-left-01 admweb-v2__icon-xs" style="font-weight: bold;"></i> 回上一頁
+            </button>
+            <button
+              class="
+                admweb-v2-order_detail__action-btn
+                admweb-v2-order_detail__action-btn--sp-row
+              "
+              type="submit"
+            >
+              <i class="icons-line icon-line-tick"></i>送出
+              <input type="hidden" name="myAct" value="COMMAND_DISPUTE">
+            </button>
+          </div>
+        </div>
+        </form>
+      </div>
+      {{else}}
+      <!-- 提出爭議完成後 顯示此區塊 -->
+      <div class="admweb-v2-order_detail__content">
+        <section class="admweb-v2-order_detail__line_card">
+          <div class="admweb-v2-order_detail__line_card--title">
+            <h3>
+              <i
+                class="
+                  icons-line
+                  icon-line-Comment
+                  pic-margin-r5
+                  admweb-v2__icon-xl
+                "
+              ></i>提出爭議
+            </h3>
+          </div>
+          <div class="admweb-v2-order_detail__line_card--form">
+            <dl
+              class="admweb-v2-order_delivery__info"
+              style="--custom-grid-width: 96px"
+            >
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">
+                  提出爭議時間
+                </dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  {{$order_dispute_info.create_date}}
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">爭議類型</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  {{$order_dispute_info.dispute_reason}}
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">爭議內容</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  {{m_UBBCode s=$order_dispute_info.dispute_memo}}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+        <div class="admweb-v2-store_delivery__actions">
+          <div class="admweb-v2-order_detail__action">
+            <button class="admweb-v2-order_detail__action-btn admweb-v2-orderlist__action-row_btn" type='button' onclick="location.href='{{$pre_url}}';">
+              <i class="icons-line icon-arrow-left-01 admweb-v2__icon-xs" style="font-weight: bold;"></i> 回上一頁
+            </button>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+
+  function _check_info()
+  {
+    if($("textarea[name='dispute_memo']").val().trim() == ''){
+      alert("請輸入爭議內容！");
+      return false;
+    }
+  }
+</script>

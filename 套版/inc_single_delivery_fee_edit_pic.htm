@@ -1,0 +1,621 @@
+<style>
+    /* 活動規則 */
+    .admweb-v2-eventRule .admweb-v2-settings-frame-RadioBox {
+        flex-direction: column;
+    }
+
+    .admweb-v2-eventRule .admweb-v2-eventRule_radio {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 5px;
+    }
+
+    .admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 0;
+        padding: 0 5px;
+        background: #EDFBF7;
+        border-radius: 8px;
+    }
+
+    .admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input .pic-text-lnput {
+        width: 200px;
+    }
+
+    .admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input span {
+        margin: 12px;
+    }
+
+    .admweb-v2-eventRule .admweb-v2-content-enter.admweb-v2-eventRule_input span:nth-child(1) {
+        margin-left: 0;
+    }
+
+    /* 活動圖片 */
+    .admweb-v2-eventAddPhoto .pic-AddImag {
+        width: 270px;
+    }
+
+    /* 活動時間 */
+    .admweb-v2-eventTime span.admweb-v2-DateBox.iopen-icon-date.pic-margin-r5 {
+        width: 174px;
+    }
+
+    .admweb-v2-eventTime .admweb-v2-input-date-content_title {
+        margin-right: 9px;
+    }
+
+    .admweb-v2-eventTime .admweb-v2-DateNotation {
+        margin: 0 9px;
+    }
+</style>
+
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+
+    <!-- 右側內容 Start -->
+    <div class="admweb-v2-adjustment">
+        <form id="formWdfe" name="formWdfe" action="" method="post" onsubmit="return _CS_checkAdd(this);"
+              enctype="multipart/form-data">
+            <!------------------------------------ 活動基本設定 Start -------------------------------------->
+            <div class="admweb-v2-settings-frame pic-margin-10">
+                <div class="admweb-v2-NewProduct-title">
+                    <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>活動基本設定</h2>
+                </div>
+                <!-- 活動名稱 -->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>活動名稱</p>
+                        <span id="webdvr_evt_title-length" class="pic-quantity">0/20</span>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <input type="text" class="pic-text-lnput pic-lnput-enter" id="webdvr_evt_title"
+                               name="webdvr_evt_title" maxlength="20" placeholder="請輸入活動名稱"
+                               value="{{$m_arrWebsiteDeliveryFreeEvent.webdvr_evt_title}}">
+                        <p class="pic-red-text-restrict" id="text_over" style="display: none;">字數不能超過20個字</p>
+                        <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                    </li>
+                </ul>
+                <!-- 運送溫層 -->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>運送溫層</p>
+                    </li>
+                    <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                        <div class="admweb-v2-radio-green-box">
+                            <label class="admweb-v2-label-green" for="prod_type3">
+                                <input class="admweb-v2-radio-green" type="radio" id="prod_type3" name="prod_type"
+                                       value="3" {{if $m_arrWebsiteDeliveryFreeEvent.prod_type==3}}checked{{/if}}/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                常溫
+                            </label>
+                        </div>
+                        <div class="admweb-v2-radio-green-box">
+                            <label class="admweb-v2-label-green" for="prod_type10">
+                                <input class="admweb-v2-radio-green" type="radio" id="prod_type10" name="prod_type"
+                                       value="10" {{if $m_arrWebsiteDeliveryFreeEvent.prod_type==10}}checked{{/if}}/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                冷藏
+                            </label>
+                        </div>
+                        <div class="admweb-v2-radio-green-box">
+                            <label class="admweb-v2-label-green" for="prod_type11">
+                                <input class="admweb-v2-radio-green" type="radio" id="prod_type11" name="prod_type"
+                                       value="11" {{if $m_arrWebsiteDeliveryFreeEvent.prod_type==11}}checked{{/if}}/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                冷凍
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>運送方式</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10 pic-margin-t10">
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="d_type_0">
+                                    <input class="admweb-v2-radio-green" type="radio" id="d_type_0" name="delivery_type_all"
+                                           value="0" {{if $m_arrWebsiteDeliveryFreeEvent.delivery_type==0}}checked{{/if}}/>
+                                    <div class="admweb-v2-label-check-green"></div>
+                                    全部
+                                </label>
+                            </div>
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="d_type">
+                                    <input class="admweb-v2-radio-green" type="radio" id="d_type" name="delivery_type_all"
+                                           value="1" {{if $m_arrWebsiteDeliveryFreeEvent.delivery_type!=0}}checked{{/if}}/>
+                                    <div class="admweb-v2-label-check-green"></div>
+                                    指定
+                                </label>
+                            </div>
+                        </div>
+                        <div class="admweb-v2-settings-frame-CheckBox">
+                            {{foreach from=$m_arrWebsiteDelivery item=website_delivery}}
+                            <div class="admweb-v2-checkbox-name pic-margin-b10 delivery_type prod_type_{{$website_delivery.prod_type}}">
+                                <input type="radio" name="delivery_type" class="admweb-v2-ckbutton-green-checkbox"
+                                       id="d_type_{{$website_delivery.webdvr_uid}}"
+                                       value="{{$website_delivery.delivery_type}}"
+                                       {{if $m_arrWebsiteDeliveryFreeEvent.delivery_type==$website_delivery.delivery_type && $m_arrWebsiteDeliveryFreeEvent.prod_type==$website_delivery.prod_type}}checked{{/if}}>
+                                <label class="admweb-v2-ckbutton-green-label"
+                                       for="d_type_{{$website_delivery.webdvr_uid}}"></label>
+                                <p>{{$website_delivery.webdvr_title}}</p>
+                            </div>
+                            {{/foreach}}
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- 活動時間-->
+                <ul class="admweb-v2-outside-white-box admweb-v2-eventTime">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>活動時間</p>
+                    </li>
+                    <li class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+                        <div class="admweb-v2-input-date-content">
+                            <div class="admweb-v2-input-date-content_title">起始時間</div>
+                            <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                              <input id="webdvr_evt_sdate_d" class="pic-text-lnput datepicker" type="text"
+                                     value="{{$m_arrWebsiteDeliveryFreeEvent.webdvr_evt_sdate|date_format:'%Y/%m/%d'}}"
+                                     onchange="setTime('webdvr_evt_sdate')" readonly>
+                            </span>
+
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="webdvr_evt_sdate_h"
+                                    onchange="setTime('webdvr_evt_sdate')">
+                                {{section name=i loop=24 start=0}}
+                                <option {{if $m_arrWebsiteDeliveryFreeEvent.webdvr_evt_sdate|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                            <div class="admweb-v2-DateNotation">:</div>
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="webdvr_evt_sdate_m"
+                                    onchange="setTime('webdvr_evt_sdate')">
+                                {{section name=i loop=60 start=0}}
+                                <option {{if $m_arrWebsiteDeliveryFreeEvent.webdvr_evt_sdate|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                            <div class="admweb-v2-DateNotation">-</div>
+                            <div class="admweb-v2-input-date-content_title">結束時間</div>
+                            <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                              <input id="webdvr_evt_edate_d" class="pic-text-lnput datepicker" type="text"
+                                     value="{{$m_arrWebsiteDeliveryFreeEvent.webdvr_evt_edate|date_format:'%Y/%m/%d'}}"
+                                     onchange="setTime('webdvr_evt_edate')" readonly>
+                            </span>
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="webdvr_evt_edate_h"
+                                    onchange="setTime('webdvr_evt_edate')">
+                                {{section name=i loop=24 start=0}}
+                                <option {{if $m_arrWebsiteDeliveryFreeEvent.webdvr_evt_edate|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                            <div class="admweb-v2-DateNotation">:</div>
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="webdvr_evt_edate_m"
+                                    onchange="setTime('webdvr_evt_edate')">
+                                {{section name=i loop=60 start=0}}
+                                <option {{if $m_arrWebsiteDeliveryFreeEvent.webdvr_evt_edate|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                        </div>
+                    </li>
+                    <input type="hidden" id="webdvr_evt_sdate" name="webdvr_evt_sdate" value="{{$m_arrWebsiteDeliveryFreeEvent.webdvr_evt_sdate}}">
+                    <input type="hidden" id="webdvr_evt_edate" name="webdvr_evt_edate" value="{{$m_arrWebsiteDeliveryFreeEvent.webdvr_evt_edate}}">
+                </ul>
+
+                <!-- 狀態 -->
+                <ul class="admweb-v2-outside-white-box">
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>狀態</p>
+                    </li>
+                    <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                        <div class="admweb-v2-radio-green-box">
+                            <label class="admweb-v2-label-green" for="webdvr_evt_status_1">
+                                <input class="admweb-v2-radio-green" type="radio" id="webdvr_evt_status_1"
+                                       name="webdvr_evt_status" value="1"
+                                       {{if $m_arrWebsiteDeliveryFreeEvent.webdvr_evt_status!=0}}checked{{/if}}/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                有效
+                            </label>
+                        </div>
+                        <div class="admweb-v2-radio-green-box">
+                            <label class="admweb-v2-label-green" for="webdvr_evt_status_0">
+                                <input class="admweb-v2-radio-green" type="radio" id="webdvr_evt_status_0"
+                                       name="webdvr_evt_status" value="0"
+                                       {{if $m_arrWebsiteDeliveryFreeEvent.webdvr_evt_status==0}}checked{{/if}}/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                無效
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 新增商品 -->
+            <div class="admweb-v2-settings-frame pic-margin-10 product_list">
+                <div class="admweb-v2-NewProduct-title">
+                    <h2 class="admweb-v2-SettingsTitle">
+                        <i class="icons-line icon-line-box-product"></i>
+                        <text id="item_count">活動商品(0/100)</text>
+                    </h2>
+                    <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" onclick="WindowOpen()">
+                        <i class="icons-line icon-line-add" style="font-size: 14px;"></i>新增商品
+                    </a>
+                </div>
+                <p class="pic-text-warn">消費者購物車內只要有加入"免運商品"且購物車金額達免運門檻，整筆訂單即免運。</p>
+                {{if $m_arrWebsiteDeliveryFreeEvent.product|@count>0 && !$smarty.get.add_wdfe}}
+                {{foreach from=$m_arrWebsiteDeliveryFreeEvent.product item=product}}
+                <div class="admweb-v2-EventMerchandise-ProductBox product_box" id="product_box_{{$product.prod_uid}}">
+                    {{if $product.prod_category==5 or $product.prod_category==6 or $product.prod_display==0 or $product.prod_marketing==0}}
+                    <div class="admweb-v2-EventMerchandise-state pic_warn_mask">
+                        <h2>商品不適用此行銷活動</h2>
+                        <p class="pic-text-warn">{{$product.text_warn}}</p>
+                        <div class="admweb-v2-icon-right">
+                            <a href="javascript:delete_product('{{$product.prod_uid}}','{{$product.webdvr_evt_pd_uid}}')"
+                               class="iopen-icon-black-delete"></a>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="admweb-v2-EventMerchandise-state prod_type_mask_{{$product.prod_type}}" style="display: none;">
+                        <h2>商品不適用此行銷活動</h2>
+                        <p class="pic-text-warn">※需和運送溫層相同才能參加行銷活動</p>
+                        <div class="admweb-v2-icon-right">
+                            <a href="javascript:delete_product('{{$product.prod_uid}}','{{$product.webdvr_evt_pd_uid}}')"
+                               class="iopen-icon-black-delete"></a>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    <input type="hidden" name="webdvr_evt_pd_uid[{{$product.prod_uid}}]" value="{{$product.webdvr_evt_pd_uid}}">
+                    <input type="hidden" name="prod_uid_list[]" value="{{$product.prod_uid}}">
+                    <img class="pic-margin-r10" src="{{$product.prod_file}}">
+                    <div class="admweb-v2-product-name">
+                        <h2>{{$product.prod_name}}</h2>
+                        <div class="admweb-v2-product-detail">
+                            {{if $product.prod_spec_str}}<span>規格：{{$product.prod_spec_str}}</span>{{/if}}
+                            <span>${{$product.prod_selling_price}}</span>
+                        </div>
+                    </div>
+                    <div class="admweb-v2-icon-right">
+                        <a href="javascript:delete_product('{{$product.prod_uid}}','{{$product.webdvr_evt_pd_uid}}')"
+                           class="iopen-icon-black-delete"></a>
+                    </div>
+                </div>
+                {{/foreach}}
+                {{else}}
+                <div class="admweb-v2-NoData">
+                    <div class="admweb-v2-img-BlacklistNoData"></div>
+                    <span>沒有任何商品資料</span>
+                </div>
+                {{/if}}
+            </div>
+
+            <!--新增商品 視窗 -->
+            {{include file="admweb_2/add_wmkt_product_pic.htm"}}
+
+
+            <!------------------------------------ 活動基本設定 End -------------------------------------->
+
+            <!-- 右側內容 End-->
+
+            <!------------------------------------ 底部按鈕 Start -------------------------------------->
+            <div class="admweb-v2-orderlist__action">
+                <a class="admweb-v2-I-Btn pic-BgText-color-white-green" href="javascript:void(0);"
+                   onclick="cancel_btn()">
+                    <i class="icons-line icon-line-X"></i>取消
+                </a>
+                <a id="save_button" class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0);"
+                   onclick="$('#formWdfe').submit()">
+                    <i class="icons-line icon-line-tick"></i>儲存
+                </a>
+            </div>
+            <!------------------------------------ 底部按鈕 End -------------------------------------->
+            <input type="hidden" name="myAct" value="">
+        </form>
+    </div>
+</div>
+
+<script>
+    function WindowOpen() {
+        $("#admweb-v2-ProductWindow").show()
+    }
+
+    function WindowClose() {
+        $(".pic-window-bg").hide()
+    }
+
+    var wdfe_checked_puid;
+    /********************
+     　計算 input 內容長度
+     ********************/
+    $(function(){
+        var inInput = $("#webdvr_evt_title");
+        document.getElementById('webdvr_evt_title').addEventListener('input', function (){
+            inputLength(this);
+        })
+        inputLength(inInput);
+    });
+
+    //*** 內容長度呈現 ******
+    function inputLength(ele){
+        var length = $(ele).val().length;
+        var maxlength = $(ele).attr("maxlength");
+        var div_id = $(ele).attr("name")+"-length";
+        document.getElementById(div_id).innerText = length + "/" + maxlength;
+        if(length>=20) $('#text_over').show();
+        else $('#text_over').hide();
+        setButtonStatus();
+    };
+
+    $(document).ready(function(){
+        /*{{* 設定 datepicker 套件在碰到視窗底部後不反轉 *}}*/
+        $.extend($.datepicker, {
+            _checkOffset: function(inst, offset, isFixed) {
+                return offset;
+            }
+        });
+        $(".datepicker").datepicker({
+            dateFormat: 'yy/mm/dd',
+            changeYear: true,
+            changeMonth: true,
+            monthNamesShort: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+            dayNamesMin: ['日','一','二','三','四','五','六'],
+            minDate: null,
+            yearRange: '2023:2050',
+            position: { my: "left top", at: "left bottom", collision: "none" }
+        }).attr('size', 10);
+
+        $("#webdvr_evt_sdate_d").datepicker("option","onClose",function(dateText,inst){
+            $("#webdvr_evt_edate_d").datepicker("option","minDate",dateText);
+        });
+        $("#webdvr_evt_edate_d").datepicker("option","onClose",function(dateText,inst){
+            $("#webdvr_evt_sdate_d").datepicker("option","maxDate",dateText);
+        });
+
+        if('{{$smarty.get.add_wdfe}}'=='1'){
+            $("input[name='myAct']").val('COMMAND_ADD');
+        } else {
+            $("input[name='myAct']").val('COMMAND_EDIT');
+            setButtonStatus();
+        }
+
+        /*{{* 選擇商品 *}}*/
+        wdfe_checked_puid = {{$arr_website_delivery_free_event_prod_uid_list|@json_encode}};
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            if(entries[0].intersectionRatio <= 0){ // 關閉視窗
+                if(sessionStorage.getItem('checked_prod_uid')!=null){
+                    checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+                }else{
+                    checked_prod_uid = wdfe_checked_puid;
+                    $('input[name="prod_uid"]').prop('checked',false);
+                    $(".product_box").each(function (){
+                        check_puid_in_lightbox($(this).find("input[name='prod_uid_list[]']").val())
+                    });
+                }
+
+                if(checked_prod_uid.length + $('.pic_warn_mask').length > 100){
+                    alert('超過總選擇商品數量上限100個，請重新選取').done(function(){
+                        open_add_product_box();
+                    });
+                    return false;
+                } else {
+                    checked_prod_uid.forEach(ele => {
+                        if (wdfe_checked_puid.indexOf(ele) < 0) {
+                            wdfe_checked_puid.push(ele);
+                            add_product(obj_wmkt_prod[ele])
+                        }
+                    });
+                    setProdType();
+
+                    $(wdfe_checked_puid).not(checked_prod_uid).toArray().forEach(p_uid => {
+                        if($("#product_box_"+p_uid).find('.pic_warn_mask').length==0) {
+                            delete_product_unit(p_uid, $("input[name='webdvr_evt_pd_uid[" + p_uid + "]'").val());
+                        }
+                    })
+                }
+            }
+        });
+        intersectionObserver.observe(document.querySelector('#admweb-v2-ProductWindow'));
+        /*{{* 選擇商品END *}}*/
+
+        /*{{* 溫層事件判斷 *}}*/
+        $("input[name='prod_type']").on('change', function (){
+            $("input[name='delivery_type']").prop('checked', false);
+            setProdType();
+        })
+        $("input[name='delivery_type_all']").on('change', function (){
+            $("input[name='delivery_type']").prop('checked', false);
+            setProdType();
+        })
+        $("input[name='delivery_type']").on('change', function (){
+            setButtonStatus();
+        })
+        setProdCount();
+        setProdType();
+    });
+
+    function setProdType(){
+        $("input[name='delivery_type']").parents(".delivery_type").hide();
+        // 運送方式選項
+        if($("input[name='delivery_type_all']:checked").val()!='0'){
+            if($("input[name='prod_type']:checked").val()=='3'){
+                if($(".prod_type_3").length>0){
+                    $(".prod_type_3").show();
+                } else {
+                    alert('目前尚未設定運送方式，<br>請先至金物流設定進行設定，<br>才可啟用此功能。').done(function(){
+                            $("#d_type_0").prop('checked',true);
+                            setButtonStatus();
+                        }
+                    );
+                }
+            } else if($("input[name='prod_type']:checked").val()=='10') {
+                if($(".prod_type_10").length>0){
+                    $(".prod_type_10").show();
+                } else {
+                    alert('目前尚未設定運送方式，<br>請先至金物流設定進行設定，<br>才可啟用此功能。').done(function(){
+                            $("#d_type_0").prop('checked',true);
+                            setButtonStatus();
+                        }
+                    );
+                }
+            } else if($("input[name='prod_type']:checked").val()=='11') {
+                if($(".prod_type_11").length>0){
+                    $(".prod_type_11").show();
+                } else {
+                    alert('目前尚未設定運送方式，<br>請先至金物流設定進行設定，<br>才可啟用此功能。').done(function(){
+                            $("#d_type_0").prop('checked',true);
+                            setButtonStatus();
+                        }
+                    );
+                }
+            }
+        }
+        // 商品溫層遮罩
+        if($("input[name='prod_type']:checked").val()=='3'){
+            $(".prod_type_mask_3").hide();
+            $(".prod_type_mask_10").show();
+            $(".prod_type_mask_11").show();
+        } else if($("input[name='prod_type']:checked").val()=='10') {
+            $(".prod_type_mask_3").show();
+            $(".prod_type_mask_10").hide();
+            $(".prod_type_mask_11").show();
+        } else if($("input[name='prod_type']:checked").val()=='11') {
+            $(".prod_type_mask_3").show();
+            $(".prod_type_mask_10").show();
+            $(".prod_type_mask_11").hide();
+        }
+        setButtonStatus();
+    }
+
+    function setTime(id){
+        var date = document.getElementById(id + "_d").value.replace(/\//g, '-');
+        var hour = document.getElementById(id + "_h").value;
+        var min = document.getElementById(id + "_m").value;
+        document.getElementById(id).value = date + ' ' + hour + ':' + min + ':00';
+    }
+
+    function setButtonStatus(){
+        let status='1';
+        if($("#webdvr_evt_title").val() == '') status = '0';
+        if($(".product_box").length == '') status = '0';
+        if($("input[name='delivery_type_all']:checked").val()!=0 && !$("input[name='delivery_type']:checked").val()) status = '0';
+
+        if(status == '1') {
+            $("#save_button").addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('pointer-events', '');
+        } else {
+            $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+        }
+    }
+
+    function add_product(product){
+        var add_prod_html;
+        var prod_uid,prod_display,prod_category,prod_spec_cus,prod_file,prod_name,prod_selling_price,prod_type; //ajax要取的資料
+        prod_uid = product.prod_uid;
+        prod_display = product.prod_display;
+        prod_category = product.prod_category;
+        prod_spec_cus = product.prod_spec_cus;
+        prod_file = product.prod_file ? `{{$m_arrSystem.uploads_product_url}}${product.prod_file}` : '{{$sys_arrWebsite.website_url}}images/skm_nopic.jpg';
+        prod_name = product.prod_name;
+        prod_selling_price = product.prod_selling_price;
+        prod_type = product.prod_type;
+
+        if($(".product_box").length==0){
+            $(".admweb-v2-NoData").remove();
+        }
+
+        add_prod_html =
+            "                 <div class=\"admweb-v2-EventMerchandise-ProductBox product_box\" id=\"product_box_"+prod_uid+"\">\n" +
+            "                    <div class=\"admweb-v2-EventMerchandise-state prod_type_mask_"+prod_type+"\" style=\"display: none;\">\n" +
+            "                        <h2>商品不適用此行銷活動</h2>\n" +
+            "                        <p class=\"pic-text-warn\">需和運送溫層相同才能參加行銷活動</p>\n" +
+            "                        <div class=\"admweb-v2-icon-right\">\n" +
+            "                            <a href=\"javascript:delete_product('"+prod_uid+"','')\"\n" +
+            "                               class=\"iopen-icon-black-delete\"></a>\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                    <input type=\"hidden\" name=\"prod_uid_list[]\" value=\""+prod_uid+"\">\n" +
+            "                    <img class=\"pic-margin-r10\" src=\""+prod_file+"\">\n" +
+            "                    <div class=\"admweb-v2-product-name\">\n" +
+            "                        <h2>"+prod_name+"</h2>\n" +
+            "                        <div class=\"admweb-v2-product-detail\">\n";
+        if(prod_spec_cus) {
+        add_prod_html +=
+            "                            <span>規格：" + prod_spec_cus + "</span>\n";
+        }
+        add_prod_html +=
+            "                            <span>$"+prod_selling_price+"</span>\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                    <div class=\"admweb-v2-icon-right\">\n" +
+            "                        <a href=\"javascript:delete_product('"+prod_uid+"','')\"\n" +
+            "                           class=\"iopen-icon-black-delete\"></a>\n" +
+            "                    </div>\n" +
+            "                </div>"
+
+        $(".product_list").append(add_prod_html);
+
+        setButtonStatus();
+        setProdCount();
+    }
+
+    function delete_product(prod_uid, uid){
+        if ('{{$m_arrSystem.custom_dialog}}' == '1') {
+            confirm("是否確認刪除此商品?").done(function(){
+                delete_product_unit(prod_uid, uid)
+            })
+        } else {
+            if (confirm("是否確認刪除此商品?")) {
+                delete_product_unit(prod_uid, uid)
+            }
+        }
+    }
+
+    function delete_product_unit(prod_uid, uid){
+        $("#product_box_"+prod_uid).remove();
+        check_puid_in_lightbox(prod_uid, false);
+        setProdCount();
+        if(uid!='') {
+            $("#formWdfe").prepend("<input type='hidden' name='delete_wdfe[]' value='" + uid + "'>")
+        }
+        if($(".product_box").length==0){
+            setButtonStatus();
+            $('.admweb-v2-NoData').remove();
+            var no_prod_html = "        <div class=\"admweb-v2-NoData\">\n" +
+                "          <div class=\"admweb-v2-img-BlacklistNoData\"></div>\n" +
+                "          <span>沒有任何商品資料</span>\n" +
+                "        </div>";
+            $(".product_list").append(no_prod_html);
+        }
+        wdfe_checked_puid.splice(wdfe_checked_puid.indexOf(prod_uid), 1);
+    }
+
+    function setProdCount(){
+        $("#item_count").text("活動商品(" + $(".product_box").length + "/100)");
+    }
+
+    function _CS_checkAdd(_this){
+        if(_this.webdvr_evt_title.value.search(/[\\\/'"&()=;<>]/)>0){
+            alert('請確認活動名稱中是否有特殊符號。')
+            return false;
+        }
+        if(_this.delivery_type_all.value!=0 && !_this.delivery_type.value){
+            alert('請選擇運送方式。')
+            return false;
+        }
+        $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+    }
+
+    function cancel_btn(){
+        confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function (){
+            window.location.href = encodeURI('{{$m_backURL}}'); //Checkmarkx Client DOM XSS 
+        });
+    }
+
+</script>

@@ -1,0 +1,630 @@
+<style>
+/* 勿放公版 */
+.admweb-v2-list-header-in-fixbottom{display: none;}
+.admweb-v2-phone-list .admweb-v2-orderlist__card-desc--multi{grid-template-columns: 41px 2fr 41px 2fr;  border-bottom-width: thin;}
+.admweb-v2-phone-list .admweb-v2-orderlist__card-detail {margin-top: 0px;}
+.admweb-v2-phone-list .admweb-v2-orderlist__card-detail .admweb-v2-orderlist__card-desc {grid-template-columns: 41px 1fr;    border-top-width: thin;}
+.admweb-v2-orderlist__form-head_search-outer .admweb-v2-orderlist__form-last{ grid-template-columns: 102px 1fr;}
+.admweb-v2-orderlist__card .admweb-v2-orderlist{position: absolute;right: 10px;top: 10px;}
+.admweb-v2-phone-list .swiper-slide.selected{border-bottom: 2px solid var(--pic-green);}
+.admweb-v2-phone-list .pic-common-navbarbox .pic-nav-a span{font-size: 14px;}
+.admweb-v2-phone-list .admweb-v2-orderlist__card-bottom .icons-line {margin-right: 1px;}
+.admweb-v2-orderlist__table{ display: table; }
+.admweb-v2-orderlist-overview {justify-content: flex-end;}
+.admweb-v2-orderlist-header-actions .icon-arrow-left-01{color: #fff;}
+.admweb-v2-orderlist-header{justify-content: unset;}
+.admweb-v2-orderlist__table--tr td:first-child{max-width: 93px;overflow: hidden;  white-space: nowrap; text-overflow: ellipsis;}
+.admweb-v2-orderlist__table--tr td:last-child,.admweb-v2-orderlist__table--tr td:nth-child(2){max-width: 84px;width:83px;overflow: hidden;  white-space: nowrap; text-overflow: ellipsis;}
+
+/* 勿放公版 */
+/* 表格視窗 */
+</style>
+
+<!-- 上方版頭 -->
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        {{if $m_arrSystem.is_app_mode}}
+            <a onclick="{
+                let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+                let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                if (isAndroid) {
+                    window.JavaScriptInterface.backToSellerCenter();
+                } else if (isiOS) {
+                    window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+                }
+            }">
+                <i class="icons-line icon-arrow-left-01"></i>
+            </a>
+        {{else}}
+            <a onclick="history.back()">
+                <i class="icons-line icon-arrow-left-01"></i>
+            </a>
+        {{/if}}
+
+        <a onclick="toggleMenuHandler()">
+            <div id="pic-menu-open" class="admweb-v2-list-hamburger-menu pic-margin-l5">
+                <i class="icons-line icon-line-hamburger"></i>
+            </div>
+        </a>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">我的商品</h2>
+    <div class="admweb-v2-orderlist-header-qrcode">
+    </div>
+</div>
+
+<div class="pic-default pic-flex admweb-v2-orderlist admweb-v2-phone-list">
+    <!-- 版頭選單 -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 主要頁面 -->
+    <div class=" admweb-v2-orderlist__inner pic-text-gray-100">
+        <!-- 商品搜尋表單 -->
+        <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" method="post" id="search_form">
+            <div class="admweb-v2-orderlist__form-head_search-outer">
+                <div class=" admweb-v2-orderlist__form-head_search js-orderlist__form-head_search">
+                    <div class="admweb-v2-phone-list-InputBox">
+                        <!-- 搜尋文字類型 -->
+                        <select name="keyword_type" class="pic-text-lnput pic-text-lnput-style">
+                            <option value="prod_name"{{if $search_cond.keyword_type=='prod_name'}}selected{{/if}}>商品名稱</option>
+                            <option value="prod_no"{{if $search_cond.keyword_type=='prod_no'}}selected{{/if}}>商品原始貨號</option>
+                            <!--<option value="prod_spec"{{if $search_cond.keyword_type=='prod_spec'}}selected{{/if}}>商品規格</option>-->
+                        </select>
+                    </div>
+                    <input name="keyword" type="text" placeholder="請輸入關鍵字" class="pic-text-lnput pic-lnput-enter"
+                    {{if $search_cond.keyword}}value="{{$search_cond.keyword}}"{{/if}}>
+                    <button id="submit_1" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-head_search-btn js-orderlist__form-head_search-btn">
+                        搜尋
+                    </button>
+                </div>
+                <!-- 進階條件 -->
+                <div class="admweb-v2-orderlist__form-item">
+                    <label for="order-date">銷售頻道</label>
+                    {{*一般商品(1)/團購商品(5)/拚團商品(6)*}}
+                    <select name="prod_category" class="pic-text-lnput pic-text-lnput-style">
+                        <option value="all" {{if $search_cond.prod_category=='all'}}selected{{/if}}>全部</option>
+                        <option value="1" {{if $search_cond.prod_category=='1'}}selected{{/if}}>一般商品</option>
+                        <!--<option value="5" {{if $search_cond.prod_category=='5'}}selected{{/if}}>團購商品</option>
+                        <option value="6" {{if $search_cond.prod_category=='6'}}selected{{/if}}>拚團商品</option>-->
+                    </select>
+                </div>
+                <div class="admweb-v2-orderlist__form-item">
+                    <label>商品溫層</label>
+                    {{*常溫(3)/冷藏(10)/冷凍(11)*}}
+                    <select name="prod_type" class="pic-text-lnput pic-text-lnput-style">
+                        <option value="all" {{if $search_cond.prod_type=='all'}}selected{{/if}}>全部</option>
+                        <option value="3" {{if $search_cond.prod_type=='3'}}selected{{/if}}>常溫</option>
+                        <option value="10" {{if $search_cond.prod_type=='10'}}selected{{/if}}>冷藏</option>
+                        <option value="11" {{if $search_cond.prod_type=='11'}}selected{{/if}}>冷凍</option>
+                    </select>
+                </div>
+                <div class="admweb-v2-orderlist__form-item admweb-v2-orderlist__form-last">
+                    <label>是否為隱形商品</label>
+                    <select name="prod_is_search" class="pic-text-lnput pic-text-lnput-style">
+                        <option value="all" {{if $search_cond.prod_is_search=='all'}}selected{{/if}}>全部</option>   
+                        <option value="0" {{if $search_cond.prod_is_search=='0'}}selected{{/if}}>是</option>
+                        <option value="1" {{if $search_cond.prod_is_search=='1'}}selected{{/if}}>否</option>
+                    </select>
+                </div>
+                <button type="submit" class="iopen-search pic-BgText-color-green admweb-v2-orderlist__form-btn">
+                    搜尋
+                </button>
+            </div>
+            <input type="hidden" name="nav" value="all">
+            <input type="hidden" name="myAct" value="CHANGE_NAV_TAB">
+        </form>
+        <button class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn"
+            id="js-orderlist__form-toggle--btn">
+            更多進階條件 <i class="icons-line icon-arrow-down-01"></i>
+        </button>
+        <!-- 貨態頁籤 -->
+        <div class="pic-common-navbarbox pic-common-navbarbox-tow-width-50">
+            <div class="swiper-container pic-navbar" id="pic-navbar">
+                <div class="swiper-wrapper pic-nav-list">
+                    <div id="swiper-tab-1" class="swiper-slide pic-nav-a" data-nav="all"><span>全部</span></div>
+                    <div id="swiper-tab-2" class="swiper-slide pic-nav-a" data-nav="1"><span>架上商品</span></div>
+                    <div id="swiper-tab-3" class="swiper-slide pic-nav-a" data-nav="2"><span>未上架</span></div>
+                    <div id="swiper-tab-4" class="swiper-slide pic-nav-a" data-nav="3"><span>已售完</span></div>
+                </div>
+            </div>
+        </div>
+        <!-- 商品列表 -->
+        <div class="">
+            {{if $m_arrProduct_count > 0}}
+            <div class="admweb-v2-orderlist-overview page_main">
+                <span id="total_prod_count">共 {{$m_arrProduct_count}} 筆</span>
+            </div>
+            <ul class="admweb-v2-orderlist__list page_main">
+                <!-- 配送類型：超商 -->
+                <!-- 載入商品 -->
+                {{foreach from=$m_arrProduct item=pno}}
+                {{assign var="prod" value=$m_arrProductByPno[$pno]}}    
+                <li class="admweb-v2-orderlist__card" data-pa='{{if $prod.children}}{{$prod.main.prod_no}}{{else}}{{$prod.main.prod_uid}}{{/if}}'>
+                    {{if $prod.main.prod_category==1}}
+                    <span class="admweb-v2-orderlist admweb-v2-orderlist-delivery--store">一般商品</span>
+                    {{elseif $prod.main.prod_category==5}}
+                    <span class="admweb-v2-orderlist admweb-v2-orderlist-group--store">團購商品</span>
+                    {{elseif $prod.main.prod_category==6}}
+                    <span class="admweb-v2-orderlist admweb-v2-orderlist-merge--store">拼團商品</span>
+                    {{/if}}
+                    <dl class="admweb-v2-orderlist__card-detail">
+                        <div class="pic-commodity-details">
+                            <img src="{{$prod.main.prod_file}}">
+                            <div class="pic-commodity-details-content pic-margin-lr5">
+                                <div class="pic-commodity-name">
+                                    {{*常溫(3)/冷藏(10)/冷凍(11)*}}
+                                    {{if $prod.main.prod_type==3}}
+                                    <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+                                    {{elseif $prod.main.prod_type==10}}
+                                    <span class="admweb-v2-orderlist__badge--refrigeration">冷藏</span>
+                                    {{elseif $prod.main.prod_type==11}}
+                                    <span class="admweb-v2-orderlist__badge--freezing">冷凍</span>
+                                    {{/if}}
+                                    <p class="pic-OneRow-simplify-2 pic-commodity-details-pd-title">
+                                        {{$prod.main.prod_name}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc">
+                            <dt class="admweb-v2-orderlist__card-desc-dt">售價</dt>
+                            <dd class="admweb-v2-orderlist__card-desc-dd">
+                                ${{if $prod.children}}{{$prod.price_range.0|formatMoney}}~{{$prod.price_range.1|formatMoney}}{{else}}{{$prod.main.prod_selling_price|formatMoney}}{{/if}}
+                            </dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-desc--multi">
+                            <dt class="admweb-v2-orderlist__card-desc-dt">規格</dt>
+                            <dd class="admweb-v2-orderlist__card-desc-dd">
+                                共{{if $prod.children}}{{math equation=x+1 x=$prod.children|@count}}{{else}}1{{/if}}種規格
+                            </dd>
+                            <dt class="admweb-v2-orderlist__card-desc-dt">庫存</dt>
+                            <dd class="admweb-v2-orderlist__card-desc-dd">
+                                {{if $prod.children}}{{$prod.stock_range.0}}~{{$prod.stock_range.1}}{{else}}{{$prod.main.prod_stock}}{{/if}}
+                            </dd>
+                        </div>
+                        <div class="admweb-v2-orderlist__card-bottom">
+                            <div class="admweb-v2-orderlist__card-delivery_info">
+                            </div>
+                            <div class="admweb-v2-orderlist__card-actions">
+                                <button class="admweb-v2-orderlist__card-actions--btn pic-BgText-color-white-green"
+                                    onclick="show_calculation('{{$prod.main.prod_no}}')">
+                                    <i class="icons-line icon-mem-tracelist"></i>收藏/貨到通知
+                                </button>
+                                <button class="admweb-v2-orderlist__card-actions--btn" onclick="link('admweb.main.php?action=add_product_pic&prod_no={{$prod.main.prod_no}}')">
+                                    <i class="icons-line icon-line-edit"></i>編輯
+                                </button>
+                                <button class="admweb-v2-orderlist__card-actions--btn preview {{if $prod.main.prod_display!=1}}pic-BgText-color-gray{{/if}}" 
+                                    data="{{$prod.main.prod_no}}" {{if $prod.main.prod_display==1}}onclick="open_tab('{{$prod.main.prod_no}}','{{$prod.main.prod_category}}')"{{/if}}>
+                                    <i class="icons-line icon-line-Look"></i>預覽
+                                </button>
+                                {{if $prod.main.prod_category!=5}}
+                                <button class="admweb-v2-orderlist__card-actions--btn" onclick="share_product('{{$prod.main.prod_no}}')">
+                                    <i class="icons-line icon-share-01"></i>分享
+                                </button>
+                                {{/if}}
+                                {{if $prod.main.prod_display==1}}
+                                <button class="admweb-v2-orderlist__card-actions--btn prod_launch" 
+                                        onclick="launch('{{if $prod.children}}{{$prod.main.prod_no}}{{else}}{{$prod.main.prod_uid}}{{/if}}', 'off', '{{if $prod.children}}group{{else}}only{{/if}}')">
+                                    <i class="icons-line icon-line-ArrowParper"></i><span>下架</span>
+                                </button>
+                                {{elseif $prod.main.prod_display==0}}
+                                <button class="admweb-v2-orderlist__card-actions--btn prod_launch" 
+                                        onclick="launch('{{if $prod.children}}{{$prod.main.prod_no}}{{else}}{{$prod.main.prod_uid}}{{/if}}', 'on','{{if $prod.children}}group{{else}}only{{/if}}')">
+                                    <i class="icons-line icon-line-ArrowParper"></i><span>上架</span>
+                                </button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </dl>
+                </li>
+                {{/foreach}}
+            </ul>
+            {{/if}}
+            <div class="admweb-v2-NoData" {{if $m_arrProduct_count>0}}style="display: none;"{{/if}}>
+                <div class="admweb-v2-img-BlacklistNoData"></div>
+                <span>目前無商品資料</span>
+            </div>
+        </div>
+        <!-- 頁碼 -->
+        {{if  $m_arrProduct_count > 0 && $m_arrPage.p_num == 1 }}
+        <div class="pic-text-center page_num">
+            <p class="pic-page-bottom-text">1 - {{$m_arrProduct_count}} 筆／<span id="total_prod_count_bottom">共 {{$m_arrProduct_count}} 筆</span></p>
+        </div>
+        {{elseif $m_arrPage.p_num > 1}}
+        <div class="pic-flex-center pic-flex-center-column page_num">
+            <ul class="admweb-v2-pagination">
+                {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_prev}}{{/if}}
+                {{$m_arrPage.pager_numeric}}
+                {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_next}}{{/if}}
+            </ul>
+            <p class="admweb-v2-page-bottom-text">{{$m_arrPage.row_start+1}} - {{if $m_arrPage.p == $m_arrPage.p_num}}{{$m_arrProduct_count}}{{else}}{{$m_arrPage.row_start+$m_arrPage.rows_num}}{{/if}} 筆／<span id="total_prod_count_bottom">共 {{$m_arrProduct_count}} 筆</span></p>
+        </div>
+        {{/if}}
+    </div>
+
+    <div class="pic-btn-footer pic-icon-margin-r">
+        <a class="pic-btn-newstore-100 pic-BgText-color-green iopen-icon-white-add-front"
+            href="javascript:void(0);" onclick="link('admweb.main.php?action=add_product_pic')">新增商品</a>
+    </div>
+
+    <!-- 分享商品 視窗 -->
+    <div id="share_product" class="pic-window-bg" style="display:none;">
+        <div class="pic-window">
+            <div class="admweb-v2-window-content">                
+                <i class="icons-line icon-line-X admweb-v2-WindowClose-position" onclick="WindowClose()"></i>
+                <div class="pic-OrderCancel-window-close"></div>
+                <h2>分享商品</h2>
+                <span class="admweb-v2-window-text">分享商品給你的親朋好友</span>
+                <p id="prod_url_p" style="display: none;"></p>
+                <p id="prod_str_p" style="display: none;">我發現一個好商品！感覺很不錯～快來看看～快上『{{$sys_arrWebsite.web_name}}』購買啦！</p>
+                <div>
+                    <a class="pic-window-link admweb-v2-window-ShareLink" href="javascript:void(0);" onclick="CopyMallURL()"></a>
+                    <a class="pic-window-link admweb-v2-window-ShareLine" href="javascript:void(0);" id="share_line"></a>
+                    <a class="pic-window-link admweb-v2-window-ShareFB" href="javascript:void(0);" id="share_fb"></a>
+                    <a class="pic-window-link admweb-v2-window-ShareIG" href="javascript:void(0);" id="share_instagram"></a>
+                </div>
+            </div>
+            <div class="pic-window-button-box">
+                <a class="pic-window-button-TwoBtn pic-BgText-color-green pic-window-button-TwoBtn-r" onclick="WindowClose()">確定</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 收藏及貨到通知 視窗 -->
+    <div id="calc_notify_trace" class="pic-window-bg admweb-v2-window-table" style="display:none;">
+        <div class="pic-window">
+            <div class="admweb-v2-window-content">
+                <i class="icons-line icon-line-X admweb-v2-WindowClose-position" onclick="WindowClose()"></i>
+                <div class="admweb-v2-window-name">
+                    <i class="icons-line icon-mem-tracelist"></i>商品收藏及貨到通知數資訊
+                </div>
+                <h2>商品名稱：<span></span></h2>
+                <div class="admweb-v2-window-content-scroll pic-margin-t10">
+                    <table class="admweb-v2-orderlist__table">
+                        <thead>
+                            <tr class="admweb-v2-orderlist__table--head">
+                                <th>規格</th>
+                                <th>收藏數</th>
+                                <th>貨到通知數</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 所有商品
+    const m_arrProduct = {{$m_arrProductByPno|@json_encode}};
+    var m_arrProduct_count = {{$m_arrProduct_count}};
+
+    // 分享視窗中的元素
+    const prod_url_p = $('#prod_url_p');
+    const prod_str_p = $('#prod_str_p');
+    
+    // 統計收藏及貨到通知視窗的tbody
+    const prod_name_span = $("#calc_notify_trace h2>span");
+    const calc_tbody = $("#calc_notify_trace tbody");
+
+    // 第一排 的搜尋按鈕
+    $('#submit_1').click(function (e) { 
+        e.preventDefault();
+        if($('input[name="keyword"]').val() == ''){
+            alert("{{$lang.admweb.product.149}}"); // 請輸入關鍵字
+            return false;
+        }else{
+            $('#search_form').submit();
+        }        
+    });
+
+    // 若該頁商品有特定搜尋條件，就展開條件內容
+    (function () {
+        searchFormCollapse();
+        if({{$search_cond|@count}}!=0 && !('{{$search_cond.prod_category}}'=='all' && '{{$search_cond.prod_type}}'=='all' && '{{$search_cond.prod_is_search}}'=='all')){
+            $('#js-orderlist__form-toggle--btn').click();
+        }
+    })();
+
+    // 點擊貨態頁籤
+    $('#pic-navbar .swiper-slide.pic-nav-a').click(function (e) { 
+        e.preventDefault();
+        $('input[name=nav]').val($(this).data('nav'));
+        $('#search_form').submit();
+    });
+
+    // highlight 選中的頁籤
+    $(function () {
+        if('{{$search_cond.nav}}'!='' && '{{$search_cond.nav}}'!='all'){
+            $('#pic-navbar .swiper-slide.pic-nav-a[data-nav={{$search_cond.nav}}]').addClass('selected');
+        }else{
+            $('#pic-navbar .swiper-slide.pic-nav-a[data-nav=all]').addClass('selected');
+        }
+    });
+    
+    // 顯示收藏及貨到通知視窗
+    function show_calculation(prod_no) {
+        var prod = m_arrProduct[prod_no];
+        prod_name_span.text(`${prod.main.prod_name}`);
+
+        var htm = `
+        <tr class="admweb-v2-orderlist__table--tr">
+            <td>${prod.main.prod_spec_cus}</td>
+            <td>${prod.main.trace_num}</td>
+            <td>${prod.main.notify_num}</td>
+        </tr>
+        `;
+
+        if(prod.children!== undefined){
+            $.each(prod.children, function (idx, val) { 
+                htm += `
+                <tr class="admweb-v2-orderlist__table--tr">
+                    <td>${val.prod_spec_cus}</td>
+                    <td>${val.trace_num}</td>
+                    <td>${val.notify_num}</td>
+                </tr>
+                `;             
+            });
+        }
+
+        calc_tbody.append(`${htm}`);
+        $("#calc_notify_trace").show()
+    }
+
+    // 關閉分享視窗/收藏及貨到通知視窗
+    function WindowClose() {
+        $(".pic-window-bg").hide()
+        prod_name_span.text('');
+        calc_tbody.children().remove();
+        prod_url_p.text('');
+    }
+
+    // 顯示分享視窗
+    function share_product(prod_no) {
+        $("#share_product").show();
+        let prod = m_arrProduct[prod_no]['main'];
+
+        // 取短網址
+        $.ajax({
+            type: "POST",
+            url: "",
+            async: false,
+            data: {
+                isAjax: 1,
+                myAct:'GET_SHORTEN_URL',
+                url: prod.share_url
+            },
+            dataType: "json",
+            success: function (re) {
+                share_url = re.url;
+                prod_url_p.text(`${share_url}`);
+            },
+            error: function (re) {
+            }
+        });
+    }
+
+    function open_tab(prod_no, prod_category){
+        let url;
+        if(prod_category==1){
+            url =`https://{{$m_arrSystem.ssl_domainname}}/{{$sys_arrWebsite.web_byeurl}}/index.php?action=product_detail&prod_no=${prod_no}`;
+            window.open(`${url}`,"_blank");
+        }
+        else if(prod_category==5){
+            open_group_prod(prod_no);
+        }
+
+    }
+
+    function open_group_prod(pno){
+        let new_window = window.open();
+        $.ajax({
+            type: "POST",
+            url: "",
+            data: {
+                isAjax: 1,
+                myAct:'GET_VER_CODE',
+            },
+            dataType: "json",
+            success: function (re) {
+                url =`https://{{$m_arrSystem.ssl_domainname}}/igroup/index.php?action=group_product_detail&prod_no=${pno}&ver=${re.ver}&myAct=preview`;
+                new_window.location = url;
+            }
+        });
+    }
+
+    // Line分享連結
+    $("#share_line").on("click",function(){
+        let url = copy_share_info('line');
+        window.open(url);
+    });
+
+    // FB分享連結
+    $("#share_fb").on("click",function(){
+        let url = copy_share_info('fb');
+        window.open(url, 'sharer', 'toolbar=0,status=0,width=626,height=436');
+    });
+
+    // IG分享連結
+    $("#share_instagram").on("click",function(){
+        let url = copy_share_info('ig');
+        window.open(url,'_blank')
+    });
+
+    function copy_share_info(type){
+        let sharetext = $('#prod_str_p').text();
+        let url = $('#prod_url_p').text();
+        var temp = $("<input>");
+        $("body").append(temp);
+        temp.val(sharetext+url).select();
+        document.execCommand("copy");
+        temp.remove();
+
+        switch (type) {
+            case 'line':
+                link = 'https://lineit.line.me/share/ui?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(sharetext);
+                break;
+        
+            case 'fb':
+                link = 'https://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+ '&t=' + encodeURIComponent(sharetext);
+                break;
+        
+            case 'ig':
+                link = 'https://www.instagram.com/accounts/login/?next=/direct/inbox/';
+                break;
+        }
+
+        return link;
+    }
+
+    // 複製商品連結 => 手機待測
+    function CopyMallURL() {
+        var url = $('#prod_url_p').text();
+        const input = document.createElement("input");
+        input.readOnly = 'readonly';
+        input.value = url;
+
+        document.body.appendChild(input);
+        input.select();
+        input.setSelectionRange(0, input.value.length);
+        document.execCommand('Copy');
+        document.body.removeChild(input);
+
+        WindowClose();
+        alert("已複製商品連結");
+    }
+
+    // 上下架商品 => 只處理prod_dispay
+    function launch(pa, action, group){
+        let alert_str;
+
+        if(action == 'off') alert_str='下架';
+        else if(action == 'on') alert_str='上架';
+
+        $.ajax({
+            type: "post",
+            url: "",
+            data: {
+                isAjax: 1,
+                pa: pa,
+                myAct: 'SET_PROD_DISPLAY',
+                action: action,
+                group: group,
+            },
+            dataType: "json",
+            success: function (re) {
+                // console.log('launch','suc',re);
+                alert(`${alert_str}成功`);
+
+                {{if $search_cond.nav==1 || $search_cond.nav==2}}
+                let ori_cnt = m_arrProduct_count;
+                m_arrProduct_count -=1;
+                {{if $m_arrPage.p_num==$m_arrPage.p}}
+                $('#end_page_num').text(m_arrProduct_count);
+                {{/if}}
+
+                $('#total_prod_count').text(`共 ${m_arrProduct_count} 筆`);
+                if(m_arrProduct_count%50 == 0){
+                    if(parseInt('{{$smarty.get.page}}')>1){
+                        let p = parseInt('{{$smarty.get.page}}')-1;
+                        location.href=`admweb.main.php?action=product_pic&page=${p}`;
+                    }else{
+                        $('.page_num').hide();
+                        $('.admweb-v2-orderlist__list.page_main').hide();
+                        $('.admweb-v2-NoData').show();
+                    }
+                }else{
+                    $(`li[data-pa=${pa}]`).remove();
+                    let str = $('p.admweb-v2-page-bottom-text').text();
+                    str = str.replaceAll(ori_cnt, m_arrProduct_count);
+                    // console.log(str, `${ori_cnt}`,`${m_arrProduct_count}`);
+                    $('p.admweb-v2-page-bottom-text').text(str);
+                }
+                {{else}}                
+                if(action === 'on'){
+                    let pno  = $(`li[data-pa=${pa}] .preview`).attr('data');
+                    let pcategory = m_arrProduct[pno]['main']['prod_category'];
+                    $(`li[data-pa=${pa}] .preview`).removeClass('pic-BgText-color-gray').attr('onclick',`open_tab('${pno}','${pcategory}')`);
+                    act='off';
+                    launch_str='下架'
+                }else if(action === 'off'){
+                    $(`li[data-pa=${pa}] .preview`).addClass('pic-BgText-color-gray').attr('onclick',`void(0)`);
+                    act='on';
+                    launch_str='上架'
+                }
+                $(`li[data-pa=${pa}] .prod_launch span`).text(`${launch_str}`);
+                $(`li[data-pa=${pa}] .prod_launch`).attr('onclick',`launch('${pa}','${act}','${group}')`);
+                {{/if}}
+
+                {{if $search_cond.nav!=1 && $search_cond.nav!=2}}
+                $($(`li[data-pa=${pa}]`)).insertBefore($('ul.page_main li').eq(0));
+                {{/if}}
+            },
+            error: function (re) {
+                // console.log('launch','err',re);
+                alert(`${alert_str}失敗`);
+            }
+        });
+    }
+
+    function link(url){
+        $.ajax({
+            type: "POST",
+            url: "",
+            data: {
+                isAjax: 1,
+                myAct:'UNSET_SESSION',
+            },
+            dataType: "json",
+            success: function (re) {
+                location.href=url;
+            }
+        });
+    }
+
+    function searchFormCollapse() {
+        const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+        const DropDown = document.getElementById('admweb-v2-ShareProfit-2')
+        const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+        const formHeadEle = document.getElementsByClassName('js-orderlist__form-head_search')[0];
+        const defaultHeight = formHeadEle.clientHeight;
+        const headBtn = document.getElementsByClassName('js-orderlist__form-head_search-btn')[0];
+        const wholeHeight = formEle.clientHeight;
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.addEventListener('click', () => {
+            //當前為收合
+            if (formEle.style.height === `${defaultHeight}px`) {
+                formEle.style.height = `${wholeHeight}px`;
+                toggleBtn.innerHTML =
+                    '收合進階條件<i class="icons-line icon-arrow-top-01"></i>';
+                formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+                headBtn.style.display = 'none';
+            } else {
+                ///當前為展開
+                formEle.style.height = `${defaultHeight}px`;
+                toggleBtn.innerHTML =
+                    '更多進階條件 <i class="icons-line icon-arrow-down-01"></i>';
+                formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+                headBtn.style.display = 'block';
+            }
+        });
+    }
+
+    function toggleMenuHandler() {
+        document
+            .querySelector('.admweb-v2-seller-front-left-box')
+            .classList.toggle('pic-phone-open-menu');
+        const hamBtn = document
+            .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+            .querySelector('i');
+        if (hamBtn.classList.contains('icon-arrow-left-01')) {
+            document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'block';
+        } else {
+            document.querySelectorAll('.admweb-v2-orderlist-header-actions button')[0].style.display = 'none';
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01');
+    }
+</script>

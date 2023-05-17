@@ -1,0 +1,716 @@
+<style>
+    .admweb-v2-EventMerchandise label{ width: 60px;}
+    .admweb-v2-EventMerchandise .admweb-v2-EventMerchandise-select-box{width: 100%;}
+    .admweb-v2-EventMerchandise .pic-text-lnput { width: 100%;margin-left: 12px; margin-right: 57px;}
+</style>
+<div class="pic-default pic-flex admweb-v2-orderlist">
+    <!-- 左側選單 Start -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 左側選單 End -->
+
+    <!-- 右側內容 Start -->
+    <div class="admweb-v2-adjustment">
+
+        <!------------------------------------ 活動基本設定 Start -------------------------------------->
+        <div class="admweb-v2-settings-frame pic-margin-10">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>活動基本設定</h2>
+            </div>
+
+            <!-- 活動設定 -->
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>活動類型</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                    {{if $m_arrWebsiteMarketing.wmkt_type!=31 || $smarty.get.add_wmkt}}
+                    <div class="admweb-v2-radio-green-box">
+                        <label class="admweb-v2-label-green" for="radioId1">
+                            <input class="admweb-v2-radio-green" type="radio" id="radioId1" name="wmkt_type_top"
+                                value="32" {{if $m_arrWebsiteMarketing.wmkt_type!=31}}checked{{/if}}>
+                            <div class="admweb-v2-label-check-green"></div>
+                            滿額加購
+                        </label>
+                    </div>
+                    {{/if}}
+                    {{if $m_arrWebsiteMarketing.wmkt_type==31 || $smarty.get.add_wmkt}}
+                    <div class="admweb-v2-radio-green-box">
+                        <label class="admweb-v2-label-green" for="radioId2">
+                            <input class="admweb-v2-radio-green" type="radio" id="radioId2" name="wmkt_type_top"
+                                value="31" {{if $m_arrWebsiteMarketing.wmkt_type==31}}checked{{/if}} />
+                            <div class="admweb-v2-label-check-green"></div>
+                            滿額加贈
+                        </label>
+                    </div>
+                    {{/if}}
+                </li>
+            </ul>
+
+            <!-- 活動規則 -->
+            <ul class="admweb-v2-outside-white-box admweb-v2-eventRule">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>活動規則</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                    <div class="admweb-v2-content-enter admweb-v2-eventRule_input">
+                        <span>消費滿</span><input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入價錢"
+                            id="wmkt_money_start_top" name="wmkt_money_start_top"
+                            value="{{$m_arrWebsiteMarketing.wmkt_money_start}}">
+                        <span id="wmkt_type_word">
+                            {{if $m_arrWebsiteMarketing.wmkt_type==31}}元，即可贈送【加贈商品】{{else}}元，即可加購【加購商品】{{/if}}
+                        </span>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 活動名稱-->
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>活動名稱</p>
+                    <span id="wmkt_title_top-length" class="pic-quantity">0/20</span>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    <input type="text" class="pic-text-lnput pic-lnput-enter" id="wmkt_title_top" name="wmkt_title_top"
+                        maxlength="20" placeholder="請輸入活動名稱" value="{{$m_arrWebsiteMarketing.wmkt_title}}">
+                    <p class="pic-red-text-restrict" id="text_over" style="display: none;">字數不能超過20個字</p>
+                    <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                </li>
+            </ul>
+
+            <!-- 活動時間-->
+            <ul class="admweb-v2-outside-white-box admweb-v2-eventTime">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>活動時間</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+                    <div class="admweb-v2-input-date-content">
+                        <div class="admweb-v2-input-date-content_title">起始時間</div>
+                        <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                            <input id="wmkt_time_start_date" class="pic-text-lnput datepicker" type="text"
+                                value="{{$m_arrWebsiteMarketing.wmkt_time_start|date_format:'%Y/%m/%d'}}"
+                                onchange="setTime('wmkt_time_start')" readonly>
+                        </span>
+                        <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_start_h"
+                            onchange="setTime('wmkt_time_start')">
+                            {{section name=i loop=24 start=0}}
+                            <option {{if $m_arrWebsiteMarketing.wmkt_time_start|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}
+                            </option>
+                            {{/section}}
+                        </select>
+                        <div class="admweb-v2-DateNotation">:</div>
+                        <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_start_m"
+                            onchange="setTime('wmkt_time_start')">
+                            {{section name=i loop=60 start=0}}
+                            <option {{if $m_arrWebsiteMarketing.wmkt_time_start|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}
+                            </option>
+                            {{/section}}
+                        </select>
+                        <div class="admweb-v2-DateNotation">-</div>
+                        <div class="admweb-v2-input-date-content_title">結束時間</div>
+                        <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                            <input id="wmkt_time_end_date" class="pic-text-lnput datepicker" type="text"
+                                value="{{$m_arrWebsiteMarketing.wmkt_time_end|date_format:'%Y/%m/%d'}}"
+                                onchange="setTime('wmkt_time_end')" readonly>
+                        </span>
+                        <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_end_h" onchange="setTime('wmkt_time_end')">
+                            {{section name=i loop=24 start=0}}
+                            <option {{if $m_arrWebsiteMarketing.wmkt_time_end|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}
+                            </option>
+                            {{/section}}
+                        </select>
+                        <div class="admweb-v2-DateNotation">:</div>
+                        <select class="pic-text-lnput iopen-text-lnput-style" id="wmkt_time_end_m" onchange="setTime('wmkt_time_end')">
+                            {{section name=i loop=60 start=0}}
+                            <option {{if $m_arrWebsiteMarketing.wmkt_time_end|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}
+                            </option>
+                            {{/section}}
+                        </select>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 狀態 -->
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>狀態</p>
+                </li>
+                <li class="admweb-v2-content-enter admweb-v2-settings-frame-RadioBox">
+                    <div class="admweb-v2-radio-green-box">
+                        <label class="admweb-v2-label-green" for="status_top_1">
+                            <input class="admweb-v2-radio-green" type="radio" id="status_top_1" name="status_top" 
+                                {{if $m_arrWebsiteMarketing.wmkt_status!=0}}checked{{/if}} value="1"
+                                onchange="set_wmkt_status()"/>
+                            <div class="admweb-v2-label-check-green"></div>
+                            有效
+                        </label>
+                    </div>
+
+                    <div class="admweb-v2-radio-green-box">
+                        <label class="admweb-v2-label-green" for="status_top_0">
+                            <input class="admweb-v2-radio-green" type="radio" id="status_top_0" name="status_top" 
+                                {{if $m_arrWebsiteMarketing.wmkt_status==0}}checked{{/if}} value="0"
+                                onchange="set_wmkt_status()"/>
+                            <div class="admweb-v2-label-check-green"></div>
+                            無效
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="admweb-v2-settings-frame pic-margin-10">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-box-product"></i><text id="item_count"></text></h2>
+                <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" onclick="WindowOpen()">
+                    <i class="icons-line icon-line-add"></i>選擇商品
+                </a>
+            </div>
+            <div class="admweb-v2-NewProduct-title">
+                <p class="pic-text-warn">
+                    ※ 行銷活動需選擇"同溫層商品"販售，以多數有效（已上架/非隱藏商品/未刪除/非團購/非拼團）活動商品溫層為活動溫層。
+                    <br/>
+                    ※ 不同溫層、同商品數量時，優先序為：常溫、冷藏、冷凍。
+                </p>
+            </div>
+
+            <div class="admweb-v2-blacklist-form wmkt_type32 batch_edit_box">
+                <div class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form">
+                    <div class="admweb-v2-EventMerchandise-form">
+                        <div class=" js-orderlist__form-head_search"></div>
+                        <span>批次設定</span>
+                        <div class="admweb-v2-EventMerchandise">
+                            <div class="admweb-v2-EventMerchandise-select-box">
+                                <label>加購價</label>
+                                <input name="batch_price" type="text" placeholder="請輸入金額"
+                                    class="pic-text-lnput pic-lnput-enter price_box">
+                            </div>
+                            <div class="admweb-v2-EventMerchandise-btn">
+                                <button type="button" class="pic-BgText-color-green admweb-v2-form-TickBtn"
+                                    style="cursor:pointer;" onclick="batch_set_price()">
+                                    <i class="icons-line icon-line-tick"></i>
+                                    全部套用
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn" id="js-orderlist__form-toggle--btn">
+                    批次更新優惠資訊<i class="icons-line icon-arrow-down-01"></i>
+                </button>
+            </div>
+
+            <div class="admweb-v2-orderlist__action-select_all admweb-v2-EventMerchandise-select-all wmkt_type32 batch_edit_box">
+                <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="selectAll" value="all">
+                <label for="selectAll" class="admweb-v2-ckbutton-green-label"></label>
+                <span>全選</span>
+            </div>
+
+            <form id="formWmkt" name="formWmkt" action="" method="post" onsubmit="return _CS_checkAdd(this);" enctype="multipart/form-data">
+                <input id="wmkt_type" type="hidden" name="wmkt_type" value="{{$m_arrWebsiteMarketing.wmkt_type}}">
+                <input id="wmkt_money_start" type="hidden" name="wmkt_money_start" value="{{$m_arrWebsiteMarketing.wmkt_money_start}}">
+                <input id="wmkt_title" type="hidden" name="wmkt_title" value="{{$m_arrWebsiteMarketing.wmkt_title}}">
+                <input id="wmkt_time_start" type="hidden" name="wmkt_time_start" value="{{$m_arrWebsiteMarketing.wmkt_time_start}}">
+                <input id="wmkt_time_end" type="hidden" name="wmkt_time_end" value="{{$m_arrWebsiteMarketing.wmkt_time_end}}">
+                <input id="wmkt_status" type="hidden" name="wmkt_status" value="{{$m_arrWebsiteMarketing.wmkt_status}}">
+                <input type="hidden" name="myAct" value="">
+
+                {{foreach from=$m_arrWebsiteMarketingDf item=website_marketing_df}}
+                <div class="admweb-v2-EventMerchandise-ProductBox product_box" {{if $website_marketing_df.text_warn}}unav{{else}}avail{{/if}}
+                    id="product_box_{{$website_marketing_df.prod_uid}}" type="{{$website_marketing_df.prod_type}}">
+                    <div class="admweb-v2-EventMerchandise-state pic_warn_mask" {{if !$website_marketing_df.text_warn}}style='display:none;'{{/if}}>
+                        <h2>商品不適用此行銷活動</h2>
+                        <p class="pic-text-warn">
+                            {{if $website_marketing_df.text_warn}}{{$website_marketing_df.text_warn}}{{else}}行銷活動需選擇"同溫層商品"販售{{/if}}
+                        </p>
+                        <div class="admweb-v2-icon-right">
+                            <a href="javascript:delete_product('{{$website_marketing_df.prod_uid}}','{{$website_marketing_df.uid}}')"
+                                class="iopen-icon-black-delete"></a>
+                        </div>
+                    </div>
+                    <input type="hidden" name="wmkt_df_uid[{{$website_marketing_df.prod_uid}}]" value="{{$website_marketing_df.uid}}">
+                    <input type="hidden" name="prod_uid[]" value="{{$website_marketing_df.prod_uid}}">
+                    <div class="admweb-v2-checkbox-name pic-margin-r10 wmkt_type32">
+                        <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox prod_checkbox"
+                            id="prod_checkbox_{{$website_marketing_df.prod_uid}}">
+                        <label class="admweb-v2-ckbutton-green-label" for="prod_checkbox_{{$website_marketing_df.prod_uid}}"></label>
+                    </div>
+                    <img class="pic-margin-r10" src="{{$website_marketing_df.prod_file}}">
+                    <div class="admweb-v2-product-name">
+                        {{if $website_marketing_df.prod_type == 3}}
+                        <span class="pic-sort-color-orange pic-sort-frame"><i class="icons-line icon-line-General"></i>常溫</span>
+                        {{elseif $website_marketing_df.prod_type == 10}}
+                        <span class="pic-sort-color-light-green pic-sort-frame"><i class="icons-line icon-line-Fridge"></i>冷藏</span>
+                        {{elseif $website_marketing_df.prod_type == 11}}
+                        <span class="pic-sort-color-blue pic-sort-frame"><i class="icons-line icon-line-Freezing"></i>冷凍</span>
+                        {{/if}}                        
+                        <h2>{{$website_marketing_df.prod_name}}</h2>
+                        <div class="admweb-v2-product-detail">
+                            <span>規格：{{if $website_marketing_df.prod_spec_str}}{{$website_marketing_df.prod_spec_str}}{{else}} - {{/if}}</span>
+                            <span>${{$website_marketing_df.prod_selling_price}}</span>
+                        </div>
+                    </div>
+                    {{if $website_marketing_df.wmkt_df_price == 0}}
+                    {{assign var=wmkt_df_price value=$website_marketing_df.prod_selling_price}}
+                    {{else}}
+                    {{assign var=wmkt_df_price value=$website_marketing_df.wmkt_df_price}}
+                    {{/if}}
+                    <div class="admweb-v2-EventMerchandise-select-box wmkt_type32">
+                        <label>加購價</label>
+                        <input name="wmkt_df_price[{{$website_marketing_df.prod_uid}}]" type="text" placeholder="請輸入金額"
+                            class="pic-text-lnput pic-lnput-enter price_box" value="{{$wmkt_df_price}}">
+                    </div>
+                    <div class="admweb-v2-icon-right">
+                        <a href="javascript:moveUp('{{$website_marketing_df.prod_uid}}')" class="iopen-icon-black-ArrowsLong-up wmkt_type32"></a>
+                        <a href="javascript:moveDown('{{$website_marketing_df.prod_uid}}')" class="iopen-icon-black-ArrowsLong-down wmkt_type32"></a>
+                        <a href="javascript:delete_product('{{$website_marketing_df.prod_uid}}','{{$website_marketing_df.uid}}')"
+                            class="iopen-icon-black-delete"></a>
+                    </div>
+                </div>
+                {{/foreach}}
+                <div class="admweb-v2-NoData" {{if $m_arrWebsiteMarketingDf|@count != 0 || !$smarty.get.add_wmkt}}style='display:none;'{{/if}}>
+                    <div class="admweb-v2-img-BlacklistNoData"></div>
+                    <span>沒有任何商品資料</span>
+                </div>
+            </form>
+        </div>
+
+        <!--新增商品 視窗 -->
+        {{include file="admweb_2/add_wmkt_product_pic.htm"}}
+
+        <!------------------------------------ 活動基本設定 End -------------------------------------->
+
+        <!-- 右側內容 End-->
+
+        <!------------------------------------ 底部按鈕 Start -------------------------------------->
+        <div class="admweb-v2-orderlist__action admweb-v2-settings-BottomBtn">
+            <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+                <!-- 灰色 按鈕字 -->
+                <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-white-green pic-margin-r5"
+                    href="javascript:void(0)" onclick="cancel_btn()">
+                    <i class="icons-line icon-line-X"></i>取消
+                </a>
+                <a id="save_button" class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-green pic-margin-l5"
+                    href="javascript:void(0);" onclick="$('#formWmkt').submit()">
+                    <i class="icons-line icon-line-tick"></i>儲存
+                </a>
+            </div>
+        </div>
+        <!------------------------------------ 底部按鈕 End -------------------------------------->
+    </div>
+</div>
+
+<script>
+    function WindowOpen() {
+        $("#admweb-v2-ProductWindow").show()
+    }
+
+    function WindowClose() {
+        $(".pic-window-bg").hide()
+    }
+
+    (function () {
+        if (typeof (hideMobileLayout) == 'function') hideMobileLayout();
+        if (typeof (markCurrentNavLink) == 'function') markCurrentNavLink();
+        searchFormCollapse();
+    })();
+
+    window.addEventListener('resize', () => {
+        searchFormCollapse();
+        if (typeof (checkNoticeOverflow) == 'function') checkNoticeOverflow();
+    });
+
+    function searchFormCollapse() {
+        const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+        const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+        const formHeadEle = document.getElementsByClassName('js-orderlist__form-head_search')[0];
+        const defaultHeight = formHeadEle.clientHeight;
+        const wholeHeight = formEle.clientHeight;
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.addEventListener('click', () => {
+            //當前為收合
+            if (formEle.style.height === `${defaultHeight}px`) {
+                formEle.style.height = `${wholeHeight}px`;
+                toggleBtn.innerHTML = '批次更新優惠資訊<i class="icons-line icon-arrow-top-01"></i>';
+                formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+            } else {
+                ///當前為展開
+                formEle.style.height = `${defaultHeight}px`;
+                toggleBtn.innerHTML = '批次更新優惠資訊<i class="icons-line icon-arrow-down-01"></i>';
+                formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+            }
+        });
+    }
+</script>
+
+<script>
+    var wmkt_checked_puid; //{{*選擇的活動商品prod_uid*}} 
+    var checked_prod_uid; //{{*lightbox中 選擇的商品prod_uid = 有效的活動商品*}} 
+
+    //*** 計算 input 內容長度 ***
+    $(function () {
+        var inInput = $("#wmkt_title_top");
+        inInput.on('input', function () {
+            inputLength($(this));            
+        });
+        inputLength(inInput);
+    });
+
+    //*** 內容長度呈現 ***
+    function inputLength(ele) {
+        var length = $(ele).val().length;
+        var maxlength = $(ele).attr("maxlength");
+        var div_id = $(ele).attr("name") + "-length";
+        document.getElementById(div_id).innerText = length + "/" + maxlength;
+        $('#wmkt_title').val($(ele).val());
+        if (length >= 20) $('#text_over').show();
+        else $('#text_over').hide();
+        setButtonStatus();
+    };
+
+    $(document).ready(function () {
+        /*{{* 設定 datepicker 套件在碰到視窗底部後不反轉 *}}*/
+        $.extend($.datepicker, {
+            _checkOffset: function (inst, offset, isFixed) {
+                return offset;
+            }
+        });
+
+        $(".datepicker").datepicker({
+            dateFormat: 'yy/mm/dd',
+            changeYear: true,
+            changeMonth: true,
+            monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+            minDate: null,
+            yearRange: '2023:2050',
+            position: { my: "left top", at: "left bottom", collision: "none" }
+        }).attr('size', 10);
+
+        $("#wmkt_time_start_date").datepicker("option", "onClose", function (dateText, inst) {
+            $("#wmkt_time_end_date").datepicker("option", "minDate", dateText);
+        });
+
+        $("#wmkt_time_end_date").datepicker("option", "onClose", function (dateText, inst) {
+            $("#wmkt_time_start_date").datepicker("option", "maxDate", dateText);
+        });
+
+        if ('{{$smarty.get.add_wmkt}}' == '1') $("input[name='myAct']").val('COMMAND_ADD');
+        else $("input[name='myAct']").val('COMMAND_EDIT');
+        
+        setButtonStatus();
+
+        $("#formWmkt").find("input[name='csrf_token']").remove(); //{{* 拿掉統一給form的csrf_token *}} 
+        var csrfToken = '{{$nocsrfToken}}';
+        var csrfTokenInput = document.createElement("input");
+        $(csrfTokenInput).attr('type', 'hidden').attr('name', 'csrf_token').val(csrfToken);
+        $("#formWmkt").prepend(csrfTokenInput);
+
+        $("input[name='wmkt_type_top']").on('change', function () {
+            $("#wmkt_type").val($("input[name='wmkt_type_top']:checked").val())
+            if ($("input[name='wmkt_type_top']:checked").val() == '32') {
+                $(".wmkt_type32").show();
+                if ($(".product_box").length == '') $('.batch_edit_box').hide();
+                $("#wmkt_type_word").text('元，即可加購【加購商品】');
+            } else {
+                $(".wmkt_type32").hide();
+                $("#wmkt_type_word").text('元，即可贈送【加贈商品】');
+            }
+            setButtonStatus()
+            setProdCount();
+        })
+
+        $("#wmkt_money_start_top").on('input', function () {
+            $(this).val($(this).val().replace(/[^\d]/g, ''))
+            $('#wmkt_money_start').val($(this).val());
+            setButtonStatus();
+        })
+
+        $("#selectAll").on('change', function () {
+            $(".prod_checkbox").prop('checked', $("#selectAll").prop('checked'));
+        })
+
+        $('#formWmkt').on('change', '.prod_checkbox', function () {
+            check_select_all();
+        });
+
+        $('.admweb-v2-settings-frame').on('input', 'input.price_box', function () {
+            let v = $(this).val();
+            let str = v.replace(/[^\d]/g,'')
+
+            if(str.length!=0) $(this).val(parseInt(str));
+            else $(this).val('')
+        });
+
+        $("#formWmkt").on('keyup', '.price_box', function () {
+            setButtonStatus()
+        })
+
+        /*{{* 選擇商品 *}}*/
+        wmkt_checked_puid = {{$arr_website_marketing_prod_uid_list|@json_encode}};
+        setProdCount();
+
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            if (entries[0].intersectionRatio <= 0) { // 關閉視窗
+                if (sessionStorage.getItem('checked_prod_uid') != null) {
+                    checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+                } else {
+                    $('input[name="prod_uid"]').prop('checked', false);
+
+                    checked_prod_uid = new Array();
+                    wmkt_checked_puid.forEach(ele => {
+                        if(arr_wmkt_puid.indexOf(ele) >= 0){
+                            checked_prod_uid.push(ele);
+
+                            check_puid_in_lightbox(ele)
+                        }
+                    });
+
+                    sessionStorage.setItem('checked_prod_uid', JSON.stringify(checked_prod_uid));
+                }
+
+                if (checked_prod_uid.length + $('[unav] .pic_warn_mask:visible').length > 100) { 
+                    alert('超過總選擇商品數量上限100個，請重新選取').done(function () {
+                        open_add_product_box();
+                    });
+                    return false;
+                } else {
+                    let avail_ptype = get_avail_ptype();
+                    let arr_WMKT_ptype = {{$arr_WMKT_prod_type|@json_encode}};
+                    
+                    checked_prod_uid.forEach(ele => {
+                        if (wmkt_checked_puid.indexOf(ele) < 0) {                            
+                            if(avail_ptype.type==0) 
+                                avail_ptype = arr_WMKT_ptype[obj_wmkt_prod[ele].prod_type];
+
+                            if(obj_wmkt_prod[ele].prod_type != avail_ptype.type){
+                                check_puid_in_lightbox(ele, false);
+                                let avail_type_str = `目前活動溫層：${avail_ptype.str}`;
+                                alert(`${avail_type_str}。<br/>請移除其他溫層商品！<br/><br/>若需變更溫層，請先刪除目前溫層商品。請參考紅字提示規則。`);
+                            }else{
+                                wmkt_checked_puid.push(ele);
+                                add_product(obj_wmkt_prod[ele])
+                            }
+                        }
+                    });
+
+                    $(wmkt_checked_puid).not(checked_prod_uid).toArray().forEach(p_uid => {
+                        if ($(`#product_box_${p_uid}[avail]`).length > 0) {
+                            delete_product_unit(p_uid, $("input[name='wmkt_df_uid[" + p_uid + "]'").val());
+                        }
+                    })
+                }
+
+                setProdCount();
+                setButtonStatus();
+            }
+        });
+        intersectionObserver.observe(document.querySelector('#admweb-v2-ProductWindow'));
+        /*{{* 選擇商品END *}}*/
+    });
+
+    function batch_set_price() {
+        var price = document.querySelector("input[name='batch_price']").value;
+
+        if(price == '') alert('請輸入批次設定價格');
+        else{
+            let ta = $(".prod_checkbox:checked");
+            if(ta.length == 0) alert('請勾選商品');
+            else{
+              $(".prod_checkbox:checked").parents('.product_box').find(".price_box").val(price);
+            }
+        }
+        setButtonStatus()
+    }
+
+    function check_select_all() {
+        if($('.prod_checkbox:checked').length == $('.prod_checkbox').length) $("#selectAll").prop('checked', true)
+        else $("#selectAll").prop('checked', false)
+    }
+
+    function setTime(id) {
+        var date = document.getElementById(id + "_date").value.replace(/\//g, '-');
+        var hour = document.getElementById(id + "_h").value;
+        var min = document.getElementById(id + "_m").value;
+        document.getElementById(id).value = date + ' ' + hour + ':' + min + ':00';
+    }
+
+    function set_wmkt_status(){
+        $('#wmkt_status').val($('input[name=status_top]:checked').val())
+    }
+
+    function setButtonStatus() {
+        let status = '1';
+        if ($("#wmkt_money_start_top").val() == '') status = '0';
+        if ($("#wmkt_title_top").val() == '') status = '0';
+        if ($(".product_box").length == '') status = '0';
+        if ($("input[name='wmkt_type_top']:checked").val() == '32') {
+            $('.product_box .price_box').each(function () {
+                if ($(this).val() == '') {
+                    status = '0';
+                }
+            })
+        }
+
+        if (status == '1') 
+            $("#save_button").addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('pointer-events', '');
+        else 
+            $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+    }
+
+    function add_product(prod) {
+        let prod_file = prod.prod_file ? `{{$m_arrSystem.uploads_product_url}}${prod.prod_file}` : '{{$sys_arrWebsite.website_url}}images/skm_nopic.jpg';
+        let prod_label;
+        if(prod.prod_type==3) prod_label = '<span class="pic-sort-color-orange pic-sort-frame"><i class="icons-line icon-line-General"></i>常溫</span>';
+        else if(prod.prod_type==10) prod_label = '<span class="pic-sort-color-light-green pic-sort-frame"><i class="icons-line icon-line-Fridge"></i>冷藏</span>';
+        else if(prod.prod_type==11) prod_label = '<span class="pic-sort-color-blue pic-sort-frame"><i class="icons-line icon-line-Freezing"></i>冷凍</span>';
+
+        let add_prod_html = `
+        <div class="admweb-v2-EventMerchandise-ProductBox product_box" avail
+            id="product_box_${prod.prod_uid}" type="${prod.prod_type}">
+            <div class="admweb-v2-EventMerchandise-state pic_warn_mask" style='display:none;'>
+                <h2>商品不適用此行銷活動</h2>
+                <p class="pic-text-warn">行銷活動需選擇"同溫層商品"販售</p>
+                <div class="admweb-v2-icon-right">
+                    <a href="javascript:delete_product('${prod.prod_uid}','')"
+                        class="iopen-icon-black-delete"></a>
+                </div>
+            </div>
+            <input type="hidden" name="wmkt_df_uid[${prod.prod_uid}]" value="">
+            <input type="hidden" name="prod_uid[]" value="${prod.prod_uid}">
+            <div class="admweb-v2-checkbox-name pic-margin-r10 wmkt_type32">
+                <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox prod_checkbox"
+                    id="prod_checkbox_${prod.prod_uid}">
+                <label class="admweb-v2-ckbutton-green-label" for="prod_checkbox_${prod.prod_uid}"></label>
+            </div>
+            <img class="pic-margin-r10" src="${prod_file}">
+            <div class="admweb-v2-product-name">
+                ${prod_label}
+                <h2>${prod.prod_name}</h2>
+                <div class="admweb-v2-product-detail">
+                    <span>規格：${prod.prod_spec_cus}</span>
+                    <span>$${prod.prod_selling_price}</span>
+                </div>
+            </div>
+            <div class="admweb-v2-EventMerchandise-select-box wmkt_type32">
+                <label>加購價</label>
+                <input name="wmkt_df_price[${prod.prod_uid}]" type="text" placeholder="請輸入金額"
+                    class="pic-text-lnput pic-lnput-enter price_box" value="${prod.prod_selling_price}">
+            </div>
+            <div class="admweb-v2-icon-right">
+                <a href="javascript:moveUp('${prod.prod_uid}')" class="iopen-icon-black-ArrowsLong-up wmkt_type32"></a>
+                <a href="javascript:moveDown('${prod.prod_uid}')" class="iopen-icon-black-ArrowsLong-down wmkt_type32"></a>
+                <a href="javascript:delete_product('${prod.prod_uid}','')"
+                    class="iopen-icon-black-delete"></a>
+            </div>
+        </div> `;
+
+        $("#formWmkt").append(add_prod_html);
+
+        setButtonStatus();
+        setProdCount();
+    }
+
+    function delete_product(prod_uid, uid) {
+        if ('{{$m_arrSystem.custom_dialog}}' == '1') {
+            confirm("是否確認刪除此商品?").done(function () {
+                delete_product_unit(prod_uid, uid)
+            })
+        } else {
+            if (confirm("是否確認刪除此商品?")) {
+                delete_product_unit(prod_uid, uid)
+            }
+        }
+    }
+
+    function delete_product_unit(prod_uid, uid) {
+        $("#product_box_" + prod_uid).remove();
+        check_puid_in_lightbox(prod_uid, false);
+        if (uid != '') $("#formWmkt").prepend("<input type='hidden' name='delete_wmkt[]' value='" + uid + "'>")
+
+        setButtonStatus();
+        wmkt_checked_puid.splice(wmkt_checked_puid.indexOf(prod_uid), 1);
+        setProdCount();
+    }
+
+    /*{{* 顯示選擇活動商品數及溫層 *}}*/
+    function setProdCount() {
+        let wmkt_type = $("input[name='wmkt_type_top']:checked").val();
+        let avail_ptype = get_avail_ptype();
+        let p_cnt = $(".product_box").length;
+
+        if(p_cnt == 0){
+            $('.admweb-v2-NoData').show();
+            $('div.wmkt_type32').hide();
+        }else{
+            $('.admweb-v2-NoData').hide();
+            if(wmkt_type == '32') $('div.wmkt_type32').show();
+            else $('div.wmkt_type32').hide();
+        }
+        
+        check_select_all();
+        if(wmkt_type == '32') $("#item_count").html(`加購商品(${p_cnt}/100)<span>目前活動溫層：${avail_ptype.str}</span>`);
+        else $("#item_count").html(`加贈商品(${p_cnt}/100)<span>目前活動溫層：${avail_ptype.str}</span>`);
+
+        mask_unavail_ptype(avail_ptype.type);
+    }
+
+    /*{{* 非活動溫層商品加遮罩 *}}*/
+    function mask_unavail_ptype(avail_type){
+        let types = [3,10,11];
+
+        $.each(types, function (idx,ele) {
+             if(ele!=avail_type) $(`div.admweb-v2-EventMerchandise-ProductBox.product_box[type=${ele}][avail] .pic_warn_mask`).show();
+             else $(`div.admweb-v2-EventMerchandise-ProductBox.product_box[type=${ele}][avail] .pic_warn_mask`).hide();
+        });        
+    }
+
+    /*{{* 判目前活動多數有效商品溫層 *}}*/
+    function get_avail_ptype(){
+        let arr_WMKT_ptype = {{$arr_WMKT_prod_type|@json_encode}};
+
+        $.each(wmkt_checked_puid, function (idx, ele) { 
+            if(obj_wmkt_prod[ele]!==undefined) arr_WMKT_ptype[obj_wmkt_prod[ele].prod_type]['cnt'] += 1;
+        });
+
+        let qty = 0;
+        let avail_ptype = arr_WMKT_ptype[0];
+        $.each(arr_WMKT_ptype, function (idx, ele) { 
+            if(ele.cnt > qty){
+                qty = ele.cnt;
+                avail_ptype = ele;
+            }
+        });
+
+        return avail_ptype;
+    }
+
+    function moveUp(prod_uid) {
+        var p_item = $("#product_box_" + prod_uid)
+        p_item.prev('.product_box').before(p_item);
+    }
+
+    function moveDown(prod_uid) {
+        var p_item = $("#product_box_" + prod_uid)
+        p_item.next('.product_box').after(p_item);
+    }
+
+    function _CS_checkAdd(_this) {
+        if (_this.wmkt_title.value.search(/[\\\/'"&()=;<>]/) > 0) {
+            alert('請確認活動名稱中是否有特殊符號。')
+            return false;
+        }
+        $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+    }
+
+    function cancel_btn() {
+        confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function () {
+            window.location.href = encodeURI('{{$m_backURL}}'); //Checkmarkx Client DOM XSS 
+        });
+    }
+</script>

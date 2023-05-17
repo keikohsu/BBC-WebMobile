@@ -1,0 +1,1113 @@
+<style>
+	.admweb-v2-list-header-in-fixbottom{overflow: hidden;}
+</style>
+<div class="pic-default pic-flex admweb-v2-admweb-main-content">
+	<div class="admweb-v2-seller-front-left-box ">
+		{{include file="admweb_2/admweb.main_menu.htm"}}
+	</div>
+	<div class="admweb-v2-FrontPages-right">
+		<div class="pic-flex">
+			<div class="admweb-v2-FrontPages-content">
+
+				<!-- 待辦事項 -->
+
+				<div class="admweb-v2-ToDoList-outside-green">
+					<div>
+						<h2 class="admweb-v2-title-size">賣家待辦事項</h2>
+					</div>
+					<div class="ToDoList">
+						<ul class="admweb-v2-ToDoList">
+<!--							<li class="admweb-v2-ToDoList-SmBox">-->
+<!--								<a href="admweb.main.php?action=account_statement_pic">-->
+<!--									<div class="admweb-v2-ToDoList-data">-->
+<!--										<span class="pic-text-white">99+</span>-->
+<!--										<h3>待撥款項</h3>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</li>-->
+							<li class="admweb-v2-ToDoList-SmBox">
+								<a href="admweb.main.php?action=order_control_pic#tab11">
+									<div class="admweb-v2-ToDoList-data">
+										<span class="pic-text-white">{{if $HPInfo.orderControl11<100}}{{$HPInfo.orderControl11}}{{else}}99+{{/if}}</span>
+										<h3>新訂單</h3>
+									</div>
+								</a>
+							</li>
+							<li class="admweb-v2-ToDoList-SmBox">
+								<a href="admweb.main.php?action=order_control_pic#tab21">
+									<div class="admweb-v2-ToDoList-data">
+										<span class="pic-text-white">{{if $HPInfo.orderControl21<100}}{{$HPInfo.orderControl21}}{{else}}99+{{/if}}</span>
+										<h3>尚未出貨</h3>
+									</div>
+
+								</a>
+							</li>
+							<li class="admweb-v2-ToDoList-SmBox">
+								<a href="admweb.main.php?action=product_pic&nav=3">
+									<div class="admweb-v2-ToDoList-data">
+										<span class="pic-text-white">{{if $HPInfo.osProd<100}}{{$HPInfo.osProd}}{{else}}99+{{/if}}</span>
+										<h3>已售完商品</h3>
+									</div>
+								</a>
+							</li>
+
+							<li class="admweb-v2-ToDoList-SmBox">
+								<a href="admweb.main.php?action=order_control_pic#tab42">
+									<div class="admweb-v2-ToDoList-data">
+										<span class="pic-text-white">{{if $HPInfo.orderControl42<100}}{{$HPInfo.orderControl42}}{{else}}99+{{/if}}</span>
+										<h3>未取退回</h3>
+									</div>
+								</a>
+							</li>
+
+							<!-- <li class="admweb-v2-ToDoList-SmBox">
+								<a href="admweb.main.php?action=order_control_pic#tab42">
+									<div class="admweb-v2-ToDoList-data">
+										<span class="pic-text-white">{{if $HPInfo.orderControl42<100}}{{$HPInfo.orderControl42}}{{else}}99+{{/if}}</span>
+										<h3>關轉宅回</h3>
+									</div>
+								</a>
+							</li> -->
+
+							<li class="admweb-v2-ToDoList-SmBox">
+								<a href="admweb.main.php?action=order_control_pic#tab24">
+									<div class="admweb-v2-ToDoList-data">
+										<span class="pic-text-white">{{if $HPInfo.orderControl24<100}}{{$HPInfo.orderControl24}}{{else}}99+{{/if}}</span>
+										<h3>取貨倒數</h3>
+									</div>
+								</a>
+							</li>
+
+							<li class="admweb-v2-ToDoList-SmBox">
+								<a href="admweb.main.php?action=customer_service_qa_pic&qa_type=2">
+									<div class="admweb-v2-ToDoList-data">
+										<span class="pic-text-white">{{$HPInfo.orderFaq}}</span>
+										<h3>買家詢問</h3>
+									</div>
+								</a>
+							</li>
+						</ul>
+
+						<div class="admweb-v2-LastInformation">
+							<p class="pic-text-green-40 pic-text-right"><a class="pic-text-green-40 pic-text-right" href="#"><i class="icons-line icon-line-round-bold-02" onclick="GetToDoListData()"></i></a>
+								資料時間 {{$smarty.now|date_format:"%Y/%m/%d %T"}}</p>
+							<!--<p class="pic-text-green-40 pic-text-right">更新日期 {{"-3 months"|date_format:"%Y/%m/%d"}} ~ {{$smarty.now|date_format:"%Y/%m/%d"}}</p>-->
+						</div>
+					</div>
+				</div>
+
+				<!-- 輪播 BN -->
+				<div class="pic-width-100">
+					<ul class="admweb-v2-content-carousel admweb-v2-carousel-style owl-carousel owl-theme">
+						{{foreach from=$banner_image item=bpic}}
+						<li class="item">
+							<img src="{{$bpic}}">
+						</li>
+						{{/foreach}}
+					</ul>
+				</div>
+			</div>
+
+			<!-- 公告 -->
+			{{if !$mobileDeviceDirected}}
+
+			<!-- 電腦版 -->
+			<div class="admweb-v2-announcement-container">
+				<div>
+					<div class="admweb-v2-announcement-TopTitle pic-BgText-color-orange pic-flex-center-between">
+						<h2 class="admweb-v2-title-size">公告</h2>
+						<a class="admweb-v2-sequence-btn"><i
+								class="icons-line icon-line-arrow-UpDown"></i>排序</a>
+						<!-- 排序下拉選單 -->
+						<ul id="" class="admweb-v2-sequence-list admweb-v2-sequence-triangle pic-padding-t10"
+							style="display: none;">
+							<li><a href="#" style="display: none">未讀訊息置頂</a></li>
+							<li><a id="start_timeDESC" class="pic-text-orange" href="javascript:AnnounceDESC();">訊息時間由新至舊排序</a></li>
+							<li><a id="start_timeASC" href="javascript:AnnounceASC();">訊息時間由舊至新排序</a></li>
+						</ul>
+					</div>
+					<div class="admweb-v2-announcement-carousel">
+						{{section name=i loop=$m_arrAdmwebSysmsg}}
+						<div class="item AnnounceDESC">
+							<div class="admweb-v2-announcement-white-box">
+								<div class="admweb-v2-announcement-box">
+									<div class="pic-bg-gray-5 pic_padding-10">
+										<p class="admweb-v2-announcement-title pic-text-orange "><i
+												class="icons-line icon-line-announce"></i>
+										<a class="pic-text-orange" {{if $m_arrAdmwebSysmsg[i].admweb_sysmsg_url}} href="{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_url}}"{{/if}}>
+											<span class="pic-OneRow-simplify">{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_title}}</span>
+										</a>
+										</p>
+										<p class="pic-OneRow-simplify-2 pic-text-gray-50 pic-margin-b10">
+											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_content}}</p>
+										<p class="pic-text-gray-50  pic-text-right admweb-v2-announcement-date">
+											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_start|date_format:"%Y/%m/%d"}}</p>
+<!--										<p class="admweb-v2-announcement-title pic-text-gray-40"><i-->
+<!--												class="icons-line icon-line-announce"></i>-->
+<!--											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_title}}</p>-->
+<!--										<p class="pic-text-gray-50 admweb-v2-announcement-content">-->
+<!--											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_content}}</p>-->
+<!--										<p class="pic-text-gray-20  pic-text-right admweb-v2-announcement-date">-->
+<!--											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_start}}</p>-->
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item AnnounceASC" style="display: none">
+							<div class="admweb-v2-announcement-white-box">
+								<div class="admweb-v2-announcement-box">
+									<div class="pic-bg-gray-5 pic_padding-10">
+										<p class="admweb-v2-announcement-title pic-text-orange"><i
+												class="icons-line icon-line-announce"></i>
+										<a class="pic-text-orange" {{if $m_arrAdmwebSysmsgASC[i].admweb_sysmsg_url}} href="{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_url}}" {{/if}}>
+											<span class="pic-OneRow-simplify">{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_title}}</span>
+										</a>
+										</p>
+										<p class="admweb-v2-announcement-content pic-text-gray-50">
+											{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_content}}</p>
+										<p class="pic-text-gray-50  pic-text-right admweb-v2-announcement-date">
+											{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_start|date_format:"%Y/%m/%d"}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						{{/section}}
+
+					</div>
+					{{if $m_arrAdmwebSysmsg|@count != 0}}
+					<a href="{{$m_inURL}}iopen_announcement" class="admweb-v2-more-style pic-padding-10">查看更多
+						<i class="icons-line icon-arrow-right-01"></i></a>
+					{{/if}}
+				</div>
+			</div>
+
+			{{else}}
+
+			<!-- 手機版 -->
+			<div class="admweb-v2-announcement-container">
+				<div class="pic-margin-10lr">
+					<div class="admweb-v2-announcement-TopTitle pic-BgText-color-orange pic-flex-center-between">
+						<h2 class="admweb-v2-title-size">公告</h2>
+						<a class="admweb-v2-sequence-btn" ><i
+								class="icons-line icon-line-arrow-UpDown"></i>排序</a>
+
+						<!-- 排序下拉選單 -->
+						<ul id="" class="admweb-v2-sequence-list admweb-v2-sequence-triangle pic-padding-t10"
+							style="display: none;">
+							<li style="display: none"><a href="#">未讀訊息置頂</a></li>
+							<li><a id="start_timeDESC" class="pic-text-orange" href="javascript:AnnounceDESC();">訊息時間由新至舊排序</a></li>
+							<li><a id="start_timeASC" href="javascript:AnnounceASC();">訊息時間由舊至新排序</a></li>
+						</ul>
+					</div>
+					<div class="admweb-v2-announcement-carousel owl-carousel owl-theme">
+						{{section name=i loop=$m_arrAdmwebSysmsg}}
+						<div class="item">
+							<div class="admweb-v2-announcement-white-box">
+								<div class="admweb-v2-announcement-box">
+									<div class="pic-bg-gray-5 pic_padding-10 AnnounceDESC">
+										<p class="admweb-v2-announcement-title pic-text-orange">
+											<i class="icons-line icon-line-announce "></i>
+											<a class="pic-text-orange" {{if $m_arrAdmwebSysmsg[i].admweb_sysmsg_url}} href="{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_url}}" {{/if}}>
+											<span class="pic-OneRow-simplify-2">{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_title}}</span></a>
+										</p>
+										<p class="pic-OneRow-simplify-3 pic-text-gray-50 pic-margin-b10">
+											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_content}}</p>
+										<p class="pic-text-gray-50  pic-text-right admweb-v2-announcement-date">
+											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_start|date_format:"%Y/%m/%d"}}</p>
+									</div>
+									<div class="pic-bg-gray-5 pic_padding-10 AnnounceASC" style="display: none">
+										<p class="admweb-v2-announcement-title pic-text-orange">
+											<i class="icons-line icon-line-announce"></i>
+											<a class="pic-text-orange" {{if $m_arrAdmwebSysmsgASC[i].admweb_sysmsg_url}} href="{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_url}}" {{/if}}>
+											<span class="pic-OneRow-simplify">{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_title}}</span></a></p>
+										<p class="pic-OneRow-simplify-3 pic-text-gray-50 pic-margin-b10">
+											{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_content}}</p>
+										<p class="pic-text-gray-50  pic-text-right admweb-v2-announcement-date">
+											{{$m_arrAdmwebSysmsgASC[i].admweb_sysmsg_start|date_format:"%Y/%m/%d"}}</p>
+<!--										<p class="admweb-v2-announcement-title pic-text-gray-40"><i-->
+<!--												class="icons-line icon-line-announce"></i>-->
+<!--											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_title}}</p>-->
+<!--										<p class="pic-text-gray-50 admweb-v2-announcement-content">-->
+<!--											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_content}}</p>-->
+<!--										<p class="pic-text-gray-20 pic-text-right admweb-v2-announcement-date">-->
+<!--											{{$m_arrAdmwebSysmsg[i].admweb_sysmsg_start}}</p>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					{{/section}}
+					</div>
+					{{if $m_arrAdmwebSysmsg|@count != 0}}
+					<a href="{{$m_inURL}}iopen_announcement" class="admweb-v2-more-style">查看更多<i class="icons-line icon-arrow-right-01"></i></a>
+					{{/if}}
+				</div>
+
+			</div>
+
+			<div class="js-admweb-v2--alert admweb-v2-orderlist--alert" style="display: none">
+				<div id="pic-icon" class="pic-window-bg">
+					<div class="admweb-v2-orderlist--alert-content">
+						<p class="pic-window-marge-box" id="pic-window-marge-box">text</p>
+						<div class="pic-window-button-box">
+							<button class="pic-window-button-OneBtn pic-BgText-color-green" onclick="closeAlert();">
+								確認
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/if}}
+		</div>
+
+		<!-- 我的常用功能 icon -->
+		<div class="admweb-v2-CommonFunctions pic-margin-10lr">
+			<div class="pic-outside-white-box">
+				<div class=" pic-flex-center-between pic-margin-b15">
+					<h2 class="admweb-v2-title-size">我的常用功能 <i id="admweb-v2-OpenWindow-CommonFunctions"
+															   class="icons-line icon-add-01"></i></h2>
+					<a href="admweb.main.php?action=frequently_features" class="admweb-v2-more-style">更多服務<i
+							class="icons-line icon-arrow-right-01"></i></a>
+				</div>
+				<div>
+					<ul class="admweb-v2-ToDoList admweb-v2-ToDoList" id="common_menu">
+						<li class="admweb-v2-FunctionsBox">
+							<a href="javascript:void(0)" onclick="get_my_qrcode();">
+								<div class="admweb-v2-functions-icon">
+									<i class="icons-solid icon-solid-qrcode"></i>
+								</div>
+								我的QRcode
+							</a>
+						</li>
+						{{foreach item=webMenu from=$arr_webMenu}}
+						<li class="admweb-v2-FunctionsBox common_menu" data-value="{{$webMenu.web_use_uid}}">
+							<a href="{{$webMenu.web_use_path}}">
+								<div class="admweb-v2-functions-icon">
+									<i class="icons-solid {{$webMenu.web_use_icon}}"></i>
+								</div>
+								{{$webMenu.web_use_name}}
+							</a>
+						</li>
+						{{/foreach}}
+					</ul>
+				</div>
+			</div>
+		</div>
+		{{if $mobileDeviceDirected}}
+		<div id="QRcode_box" style="display:none;">{{include file='admweb_2/order_qrcode_pic.htm'}}</div>
+		{{/if}}
+
+		{{if $m_arrSystem.is_chart_data_log_}}
+		<!-- 我的表現 -->
+		<div class="admweb-v2-MyPerformance pic-margin-10lr">
+			<div class="pic-outside-white-box">
+				<div class="pic-flex-center-between pic-margin-b15">
+					<h2 class="admweb-v2-title-size">我的表現<i class="icons-line icon-alert-circle-01"></i></h2>
+					<a href="{{$m_inURL}}data_center_pic" class="admweb-v2-more-style">查看更多<i class="icons-line icon-arrow-right-01"></i></a>
+				</div>
+
+				<div class="admweb-v2-data-seller-front">
+					<label class="admweb-v2-data-checkbox" for="ckbutton-id_1">
+						<input type="checkbox" name="line-data" class="admweb-v2-data-frame" id="ckbutton-id_1">
+						<div class="admweb-v2-FrontPages-data admweb-v2-data-line-red">
+							<div class="pic-checkbox-name">
+								<p class="admweb-v2-seller-data-title">總訂單數</p>
+							</div>
+							<span class="admweb-v2-data-SellerNum pic-text-orange">{{$arrPerformance.this_week.total_order_qty|number_format}}</span>
+							<div class="admweb-v2-seller-data-text pic-flex-center-between"><span
+									class="admweb-v2-data-SellerWeek">vs 前一週</span>
+								<span class="admweb-v2-triangle-{{if $arrPerformance.grate_order_qty>0}}green{{else}}red{{/if}} pic-text-{{if $arrPerformance.grate_order_qty>0}}grren{{else}}red{{/if}}">{{$arrPerformance.grate_order_qty}}%</span>
+							</div>
+						</div>
+					</label>
+
+					<label class="admweb-v2-data-checkbox" for="ckbutton-id_2">
+						<input type="checkbox" name="line-data" class="admweb-v2-data-frame" id="ckbutton-id_2">
+						<div class="admweb-v2-FrontPages-data admweb-v2-data-line-red">
+							<div class="pic-checkbox-name">
+								<p class="admweb-v2-seller-data-title">總銷售額</p>
+							</div>
+							<span class="admweb-v2-data-SellerNum pic-text-orange">${{$arrPerformance.this_week.total_order_money|number_format}}</span>
+							<div class="admweb-v2-seller-data-text pic-flex-center-between"><span
+									class="admweb-v2-data-SellerWeek">vs 前一週</span>
+								<span class="admweb-v2-triangle-{{if $arrPerformance.grate_order_money>0}}green{{else}}red{{/if}} pic-text-{{if $arrPerformance.grate_order_money>0}}grren{{else}}red{{/if}}">{{$arrPerformance.grate_order_money}}%</span>
+							</div>
+						</div>
+					</label>
+
+					<label class="admweb-v2-data-checkbox" for="ckbutton-id_3">
+						<input type="checkbox" name="line-data" class="admweb-v2-data-frame" id="ckbutton-id_3">
+						<div class="admweb-v2-FrontPages-data admweb-v2-data-line-red">
+							<div class="pic-checkbox-name">
+								<p class="admweb-v2-seller-data-title">平均訂單金額</p>
+							</div>
+							<span class="admweb-v2-data-SellerNum pic-text-orange">${{$arrPerformance.this_week.avg_order_money|number_format}}</span>
+							<div class="admweb-v2-seller-data-text pic-flex-center-between">
+								<span class="admweb-v2-data-SellerWeek">vs 前一週</span>
+								<span class="admweb-v2-triangle-{{if $arrPerformance.grate_avg_order_money>0}}green{{else}}red{{/if}} pic-text-{{if $arrPerformance.grate_avg_order_money>0}}grren{{else}}red{{/if}}">{{$arrPerformance.grate_avg_order_money}}%</span>
+							</div>
+						</div>
+					</label>
+
+					<label class="admweb-v2-data-checkbox" for="ckbutton-id_4">
+						<input type="checkbox" name="line-data" class="admweb-v2-data-frame" id="ckbutton-id_4">
+						<div class="admweb-v2-FrontPages-data admweb-v2-data-line-red">
+							<div class="pic-checkbox-name">
+								<p class="admweb-v2-seller-data-title">總寄件數</p>
+							</div>
+							<span class="admweb-v2-data-SellerNum pic-text-orange">{{$arrPerformance.this_week.total_delivery_qty|number_format}}</span>
+							<div class="admweb-v2-seller-data-text pic-flex-center-between"><span
+									class="admweb-v2-data-SellerWeek">vs 前一週</span>
+								<span class="admweb-v2-triangle-{{if $arrPerformance.grate_delivery_qty>0}}green{{else}}red{{/if}} pic-text-{{if $arrPerformance.grate_delivery_qty>0}}grren{{else}}red{{/if}}">{{$arrPerformance.grate_delivery_qty}}%</span>
+							</div>
+						</div>
+					</label>
+					
+
+					<!-- <label class="admweb-v2-data-checkbox" for="ckbutton-id_5">
+						<input type="checkbox" class="admweb-v2-data-frame" id="ckbutton-id_5">
+						<div class="admweb-v2-FrontPages-data admweb-v2-data-line-green">
+							<div class="pic-checkbox-name">
+								<p class="admweb-v2-seller-data-title">下單轉換率</p>
+							</div>
+							<span class="admweb-v2-data-SellerNum pic-text-orange">56.3%</span>
+							<div class="admweb-v2-seller-data-text pic-flex-center-between"><span
+									class="admweb-v2-data-SellerWeek">vs 前一週</span>
+								<span class="admweb-v2-triangle-green pic-text-green">6.8%</span>
+							</div>
+						</div>
+					</label>
+
+					<label class="admweb-v2-data-checkbox" for="ckbutton-id_6">
+						<input type="checkbox" class="admweb-v2-data-frame" id="ckbutton-id_6">
+						<div class="admweb-v2-FrontPages-data admweb-v2-data-line-green">
+							<div class="pic-checkbox-name">
+								<p class="admweb-v2-seller-data-title">賣場訪客數</p>
+							</div>
+							<span class="admweb-v2-data-SellerNum pic-text-orange">211,111</span>
+							<div class="admweb-v2-seller-data-text pic-flex-center-between"><span
+									class="admweb-v2-data-SellerWeek">vs 前一週</span>
+								<span class="admweb-v2-triangle-green pic-text-green">6.8%</span>
+							</div>
+						</div>
+					</label> -->
+
+				</div>
+				<br/><br/>
+				<section>
+					<canvas id="line-data" class="admweb-v2-analysis__canvas-line"></canvas>
+				</section>
+				<!-- <div class="admweb-v2-statistics pic-outside-white-box pic-BgText-color-gray">
+					<p class="admweb-v2-statistics-date pic-text-center pic-text-gray-70">2022/10/28</p>
+					<ul class="admweb-v2-statistics-box pic-flex-center-between admweb-v2-ToDoList">
+						<li>
+							<h4 class="admweb-v2-red-point">總訂單數</h4>
+							<span class="admweb-v2-statistics-num">{{$arrPerformance.total_order_qty|number_format}}</span>
+						</li>
+						<li>
+							<h4 class="admweb-v2-green-point">總寄件數</h4>
+							<span class="admweb-v2-statistics-num">{{$arrPerformance.total_delivery_qty|number_format}}</span>
+						</li>
+
+					</ul>
+				</div> -->
+
+				 <div class="admweb-v2-LastInformation pic-text-right">
+					<p class="pic-text-green-40 pic-text-gray-40"><i class="icons-line icon-line-round-bold-02"></i>資料時間
+						2022/10/04 17:17:56</p>
+					<!--<p class="pic-text-green-40 pic-text-gray-40">更新日期 2022/09/28 ~ 2022/10/04</p>-->
+				</div> 
+			</div>
+		</div>
+		{{/if}}
+
+	</div>
+</div>
+
+
+<!-- ==================== 視窗 =================== -->
+
+<div id="admweb-v2-window-CommonFunctions-1" class="pic-window-bg admweb-v2-window-CommonFunctions-container"
+	 style="display:none;">
+
+	<div class="admweb-v2-window-CommonFunctions">
+		<h2 class="admweb-v2-window-CommonFunctions-haed">
+			<a class="admweb-v2-icon-white-arrows-left" onclick="WindowClose()"><i class="icons-line icon-arrow-left-01"></i></a>
+			新增常用功能<span class="pic-window-close"></span>
+		</h2>
+
+		<div class="admweb-v2-window-CommonFunctions-box pic-margin-b10">
+			<h3 class="pic-margin-b10">我的常用功能</h3>
+			<ul class="admweb-v2-ToDoList admweb-v2-ToDoList" id="common_menu_edit">
+				<li class="admweb-v2-FunctionsBox">
+					<div class="admweb-v2-functions-icon">
+						<i class="icons-solid icon-solid-qrcode"></i>
+					</div>
+					我的QRcode
+				</li>
+				{{foreach item=webMenu from=$arr_webMenu}}
+				<li class="admweb-v2-FunctionsBox common_menu_edit" data-value="{{$webMenu.web_use_uid}}">
+					<a class="admweb-v2-icons-remove admweb-v2-remove-func" href="javascript:void(0)"><i class="icons-line icon-remove-01"></i></a>
+					<div class="admweb-v2-functions-icon  ">
+						<i class="icons-solid {{$webMenu.web_use_icon}}"></i>
+					</div>
+					{{$webMenu.web_use_name}}
+				</li>
+				{{/foreach}}
+			</ul>
+		</div>
+		<div class="admweb-v2-window-CommonFunctions-box">
+			<h3 class="pic-margin-b10">功能列表</h3>
+			{{section name=i loop=$m_arrWebUseMenu_m}}
+			<div class="admweb-v2-window-CommonFunctions-row">
+				<h4 class="">{{$m_arrWebUseMenu_m[i].web_use_name}}</h4>
+				<ul class="admweb-v2-ToDoList admweb-v2-ToDoList common_menu_list_ul">
+					{{getWebUseMenuByWuidPuidPers web_use_uid=$m_arrWebUseMenu_m[i].web_use_uid}}
+					{{foreach from=$m_arrWebUseMenu_s item=i key=k}}
+					<li class="admweb-v2-FunctionsBox common_menu_list" data-value="{{$i.web_use_uid}}">
+						<a class="admweb-v2-icons-remove admweb-v2-add-func" href="javascript:void(0)" data-value="{{$i.web_use_path}}">
+							<i class="icons-line icon-add-01"></i>
+						</a>
+						<div class="admweb-v2-functions-icon ">
+							<i class="icons-solid {{$i.web_use_icon}}"></i>
+						</div>
+						{{$i.web_use_name}}
+					</li>
+					{{/foreach}}
+				</ul>
+			</div>
+			{{/section}}
+		</div>
+	</div>
+	<span class="admweb-v2-window-btn-close">
+		<a href="javascript:void(0)" class="admweb-v2-window-CommonFunctions-close pic-icon-white-close"></a>
+	</span>
+
+</div>
+
+<!--pic-->
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> -->
+
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script>
+// 輪播
+var banner_loop_status = ('{{$banner_image|@count}}'>1) ? true : false;
+    $('.admweb-v2-content-carousel.owl-carousel').owlCarousel({
+      items:1,
+	  margin:0,
+      nav:false,
+	  loop:banner_loop_status,
+	  dots: true,
+	  autoplay:true
+	});
+
+	$('.admweb-v2-announcement-carousel.owl-carousel').owlCarousel({
+		items:1,
+		margin:0,
+		responsive: {
+			0: {
+				items: 1
+			},
+			600: {
+				items: 1
+			},
+			1000: {
+				items: 0,
+				nav: false,
+				dots: false,
+			}
+		}
+	})
+
+$(".admweb-v2-sequence-btn").click(function () {
+		$(".admweb-v2-sequence-list").toggle();
+	})
+
+	$(".admweb-v2-window-CommonFunctions-close").click(function () {
+		$("#admweb-v2-window-CommonFunctions-1").toggle();
+		$(".admweb-v2-admweb-main-content").toggleClass('disscroll');
+	})
+	$("#admweb-v2-OpenWindow-CommonFunctions").click(function () {
+		$("#admweb-v2-window-CommonFunctions-1").show();
+		$(".admweb-v2-list-header-in-fixbottom").hide();
+		$(".admweb-v2-admweb-main-content").toggleClass('disscroll');
+	})
+
+
+	function WindowClose(){
+		$('#admweb-v2-window-CommonFunctions-1').hide();
+		$(".admweb-v2-list-header-in-fixbottom").show();
+		$(".admweb-v2-admweb-main-content").toggleClass('disscroll');
+	}
+
+
+
+</script>
+<script>
+$(document).ready(function() {
+	if($('.admweb_memberbox').children('.admweb_memberboxR').length > 0 ){
+		$('.admweb_memberboxL').removeClass('active');
+	} else {
+		$('.admweb_memberboxL').addClass('active');
+	}
+
+	var ori_arr = $('.common_menu_edit').map(function () {
+		return $(this).attr('data-value');
+	}).toArray();
+	$(".common_menu_list").map(function () {
+		if($.inArray($(this).attr('data-value'), ori_arr)!=-1){
+			$(this).addClass('admweb-v2-CommonFunctions-mask');
+			$(this).find(".admweb-v2-icons-remove").removeClass("admweb-v2-add-func");
+			$(this).find("i").removeClass("icon-add-01");
+			$(this).find(".admweb-v2-functions-icon").addClass("admweb-v2-CommonFunctions-mask");
+		}
+	})
+
+	$(".common_menu_list_ul").on('click', ".admweb-v2-add-func", function (){
+		if($('.common_menu_edit').length < 9) {
+			var common_menu_id = $(this).parents(".admweb-v2-FunctionsBox").attr("data-value");
+			var common_menu_href = $(this).attr("data-value");
+			var common_menu_icon = $(this).parents(".admweb-v2-FunctionsBox").find(".icons-solid").attr("class")
+			var common_menu_name = $(this).parents(".admweb-v2-FunctionsBox").text()
+
+			$(this).parents(".common_menu_list").addClass('admweb-v2-CommonFunctions-mask');
+			$(this).removeClass("admweb-v2-add-func");
+			$(this).find("i").removeClass("icon-add-01");
+
+			var html_edit = "<li class=\"admweb-v2-FunctionsBox common_menu_edit\" data-value=\""+common_menu_id+"\">" +
+							"  <a class=\"admweb-v2-icons-remove admweb-v2-remove-func\" href=\"javascript:void(0)\"><i class=\"icons-line icon-remove-01\"></i></a>" +
+							"    <div class=\"admweb-v2-functions-icon\">" +
+							"      <i class=\""+common_menu_icon+"\"></i>" +
+							"    </div>" +
+							common_menu_name +
+							"</li>"
+			$("#common_menu_edit").append(html_edit)
+
+			var html = "<li class=\"admweb-v2-FunctionsBox common_menu\" data-value=\""+common_menu_id+"\">" +
+					   "  <a href=\""+common_menu_href+"\">" +
+					   "    <div class=\"admweb-v2-functions-icon\">" +
+					   "      <i class=\""+common_menu_icon+"\"></i>" +
+					   "    </div>" +
+					   common_menu_name +
+					   "  </a>" +
+					   "</li>"
+			$("#common_menu").append(html)
+
+			var cummon_arr = $('.common_menu_edit').map(function () {
+				return $(this).attr('data-value');
+			}).toArray();
+
+			$.ajax({
+				url: "",
+				type: "POST",
+				dataType: "json",
+				async: false,
+				data: {
+					web_uid: '{{$sys_arrWebsite.web_uid}}',
+					mem_uid: '{{$adm_arrMember.mem_uid}}',
+					data: JSON.stringify(cummon_arr),
+					myAct: "SET_COMMON_MENU"
+				},
+				success: function (result) {
+					// console.log(result)
+				}
+			})
+		} else {
+			alert('最大可選10項')
+		}
+	})
+
+	$("#common_menu_edit").on('click', '.admweb-v2-remove-func', function (){
+		var common_menu_id = $(this).parents(".admweb-v2-FunctionsBox").attr("data-value");
+
+		$(this).parents(".admweb-v2-FunctionsBox").remove();
+		$("#common_menu").find(".common_menu[data-value="+common_menu_id+"]").remove();
+		$(".common_menu_list_ul").find(".common_menu_list[data-value="+common_menu_id+"]").removeClass('admweb-v2-CommonFunctions-mask');
+		$(".common_menu_list_ul").find(".common_menu_list[data-value="+common_menu_id+"]").find(".admweb-v2-icons-remove").addClass("admweb-v2-add-func");
+		$(".common_menu_list_ul").find(".common_menu_list[data-value="+common_menu_id+"]").find(".admweb-v2-icons-remove").find("i").addClass("icon-add-01");
+
+		var cummon_arr = $('.common_menu_edit').map(function () {
+			return $(this).attr('data-value');
+		}).toArray();
+
+		$.ajax({
+			url: "",
+			type: "POST",
+			dataType: "json",
+			async: false,
+			data: {
+				web_uid: '{{$sys_arrWebsite.web_uid}}',
+				mem_uid: '{{$adm_arrMember.mem_uid}}',
+				data: JSON.stringify(cummon_arr),
+				myAct: "SET_COMMON_MENU"
+			},
+			success: function (result) {
+				// console.log(result)
+			}
+		})
+	})
+
+});
+function showAlert(alert) {
+	alert.style.display = 'block';
+}
+function closeAlert() {
+	const alert = document.querySelector('.js-admweb-v2--alert');
+	alert.style.display = 'none';
+
+	$('.admweb-v2-orderlist--alert-content').removeClass('admweb-v2-QRcode-frame');
+	$('.pic-window-button-box').show();
+}
+
+function filterScriptTags(str)
+{
+	const regex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+	if (str) {
+		return str.replace(regex, "");
+	}
+	return "";
+}
+
+function editAlertContent(content) {
+	const alertEle = document.querySelector('.js-admweb-v2--alert');
+	const alertTextEle = alertEle.querySelector('.pic-window-marge-box');
+
+	if (typeof content == 'string' && (content.indexOf('<br/>') >= 0 || content.indexOf('<br>') >= 0)) {
+		var splits;
+		if(content.indexOf('<br/>') >= 0)
+			splits = content.split('<br/>');
+		else
+			splits = content.split('<br>');
+
+		alertTextEle.innerHTML = '';
+		for (let i = 0; i < splits.length; i++) {
+			const txt = splits[i];
+			let txt_node = document.createTextNode(txt);
+			alertTextEle.appendChild(txt_node);
+
+			if(i != (splits.length-1))
+				alertTextEle.appendChild(document.createElement("br"));
+		}
+	} else if (typeof content === 'object') {
+		alertTextEle.innerHTML = filterScriptTags(content.html());
+	} else {
+		alertTextEle.innerText = content;
+	}
+
+	showAlert(alertEle);
+}
+
+// 取得至我的 QRcode
+function get_my_qrcode()
+{
+	{{if !$mobileDeviceDirected}}
+	alert('僅手機版支援此功能。')
+	{{else}}
+	$('.pic-window-button-box').hide();
+	$('.admweb-v2-orderlist--alert-content').addClass('admweb-v2-QRcode-frame');
+
+	if (typeof imgSrc != "undefined" && imgSrc.startsWith('https://chart.apis.google.com')) {
+	}else{
+		get_my_qrcode_bbc();
+	}
+	editAlertContent($("#QRcode_box"));
+	{{/if}}
+}
+</script>
+
+<script>
+function AnnounceDESC() {
+$('.AnnounceDESC').attr('style','display:block');
+$('.AnnounceASC').attr('style','display:none');
+$(".admweb-v2-sequence-list").toggle();
+$('#start_timeDESC').attr('class','pic-text-orange');
+$('#start_timeASC').attr('class','');
+}
+
+function AnnounceASC() {
+$('.AnnounceDESC').attr('style','display:none');
+$('.AnnounceASC').attr('style','display:block');
+$(".admweb-v2-sequence-list").toggle();
+$('#start_timeASC').attr('class','pic-text-orange');
+$('#start_timeDESC').attr('class','');
+}
+
+</script>
+
+<script src="{{$sys_arrWebsite.website_url}}javascripts/chart.umd.js"></script>
+<script>
+	dates_zone_7 = [];
+	daily_data_7_total_order_qty = [];
+	daily_data_7_total_order_money = [];
+	daily_data_7_avg_order_money = [];
+	daily_data_7_total_delivery_qty = [];
+
+	{{foreach key=k item=v from=$arrChartData.days_7.date}}
+
+	dates_zone_7.push("{{$v}}");
+	//每7日
+	{{if $arrChartData.days_7.daily[$v]}}
+	daily_data_7_total_order_qty.push('{{$arrChartData.days_7.daily[$v].total_order_qty}}');
+	daily_data_7_total_order_money.push('{{$arrChartData.days_7.daily[$v].total_order_money}}');
+	daily_data_7_avg_order_money.push('{{$arrChartData.days_7.daily[$v].avg_order_money}}');
+	daily_data_7_total_delivery_qty.push('{{$arrChartData.days_7.daily[$v].delivery_qty}}');
+	{{else}}
+	daily_data_7_total_order_qty.push(0);
+	daily_data_7_total_order_money.push(0);
+	daily_data_7_avg_order_money.push(0);
+	daily_data_7_total_delivery_qty.push(0);
+	{{/if}}
+
+	{{/foreach}}
+
+	// chart.js
+	lineData = {
+		labels: dates_zone_7,
+		datasets: [{
+			label: '總訂單數',
+			data: daily_data_7_total_order_qty,
+			borderColor: '#ED2525',
+			backgroundColor: '#ED2525'
+		}]
+	};
+	lineConfig = {
+		type: 'line',
+		data: lineData,
+		options: {
+			responsive: true,
+			plugins: {
+				legend: {
+					display: false
+				},
+				title: {
+					display: false
+				}
+			},
+			borderWidth: 1,
+			pointHoverBorderWidth: 8,
+			borderStyle: 'dotted',
+			scales: {
+				x: {
+					grid: {
+						color: '#fff',
+						tickColor: '#fff',
+						tickWidth: 1
+					},
+					ticks: {
+						color: '#ACACAC'
+					},
+					border: {
+						dash: [2, 2]
+					}
+				},
+				y: {
+					grid: {
+						color: '#EAEAEA',
+						tickColor: '#fff'
+					},
+					border: {
+						dash: [2, 2]
+					},
+					ticks: {
+						display: false,
+						color: '#fff'
+					}
+				}
+			}
+		},
+		plugins: [{
+			beforeDraw: (chart) => {
+				if (chart.tooltip?._active?.length) {
+					let x = chart.tooltip._active[0].element.x;
+					let yAxis = chart.scales.y;
+					let ctx = chart.ctx;
+					ctx.save();
+					ctx.beginPath();
+					ctx.moveTo(x, yAxis.top);
+					ctx.lineTo(x, yAxis.bottom);
+					ctx.lineWidth = 1;
+					ctx.strokeStyle = '#EAEAEA';
+					ctx.stroke();
+					ctx.restore();
+				}
+			}
+		}]
+	};
+	lineChart = new Chart('line-data', lineConfig);
+
+	newDataset_7 = [{
+			label: '總訂單數',
+			data: daily_data_7_total_order_qty,
+			borderColor: '#ED2525',
+			backgroundColor: '#ED2525'
+		},{
+			label: '總銷售額',
+			data: daily_data_7_total_order_money,
+			borderColor: '#ED2525',
+			backgroundColor: '#ED2525'
+		}, {
+			label: '平均訂單金額',
+			data: daily_data_7_avg_order_money,
+			borderColor: '#ED2525',
+			backgroundColor: '#ED2525'
+		}, {
+			label: '總寄件數',
+			data: daily_data_7_total_delivery_qty,
+			borderColor: '#ED2525',
+			backgroundColor: '#ED2525'
+		}];
+
+	checked_seq = [0]; //點選的順序
+
+	//click chart
+	$("input[name='line-data']").on("change", function(){
+		var checked = $(this).is(":checked");
+		var idx = parseInt( $(this).attr("id").replace("ckbutton-id_", "") ) - 1;
+
+		//目前是看多少天的
+		var search_mode = '7';
+
+		//目前數量
+		var count = checked_seq.length;
+
+		if(checked) {
+
+			if(count == 0){
+				checked_seq.push(idx);
+			}else if(count == 1){
+				//先取消上一個點選的
+				checked_seq.pop();
+				checked_seq.push(idx);
+			}
+		} else {  
+			var seq = checked_seq.indexOf(idx);
+			if (seq > -1) { // only splice array when item is found
+				checked_seq.splice(seq, 1); // 2nd parameter means remove one item only
+			}
+			checked_seq.flat();
+		}
+
+		lineData.datasets = [];
+		$("input[name='line-data']").prop("checked", false);
+		$.each( checked_seq, function( key, value ) {
+			if( search_mode == '7' ){
+				lineData.datasets.push(newDataset_7[value]);
+			}else if( search_mode == '30' ){
+				lineData.datasets.push(newDataset_30[value]);
+			}
+			
+			$("input[name='line-data']:eq("+value+")").prop("checked", true);
+		});
+		lineChart.update();
+
+		//updateText(checked_seq.length);
+	})
+
+	function set_display(){
+		var search_mode = '7';
+
+		//$("#one_day_info").hide();
+
+		//數字
+		// if(search_mode == '7'){
+		// 	$("#p_total_order_qty").text("{{$arrChartData.days_7.total.total_order_qty}}");
+		// 	$("#p_total_order_money").text("{{$arrChartData.days_7.total.total_order_money}}");
+		// 	$("#p_avg_order_money").text("{{$arrChartData.days_7.total.avg_order_money}}");
+		// 	$("#p_total_delivery_qty").text("{{$arrChartData.days_7.total.total_delivery_qty}}");
+		// }else if(search_mode == '30'){
+		// 	$("#p_total_order_qty").text("{{$arrChartData.days_30.total.total_order_qty}}");
+		// 	$("#p_total_order_money").text("{{$arrChartData.days_30.total.total_order_money}}");
+		// 	$("#p_avg_order_money").text("{{$arrChartData.days_30.total.avg_order_money}}");
+		// 	$("#p_total_delivery_qty").text("{{$arrChartData.days_30.total.total_delivery_qty}}");
+		// }
+		
+		checked_seq = [0]; //點選的順序
+		$("input[name='line-data']").prop("checked", false);
+		$("input[name='line-data']:eq(0)").prop("checked", true);
+		if(search_mode == '7'){
+			lineData.labels = dates_zone_7;
+			lineData.datasets = [];
+			lineData.datasets.push(newDataset_7[0]);
+		}else if(search_mode == '30'){
+			lineData.labels = dates_zone_30;
+			lineData.datasets = [];
+			lineData.datasets.push(newDataset_30[0]);
+		}
+		lineChart.update();
+	}
+
+	(function() {
+		set_display();
+	})();
+
+	function GetToDoListData(){
+		$.ajax({
+			url: "",
+			type: "POST",
+			dataType: "json",
+			data: {
+				myAct: "GET_TODOLIST"
+			},
+			success: function (result) {
+
+				alert('已更新完成!');
+				$(".ToDoList").html('');
+
+				var todo='';
+				todo += "<ul class=\"admweb-v2-ToDoList\">\n" +
+						"<li class=\"admweb-v2-ToDoList-SmBox\">\n" +
+						"<a href=\"admweb.main.php?action=order_control_pic#tab11\">\n" +
+						"<div class=\"admweb-v2-ToDoList-data\">\n" +
+						"<span class=\"pic-text-white\">";
+				if (result.orderControl11<100){
+					todo += result.orderControl11;
+				}else{
+					todo += '99+';
+				}
+				todo += "</span>\n" +
+						"<h3>新訂單</h3>\n" +
+						"</div>\n" +
+						"</a>\n" +
+						"</li>\n" +
+						"<li class=\"admweb-v2-ToDoList-SmBox\">\n" +
+						"<a href=\"admweb.main.php?action=order_control_pic#tab21\">\n" +
+						"<div class=\"admweb-v2-ToDoList-data\">\n" +
+						"<span class=\"pic-text-white\">";
+				if (result.orderControl21<100){
+					todo += result.orderControl21;
+				}else{
+					todo += '99+';
+				}
+				todo += "</span>\n" +
+						"<h3>尚未出貨</h3>\n" +
+						"</div>\n" +
+						"\n" +
+						"</a>\n" +
+						"</li>\n" +
+						"<li class=\"admweb-v2-ToDoList-SmBox\">\n" +
+						"<a href=\"admweb.main.php?action=product_pic&nav=3\">\n" +
+						"<div class=\"admweb-v2-ToDoList-data\">\n" +
+						"<span class=\"pic-text-white\">";
+				if (result.osProd<100){
+					todo += result.osProd;
+				}else{
+					todo += '99+';
+				}
+				todo += "</span>\n" +
+						"<h3>已售完商品</h3>\n" +
+						"</div>\n" +
+						"</a>\n" +
+						"</li>\n" +
+						"\n" +
+						"<li class=\"admweb-v2-ToDoList-SmBox\">\n" +
+						"<a href=\"admweb.main.php?action=order_control_pic#tab42\">\n" +
+						"<div class=\"admweb-v2-ToDoList-data\">\n" +
+						"<span class=\"pic-text-white\">";
+				if (result.orderControl42<100){
+					todo += result.orderControl42;
+				}else{
+					todo += '99+';
+				}
+				todo += "</span>\n" +
+						"<h3>未取退回</h3>\n" +
+						"</div>\n" +
+						"</a>\n" +
+						"</li>\n" +
+						"\n" +
+						"<li class=\"admweb-v2-ToDoList-SmBox\">\n" +
+						"<a href=\"admweb.main.php?action=order_control_pic#tab24\">\n" +
+						"<div class=\"admweb-v2-ToDoList-data\">\n" +
+						"<span class=\"pic-text-white\">";
+				if (result.orderControl24<100){
+					todo += result.orderControl24;
+				}else{
+					todo += '99+';
+				}
+				todo += "</span>\n" +
+						"<h3>取貨倒數</h3>\n" +
+						"</div>\n" +
+						"</a>\n" +
+						"</li>\n" +
+						"\n" +
+						"<li class=\"admweb-v2-ToDoList-SmBox\">\n" +
+						"<a href=\"admweb.main.php?action=customer_service_qa_pic&qa_type=2\">\n" +
+						"<div class=\"admweb-v2-ToDoList-data\">\n" +
+						"<span class=\"pic-text-white\">" + result.orderFaq + "</span>\n" +
+						"<h3>買家詢問</h3>\n" +
+						"</div>\n" +
+						"</a>\n" +
+						"</li>\n" +
+						"</ul>\n" +
+						"\n" +
+						"<div class=\"admweb-v2-LastInformation\">\n" +
+						"<p class=\"pic-text-green-40 pic-text-right\"><a class=\"pic-text-green-40 pic-text-right\" href=\"#\"><i class=\"icons-line icon-line-round-bold-02\" onclick=\"GetToDoListData()\"></i></a>\n" +
+						"資料時間 "+result.NOW+"</p>\n" +
+						"</div>";
+
+				$(".ToDoList").append(todo);
+			}
+		})
+	}
+</script>
+{{if $mobileDeviceDirected}}
+<script>
+	var imgSrc = '';
+	function get_my_qrcode_bbc()
+	{
+		$.ajax({
+			url: "../api/api.app_ibon.php",
+			type: "POST",
+			dataType: "json",
+			headers: {
+				authorization: "Bearer {{$jwt_token}}"
+			},
+			data: JSON.stringify({
+				service: "GET_MY_QRCODE",
+				LoginID: "{{$adm_arrMember.mem_login_token}}",
+				LoginIDType: "0",
+				service_methode: "bbc",
+				"{{$nocsrfTokenId}}" : "{{$nocsrfToken}}"
+			}),
+			success: function (Jdata){console.log(Jdata)
+				if(Jdata.result == 'C000'){
+					imgSrc = Jdata.data.qrcode_path;
+					$('.admweb-v2-window-QRcodeImg').css("background", "url(" + Jdata.data.qrcode_path + ")");
+				}
+			}
+		});
+	}
+
+	function goNextStep(_this)
+	{
+		let next_step = parseInt($(_this).data('step_no')) + 1;
+
+		$('.admweb-v2-QRcode-img-steps').removeClass(`admweb-v2-QRcode-img-steps-${$(_this).data('step_no')}`)
+				.addClass(`admweb-v2-QRcode-img-steps-${next_step}`);
+		if(next_step == 3){
+			$('.admweb-v2-window-QRcode-btn').attr('onclick', 'endStep(this);').text('結束');
+		}
+
+		$(".QRcode-step"+next_step).addClass('admweb-v2-window-QRcode-steps-item--success');
+		$(_this).data('step_no', next_step);
+	}
+
+	function endStep(_this)
+	{
+		$('.QRcode-step2, .QRcode-step3').removeClass('admweb-v2-window-QRcode-steps-item--success');
+		$('.admweb-v2-QRcode-img-steps').removeClass(`admweb-v2-QRcode-img-steps-3`)
+				.addClass(`admweb-v2-QRcode-img-steps-1`);
+
+		$(_this).data('step_no', '1');
+
+		$('.admweb-v2-window-QRcode-btn').attr('onclick', 'goNextStep(this);').text('下一步');
+
+		closeAlert();
+	}
+</script>
+{{/if}}

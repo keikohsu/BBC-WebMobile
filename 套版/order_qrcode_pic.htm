@@ -1,0 +1,37 @@
+{{if $mobileDeviceDirected}}
+<!-- 手機版 -->
+  <div class="admweb-v2-window-QRcode-container">
+    <h4 class="admweb-v2-window-QRcode"><i class="icons-line icon-line-X" onclick="closeAlert();"></i>ibon機台會員登入使用說明</h4>
+    <div class="admweb-v2-window-QRcodeImg" style="background-image: url('');"></div>
+    <p class="admweb-v2-window-QRcode-text pic-margin-b10">
+      請至設有ibon機台的門市，依照以下步驟繳費。<br/>
+      <!-- （<span class="pic-text-red">中獎發票相關服務請至發票日誌查詢</span>） -->
+    </p>
+
+    <!--使用 admweb-v2-window-QRcode-steps-item--success 將步驟變色 -->
+    <div class="admweb-v2-window-QRcode-steps">
+      <div class="admweb-v2-window-QRcode-steps-item admweb-v2-window-QRcode-steps-item--success QRcode-step1">
+        <span class="admweb-v2-order-window-QRcode">1</span>
+        <p class="admweb-v2-window-QRcode-steps-text">步驟一</p>
+      </div>
+      <div class="admweb-v2-window-QRcode-steps-item QRcode-step2">
+        <span class="admweb-v2-order-window-QRcode">2</span>
+        <p class="admweb-v2-window-QRcode-steps-text">步驟二</p>
+      </div>
+      <div class="admweb-v2-window-QRcode-steps-item QRcode-step3">
+        <span class="admweb-v2-order-window-QRcode">3</span>
+        <p class="admweb-v2-window-QRcode-steps-text">步驟三</p>
+      </div>
+    </div>
+
+    <h4 class="admweb-v2-window-QRcode-text pic-margin-tm10">點選「OPEN POINT APP」登入</h4>
+    <!-- 步驟 圖片 -->
+    <div class="admweb-v2-QRcode-img-steps-1 admweb-v2-QRcode-img-steps"></div>
+
+    <!-- 下一步 按鈕-->
+    <a class="admweb-v2-window-QRcode-btn pic-text-green" href="javascript:void(0);" data-step_no='1' onclick="goNextStep(this);">下一步</a>
+    <!-- 結束 按鈕-->
+    <!-- <a class="admweb-v2-window-QRcode-btn pic-text-green" href="#">結束</a> -->
+  </div>
+
+{{/if}}

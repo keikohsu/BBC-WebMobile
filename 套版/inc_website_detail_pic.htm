@@ -1,0 +1,601 @@
+<style> 
+    /* for summernote */
+    /* 待後續整理出css檔案存放 */
+
+    .note-editable.card-block a {
+        all: initial;
+        /* 只下initial 不夠，還是需要各別tag 加default屬性 */
+    }
+
+    .note-editable ul {
+        list-style: disc !important;
+        list-style-position: inside !important;          
+    }
+
+    .note-editable ol {
+        list-style: decimal !important;
+        list-style-position: inside !important;
+    }
+</style>
+<div class="pic-default pic-flex admweb-v2-add-product">
+    <!-- 左側選單 -->
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <!-- 主要頁面 -->
+    <div class="pic-front-pages-right admweb-v2-adjustment" style="width: 100%;">
+    <form action="" method="post" enctype="multipart/form-data" id="html_form">
+        <div class="admweb-v2-settings-frame pic-margin-10">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>頁面設定</h2>
+            </div>
+            <!--店家簡介-->
+            <ul class="admweb-v2-outside-white-box" id="web_com_intro">
+                <li class="admweb-v2-edit-name">
+                    <p>店家簡介</p></span>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    <!-- 圖片編輯 START -->
+                    <div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_com_intro_image == ''}}style="display: none;"{{/if}}>
+                        <img src="{{if $website_desc.web_com_intro_image}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$website_desc.web_com_intro_image}}{{/if}}" id="web_com_intro_image">
+                        <div class="admweb-v2-EditLogo-btn">
+                            <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="javascript:void(0)">
+                                <i class="icons-line icon-line-edit"></i>編輯</a>
+                            <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="javascript:void(0)">
+                                <i class="icons-line icon-line-ashbin"></i>刪除</a>
+                        </div>
+                    </div>
+
+                    <div class="pic-AddImag admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_com_intro_image != ''}}style="display: none;"{{/if}}>
+                        <span class="iopen-icon-black-add"></span>{{$lang.admweb.brands_report.6}}
+                    </div>
+                    <input type="file" class="image_input" name="web_com_intro_image" style="display: none" targetID="web_com_intro_image" accept="image/gif, image/jpeg, image/png, image/svg"/>
+                    <!-- 圖片編輯 END -->
+                    <p class="pic-text-warn">圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+                    <textarea name="web_com_intro" class="summernote" maxlength="24000" style="width: 100%; height: 120px; background: #f2f2f2;">{{$website_desc.web_com_intro}}</textarea>
+                    <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                </li>
+            </ul>
+
+            <!--網站公告-->
+            <ul class="admweb-v2-outside-white-box" id="web_anno">
+                <li class="admweb-v2-edit-name">
+                    <p>網站公告</p>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    <!-- 圖片編輯 START -->
+                    <div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_anno_image == ''}}style="display: none;"{{/if}}>
+                        <img src="{{if $website_desc.web_anno_image}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$website_desc.web_anno_image}}{{/if}}" id="web_anno_image">
+                        <div class="admweb-v2-EditLogo-btn">
+                            <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="javascript:void(0)">
+                                <i class="icons-line icon-line-edit"></i>編輯</a>
+                            <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="javascript:void(0)">
+                                <i class="icons-line icon-line-ashbin"></i>刪除</a>
+                        </div>
+                    </div>
+                    <div class="pic-AddImag admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_anno_image != ''}}style="display: none;"{{/if}}>
+                        <span class="iopen-icon-black-add"></span>{{$lang.admweb.brands_report.6}}
+                    </div>
+                    <input type="file" class="image_input" name="web_anno_image" style="display: none" targetID="web_anno_image" accept="image/gif, image/jpeg, image/png, image/svg"/>
+                    <!-- 圖片編輯 END -->
+                    <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+                    <textarea name="web_anno" class="summernote" maxlength="24000" style="width: 100%; height: 120px; background: #f2f2f2;">{{$website_desc.web_anno}}</textarea>
+                    <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                </li>
+            </ul>
+
+            <!--服務條款-->
+            <ul class="admweb-v2-outside-white-box" id="web_service">
+                <li class="admweb-v2-edit-name">
+                    <p>服務條款</p>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    <!-- 圖片編輯 START -->
+                    <div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_service_image == ''}}style="display: none;"{{/if}}>
+                        <img src="{{if $website_desc.web_service_image}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$website_desc.web_service_image}}{{/if}}" id="web_service_image">
+                        <div class="admweb-v2-EditLogo-btn">
+                            <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="javascript:void(0)">
+                                <i class="icons-line icon-line-edit"></i>編輯</a>
+                            <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="javascript:void(0)">
+                                <i class="icons-line icon-line-ashbin"></i>刪除</a>
+                        </div>
+                    </div>
+                    <div class="pic-AddImag admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_service_image != ''}}style="display: none;"{{/if}}>
+                        <span class="iopen-icon-black-add"></span>{{$lang.admweb.brands_report.6}}
+                    </div>
+                    <input type="file" class="image_input" name="web_service_image" style="display: none" targetID="web_service_image" accept="image/gif, image/jpeg, image/png, image/svg"/>
+                    <!-- 圖片編輯 END -->
+                    <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+                    <textarea name="web_service" class="summernote" maxlength="24000" style="width: 100%; height: 120px; background: #f2f2f2;">{{$website_desc.web_service}}</textarea>
+                    <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                </li>
+            </ul>
+            <!--退貨政策-->
+            <ul class="admweb-v2-outside-white-box" id="web_return">
+                <li class="admweb-v2-edit-name">
+                    <p>退貨政策</p>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    <!-- 圖片編輯 START -->
+                    <div class="admweb-v2-PdImg-EditDelete admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_return_image == ''}}style="display: none;"{{/if}}>
+                        <img src="{{if $website_desc.web_return_image}}{{$m_arrSystem.uploads_url}}website_{{$sys_arrWebsite.web_uid}}/zh-tw/{{$website_desc.web_return_image}}{{/if}}" id="web_return_image">
+                        <div class="admweb-v2-EditLogo-btn">
+                            <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="javascript:void(0)">
+                                <i class="icons-line icon-line-edit"></i>編輯</a>
+                            <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="javascript:void(0)">
+                                <i class="icons-line icon-line-ashbin"></i>刪除</a>
+                        </div>
+                    </div>
+                    <div class="pic-AddImag admweb-v2-EditLogo-large"
+                        {{if $website_desc.web_return_image != ''}}style="display: none;"{{/if}}>
+                        <span class="iopen-icon-black-add"></span>{{$lang.admweb.brands_report.6}}
+                    </div>
+                    <input type="file" class="image_input" name="web_return_image" style="display: none" targetID="web_return_image" accept="image/gif, image/jpeg, image/png, image/svg"/>
+                    <!-- 圖片編輯 END -->
+                    <p class="pic-text-warn">※圖片檔案大小最大為2.0MB；圖片解析度上限為2000x2000px圖片需為JPG、PNG、SVG、GIF檔案。</p>
+                    <textarea name="web_return" class="summernote" maxlength="24000" style="width: 100%; height: 120px; background: #f2f2f2;">{{$website_desc.web_return}}</textarea>
+                    <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                </li>
+            </ul>
+
+            <!--常見問答-->
+            <ul class="admweb-v2-outside-white-box">
+                <li class="admweb-v2-edit-name admweb-v2-edit-name-start">
+                    <p>常見問答</p>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    {{foreach from=$arr_FAQ key=k item=arr_faq}}
+                    {{if $arr_faq.item|@count !=0}}
+                    <!-- 一個類別 START -->
+                    <div class="admweb-v2-adjustment-QA-outside pic-margin-b10 faq_cat_box">
+                        <div class="admweb-v2-NewProduct-title admweb-v2-CommodityAskTitle">
+                            <h2 class="admweb-v2-SettingsTitle admweb-v2-CommodityAskTitle">{{$arr_faq.cat}}</h2>
+                            <span class="pic-icon-black-arrows-rotate-down pic_margin-r5"></span> {{*展開用的箭頭*}}
+                        </div>
+                        <div class="admweb-v2-specification admweb-v2-adjustment-CommodityAsk">
+
+                            {{foreach from=$arr_faq.item key=wpicon_uid item=faq name=faq_div}}
+                            <!-- 顯示區塊 -->
+                            <div class="admweb-v2-specification admweb-v2-adjustment-CommodityAsk show_faq" uid="{{$wpicon_uid}}">
+                                <div class="admweb-v2-CommodityAsk-QA-box pic-bg-gray-10 admweb-v2-SetUp-frame-space pic-margin-b10">
+                                    <div class="admweb-v2-CommodityAsk-TopText">
+                                        <span class="admweb-v2-num-green">{{$smarty.foreach.faq_div.iteration}}</span>
+                                        <div class="admweb-v2-CommodityAsk-QA">
+                                            <span class="pic-text-green pic-margin-b5">問：{{$faq.wpicon_title|urldecode}}</span>
+                                            <span>答：{{$faq.wpicon_article|urldecode}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="admweb-v2-CommodityAsk-btn">
+                                        <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic-margin-r10" href="javascript:show_edit_faq({{$wpicon_uid}})">
+                                            <i class="icons-line icon-line-edit"></i>編輯</a>{{*開啟編輯視窗*}}
+                                        <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="javascript:delete_faq({{$wpicon_uid}})">
+                                            <i class="icons-line icon-line-ashbin"></i>刪除</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 編輯區塊 -->
+                            <div class="pic-bg-gray-10 admweb-v2-SetUp-frame-space pic-margin-b10 edit_faq" uid="{{$wpicon_uid}}" style="display: none;">
+                                <div class="admweb-v2-CommodityAsk-TopText">
+                                    <h4><span class="admweb-v2-num-green">{{$smarty.foreach.faq_div.iteration}}</span>問題分類： </h4>
+                                    <select name="prod_type" class="pic-text-lnput pic-text-lnput-style">
+                                        <option value="商品問答" {{if $arr_faq.cat=='商品問答'}}selected{{/if}}>商品問答</option>
+                                        <option value="訂單問答" {{if $arr_faq.cat=='訂單問答'}}selected{{/if}}>訂單問答</option>
+                                        <option value="付款問答" {{if $arr_faq.cat=='付款問答'}}selected{{/if}}>付款問答</option>
+                                        <option value="配送問答" {{if $arr_faq.cat=='配送問答'}}selected{{/if}}>配送問答</option>
+                                        <option value="退貨退款問答" {{if $arr_faq.cat=='退貨退款問答'}}selected{{/if}}>退貨退款問答</option>
+                                    </select>
+                                </div>
+                                <div class="admweb-v2-CommodityAsk-textarea">
+                                    <span>問:</span>
+                                    <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" name="wpicon_title_{{$wpicon_uid}}"
+                                        placeholder="請說明您想和買家詢問的內容~" required="">{{$faq.wpicon_title|urldecode}}</textarea>
+                                </div>
+                                <div class="admweb-v2-CommodityAsk-textarea">
+                                    <span>答:</span>
+                                    <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" name="wpicon_article_{{$wpicon_uid}}"
+                                        placeholder="請說明您想和買家詢問的內容~" required="">{{$faq.wpicon_article|urldecode}}</textarea>
+                                </div>
+                                <div class="admweb-v2-CommodityAsk-btn">
+                                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-green pic-margin-r10" href="javascript:update_faq({{$wpicon_uid}})">
+                                        <i class="icons-line icon-line-edit"></i>儲存</a>
+                                    <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="javascript:hide_edit_faq({{$wpicon_uid}})">
+                                        <i class="icons-line icon-line-ashbin"></i>取消</a>
+                                </div>
+                            </div>
+                            {{/foreach}}
+                        </div>
+                    </div>
+                    <!-- 一個類別 END -->
+                    {{/if}}
+                    {{/foreach}}
+
+                    <!-- 新增問答 -->
+                    <div class="admweb-v2-specification admweb-v2-adjustment-CommodityAsk admweb-v2-adjustment-AddAnswer create_faq">
+                        <div class="pic-bg-gray-10 admweb-v2-SetUp-frame-space pic-margin-b10">
+                            <div class="admweb-v2-CommodityAsk-TopText">
+                                <h4 style="width: 22%;">問題分類： </h4>
+                                <select name="prod_type" class="pic-text-lnput pic-text-lnput-style">
+                                    <option value="0" selected="">請選擇</option>
+                                    <option value="商品問答">商品問答</option>
+                                    <option value="訂單問答">訂單問答</option>
+                                    <option value="付款問答">付款問答</option>
+                                    <option value="配送問答">配送問答</option>
+                                    <option value="退貨退款問答">退貨退款問答</option>
+                                </select>
+                            </div>
+                            <div class="admweb-v2-CommodityAsk-textarea">
+                                <span>問:</span>
+                                <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" placeholder="請說明您想和買家詢問的內容~" required=""></textarea>
+                            </div>
+
+                            <div class="admweb-v2-CommodityAsk-textarea">
+                                <span>答:</span>
+                                <textarea class="pic-text-lnput pic-text-lnput-textarea pic-lnput-enter" placeholder="請說明您想和買家詢問的內容~" required=""></textarea>
+                            </div>
+                            <div class="admweb-v2-CommodityAsk-btn">
+                                <a class="pic-BgText-color-green" href="javascript:create_faq()">
+                                    <i class="icons-line icon-line-add"></i>新增問答</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--end-->
+        <!--置底按鈕-->
+        <div class="admweb-v2-orderlist__action">
+            <a class="admweb-v2-I-Btn pic-BgText-color-white-green" href="javascript: leave_page();">
+                <i class="icons-line icon-line-X"></i>取消</a>
+            <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:save_page_content();">
+                <i class="icons-line iopen-icon-white-add-front"></i>儲存</a>
+        </div>
+        <!--置底按鈕end-->
+        <input name="myAct" type="hidden" value="COMMAND_EDIT" />
+    </form>
+    </div>
+</div>
+
+<!--{{*purify.js*}}-->
+<script src="/website/javascripts/DOMPurify-2.4.4/dist/purify.js"></script>
+
+<!--{{*summernote 文字編輯器*}}-->
+<link rel="stylesheet" href="/website/assets/bootstrap-441/css/bootstrap.min.css">
+<script src="/website/assets/bootstrap-441/js/bootstrap.bundle.min.js"></script>
+<link href="/website/javascripts/summernote-0818/summernote-bs4.min.css" rel="stylesheet">
+<script src="/website/javascripts/summernote-0818/summernote-bs4.js"></script>
+
+<!--{{*base64.js*}}-->
+<script src="/website/javascripts/base64.js"></script>
+
+<!--{{*手機點擊*}}-->
+<script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
+
+<script>
+    var faq_cat_box = $('.faq_cat_box') // 一個問與答類別
+
+    // 問與答第一個類別展開 其他收合
+    $(document).ready(function () {        
+        for (var i = 0; i < faq_cat_box.length; i++) {
+            const ele = faq_cat_box[i];
+            if(i!=0) $(ele).find('div>span').eq(0).click();        
+        }
+    });
+
+    {{*----- 待優化：改成用Ajax更新FAQ內容 -----*}}
+    function show_edit_faq(wpicon_uid){
+        $(`.show_faq[uid=${wpicon_uid}]`).hide();
+        $(`.edit_faq[uid=${wpicon_uid}]`).show();
+    }
+
+    function hide_edit_faq(wpicon_uid){
+        $(`.show_faq[uid=${wpicon_uid}]`).show();
+        $(`.edit_faq[uid=${wpicon_uid}]`).hide();
+    }
+
+    function update_faq(wpicon_uid){
+        re = check_faq(wpicon_uid);
+        ajax_faq(re, 'UPDATE_FAQ', '編輯', wpicon_uid);
+    }
+
+    function create_faq(){
+        re = check_faq('create');
+        ajax_faq(re, 'CREATE_FAQ', '新增', '');
+    }
+
+    function delete_faq(wpicon_uid){
+        confirm('確認刪除此問答內容？').done(function(){
+            $.ajax({
+                type: "post",
+                url: "",
+                data: {
+                    isAjax: true,
+                    myAct: 'DELETE_FAQ',
+                    wpicon_uid: wpicon_uid,
+                },
+                dataType: "json",
+                success: function (re) {
+                    alert('刪除成功').done(function(){
+                        location.reload();
+                    });
+                },
+                error: function (re) {
+                    alert('刪除失敗');
+                }
+            });
+        });
+    }
+
+    function check_faq(wpicon_uid){
+        if(wpicon_uid=='create') faq = $(`.create_faq`);
+        else  faq = $(`.edit_faq[uid=${wpicon_uid}]`);
+
+        let check = {
+                        cat: faq.find('select').eq(0).val(),
+                        q_str: faq.find('textarea').eq(0).val(),
+                        a_str: faq.find('textarea').eq(1).val(),
+                        alert_str: ''
+                    };
+
+        if(check.cat==0) check.alert_str = '請選擇問題分類';
+
+        if(!check.q_str) check.alert_str = '請填寫問題內容';
+        else if(check.q_str.length>24000) check.alert_str = '問題內容字數上限24000個字';
+        
+        if(!check.a_str) check.alert_str = '請填寫回答內容';
+        else if(check.a_str.length>24000) check.alert_str = '回答內容字數上限24000個字';
+
+        return check;
+    }
+
+    function ajax_faq(obj, myAct, act_str, wpicon_uid){
+        if(obj.alert_str != ''){
+            alert(`${obj.alert_str}`);
+        }else{
+            $.ajax({
+                type: "post",
+                url: "",
+                data: {
+                    isAjax: true,
+                    myAct: myAct,
+                    wpitem_uid: '{{$FAQ_wpitem_uid}}',
+                    wpicon_uid: wpicon_uid,
+                    wpicon_subtitle: re.cat,
+                    wpicon_title: re.q_str,
+                    wpicon_article: re.a_str,
+                },
+                dataType: "json",
+                success: function (re) {
+                    alert(`${act_str}成功`).done(function(){
+                        location.reload();
+                    });
+                },
+                error: function (re) {
+                    alert(`${act_str}失敗`);
+                }
+            });
+        }
+    }
+
+    {{* 編輯按鈕 *}}
+    $(".admweb-v2-ImgEditBtn").click(function () {
+        let id = $(this).parents('ul.admweb-v2-outside-white-box').attr('id');
+        $(`input[name=${id}_image]`).click();
+    });
+
+    {{* 上傳圖片按鈕 *}}
+    $(".pic-AddImag ").click(function () {
+        let id = $(this).parents('ul.admweb-v2-outside-white-box').attr('id');
+        $(`input[name=${id}_image]`).click();
+    });
+
+    {{* 圖檔變更就顯示新的圖 *}}
+    $("input[type=file].image_input").change(function () {
+        let name = $(this).prop('name');
+        let id = $(this).parents('ul.admweb-v2-outside-white-box').attr('id');
+        if ($(`input[name=${name}]`).val() != '') {
+            $(`#${id} .pic-AddImag`).hide();
+            $(`#${id} .admweb-v2-PdImg-EditDelete`).show();
+            readIMG(this);
+        }
+    });
+    
+    {{* 刪除圖片 => 只是不顯示 要按下儲存 才刪除DB資料 *}}
+    $("li.admweb-v2-content-enter .admweb-v2-ImgAshbinBtn").click(function () {
+        let id = $(this).parents('ul.admweb-v2-outside-white-box').attr('id');
+        confirm('若確認刪除圖片，按右下角儲存後，即刪除圖片').done(function(){
+            remove_img(id);
+        });
+    });
+
+    function readIMG(input){
+        if(input.files && input.files[0]){
+            var imageTagID = input.getAttribute("targetID");
+            var reader = new FileReader();
+            let id = $(input).attr('name');
+            id = id.replace('_image', '');
+
+            reader.onload = function (e) {
+                src = e.target.result
+                var newImg = new Image();
+                newImg.src = src;
+
+                if (e.total > 2000000) {
+                    alert('圖片檔案大小超過2.0MB限制，請重新上傳').done(function(){
+                        remove_img(id);
+                    });
+                    return false;
+                }
+
+                newImg.onload = function(e){
+                    var height = newImg.height; 
+                    var width = newImg.width; 
+                    if(height>2000 || width>2000){
+                        alert('圖片解析度上限為 2000*2000px，請重新上傳').done(function(){
+                            remove_img(id);
+                        });
+                        return false;
+                    }else{
+                        var img = document.getElementById(imageTagID);
+                        img.setAttribute("src", src)
+                    }
+                }
+            }
+
+            let fileData = input.files[0]; 
+            var reader_end = new FileReader();
+            let header_f = '';
+
+            reader_end.onloadend = function(e) {
+                var test = false;
+                let imgArr = (new Uint8Array(e.target.result)).subarray(0, 4);   
+                    for (var i = 0; i < imgArr.length; i++) {
+                        header_f += imgArr[i].toString(16);
+                    }
+
+                    test = validate_magic_number(header_f);
+                    if(!test){
+                        remove_img(id);
+                        alert(`上傳圖片需為JPG、PNG、SVG、GIF格式`);
+                    }
+                }  
+            reader_end.readAsArrayBuffer(fileData);
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function validate_magic_number(num){
+        // jpg /FFD8FF/iy
+        // png /89504E47/iy
+        // gif /47494638/iy
+        // svg /3c737667/iy
+
+        if(/^FFD8FF/iy.test(num) || /89504E47/iy.test(num) ||/47494638/iy.test(num) || /3c737667/iy.test(num)) re = true;
+        else re = false;
+        return re;
+    }
+
+    function remove_img(id){
+        $(`#${id}_img`).attr('src','');
+        $(`input[name='${id}_image']`).val('');
+        $(`#${id} .pic-AddImag`).show();
+        $(`#${id} .admweb-v2-PdImg-EditDelete`).hide();
+        $('form').append(`<input type="hidden" name="delete_image[]" value="${id}"/>`);
+    }
+
+    $('.summernote').each(function (idx, ele) {
+        $(ele).summernote({
+            placeholder: '請輸入内容。',
+            height: 120,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link']],
+                ['view', ['codeview']],
+                ['misc', ['undo','redo']]
+            ],
+            followingToolbar: false,
+            callbacks: { // 依照事件發生順序
+                onFocus: function(e){
+                },
+                onKeydown: function(e) {
+                },
+                onChange: function(contents, $editable) {
+                    check_summernote_input(ele)
+                },
+                onKeyup: function (e) {
+                    check_summernote_input(ele)
+                },
+                onEnter: function(e) {
+                    // {{*待優化：<br> 重複的事件出現在這裡！？*}}
+                    check_summernote_input(ele)
+                },
+                onInput: function(e) {
+                    // {{*待優化：<br> 重複的事件出現在這裡！？*}}
+                    check_summernote_input(ele)
+                },
+                onBlur: function(e){
+                },
+                onChangeCodeview: function(code){
+                    // 改在套件了 初步檢查輸入script 待優化
+                },
+                onBlurCodeview: function(code){
+                    // 改在套件了 初步檢查輸入script 待優化
+                },
+            },
+        });
+    });
+
+    $('body').click(function (e) {
+        if($('button.note-codeview-keep.active').length > 0){
+            let click_ta = $(e.target).parents('div.note-editor.note-frame.codeview')
+            let active_codeview_div = $('button.note-codeview-keep.active').parents('div.note-editor.note-frame')
+            let summernote = active_codeview_div.prev()
+            if(click_ta.length == 0 && active_codeview_div.hasClass('codeview')) summernote.summernote('codeview.toggle');
+        }
+    });
+
+    function save_page_content(){
+        $('.summernote').each(function (idx, ele) {
+            let content = $(ele).summernote('code');
+            $(ele).val(Base64.encode(content));
+        });
+        $('#html_form').submit();
+    }
+
+    function check_text_length(target) {
+        var len = $(target).text().length;
+
+        if (len > 24000) {
+            alert('最多可輸入24000個字').done(function(){
+                let txt = $(target).text().substr(0, 24000);
+                $(target).text(txt);
+            });
+        }
+        return true;
+    }
+
+    function leave_page(){
+        confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function () {
+            window.location.reload();
+        });
+    }
+    
+    {{*待優化！！！*}}
+    {{*script pattern optimization to be implemented...*}}
+    function code_validation(code){
+        if(code.includes('&lt;script') || code.includes('&lt;script') || code.includes('<script') || code.includes('script>')){
+            alert('請勿輸入script, 謝謝您的合作。');
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function check_summernote_input(ele){
+        let target = $(ele).next().find('.note-editable');
+        let code = $(ele).summernote('code');
+
+        let check_code = code_validation(code);
+        let check_text = code_validation(target.text());
+
+        if(check_code && check_text) check_text_length(target);
+        else $(ele).next().find('.note-editable').empty();
+    }
+</script>
+
+<script>
+    $(".admweb-v2-CommodityAskTitle").click(function () {
+        $(this).find(".pic-icon-black-arrows-rotate-down").toggleClass("pic-arrows-rotate-up");
+        $(this).next(".admweb-v2-adjustment-CommodityAsk").slideToggle();
+        $(".admweb-v2-NewProduct-title").toggleClass("pic-padding-0")
+    })
+</script>

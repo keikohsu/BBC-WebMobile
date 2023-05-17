@@ -1,0 +1,500 @@
+<style>
+/* 新增活動 */
+.admweb-v2-add-event{ padding-top: 60px;}
+/* 活動規則 */
+.admweb-v2-eventRule { padding: 5px; border-radius: 8px; background: #EDFBF7;}
+.admweb-v2-eventRule input.pic-text-lnput.pic-lnput-enter { width: 210px;}
+.admweb-v2-eventRule .admweb-v2-eventRule_input{ display: flex; align-items: center;}
+.admweb-v2-eventRule .admweb-v2-eventRule_input:nth-child(1){ margin-bottom: 5px;}
+.admweb-v2-eventRule .admweb-v2-eventRule_input span{ margin: 0 6px;}
+.admweb-v2-eventRule .admweb-v2-eventRule_input span:nth-child(1){ margin-left: 0; width: 48px;}
+/* 活動圖片 */
+.admweb-v2-eventAddPhoto .pic-AddImag{ width: 100%; height: 233px;}
+.admweb-v2-settings-BottomBtn { left: 0;}
+
+.admweb-v2-window-container{ width: 90%;}
+
+/* page_marketing_ticket_edit_pic */
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-eventRule input.pic-text-lnput.pic-lnput-enter{ width: 240px;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-code{ display: flex; align-items: center;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-code input.pic-text-lnput.pic-lnput-enter{ font-size: 11px; padding: 0; text-align: center;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-coupon-num{ display: flex; align-items: center;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-coupon-num input.pic-text-lnput.pic-lnput-enter{ margin-right: 5px;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-settings-frame-RadioBox.admweb-v2-discount-coupon-setting{ flex-direction: column; align-items: flex-start;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-coupon-get-num-show{ display: flex; flex-direction: row;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-coupon-get-num-show .admweb-v2-radio-green-box{ width: auto;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-coupon-get-num-show .admweb-v2-label-green{ font-size: 16px;}
+.admweb-v2-marketing-ticket-edit-pic .admweb-v2-discount-coupon-setting{padding: 8px 0;}
+.admweb-v2-discount-coupon-get-num-show{padding: 2px 0;}
+</style>
+
+<!-- 版頭 -->
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        <button onclick="toggleMenuHandler()">
+        <i class="icons-line icon-line-hamburger"></i>
+        </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">
+        {{if $smarty.get.add_mktmf}}新增折價劵{{else}}編輯折價券{{/if}}
+    </h2>
+    <span></span>
+</div>
+<div class="pic-default pic-flex-center-column admweb-v2-add-event">
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <div class="pic-front-pages-right admweb-v2-marketing-ticket-edit-pic">
+        <form id="formMktmf" name="formMktmf" action="" method="post" onsubmit="return _CS_checkAdd(this);">
+            <!------------------------------------ 折價券設定 Start ------------------------------------>
+            <div class="admweb-v2-SetFreight admweb-v2-settings-frame pic-margin-10">
+                <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-paper-text"></i>折價券設定</h2>
+                <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+                </div>
+                <!-- 活動基本設定-->
+                <ul class="admweb-v2-outside-white-box admweb-v2-eventType">
+                    <!--活動類型-->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>活動類型</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="admweb-v2-settings-frame-RadioBox">
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="mktmf_discount_type_1">
+                                    <input class="admweb-v2-radio-green" type="radio" id="mktmf_discount_type_1" name="mktmf_discount_type"
+                                           {{if $m_arrMarketingTicketMf.mktmf_discount_type==1}}checked{{/if}} value="1">
+                                <div class="admweb-v2-label-check-green"></div>
+                                滿額折價
+                                </label>
+                            </div>
+                            <div class="admweb-v2-radio-green-box">
+                                <label class="admweb-v2-label-green" for="mktmf_discount_type_2">
+                                    <input class="admweb-v2-radio-green" type="radio" id="mktmf_discount_type_2" name="mktmf_discount_type"
+                                           {{if $m_arrMarketingTicketMf.mktmf_discount_type==2}}checked{{/if}} value="2"/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                滿額折扣
+                                </label>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--活動規則-->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>活動規則</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="admweb-v2-eventRule">
+                            <div class="admweb-v2-eventRule_input">
+                                <span>消費滿</span>
+                                <input id="mktmf_total_money" name="mktmf_total_money" type="text"
+                                       class="pic-text-lnput pic-lnput-enter" placeholder="請輸入金額"
+                                       value="{{$m_arrMarketingTicketMf.mktmf_total_money}}">
+                                <span>元</span>
+                            </div>
+                            <div class="admweb-v2-eventRule_input">
+                                {{if $m_arrMarketingTicketMf.mktmf_discount_type==1}}
+                                <span class="rule_span_1">可折</span>
+                                <input name="mktmf_discount_amt" type="text"
+                                       class="pic-text-lnput pic-lnput-enter rule_input" placeholder="請輸入金額"
+                                       value="{{$m_arrMarketingTicketMf.mktmf_discount_amt}}">
+                                <span class="rule_span_2">元</span>
+                                {{else}}
+                                <span class="rule_span_1">可享</span>
+                                <input name="mktmf_discount_pct" type="text"
+                                       class="pic-text-lnput pic-lnput-enter rule_input" placeholder="請輸入折數"
+                                       value="{{if $m_arrMarketingTicketMf.mktmf_discount_pct%10==0}}{{$m_arrMarketingTicketMf.mktmf_discount_pct/10}}{{else}}{{$m_arrMarketingTicketMf.mktmf_discount_pct}}{{/if}}">
+                                <span class="rule_span_2">折</span>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- 折價券名稱-->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>折價券名稱</p><span id="mktmf_title-length" class="pic-quantity">0/20</span>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <input type="text" class="pic-text-lnput pic-lnput-enter" id="mktmf_title" name="mktmf_title"
+                               maxlength="20" placeholder="請輸入折價券名稱" value="{{$m_arrMarketingTicketMf.mktmf_title}}">
+                        <p class="pic-red-text-restrict" id="text_over" style="display: none;">字數不能超過20個字</p>
+                        <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                    </li>
+
+                    <!-- 折價券代碼-->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>折價券代碼</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        {{if $smarty.get.add_mktmf == 1}}
+                        <div class="admweb-v2-discount-code">
+                            <input id="mktmf_sn_1" name="mktmf_sn_1" type="text"
+                                   class="pic-text-lnput pic-lnput-enter" placeholder="請輸入折價券代碼(至多10碼)"
+                                   maxlength="10" value="{{$m_arrMarketingTicketMf.mktmf_sn_1}}">－
+                            <input id="mktmf_sn_2" name="mktmf_sn_2" type="text"
+                                   class="pic-text-lnput pic-lnput-enter" placeholder="請輸入折價券代碼(至多3碼)"
+                                   maxlength="3" value="{{$m_arrMarketingTicketMf.mktmf_sn_2}}">
+                        </div>
+                        <p class="pic-text-warn">※限半形英文、數字；不可輸入符號。</p>
+                        <p class="pic-text-warn">※前段最多10碼、後段最多3碼。</p>
+                        <p class="pic-text-warn">※請勿使用與其他折價劵一樣的代碼。</p>
+                        <p class="pic-text-warn">※此欄位在新增後將無法再進行調整，請謹慎設定。</p>
+                        {{else}}
+                        <div class="admweb-v2-discount-code">
+                            <p>{{$m_arrMarketingTicketMf.mktmf_sn_1}}－{{$m_arrMarketingTicketMf.mktmf_sn_2}}</p>
+                        </div>
+                        {{/if}}
+                    </li>
+
+                    <!-- 折價券發行張數-->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>折價券發行張數</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        {{if $smarty.get.add_mktmf == 1}}
+                        <div class="admweb-v2-discount-coupon-num">
+                            <input id="mktmf_publish_qty" name="mktmf_publish_qty" type="text" maxlength="7"
+                                class="pic-text-lnput pic-lnput-enter" placeholder="請輸入折價券發行張數"
+                                value="{{$m_arrMarketingTicketMf.mktmf_publish_qty}}">
+                            <p>張</p>
+                        </div>
+                        <p class="pic-text-warn">※此欄位在新增後將無法再進行調整，請謹慎設定。</p>
+                        {{else}}
+                        <div class="admweb-v2-discount-coupon-num">
+                            <p>{{$m_arrMarketingTicketMf.mktmf_publish_qty}}張</p>
+                        </div>
+                        {{/if}}
+                    </li>
+
+                    <!--領取次數-->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>領取次數</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="admweb-v2-settings-frame-RadioBox admweb-v2-discount-coupon-setting">
+                            <div class="admweb-v2-discount-coupon-get-num-show">
+                                <div class="admweb-v2-radio-green-box">
+                                    <label class="admweb-v2-label-green" for="mktmf_mem_one_1">
+                                        <input class="admweb-v2-radio-green" type="radio" id="mktmf_mem_one_1" name="mktmf_mem_one"
+                                               {{if $m_arrMarketingTicketMf.mktmf_mem_one==1}}checked{{/if}} value="1"/>
+                                        <div class="admweb-v2-label-check-green"></div>
+                                        限領1張
+                                    </label>
+                                </div>
+
+                                <div class="admweb-v2-radio-green-box">
+                                    <label class="admweb-v2-label-green" for="mktmf_mem_one_0">
+                                        <input class="admweb-v2-radio-green" type="radio" id="mktmf_mem_one_0" name="mktmf_mem_one"
+                                               {{if $m_arrMarketingTicketMf.mktmf_mem_one==0}}checked{{/if}} value="0"/>
+                                        <div class="admweb-v2-label-check-green"></div>
+                                        不限制
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--折價券顯示設定-->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>折價券顯示設定</p>
+                    </li>
+                    <li class="admweb-v2-content-enter">
+                        <div class="admweb-v2-settings-frame-RadioBox admweb-v2-discount-coupon-setting">
+                            <div class="admweb-v2-discount-coupon-get-num-show">
+                                <div class="admweb-v2-radio-green-box">
+                                    <label class="admweb-v2-label-green" for="display_on_detail_1">
+                                        <input class="admweb-v2-radio-green" type="radio" id="display_on_detail_1" name="display_on_detail"
+                                               {{if $m_arrMarketingTicketMf.display_on_detail==1}}checked{{/if}} value="1"/>
+                                        <div class="admweb-v2-label-check-green"></div>
+                                        在所有頁面中顯示
+                                    </label>
+                                </div>
+
+                                <div class="admweb-v2-radio-green-box">
+                                    <label class="admweb-v2-label-green" for="display_on_detail_0">
+                                        <input class="admweb-v2-radio-green" type="radio" id="display_on_detail_0" name="display_on_detail"
+                                               {{if $m_arrMarketingTicketMf.display_on_detail==0}}checked{{/if}} value="0"/>
+                                        <div class="admweb-v2-label-check-green"></div>
+                                        輸入折價券代碼領取
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="pic-text-warn">※勾選輸入折價券代碼領取，折價券就不會顯示在頁面中，須透過輸入代碼方式取得折價券。</p>
+                        </div>
+                    </li>
+
+                    <!-- 活動時間 -->
+                    <li class="admweb-v2-edit-name">
+                        <p><span class="pic-text-red">*</span>活動時間</p>
+                    </li>
+                    <div class="admweb-v2-eventTime">
+                        <div class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+                            <span class="admweb-v2-StartName">起始時間</span>
+                            <div class="admweb-v2-input-date-content">
+                                <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                                    <input id="mktmf_time_start_date" class="pic-text-lnput datepicker" type="text"
+                                           value="{{$m_arrMarketingTicketMf.mktmf_time_start|date_format:'%Y/%m/%d'}}"
+                                           onchange="setTime('mktmf_time_start')">
+                                </span>
+
+                                <select class="pic-text-lnput iopen-text-lnput-style" id="mktmf_time_start_h" onchange="setTime('mktmf_time_start')">
+                                    {{section name=i loop=24 start=0}}
+                                    <option {{if $m_arrMarketingTicketMf.mktmf_time_start|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                                <div class="admweb-v2-DateNotation">:</div>
+                                <select class="pic-text-lnput iopen-text-lnput-style" id="mktmf_time_start_m" onchange="setTime('mktmf_time_start')">
+                                    {{section name=i loop=60 start=0}}
+                                    <option {{if $m_arrMarketingTicketMf.mktmf_time_start|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+                            <span class="admweb-v2-StartName">結束時間</span>
+                            <div class="admweb-v2-input-date-content">
+                                <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                                    <input id="mktmf_time_end_date" class="pic-text-lnput datepicker" type="text"
+                                           value="{{$m_arrMarketingTicketMf.mktmf_time_end|date_format:'%Y/%m/%d'}}"
+                                           onchange="setTime('mktmf_time_end')">
+                                </span>
+                                <select class="pic-text-lnput iopen-text-lnput-style" id="mktmf_time_end_h" onchange="setTime('mktmf_time_end')">
+                                    {{section name=i loop=24 start=0}}
+                                    <option {{if $m_arrMarketingTicketMf.mktmf_time_end|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                                <div class="admweb-v2-DateNotation">:</div>
+                                <select class="pic-text-lnput iopen-text-lnput-style" id="mktmf_time_end_m" onchange="setTime('mktmf_time_end')">
+                                    {{section name=i loop=60 start=0}}
+                                    <option {{if $m_arrMarketingTicketMf.mktmf_time_end|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                    {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                    {{/section}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <!------------------------------------ 活動基本設定 End -------------------------------------->
+
+            <div class="admweb-v2-settings-BottomBtn">
+                <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+                    <a class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5"
+                       href="javascript:void(0)" onclick="cancel_btn()" style="width: 100%; justify-content: center;">
+                        <i class="icons-line icon-line-X"></i>取消
+                    </a>
+                    <a id="save_button" class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-l5"
+                       href="javascript:void(0);" onclick="$('#formMktmf').submit()" style="width: 100%; justify-content: center;">
+                        <i class="icons-line icon-line-tick"></i>儲存
+                    </a>
+                </div>
+            </div>
+
+            <input name="mem_group_uid" type="hidden" value="NULL" />
+            <input id="mktmf_time_start" name="mktmf_time_start" type="hidden"
+                   value="{{$m_arrMarketingTicketMf.mktmf_time_start}}">
+            <input id="mktmf_time_end" name="mktmf_time_end" type="hidden"
+                   value="{{$m_arrMarketingTicketMf.mktmf_time_end}}">
+            <input name="myAct" type="hidden" value="">
+        </form>
+    </div>
+</div>
+<script>
+    //區塊收合
+    $(".admweb-v2-settings-frame .admweb-v2-NewProduct-title > span").click(function(){
+        $(this).toggleClass("pic-arrows-rotate");
+        $(this).parent(".admweb-v2-NewProduct-title").next("ul").slideToggle();
+        });
+
+    (function () {
+        hideMobileLayout();
+        // getPcSideMenuWidth();
+    })();
+    function getPcSideMenuWidth() {
+        const pcSidMenuEle = document.querySelector(
+        '.admweb-v2-seller-front-left-box'
+        );
+        pcSidMenuEle
+        .closest('.admweb-v2-order_detail')
+        .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+    }
+    function toggleMenuHandler() {
+        document
+        .querySelector('.admweb-v2-seller-front-left-box')
+        .classList.toggle('pic-phone-open-menu');
+        const hamBtn = document
+        .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+        .querySelector('i');
+        if (hamBtn.classList.contains('icon-arrow-left-01')) {
+        document.querySelectorAll(
+            '.admweb-v2-orderlist-header-actions button'
+        )[0].style.display = 'block';
+        } else {
+        document.querySelectorAll(
+            '.admweb-v2-orderlist-header-actions button'
+        )[0].style.display = 'none';
+        }
+        hamBtn.classList.toggle('icon-arrow-left-01');
+    }
+    function hideMobileLayout() {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+        document.querySelector(
+            '.admweb-v2-list-header-in-fixbottom'
+        ).style.display = 'none';
+        document.querySelector('.admweb-v2-list-header').style.display = 'none';
+        }
+    }
+</script>
+
+<script>
+    /********************
+     　計算 input 內容長度
+     ********************/
+    $(function(){
+        var inInput = $("#mktmf_title");
+        document.getElementById('mktmf_title').addEventListener('input', function (){
+            inputLength(this);
+        })
+        inputLength(inInput);
+    });
+
+    //*** 內容長度呈現 ******
+    function inputLength(ele){
+        var length = $(ele).val().length;
+        var maxlength = $(ele).attr("maxlength");
+        var div_id = $(ele).attr("name")+"-length";
+        document.getElementById(div_id).innerText = length + "/" + maxlength;
+
+        if(length>=20) $('#text_over').show();
+        else $('#text_over').hide();
+
+        setButtonStatus()
+    };
+
+    $(document).ready(function(){
+        $(".datepicker").datepicker({
+            dateFormat: 'yy/mm/dd',
+            changeYear: true,
+            changeMonth: true,
+            monthNamesShort: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+            dayNamesMin: ['日','一','二','三','四','五','六'],
+            minDate: null,
+            yearRange: '2023:2050',
+            beforeShow: function(input, inst) {
+                setTimeout(function() {
+                inst.dpDiv.css("z-index", 1000000);
+                }, 0);
+            }
+        }).attr('size', 10);
+
+        $("#mktmf_time_start_date").datepicker("option","onClose",function(dateText,inst){
+            $("#mktmf_time_end_date").datepicker("option","minDate",dateText);
+        });
+        $("#mktmf_time_end_date").datepicker("option","onClose",function(dateText,inst){
+            $("#mktmf_time_start_date").datepicker("option","maxDate",dateText);
+        });
+
+        if('{{$smarty.get.add_mktmf}}'=='1'){
+            $("input[name='myAct']").val('COMMAND_ADD');
+            setButtonStatus();
+        } else {
+            $("input[name='myAct']").val('COMMAND_EDIT');
+            setButtonStatus();
+        }
+
+        $("input[name='mktmf_discount_type']").on('change', function (){
+            if($("input[name='mktmf_discount_type']:checked").val() == '1') {
+                $(".rule_span_1").text('可折');
+                $(".rule_span_2").text('元');
+                $(".rule_input").attr('placeholder', '請輸入金額').attr('name', 'mktmf_discount_amt').val('');
+                setButtonStatus();
+            } else {
+                $(".rule_span_1").text('可享');
+                $(".rule_span_2").text('折');
+                $(".rule_input").attr('placeholder', '請輸入折數').attr('name', 'mktmf_discount_pct').val('');
+                setButtonStatus();
+            }
+        })
+
+        $(document).on('input','#mktmf_publish_qty, #mktmf_total_money, .rule_input' , function (){
+            $(this).val($(this).val().replace(/[^\d]/g, ''))
+            setButtonStatus();
+        })
+
+        $("#mktmf_sn_1, #mktmf_sn_2").on('input', function (){
+            $(this).val($(this).val().replace(/[^A-Za-z0-9]/g, ''));
+            setButtonStatus();
+        })
+
+    });
+
+    function setTime(id){
+        var date = document.getElementById(id + "_date").value.replace(/\//g, '-');
+        var hour = document.getElementById(id + "_h").value;
+        var min = document.getElementById(id + "_m").value;
+        document.getElementById(id).value = date + ' ' + hour + ':' + min + ':00';
+    }
+
+    function setButtonStatus(){
+        var status = true;
+        if($("#mktmf_total_money").val() == '') status = false;
+        if($(".rule_input").val() == '') status = false;
+        if($("#mktmf_title").val() == '') status = false;
+        if($("#mktmf_sn_1").val() == '') status = false;
+        if($("#mktmf_sn_2").val() == '') status = false;
+        if($("#mktmf_publish_qty").val() == '') status = false;
+
+        if(status) {
+            $("#save_button").addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('pointer-events', '');
+        } else {
+            $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+        }
+    }
+
+    function _CS_checkAdd(_this){
+        if(_this.mktmf_title.value.search(/[\\\/'"&()=;<>]/)>0){
+            alert('請確認活動名稱中是否有特殊符號。')
+            return false;
+        }
+
+        if('{{$smarty.get.add_mktmf}}'=='1') {
+            //{{*確認折價券代碼有沒有重複*}}
+            var checkcode = 0;
+            $.ajax({
+                url: '',
+                type: 'POST',
+                async: false,
+                data: {
+                    myAct: 'checkTicketCode',
+                    mktmf_sn_1: _this.mktmf_sn_1.value,
+                    mktmf_sn_2: _this.mktmf_sn_2.value
+                },
+                success: function (result) {
+                    if (result == 'false') {
+                        checkcode = 1;
+                    } else {
+                        checkcode = 0
+                    }
+                }
+            })
+            if (checkcode) {
+                alert('代碼已被使用過，請重新輸入');
+                return false;
+            }
+        }
+        $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+    }
+
+    function cancel_btn(){
+        confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function (){
+            window.location.href = encodeURI('{{$m_backURL}}'); //Checkmarkx Client DOM XSS 
+        });
+    }
+
+</script>

@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Order Delivery</title>
+
+<style type="text/css">
+<!--
+td { 
+  font-size:14px; font-weight: bold;
+}
+-->
+</style>
+</head>
+
+
+
+
+<body>
+<!--{{*出貨單資料 --------------------------------------*}}-->
+{{section name=i loop=$m_arrOrderDelivery}}
+{{assign var="_arrOrderDelivery" value=$m_arrOrderDelivery[i]}}
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="350">
+
+    <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center">
+      <tr>
+          <td colspan="2" valign="top" align="right">
+            <img src="{{$sys_arrWebsite.website_url}}libs/barcode/image.php?code={{$_arrOrderDelivery.delivery_uid}}&style=192&type=C39&width=160&height=75&xres=1&font=2" style="max-width:100%" />
+          </td>
+      </tr>
+      <tr>
+        <td width="50%">
+    {{$lang.admweb.order_delivery.7}}<!--{{*收件人 *}}-->：{{$_arrOrderDelivery.order_addressee}}
+		<!--網站類型為 供應商網站 商店街店家 不顯示 訂單金額區塊-->
+		{{if $sys_arrWebsite.web_category != "4" && $sys_arrWebsite.web_category != "5"}}
+			<p>
+				{{$lang.admweb.order.5}}<!--{{*訂單金額 *}}-->：
+			{{if ($_arrOrderDelivery.OrderMf.payment_type >= 400 && $_arrOrderDelivery.OrderMf.payment_type < 500) ||
+				($_arrOrderDelivery.OrderMf.payment_type >= 200 && $_arrOrderDelivery.OrderMf.payment_type < 300)}}
+				{{getWebColsName idx='prod_currency_unit'}}<!--{{*$*}}-->&nbsp;{{$_arrOrderDelivery.total_cost}}
+				{{if $_arrOrderDelivery.OrderMf.order_tbs_vip_use}}
+				({{$lang.admweb.order.96}}<!--{{*美體小舖VIP紅利折抵 *}}-->{{getWebColsName idx='prod_currency_unit'}}{{$_arrOrderDelivery.OrderMf.order_tbs_vip_use}}{{$lang.admweb.sort_add_gift.4}}<!--{{*元 *}}-->)
+				{{/if}}
+			{{else}}
+				{{getWebColsName idx='prod_currency_unit'}}<!--{{*$*}}-->&nbsp;{{$_arrOrderDelivery.OrderMf.pay_money_ssl}}<!--{{*訂單實付金額*}}-->
+				{{if $_arrOrderDelivery.OrderMf.order_tbs_vip_use}}
+				({{$lang.admweb.order.96}}<!--{{*美體小舖VIP紅利折抵 *}}-->{{getWebColsName idx='prod_currency_unit'}}{{$_arrOrderDelivery.OrderMf.order_tbs_vip_use}}{{$lang.admweb.sort_add_gift.4}}<!--{{*元 *}}-->)
+				{{/if}}
+			{{/if}}
+				{{$lang.admweb.order_delivery_print.31}}<!--{{*(此金額已包含運費) *}}-->
+			<br/>
+		{{/if}}
+
+        {{$lang.admweb.order_delivery.4}}<!--{{*付款方式 *}}-->：
+        {{getPaymentType payment_type=$_arrOrderDelivery.OrderMf.payment_type delivery_tempvar=$_arrOrderDelivery.OrderMf.delivery_tempvar}}
+        <span class="descTitle">
+        {{if $_arrOrderDelivery.OrderMf.credit_pay_time && $payment_time > 1 }}
+            <br>{{$lang.admweb.order_delivery.18}}<!--{{*期數 *}}-->︰{{$_arrOrderDelivery.OrderMf.credit_pay_time}}
+        {{/if}}
+        {{if $_arrOrderDelivery.OrderMf.payment_case_no}}
+            <br>
+            {{if $_arrOrderDelivery.OrderMf.payment_type == "100"}}
+              {{$lang.admweb.order_delivery_print.32}}<!--{{*信用卡訂單編號 *}}-->
+            {{else}}
+              {{$lang.admweb.order_delivery.19}}<!--{{*付款單號 *}}-->
+            {{/if}}
+            ︰{{$_arrOrderDelivery.OrderMf.payment_case_no}}
+        {{/if}}
+        {{if $_arrOrderDelivery.OrderMf.atm_account}}
+            <br>{{$lang.admweb.order_delivery.20}}<!--{{*銀行代號 *}}-->︰( {{$_arrOrderDelivery.OrderMf.bank_no}} ) {{$_arrOrderDelivery.OrderMf.bank_name}}
+            <br>{{$lang.admweb.order_delivery.21}}<!--{{*ATM 帳號 *}}-->︰{{$_arrOrderDelivery.OrderMf.atm_account}}
+        {{/if}}
+        </span>
+    <br />
+    {{$lang.admweb.order_valet.9}}<!--{{*運送方式 *}}-->：{{getDeliveryType delivery_type=$_arrOrderDelivery.delivery_type delivery_tempvar=$_arrOrderDelivery.delivery_tempvar}}<br>
+    {{if $_arrOrderDelivery.delivery_type == '100'
+        || $_arrOrderDelivery.delivery_type == '101'
+        || $_arrOrderDelivery.delivery_type == '102'
+        || $_arrOrderDelivery.delivery_type == '105'
+        || $_arrOrderDelivery.delivery_type == '106'}}
+      {{$lang.admweb.member.32}}<!--{{*地址 *}}-->：{{$_arrOrderDelivery.order_zip}}
+      {{if $_arrOrderDelivery.cou_code_num != "158"}}
+        {{$_arrOrderDelivery.order_state}}
+      {{/if}}
+      {{$_arrOrderDelivery.order_city}}{{$_arrOrderDelivery.order_address}}
+    {{else}}
+      {{$lang.admweb.order_delivery.11}}<!--{{*門市名稱 *}}-->︰（{{$_arrOrderDelivery.store_no}}）{{$_arrOrderDelivery.store_name}}<br>
+      {{$lang.admweb.order_delivery.12}}<!--{{*門市電話 *}}-->︰{{$_arrOrderDelivery.store_tel}}<br>
+      {{$lang.admweb.order_delivery.13}}<!--{{*門市地址 *}}-->︰{{$_arrOrderDelivery.store_address}}
+    {{/if}}
+    
+    <p>
+		<!--網站類型為 商店街店家 不顯示 -->
+	{{if $sys_arrWebsite.web_category != "5"}}
+		{{if $_arrOrderDelivery.payment_type >= 400 && $_arrOrderDelivery.payment_type < 500}}
+		  {{$lang.admweb.order.21}}<!--{{*貨到應付金額 *}}-->：
+		  <span style="font-weight:bold;">
+		  {{getWebColsName idx='prod_currency_unit'}}<!--{{*$*}}-->
+		  {{$_arrOrderDelivery.total_money_all}}
+		  {{if $_arrOrderDelivery.OrderMf.order_tbs_vip_use}}
+		  ({{$lang.admweb.order.96}}<!--{{*美體小舖VIP紅利折抵 *}}-->{{getWebColsName idx='prod_currency_unit'}}{{$_arrOrderDelivery.OrderMf.order_tbs_vip_use}}{{$lang.admweb.sort_add_gift.4}}<!--{{*元 *}}-->)
+		  {{/if}}
+		  </span>
+		  {{if $_arrOrderDelivery.delivery_carriage}}
+			( {{$lang.admweb.order_delivery.16}}<!--{{*含運費 *}}--> {{getWebColsName idx='prod_currency_unit'}}<!--{{*$*}}-->&nbsp;{{$_arrOrderDelivery.delivery_carriage}} )
+		  {{/if}}
+		  <br />
+		  <!--網站類型為 供應商網站、獨立網站-->
+		  {{if $sys_arrWebsite.web_category == 4 || $sys_arrWebsite.web_category == 6}}
+			{{$lang.admweb.order_delivery.46}}<!--{{*貨到應付運費*}}-->：{{getWebColsName idx='prod_currency_unit'}}<!--{{*$*}}-->&nbsp;{{$_arrOrderDelivery.total_carriage}}<br />
+		  {{/if}}
+		{{/if}}
+    {{/if}}
+	
+    </p>
+    <p>
+
+      {{if $_arrOrderDelivery.delivery_arrive_d_date != '0000-00-00'}}
+        {{$lang.admweb.order_delivery.49}}<!--{{*指定到貨日期 *}}-->：
+        {{$_arrOrderDelivery.delivery_arrive_d_date}}
+      {{/if}}
+        <br />
+        {{$lang.admweb.order.40}}<!--{{*指定配送時段 *}}-->：
+        {{$_arrOrderDelivery.delivery_arrive_date}}
+        <!--{{if $_arrOrderDelivery.delivery_arrive_weekend_only == 1}}-->
+        <!--( 假日可配送 )-->
+        <!--{{else}}-->
+        <!--( 假日不可配送 )-->
+        <!--{{/if}}-->
+    </p>
+    {{$_arrOrderDelivery.Website.web_name}}<br>
+    http://{{$_arrOrderDelivery.Website.web_domainname}}/{{$_arrOrderDelivery.Website.web_byeurl}}/
+    
+        </td>
+        <td width="50%" valign="top">
+          {{$lang.admweb.order.9}}<!--{{*聯絡電話 *}}-->：{{$_arrOrderDelivery.order_tel}}<br>
+          {{$lang.admweb.order.10}}<!--{{*行動電話 *}}-->：{{$_arrOrderDelivery.order_telcellphone}}
+          <p>
+          {{$lang.admweb.order.2}}<!--{{*訂單編號 *}}-->：{{$_arrOrderDelivery.OrderMf.order_uid}}<br>
+          {{$lang.admweb.order_delivery.1}}<!--{{*出貨單編號 *}}-->：{{$_arrOrderDelivery.delivery_uid}}
+          {{if $_arrOrderDelivery.delivery_case_no}}
+            ({{$_arrOrderDelivery.delivery_case_no}})
+          {{/if}}
+          </p>
+          <p>
+              {{$lang.admweb.order.3}}<!--{{*交易日期 *}}-->：{{$_arrOrderDelivery.OrderMf.order_date|date_format:'%Y-%m-%d'}}
+          </p>
+        </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+  <hr size="1">
+  
+
+ 
+  <table width="90%" border="0" cellspacing="5" cellpadding="0" align="center">
+      <tr>
+        <td width="150">{{$lang.admweb.product.4}}<!--{{*商品貨號 *}}--></td>
+        <td>{{$lang.admweb.product.3}}<!--{{*商品名稱 *}}--></td>
+        <td width="120">{{$lang.admweb.product.66}}/{{$lang.admweb.product.67}}<!--{{*尺寸/顏色 *}}--></td>
+        <td width="50" align="right">{{$lang.admweb.order_df.4}}<!--{{*數量 *}}--></td>
+		{{if $sys_arrWebsite.web_category != "4" && $sys_arrWebsite.web_category != "5"}}
+			<td width="65" align="right">{{$lang.admweb.order_df.5}}<!--{{*單價 *}}-->({{getWebColsName idx='prod_currency_unit'}}<!--{{*$*}}-->)&nbsp;</td>
+			<!--<td width="60" align="right">{{$lang.admweb.order_df.6}}&nbsp;</td><!--{{*抵扣紅利 *}}-->
+			<td width="65" align="right">{{$lang.admweb.order_df.7}}<!--{{*小計 *}}-->({{getWebColsName idx='prod_currency_unit'}}<!--{{*$*}}-->)&nbsp;</td>
+		{{/if}}
+      </tr>
+      <tr>
+        <td colspan="10" height="1"><hr size="1"></td>
+      </tr>
+      {{section name=j loop=$_arrOrderDelivery.OrderDf}}
+      {{assign var="_arrOrderDf" value=$_arrOrderDelivery.OrderDf[j]}}
+      {{if $_arrOrderDf.sub_qty > 0}}
+      {{if $_arrOrderDf.wmkt_uid > 0}}
+        {{getProdWebsiteMarketingInfo wmkt_uid=$_arrOrderDf.wmkt_uid lang_code=$admweb_lang}}
+        {{assign var=wmkt_title value=$wmkt_info.wmkt_title}}
+      {{else}}
+        {{assign var=wmkt_title value=""}}
+      {{/if}}
+      <tr>
+          <td>{{$_arrOrderDf.prod_no}}<br>{{$_arrOrderDf.prod_no_old}}</td>
+          <td>
+              {{if $_arrOrderDf.cp_prod_no}}{{$_arrOrderDf.cp_prod.prod_name}} - {{/if}}{{$_arrOrderDf.prod_name}}<br/>
+              {{if $_arrOrderDf.order_df_type == "0"}}
+                  {{if $_arrOrderDf.cp_prod_no}}&nbsp;└ 《<strong>{{$lang.admweb.order_df.12}}<!--{{*組合商品 *}}--></strong>》{{/if}}
+              {{elseif $_arrOrderDf.order_df_type == "1"}}<!--{{* 贈品 *}}-->
+                  &nbsp;└《<strong>{{if $_arrOrderDf.fg_uid > 0}}Free Gift{{else}}{{getType2NameSubTitle wmkt_uid=$_arrOrderDf.wmkt_uid lang_code=$admweb_lang}}{{if $wmkt_title}} - {{$wmkt_title}}{{/if}}{{/if}}</strong>》
+                  {{getFreeGiftName fg_uid=$_arrOrderDf.fg_uid}}
+              {{elseif $_arrOrderDf.order_df_type == "2"}}
+                  &nbsp;└《<strong>{{$lang.admweb.order_df.10}}<!--{{*加購 *}}--></strong>》
+              {{else}}
+                  &nbsp;└《<strong>{{if $wmkt_title}}{{$wmkt_title}}{{else}}{{$lang.admweb.order_df.11}}<!--{{*促銷 *}}-->{{$_arrOrderDf.order_df_group_no}}{{/if}}</strong>》
+              {{/if}}
+          </td>
+          <td>
+          {{if $_arrOrderDf.prod_size && $_arrOrderDf.prod_color_name}}
+              {{$_arrOrderDf.prod_size}}/{{$_arrOrderDf.prod_color_name}}
+          {{else}}
+              {{$_arrOrderDf.prod_size}}{{$_arrOrderDf.prod_color_name}}
+          {{/if}}
+          </td>
+          <td align="right">{{$_arrOrderDf.sub_qty}}</td>
+          {{if $sys_arrWebsite.web_category != "4" && $sys_arrWebsite.web_category != "5"}}
+          <td align="right">{{$_arrOrderDf.order_df_price}}&nbsp;</td>
+          <!--<td align="right">{{$_arrOrderDf.order_offset_bonus}}&nbsp;</td>-->
+          <td align="right">{{$_arrOrderDf.sub_total}}&nbsp;</td>
+          {{/if}}
+      </tr>
+      <tr>
+          <td colspan="10" height="1"><hr size="1"></td>
+      </tr>
+      {{/if}}
+      {{/section}}
+	  
+	  {{if $sys_arrWebsite.web_category != "5"}}
+      <tr>
+          <td>{{$lang.admweb.order_delivery_print.66}}<!--{{*總計 *}}--></td>
+          <td colspan="2" height="1"></td>
+          <td align="right">{{$_arrOrderDelivery.delivery_sub_qty}}</td>
+          <td colspan="2" height="1" align="right">{{$_arrOrderDelivery.delivery_sub_price}}</td>
+      </tr>
+	  {{/if}}
+	  
+      <tr>
+          <td colspan="10" height="1"><hr size="1"></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  {{if $sys_arrWebsite.web_category != 5}}
+  <tr><td>
+  <table width="90%" border="0" align="center" cellpadding="10" cellspacing="0" bordercolor="#000000">
+      <tr>
+        <td>
+            <table width="60%" border="0" align="left" cellpadding="1" cellspacing="0" bordercolor="#000000">
+              <tr>
+                <td bgcolor="#ffffff">&nbsp;{{$lang.admweb.order.11}}<!--{{*發票是否打統編 *}}--></td>
+                <td>{{if $_arrOrderDelivery.OrderMf.invoice_type == "1"}}
+                        {{$lang.admin.basic.25}}<!--{{*是 *}}-->
+                    {{else}}
+                        {{$lang.admin.basic.26}}<!--{{*否 *}}-->
+                    {{/if}}</td>
+                <td bgcolor="#ffffff">&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td bgcolor="#ffffff">&nbsp;{{$lang.admweb.order.12}}<!--{{*發票抬頭 *}}--></td>
+                <td>{{$_arrOrderDelivery.OrderMf.invoice_title}}</td>
+                <td bgcolor="#ffffff">&nbsp;{{$lang.admweb.order.13}}<!--{{*發票統一編號 *}}--></td>
+                <td>{{$_arrOrderDelivery.OrderMf.invoice_utcode}}</td>
+              </tr>
+                <tr>
+                    <td bgcolor="#ffffff">&nbsp;{{$lang.admweb.order.47}}<!--{{*發票收件人 *}}--></td>
+                    <td>{{$_arrOrderDelivery.OrderMf.invoice_name}}</td>
+                </tr>
+
+              <tr>
+                <td bgcolor="#ffffff">&nbsp;{{$lang.admweb.order.14}}{{*發票地址 *}}</td>
+                <td colspan="3">{{$_arrOrderDelivery.OrderMf.invoice_zip}}
+                {{$_arrOrderDelivery.OrderMf.invoice_city}}{{$_arrOrderDelivery.OrderMf.invoice_address}}</td>
+              </tr>
+              <tr>
+                <td bgcolor="#ffffff">&nbsp;{{$lang.admweb.delivery_print.28}}<!--{{*是否索取紙本發票 *}}--></td>
+                <td colspan="3">{{if $_arrOrderDelivery.OrderMf.is_paper_invoice == 1}}{{$lang.admin.basic.25}}<!--是-->{{else}}{{$lang.admin.basic.26}}<!--否-->{{/if}}</td>
+              </tr>
+            </table>
+    </td>
+      </tr>
+    </table>
+  </td>
+  </tr>
+  {{/if}}
+  
+{{if $_arrOrderDelivery.OrderMf.order_remarks}}
+<br/><br/>
+  <tr>
+    <td>
+    【 {{$lang.admweb.member_bonus.16}}<!--{{*備註 *}}--> 】
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+  <table width="90%" border="0" align="center" cellpadding="10" cellspacing="0" bordercolor="#000000">
+      <tr>
+        <td>{{m_UBBCode s=$_arrOrderDelivery.OrderMf.order_remarks isHtml=0}}</td>
+      </tr>
+    </table>
+
+  </td>
+  </tr>
+{{/if}}
+
+</table>
+<div style="page-break-before: always;"></div>
+{{/section}}
+
+<br><br><br><br><br>
+
+<!--{{*出貨單資料 END --------------------------------------*}}-->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th colspan="4" align="center">
+                <br>
+                <span style="font-weight:bold; font-size:24px">{{$lang.admweb.order_delivery_print.9}}<!--{{*揀貨單 *}}--></span>
+                <hr size="2" width="50%">
+            </th>
+        </tr>
+
+        <tr>
+            <th width="150">{{$lang.admweb.product.4}}<!--{{*商品貨號 *}}--></th>
+            <th>{{$lang.admweb.product.3}}<!--{{*商品名稱 *}}--></th>
+            <th width="120">{{$lang.admweb.product.66}}/{{$lang.admweb.product.67}}<!--{{*尺寸/顏色 *}}--></th>
+            <th width="50" align="right">{{$lang.admweb.order_df.4}}<!--{{*數量 *}}--></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="4" height="1"><hr size="1"></td>
+        </tr>
+        {{foreach name=i from=$m_arrOrderPickup item=i}}
+        <tr>
+            <td>{{$i.prod_no}}</td>
+            <td>{{$i.prod_name}}</td>
+            <td>{{$i.prod_stander}}</td>
+            <td align="right">{{$i.total_qty}}</td>
+        </tr>
+        <tr>
+            <td colspan="4" height="1"><hr size="1"></td>
+        </tr>
+        {{/foreach}}
+        </tbody>
+    </table>
+</body>
+</html>

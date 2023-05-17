@@ -1,0 +1,676 @@
+<style>.admweb-v2-window-container{ width: 90%;}</style>
+<!-- 版頭 -->
+<div class="admweb-v2-orderlist-header">
+    <div class="admweb-v2-orderlist-header-actions">
+        <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+        </button>
+        <button onclick="toggleMenuHandler()">
+        <i class="icons-line icon-line-hamburger"></i>
+        </button>
+    </div>
+    <h2 class="admweb-v2-orderlist-header-title">
+        {{if $smarty.get.add_pdsc}}新增活動{{else}}編輯活動{{/if}}
+    </h2>
+    <span></span>
+</div>
+<div class="pic-default pic-flex-center-column admweb-v2-add-event">
+    <div class="admweb-v2-seller-front-left-box">
+        {{include file="admweb_2/admweb.main_menu.htm"}}
+    </div>
+    <div class="pic-front-pages-right">
+        <!------------------------------------ 活動基本設定 Start ------------------------------------>
+        <div class="admweb-v2-SetFreight admweb-v2-settings-frame pic-margin-10">
+            <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-paper-text"></i>活動基本設定</h2>
+                <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+            </div>
+            <!-- 活動基本設定-->
+            <ul class="admweb-v2-outside-white-box admweb-v2-eventType">
+                <!-- 活動名稱-->
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>活動名稱</p><span id="pdsc_title_top-length" class="pic-quantity">0/20</span>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    <input type="text" class="pic-text-lnput pic-lnput-enter" id="pdsc_title_top" name="pdsc_title_top"
+                           maxlength="20" placeholder="請輸入活動名稱" value="{{$pdsc_title}}">
+                    <p class="pic-red-text-restrict" id="text_over" style="display: none;">字數不能超過20個字</p>
+                    <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+                </li>
+                <!-- 活動時間 -->
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>活動時間</p>
+                </li>
+                <div class="admweb-v2-eventTime">
+                    <div class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+                        <span class="admweb-v2-StartName">起始時間</span>
+                        <div class="admweb-v2-input-date-content">
+                            <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                            <input id="pdsc_time_start_date" name="pdsc_time_start_date" class="pic-text-lnput datepicker"
+                                   type="text" value="{{$m_arrProductDiscount[0].pdsc_time_start|date_format:'%Y/%m/%d'}}"
+                                   onchange="setTime('pdsc_time_start')" readonly>
+                            </span>
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="pdsc_time_start_h"
+                                    onchange="setTime('pdsc_time_start')">
+                                {{section name=i loop=24 start=0}}
+                                <option {{if $m_arrProductDiscount[0].pdsc_time_start|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                            <div class="admweb-v2-DateNotation">:</div>
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="pdsc_time_start_m"
+                                    onchange="setTime('pdsc_time_start')">
+                                {{section name=i loop=60 start=0}}
+                                <option {{if $m_arrProductDiscount[0].pdsc_time_start|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+                        <span class="admweb-v2-StartName">結束時間</span>
+                        <div class="admweb-v2-input-date-content">
+                            <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                            <input id="pdsc_time_end_date" name="pdsc_time_end_date" class="pic-text-lnput datepicker"
+                                   type="text" value="{{$m_arrProductDiscount[0].pdsc_time_end|date_format:'%Y/%m/%d'}}"
+                                   onchange="setTime('pdsc_time_end')" readonly>
+                            </span>
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="pdsc_time_end_h"
+                                    onchange="setTime('pdsc_time_end')">
+                                {{section name=i loop=24 start=0}}
+                                <option {{if $m_arrProductDiscount[0].pdsc_time_end|date_format:'%H'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                            <div class="admweb-v2-DateNotation">:</div>
+                            <select class="pic-text-lnput iopen-text-lnput-style" id="pdsc_time_end_m"
+                                    onchange="setTime('pdsc_time_end')">
+                                {{section name=i loop=60 start=0}}
+                                <option {{if $m_arrProductDiscount[0].pdsc_time_end|date_format:'%M'==$smarty.section.i.index|string_format:'%02s'}}selected{{/if}}>
+                                {{$smarty.section.i.index|string_format:"%02s"}}</option>
+                                {{/section}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--狀態-->
+                <li class="admweb-v2-edit-name">
+                    <p><span class="pic-text-red">*</span>狀態</p>
+                </li>
+                <li class="admweb-v2-content-enter">
+                    <div class="admweb-v2-settings-frame-RadioBox pic-margin-b10">
+                        <div class="admweb-v2-radio-green-box">
+                            <label class="admweb-v2-label-green" for="status_top_1">
+                                <input class="admweb-v2-radio-green" type="radio" id="status_top_1" name="status_top"
+                                       {{if $m_arrProductDiscount[0].status!=0}}checked{{/if}} value="1"
+                                       onchange="$('#status').val($('input[name=status_top]:checked').val())"/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                有效
+                            </label>
+                        </div>
+                        <div class="admweb-v2-radio-green-box">
+                            <label class="admweb-v2-label-green" for="status_top_0">
+                                <input class="admweb-v2-radio-green" type="radio" id="status_top_0" name="status_top"
+                                       {{if $m_arrProductDiscount[0].status==0}}checked{{/if}} value="0"
+                                       onchange="$('#status').val($('input[name=status_top]:checked').val())"/>
+                                <div class="admweb-v2-label-check-green"></div>
+                                無效
+                            </label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!------------------------------------ 活動基本設定 End -------------------------------------->
+        <div class="admweb-v2-settings-frame pic-margin-10">
+            <div class="admweb-v2-NewProduct-title admweb-v2-NewProduct-title-phone">
+                <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-box-product"></i><text id="item_count">活動商品(0/100)</text></h2>
+                <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" onclick="WindowOpen()"><i
+                        class="icons-line icon-line-add"></i>選擇商品</a>
+            </div>
+            <div class="admweb-v2-blacklist-form batch_edit_box">
+                <!-- 商品搜尋表單 -->
+                <form class="pic-bg-green-5 admweb-v2-orderlist__form js-orderlist__form" method="post"
+                      id="search_form">
+                    <div class="admweb-v2-EventMerchandise-form">
+                        <div class=" js-orderlist__form-head_search">
+                            <!-- 搜尋文字類型 -->
+                        </div>
+                        <span>批次設定</span>
+                        <!-- 進階條件 -->
+                        <div class="admweb-v2-EventMerchandise">
+                            <div class="admweb-v2-EventMerchandise-select-box">
+                                <label>限時特價</label>
+                                <input name="batch_price" type="text" placeholder="請輸入金額"
+                                       class="pic-text-lnput pic-lnput-enter" oninput="value=value.replace(/[^\d]/g,'')">
+                            </div>
+                            <div class="admweb-v2-EventMerchandise-select-box admweb-v2-EventMerchandise-select-row2">
+                                <span>購買限制</span>
+                                <select name="prod_type" class="pic-text-lnput pic-text-lnput-style">
+<!--                                    <option value="all" style="display: none">不批次更新</option>-->
+                                    <option value="0" selected>無限制</option>
+<!--                                    <option value="1" style="display: none">設定限制</option>-->
+                                </select>
+                                <input name="keyword" type="text" placeholder="請輸入數量"
+                                       class="pic-text-lnput pic-lnput-enter" style="margin-left: 5px;display: none;">
+                            </div>
+                            <div class="admweb-v2-EventMerchandise-btn">
+                                <button type="button" class="pic-BgText-color-green admweb-v2-form-TickBtn"
+                                        style="cursor:pointer;" onclick="batch_set_price()">
+                                    <i class="icons-line icon-line-tick"></i>
+                                    全部套用
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="nav" value="all">
+                </form>
+                <button class="pic-text-gray-30 pic-bg-green-5 admweb-v2-orderlist__form-toggle-btn"
+                        id="js-orderlist__form-toggle--btn">批次更新優惠資訊<i class="icons-line icon-arrow-down-01"></i>
+                </button>
+            </div>
+
+            <div class="admweb-v2-orderlist__action-select_all admweb-v2-EventMerchandise-select-all batch_edit_box">
+                <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="selectAll" value="all">
+                <label for="selectAll" class="admweb-v2-ckbutton-green-label"> </label>
+                <span>全選</span>
+            </div>
+            <form id="formPdsc" name="formPdsc" action="" method="post" onsubmit="return _CS_checkAdd(this);"
+                  enctype="multipart/form-data">
+                <input id="pdsc_title" type="hidden" name="pdsc_title" value="{{$m_arrProductDiscount[0].pdsc_title}}">
+                <input id="pdsc_time_start" type="hidden" name="pdsc_time_start"
+                       value="{{$m_arrProductDiscount[0].pdsc_time_start}}">
+                <input id="pdsc_time_end" type="hidden" name="pdsc_time_end"
+                       value="{{$m_arrProductDiscount[0].pdsc_time_end}}">
+                <input id="status" type="hidden" name="status" value="{{$m_arrProductDiscount[0].status}}">
+                <input type="hidden" name="myAct" value="">
+                {{if $m_arrProductDiscount|@count>0 and !$smarty.get.add_pdsc}}
+                {{foreach from=$m_arrProductDiscount item=product_discount}}
+                {{assign var=product value=$product_discount.product}}
+                <div class="admweb-v2-EventMerchandise-ProductBox admweb-v2-EventMerchandise-phone product_box"
+                     id="product_box_{{$product_discount.prod_uid}}">
+                    {{if $product_discount.prod_category==5 or $product_discount.prod_category==6 or $product_discount.prod_display==0 or $product_discount.prod_marketing==0}}
+                    <div class="admweb-v2-EventMerchandise-state pic_warn_mask">
+                        <h2>商品不適用此行銷活動</h2>
+                        <p class="pic-text-warn">{{$product_discount.text_warn}}</p>
+                        <div class="admweb-v2-icon-right">
+                            <a href="javascript:delete_product('{{$product_discount.prod_uid}}','{{$product_discount.pdsc_uid}}')" class="iopen-icon-black-delete"></a>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <input type="hidden" name="pdsc_uid[{{$product_discount.prod_uid}}]" value="{{$product_discount.pdsc_uid}}">
+                    <input type="hidden" name="prod_uid[]" value="{{$product_discount.prod_uid}}">
+                    <div>
+                        <div class="admweb-v2-EventMerchandise-phone-PdBox pic-margin-b5">
+                            <div class="admweb-v2-checkbox-name pic-margin-r10">
+                                <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox prod_checkbox"
+                                       id="prod_checkbox_{{$product_discount.prod_uid}}">
+                                <label class="admweb-v2-ckbutton-green-label"
+                                       for="prod_checkbox_{{$product_discount.prod_uid}}"></label>
+                            </div>
+                            <img class="pic-margin-r10" src="{{$product_discount.prod_file}}">
+                            <div class="admweb-v2-product-name">
+                                <h2 class="pic-OneRow-simplify">{{$product_discount.prod_name}}</h2>
+                                <div class="admweb-v2-product-detail">
+                                    {{if $product_discount.prod_spec_str}}<label>規格：{{$product_discount.prod_spec_str}}</label>{{/if}}
+                                    <span>${{$product_discount.prod_selling_price}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admweb-v2-EventMerchandise-InputBox3">
+                            <div class="admweb-v2-EventMerchandise-select">
+                                <span>限時特價</span>
+                                <input name="pdsc_price[{{$product_discount.prod_uid}}]" type="text" placeholder="請輸入金額"
+                                       class="pic-text-lnput pic-lnput-enter price_box"
+                                       value="{{$product_discount.pdsc_price}}" oninput="value=value.replace(/[^\d]/g,'')">
+                            </div>
+                            <div class="admweb-v2-EventMerchandise-select">
+                                <span>購買限制</span>
+                                <select name="pdsc_limit[{{$product_discount.prod_uid}}]"
+                                        class="pic-text-lnput pic-text-lnput-style">
+<!--                                    <option value="all" style="display: none">不批次更新</option>-->
+                                    <option value="0" selected>無限制</option>
+<!--                                    <option value="1" style="display: none">設定限制</option>-->
+                                </select>
+                            </div>
+                            <div class="admweb-v2-EventMerchandise-select" style="display: none">
+                                <input name="keyword" type="text" placeholder="請輸入數量"
+                                       class="pic-text-lnput pic-lnput-enter">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admweb-v2-icon-right admweb-v2-EventMerchandise-p-delete">
+                        <a href="javascript:delete_product('{{$product_discount.prod_uid}}','{{$product_discount.pdsc_uid}}')"
+                           class="iopen-icon-black-delete"></a>
+                    </div>
+                </div>
+                {{/foreach}}
+                {{else}}
+                <div class="admweb-v2-NoData">
+                    <div class="admweb-v2-img-BlacklistNoData"></div>
+                    <span>沒有任何商品資料</span>
+                </div>
+                {{/if}}
+            </form>
+        </div>
+        <!--新增商品 視窗 -->
+        {{include file="admweb_2/add_wmkt_product_pic.htm"}}
+
+        <div class="admweb-v2-settings-BottomBtn">
+            <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+                <!-- 灰色 按鈕字 -->
+                <a class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5" href="javascript:void(0)"
+                   onclick="cancel_btn()" style="width: 100%; justify-content: center;"><i class="icons-line icon-line-X"></i>取消</a>
+                <a id="save_button" class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-l5"
+                   href="javascript:void(0);" onclick="$('#formPdsc').submit()"
+                   style="width: 100%; justify-content: center;"><i class="icons-line icon-line-tick"></i>儲存</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //區塊收合
+    $(".admweb-v2-settings-frame .admweb-v2-NewProduct-title > span").click(function(){
+        $(this).toggleClass("pic-arrows-rotate");
+        $(this).parent(".admweb-v2-NewProduct-title").next("ul").slideToggle();
+      });
+
+    (function () {
+        searchFormCollapse();
+      hideMobileLayout();
+      getPcSideMenuWidth();
+    })();
+    window.addEventListener('resize', () => {
+    searchFormCollapse();
+    checkNoticeOverflow();
+  });
+    function getPcSideMenuWidth() {
+      const pcSidMenuEle = document.querySelector(
+        '.admweb-v2-seller-front-left-box'
+      );
+      pcSidMenuEle
+        .closest('.admweb-v2-order_detail')
+        .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+    }
+    function toggleMenuHandler() {
+      document
+        .querySelector('.admweb-v2-seller-front-left-box')
+        .classList.toggle('pic-phone-open-menu');
+      const hamBtn = document
+        .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+        .querySelector('i');
+      if (hamBtn.classList.contains('icon-arrow-left-01')) {
+        document.querySelectorAll(
+          '.admweb-v2-orderlist-header-actions button'
+        )[0].style.display = 'block';
+      } else {
+        document.querySelectorAll(
+          '.admweb-v2-orderlist-header-actions button'
+        )[0].style.display = 'none';
+      }
+      hamBtn.classList.toggle('icon-arrow-left-01');
+    }
+    function hideMobileLayout() {
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        document.querySelector(
+          '.admweb-v2-list-header-in-fixbottom'
+        ).style.display = 'none';
+        document.querySelector('.admweb-v2-list-header').style.display = 'none';
+      }
+    }
+
+
+    function searchFormCollapse() {
+    const toggleBtn = document.getElementById('js-orderlist__form-toggle--btn');
+    const formEle = document.getElementsByClassName('js-orderlist__form')[0];
+    const formHeadEle = document.getElementsByClassName(
+      'js-orderlist__form-head_search'
+    )[0];
+    const defaultHeight = formHeadEle.clientHeight;
+    const headBtn = document.getElementsByClassName(
+      'js-orderlist__form-head_search-btn'
+    )[0];
+    const wholeHeight = formEle.clientHeight;
+    formEle.style.height = `${defaultHeight}px`;
+    toggleBtn.addEventListener('click', () => {
+      //當前為收合
+      if (formEle.style.height === `${defaultHeight}px`) {
+        formEle.style.height = `${wholeHeight}px`;
+        toggleBtn.innerHTML =
+          '批次更新優惠資訊<i class="icons-line icon-arrow-top-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 3fr';
+        headBtn.style.display = 'none';
+      } else {
+        ///當前為展開
+        formEle.style.height = `${defaultHeight}px`;
+        toggleBtn.innerHTML =
+          '批次更新優惠資訊 <i class="icons-line icon-arrow-down-01"></i>';
+        formHeadEle.style.gridTemplateColumns = 'auto 1fr 84px';
+        headBtn.style.display = 'block';
+      }
+    });
+  }
+
+function WindowOpen() {
+    $("#admweb-v2-ProductWindow").show()
+  }
+
+  function WindowClose() {
+    $(".pic-window-bg").hide()
+  }
+</script>
+
+<script>
+    var pdsc_checked_puid;
+    /********************
+     　計算 input 內容長度
+     ********************/
+    $(function(){
+        var inInput = $("#pdsc_title_top");
+        document.getElementById('pdsc_title_top').addEventListener('input', function (){
+            inputLength(this);
+        })
+        inputLength(inInput);
+    });
+
+    //*** 內容長度呈現 ******
+    function inputLength(ele){
+        var length = $(ele).val().length;
+        var maxlength = $(ele).attr("maxlength");
+        var div_id = $(ele).attr("name")+"-length";
+        document.getElementById(div_id).innerText = length + "/" + maxlength;
+        $('#pdsc_title').val($(ele).val());
+        if(length>=20) $('#text_over').show();
+        else $('#text_over').hide();
+        if($(ele).val().length==0){
+            setButtonStatus('0')
+        } else {
+            setButtonStatus('1')
+        }
+    };
+
+    $(document).ready(function(){
+        $(".datepicker").datepicker({
+            dateFormat: 'yy/mm/dd',
+            changeYear: true,
+            changeMonth: true,
+            monthNamesShort: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+            dayNamesMin: ['日','一','二','三','四','五','六'],
+            minDate: null,
+            yearRange: '2023:2050',
+        }).attr('size', 10);
+
+        $("#pdsc_time_start_date").datepicker("option","onClose",function(dateText,inst){
+            $("#pdsc_time_end_date").datepicker("option","minDate",dateText);
+        });
+        $("#pdsc_time_end_date").datepicker("option","onClose",function(dateText,inst){
+            $("#pdsc_time_start_date").datepicker("option","maxDate",dateText);
+        });
+
+        //商品數
+        $("#item_count").text("活動商品("+$(".product_box").length+"/100)");
+
+        if('{{$smarty.get.add_pdsc}}'=='1'){
+            $("input[name='myAct']").val('COMMAND_ADD');
+            setButtonStatus('0')
+        } else {
+            $("input[name='myAct']").val('COMMAND_EDIT');
+            setButtonStatus('1')
+        }
+
+        $("#selectAll").on('change', function (){
+            $(".prod_checkbox").prop('checked', $("#selectAll").prop('checked'));
+        })
+        $(".prod_checkbox").on('change', function (){
+            $("#selectAll").prop('checked', false)
+        })
+
+        $("#formPdsc").on('keyup', '.price_box', function (){
+            let flag = 1;
+            $('.price_box').each(function (){
+                if($(this).val()==''){
+                    flag = 0;
+                }
+            })
+            setButtonStatus(flag)
+        })
+
+        /*{{* 選擇商品 *}}*/
+        pdsc_checked_puid = {{$arr_product_discount_prod_uid_list|@json_encode}}
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            if(entries[0].intersectionRatio <= 0){ // 關閉視窗
+                if(sessionStorage.getItem('checked_prod_uid')!=null){
+                    checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+                }else{
+                    checked_prod_uid = pdsc_checked_puid;
+                    $('input[name="prod_uid"]').prop('checked',false);
+                    $(".product_box").each(function (){
+                        check_puid_in_lightbox($(this).find("input[name='prod_uid[]']").val())
+                    });
+                }
+
+                if(checked_prod_uid.length + $('.pic_warn_mask').length > 100){
+                    alert('超過總選擇商品數量上限100個，請重新選取').done(function(){
+                        open_add_product_box();
+                    });
+                    return false;
+                } else {
+                    checked_prod_uid.forEach(ele => {
+                        if (pdsc_checked_puid.indexOf(ele) < 0) {
+                            pdsc_checked_puid.push(ele);
+                            add_product(obj_wmkt_prod[ele])
+                        }
+                    });
+
+                    $(pdsc_checked_puid).not(checked_prod_uid).toArray().forEach(p_uid => {
+                        if($("#product_box_"+p_uid).find('.pic_warn_mask').length==0) {
+                            delete_product_unit(p_uid, $("input[name='pdsc_uid[" + p_uid + "]'").val());
+                        }
+                    })
+                }
+            }
+        });
+        intersectionObserver.observe(document.querySelector('#admweb-v2-ProductWindow'));
+        /*{{* 選擇商品END *}}*/
+
+    });
+
+    function batch_set_price() {
+        if ($(".prod_checkbox:checked").length == 0){
+            alert('請先勾選商品');
+            return false;
+        }
+        var price = $("input[name='batch_price']").val();
+        if (price != '') {
+            $(".prod_checkbox:checked").parents('.product_box').find(".price_box").val(price);
+            setButtonStatus('1')
+        } else {
+            alert('請輸入批次設定金額');
+            return false;
+        }
+        $('.price_box').trigger('keyup');
+    }
+
+    function setTime(id){
+        var date = document.getElementById(id + "_date").value.replace(/\//g, '-');
+        var hour = document.getElementById(id + "_h").value;
+        var min = document.getElementById(id + "_m").value;
+        document.getElementById(id).value = date + ' ' + hour + ':' + min + ':00';
+    }
+
+    function setButtonStatus(status){
+        if ($("#pdsc_title_top").val() == '') status='0';
+        if ($(".product_box").length == '') {
+            status='0';
+            $(".batch_edit_box").hide();
+        } else {
+            $(".batch_edit_box").show();
+        }
+
+        if(status == '1') {
+            $("#save_button").addClass('pic-BgText-color-green').removeClass('pic-BgText-color-gray').css('pointer-events', '');
+        }
+        else {
+            $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+        }
+    }
+
+    function add_product(product){
+        var add_prod_html;
+        var prod_uid,prod_display,prod_category,prod_spec_cus,prod_file,prod_name,prod_selling_price; //ajax要取的資料
+        prod_uid = product.prod_uid;
+        prod_display = product.prod_display;
+        prod_category = product.prod_category;
+        prod_spec_cus = product.prod_spec_cus;
+        prod_file = product.prod_file ? `{{$m_arrSystem.uploads_product_url}}${product.prod_file}` : '{{$sys_arrWebsite.website_url}}images/skm_nopic.jpg';
+        prod_name = product.prod_name;
+        prod_selling_price = product.prod_selling_price;
+
+        if($(".product_box").length==0){
+            $(".admweb-v2-NoData").remove();
+        }
+
+        add_prod_html =
+            "<div class=\"admweb-v2-EventMerchandise-ProductBox admweb-v2-EventMerchandise-phone product_box\"\n" +
+            "                     id=\"product_box_" + prod_uid + "\">\n";
+        if(prod_category == 5 || prod_category == 6 || prod_display == 0) {
+            add_prod_html +=
+            "                    <div class=\"admweb-v2-EventMerchandise-state\">\n" +
+            "                        <h2>商品不適用此行銷活動</h2>\n" +
+            "                        <p class=\"pic-text-warn\">※團購商品無法參加行銷活動販售</p>\n" +
+            "                        <div class=\"admweb-v2-icon-right\">\n" +
+            "                            <a href=\"javascript:delete_product('" + prod_uid + "','')\" class=\"iopen-icon-black-delete\"></a>\n" +
+            "                        </div>\n" +
+            "                    </div>\n";
+        }
+        add_prod_html +=
+            "                    <input type=\"hidden\" name=\"pdsc_uid[" + prod_uid + "]\" value=\"\">\n" +
+            "                    <input type=\"hidden\" name=\"prod_uid[]\" value=\"" + prod_uid + "\">\n" +
+            "                    <div>\n" +
+            "                        <div class=\"admweb-v2-EventMerchandise-phone-PdBox pic-margin-b5\">\n" +
+            "                            <div class=\"admweb-v2-checkbox-name pic-margin-r10\">\n" +
+            "                                <input type=\"checkbox\" class=\"admweb-v2-ckbutton-green-checkbox prod_checkbox\"\n" +
+            "                                       id=\"prod_checkbox_" + prod_uid + "\">\n" +
+            "                                <label class=\"admweb-v2-ckbutton-green-label\"\n" +
+            "                                       for=\"prod_checkbox_" + prod_uid + "\"></label>\n" +
+            "                            </div>\n" +
+            "                            <img class=\"pic-margin-r10\" src=\"" + prod_file + "\">\n" +
+            "                            <div class=\"admweb-v2-product-name\">\n" +
+            "                                <h2 class=\"pic-OneRow-simplify\">" + prod_name + "</h2>\n" +
+            "                                <div class=\"admweb-v2-product-detail\">\n";
+        if(prod_spec_cus) {
+            add_prod_html +=
+            "                                    <label>規格：" + prod_spec_cus + "</label>\n";
+        }
+        add_prod_html +=
+            "                                    <span>$" + prod_selling_price + "</span>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                        <div class=\"admweb-v2-EventMerchandise-InputBox3\">\n" +
+            "                            <div class=\"admweb-v2-EventMerchandise-select\">\n" +
+            "                                <span>限時特價</span>\n" +
+            "                                <input name=\"pdsc_price[" + prod_uid + "]\" type=\"text\" placeholder=\"請輸入金額\"\n" +
+            "                                       class=\"pic-text-lnput pic-lnput-enter price_box\"\n" +
+            "                                       value=\"\" oninput=\"value=value.replace(/[^\\d]/g,'')\">\n" +
+            "                            </div>\n" +
+            "                            <div class=\"admweb-v2-EventMerchandise-select\">\n" +
+            "                                <span>購買限制</span>\n" +
+            "                                <select name=\"pdsc_limit[" + prod_uid + "]\"\n" +
+            "                                        class=\"pic-text-lnput pic-text-lnput-style\">\n" +
+            // "                                    <option value=\"all\" style=\"display: none\">不批次更新</option>\n" +
+            "                                    <option value=\"0\" selected>無限制</option>\n" +
+            // "                                    <option value=\"1\" style=\"display: none\">設定限制</option>\n" +
+            "                                </select>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"admweb-v2-EventMerchandise-select\" style=\"display: none\">\n" +
+            "                                <input name=\"keyword\" type=\"text\" placeholder=\"請輸入數量\"\n" +
+            "                                       class=\"pic-text-lnput pic-lnput-enter\">\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                    <div class=\"admweb-v2-icon-right admweb-v2-EventMerchandise-p-delete\">\n" +
+            "                        <a href=\"javascript:delete_product('" + prod_uid + "','')\"\n" +
+            "                           class=\"iopen-icon-black-delete\"></a>\n" +
+            "                    </div>\n" +
+            "                </div>"
+
+        $("#formPdsc").append(add_prod_html);
+
+        setButtonStatus('0');
+
+        $("#item_count").text("活動商品("+$(".product_box").length+"/100)");
+    }
+
+    function delete_product(prod_uid, pdsc_uid){
+        if ('{{$m_arrSystem.custom_dialog}}' == '1') {
+            confirm("是否確認刪除此商品?").done(function(){
+                delete_product_unit(prod_uid, pdsc_uid);
+            })
+        } else {
+            if (confirm("是否確認刪除此商品?")) {
+                delete_product_unit(prod_uid, pdsc_uid);
+            }
+        }
+    }
+
+    function delete_product_unit(prod_uid, pdsc_uid){
+        $("#product_box_"+prod_uid).remove();
+        check_puid_in_lightbox(prod_uid, false);
+        $("#item_count").text("活動商品("+$(".product_box").length+"/100)");
+        if(pdsc_uid!='') {
+            $("#formPdsc").prepend("<input type='hidden' name='delete_pdsc[]' value='" + pdsc_uid + "'>")
+        }
+        if($(".product_box").length==0){
+            setButtonStatus('0');
+            $(".admweb-v2-NoData").remove();
+            var no_prod_html = "        <div class=\"admweb-v2-NoData\">\n" +
+                "          <div class=\"admweb-v2-img-BlacklistNoData\"></div>\n" +
+                "          <span>沒有任何商品資料</span>\n" +
+                "        </div>";
+            $("#formPdsc").append(no_prod_html);
+        }
+        pdsc_checked_puid.splice(pdsc_checked_puid.indexOf(prod_uid), 1);
+    }
+
+    function _CS_checkAdd(_this){
+        if(/^\s+$/gi.test(_this.pdsc_title.value)){
+            alert('請確認活動名稱中是否只有空格。')
+            return false;
+        }
+        if(_this.pdsc_title.value.search(/[\\\/'"&()=;<>]/)>=0){
+            alert('請確認活動名稱中是否有特殊符號。')
+            return false;
+        }
+
+        let check_repeat = 0;
+        $.ajax({
+            url:'',
+            type:'POST',
+            dataType:'json',
+            async:false,
+            data:{
+                myAct:'CHECK_TITLE_REPEAT',
+                new_title:_this.pdsc_title.value },
+            success: function (r){
+                if(r == 'repeat'){
+                    check_repeat = 1;
+                }
+            }
+        })
+        if(check_repeat){
+            alert('已有相同活動名稱，請重新編輯！')
+            return false;
+        }
+
+        $("#save_button").addClass('pic-BgText-color-gray').removeClass('pic-BgText-color-green').css('pointer-events', 'none');
+    }
+
+    function cancel_btn(){
+        confirm('您尚未儲存目前編輯之內容<br>，請問是否確認取消編輯？').done(function (){
+            window.location.href = encodeURI('{{$m_backURL}}'); //Checkmarkx Client DOM XSS 
+        });
+    }
+
+</script>

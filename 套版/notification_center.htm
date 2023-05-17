@@ -1,0 +1,287 @@
+<style>
+    .admweb-v2-list-header-in-fixbottom{display: none;}
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    {{if $m_arrSystem.is_app_mode}}
+      <button onclick="{
+        let isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+        let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            window.JavaScriptInterface.backToSellerCenter();
+        } else if (isiOS) {
+            window.webkit.messageHandlers.backToSellerCenter.postMessage('');
+        }
+      }">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{else}}
+      <button onclick="history.back()">
+        <i class="icons-line icon-arrow-left-01"></i>
+      </button>
+    {{/if}}
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">通知中心</h2>
+  <button class="admweb-v2-orderlist-header-qrcode" id="mobile_all_read" onclick="all_read_mobile()">
+    <i class="icons-line icon-line-Look admweb-v2__icon-lg"></i>全部已讀
+  </button>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+
+  {{if $page_status.is_detail != 1}}
+  <div class="admweb-v2-notify__inner pic-text-gray-100 pic-text-gray-100">
+    <div class="admweb-v2-store_delivery__nav-list" data-tab-navs>
+      <a id="sys_msg" class="admweb-v2-store_delivery__nav-item">
+        系統訊息
+        {{if $page_status.count !=0}}
+        <span class="admweb-v2-notify__badge">{{if $page_status.count < 100}}{{$page_status.count}}{{else}}99+{{/if}}</span>
+        {{/if}}
+      </a>
+      <a id="eve_msg" class="admweb-v2-store_delivery__nav-item">
+        活動消息
+        {{if $page_status.count_e !=0}}
+        <span class="admweb-v2-notify__badge">{{if $page_status.count_e < 100}}{{$page_status.count_e}}{{else}}99+{{/if}}</span>
+        {{/if}}
+      </a>
+    </div>
+    <div data-tab-panels>
+      <!-- 系統訊息 內容 -->
+      <div class="admweb-v2-order_detail__content">
+          <button type="button" id="sys_pl_btn" class=" admweb-v2-notify__read_all-btn pic-BgText-color-green admweb-v2-sp-hidden" onclick="all_read('',2)">
+            <i class="icons-line icon-line-Look admweb-v2__icon-xl"></i>全部已讀
+          </button>
+        {{section name=i loop=$m_arrPushlist}}
+        <article class="admweb-v2-notify__article {{if $m_arrPushlist[i].is_read == 1}}read{{/if}} ">
+          <header class="admweb-v2-announce__article-header">
+            <i class="icons-line icon-line-announce {{if $m_arrPushlist[i].is_read == 1}}pic-text-gray-40{{else}}pic-text-green{{/if}} "></i>
+            <a class="{{if $m_arrPushlist[i].is_read == 1}}pic-text-gray-40{{else}}pic-text-green{{/if}}" href="{{$m_inURL}}&pl_uid={{$m_arrPushlist[i].pl_uid}}">{{$m_arrPushlist[i].push_title}}</a>
+          </header>
+          <p class="admweb-v2-announce__article-text">
+            {{$m_arrPushlist[i].push_content}}
+          </p>
+          <p class="admweb-v2-announce__article-date">{{$m_arrPushlist[i].push_time|date_format:"%Y/%m/%d"}}</p>
+        </article>
+        {{/section}}
+        <!-- 已讀： 1.article 加 read 2.a & i 加 pic-text-gray-40 -->
+        <!-- 未讀： a & i 加 pic-text-green  -->
+        {{if $m_arrPushlist|@count > 0}}
+        <!-- 頁碼 -->
+        {{if $m_arrPage.p_num==1 }}
+        <!-- 10筆以下 -->
+        <div class="pic-text-center page_num">
+          <p class="pic-page-bottom-text">1 - {{$m_arrPushlist|@count}} 筆／共 {{$m_arrPushlist|@count}} 筆</p>
+        </div>
+        {{else}}
+        <div class="pic-flex-center pic-flex-center-column page_num">
+          <ul class="admweb-v2-pagination">
+            {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_prev}}{{/if}}
+            {{$m_arrPage.pager_numeric}}
+            {{if $m_arrPage.p_num >5}}{{$m_arrPage.pager_next}}{{/if}}
+          </ul>
+          <p class="admweb-v2-page-bottom-text">{{$m_arrPage.row_start+1}} - {{$total.cur_count}} 筆／共 {{$total.system}} 筆</p>
+        </div>
+        {{/if}}
+        {{/if}}
+      </div>
+
+      <!-- 活動消息 內容 -->
+      <div class="admweb-v2-order_detail__content">
+        <button type="button" id="eve_pl_btn" class=" admweb-v2-notify__read_all-btn pic-BgText-color-green admweb-v2-sp-hidden" onclick="all_read(1,1)">
+          <i class="icons-line icon-line-Look admweb-v2__icon-xl"></i>全部已讀
+        </button>
+        {{section name=i loop=$m_arrPushlist_e}}
+        <article class="admweb-v2-notify__article {{if $m_arrPushlist_e[i].is_read == 1}}read{{/if}} ">
+          <header class="admweb-v2-announce__article-header">
+            <i class="icons-line icon-line-announce {{if $m_arrPushlist_e[i].is_read == 1}}pic-text-gray-40{{else}}pic-text-green{{/if}} " ></i>
+            <a class="{{if $m_arrPushlist_e[i].is_read == 1}}pic-text-gray-40{{else}}pic-text-green{{/if}}" href="{{$m_inURL}}&event=1&pl_uid={{$m_arrPushlist_e[i].pl_uid}}">{{$m_arrPushlist_e[i].push_title}}</a>
+          </header>
+          <p class="admweb-v2-announce__article-text">
+            {{$m_arrPushlist_e[i].push_content}}
+          </p>
+          <p class="admweb-v2-announce__article-date">{{$m_arrPushlist_e[i].push_time|date_format:"%Y/%m/%d"}}</p>
+        </article>
+        {{/section}}
+        <!-- 已讀： 1.article 加 read 2.a & i 加 pic-text-gray-40 -->
+        <!-- 未讀： a & i 加 pic-text-green  -->
+        {{if $m_arrPushlist_e|@count > 0}}
+        <!-- 頁碼 -->
+        {{if $m_arrPage_e.p_num==1 }}
+        <!-- 10筆以下 -->
+        <div class="pic-text-center page_num">
+          <p class="pic-page-bottom-text">1 - {{$m_arrPushlist_e|@count}} 筆／共 {{$m_arrPushlist_e|@count}} 筆</p>
+        </div>
+        {{else}}
+        <div class="pic-flex-center pic-flex-center-column page_num">
+          <ul class="admweb-v2-pagination">
+            {{if $m_arrPage_e.p_num >5}}{{$m_arrPage_e.pager_prev}}{{/if}}
+            {{$m_arrPage_e.pager_numeric}}
+            {{if $m_arrPage_e.p_num >5}}{{$m_arrPage_e.pager_next}}{{/if}}
+          </ul>
+          <p class="admweb-v2-page-bottom-text">{{$m_arrPage_e.row_start+1}} - {{$total.cur_count_e}} 筆／共 {{$total.event}} 筆</p>
+        </div>
+        {{/if}}
+        {{/if}}
+
+      </div>
+    </div>
+
+
+
+  </div>
+  {{else}}
+
+  <div class="admweb-v2-order_detail__content" style="width: 100%">
+    <article class="admweb-v2-notify__article" style="width: 100%">
+      <header>
+        <h3 class="admweb-v2-notify__detail-title">
+          <i class="icons-line icon-line-announce"></i>{{$m_arrPushlist[0].push_title}}
+        </h3>
+        <p class="admweb-v2-notify__detail-date">{{$m_arrPushlist[0].push_time|date_format:"%Y/%m/%d"}}</p>
+      </header>
+      <article class="admweb-v2-notify__detail-content">
+        {{if $m_arrPushlist[0].push_img}}<img src="{{$m_arrPushlist[0].push_img}}" alt="" />{{/if}}
+        <p>
+          {{$m_arrPushlist[0].push_content}}
+        </p>
+      </article>
+    </article>
+  </div>
+
+  <!-- 沒有連結時admweb-v2-order_detail__action classlist 請加上admweb-v2-sp-hidden -->
+  <div class="admweb-v2-order_detail__action">
+    <button class=" admweb-v2-order_detail__action-btn--outline admweb-v2-order_detail__action-btn--sp-row admweb-v2-sp-hidden" onclick="history.back()">
+      <i class="icons-line icon-line-Arrow-Left admweb-v2__icon-md"></i>回上一頁
+    </button>
+
+    {{if $m_arrPushlist[0].push_url}}
+    <!-- 文章有連結時才顯示 前往查看 -->
+    <a class=" admweb-v2-order_detail__action-btn admweb-v2-order_detail__action-btn--sp-row" href="{{$m_arrPushlist[0].push_url}}">
+      <i class="icons-line icon-line-Preview admweb-v2__icon-lg"></i>前往查看
+    </a>
+    {{/if}}
+
+  </div>
+
+
+  {{/if}}
+</div>
+<script>
+var mobi ;
+var ev = '{{$page_status.event}}';
+if( ev === '1'){
+  sessionStorage.setItem("key","1");
+  mobi = 'eve';
+}else{
+  mobi = 'sys';
+}
+
+function all_read(page,cate){
+  $.ajax({
+    url: '',
+    type: 'POST',
+    dataType: 'text',
+    data: {
+      myAct: 'ALL_READ',
+      push_category: cate,
+      '{{$nocsrfTokenId}}' : '{{$nocsrfToken}}'
+    },
+    success: function(){
+      if(page){
+        sessionStorage.setItem("key","1");
+      }
+      location.reload();
+    },
+    error: function (){
+      console.log('ajax error.');
+    }
+  })
+}
+
+  (function () {
+    // hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  // function hideMobileLayout() {
+  //   if (window.matchMedia('(max-width: 768px)').matches) {
+  //     document.querySelector(
+  //       '.admweb-v2-list-header-in-fixbottom'
+  //     ).style.display = 'none';
+  //     document.querySelector('.admweb-v2-list-header').style.display = 'none';
+  //   }
+  // }
+  // Tab
+  const DOM = {
+    nav: document.querySelector('[data-tab-navs]'),
+    navItems: document.querySelectorAll('[data-tab-navs] > a'),
+    panels: document.querySelectorAll('[data-tab-panels] > div')
+  };
+  DOM.nav.addEventListener('click', (e) => {
+    const clickedTab = e.target;
+    const activeIndex = Array.from(DOM.navItems).indexOf(clickedTab);
+    setActivePanel(activeIndex);
+    setActiveNav(activeIndex);
+    if(activeIndex === 0)mobi = 'sys';
+    if(activeIndex === 1)mobi = 'eve';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  function setActivePanel(activeIndex) {
+    DOM.panels.forEach((ele) => (ele.style.display = 'none'));
+    DOM.panels[activeIndex].style.display = 'block';
+  }
+  function setActiveNav(activeIndex) {
+    DOM.navItems.forEach((ele) => ele.classList.remove('active'));
+    DOM.navItems[activeIndex].classList.add('active');
+  }
+  (function () {
+    setActivePanel(0);
+    setActiveNav(0);
+  })();
+
+  if(sessionStorage.getItem("key")){
+    setActivePanel(1);
+    setActiveNav(1);
+    mobi = 'eve';
+    sessionStorage.removeItem("key");
+  }
+
+  function all_read_mobile() {
+    if(mobi === 'sys'){
+      all_read('',2);
+    }
+    else if (mobi === 'eve'){
+      all_read(1,1);
+    }
+  }
+</script>

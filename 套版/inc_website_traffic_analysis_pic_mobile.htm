@@ -1,0 +1,1273 @@
+<style>
+  .admweb-v2-list-header,
+  .admweb-v2-list-header-in-fixbottom {display: none;}
+</style>
+
+<div class="pic-default pic-flex-center-column admweb-v2-add-product">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="pic-front-pages-right">
+
+    <!--*** 版頭上面的名稱需判斷*** -->
+    <h2 class="admweb-v2-phone-haed"><a class="iopen-icon-white-arrows-left" href="admweb.main.php?action=add_product_pic"></a>新增商品<span class="pic-window-close"></span></h2>
+        <!-- <h2 class="admweb-v2-phone-haed"><a class="iopen-icon-white-arrows-left" href="admweb.main.php?action=add_product_pic"></a>團購分潤設定<span class="pic-window-close"></span></h2> 
+          <h2 class="admweb-v2-phone-haed"><a class="iopen-icon-white-arrows-left" href="admweb.main.php?action=add_product_pic"></a>選擇商品分類<span class="pic-window-close"></span></h2> 
+        <h2 class="admweb-v2-phone-haed"><a class="iopen-icon-white-arrows-left" href="admweb.main.php?action=add_product_pic"></a>運送方式設定<span class="pic-window-close"></span></h2>
+          <h2 class="admweb-v2-phone-haed"><a class="iopen-icon-white-arrows-left" href="admweb.main.php?action=add_product_pic"></a>商品運送及退貨詳情<span class="pic-window-close"></span></h2>
+        -->
+            <!-- 上面的名稱需判斷 END-->
+    <!------------------------------------ 基本設定 Start -------------------------------------->
+    <div class="admweb-v2-settings-frame pic-margin-10" style="margin-bottom: 0px;">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle">
+          <i class="icons-line icon-line-paper-text"></i>基本設定
+        </h2>
+
+        <div class="pic-flex-center">
+          <!-- 標籤3選1 需判斷 -->
+          <span class="pic-sort-color-orange">一般商品</span>
+          <!-- <span class="pic-sort-color-green">團購商品</span>  -->
+          <!-- <span class="pic-sort-color-red">拼團商品</span>  -->
+          <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+        </div>
+      </div>
+
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>商品圖片</p>
+        </li>
+ <!-- 0222 調整 start-->
+        <li class="admweb-v2-content-enter">
+          <div class="admweb-v2-PdImg admweb-v2-NewProduct-BasicSet">
+            <div class="admweb-v2-PdImg-EditDelete">
+              <img src="https://picsum.photos/300/200/?random=10">
+              <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i class="icons-line icon-line-edit"></i>編輯</a>
+              <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i class="icons-line icon-line-ashbin"></i>刪除</a>
+              <a class="admweb-v2-haulage" href="#"><i class="icons-line icon-line-hamburger"></i></a>
+            </div>
+            <div class="admweb-v2-PdImg-EditDelete">
+              <img src="https://picsum.photos/300/200/?random=10">
+              <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i class="icons-line icon-line-edit"></i>編輯</a>
+              <a class="admweb-v2-ImgAshbinBtn pic-BgText-color-red" href="#"><i class="icons-line icon-line-ashbin"></i>刪除</a>
+              <a class="admweb-v2-haulage" href="#"><i class="icons-line icon-line-hamburger"></i></a>
+            </div>
+            <a href="#" class="pic-AddImag-green"><i class="pic-text-green icons-line icon-line-add"></i></a>
+          </div>
+          <p class="pic-text-warn">※最多11張照片，每張圖片檔案大小不得超過2MB。</p>
+        </li>
+ <!-- 0222 調整 END-->
+
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>商品名稱</p><span class="pic-quantity">0/60</span>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品名稱">
+          <p class="pic-red-text-restrict">字數不能超過60個字</p>
+          <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+        </li>
+
+      <!-- 商品分類 -->
+
+        <li class="admweb-v2-edit-name">
+          <p class="pic-flex-center-between pic-width-100"><span>商品分類</span>
+            <span id="admweb-v2-NewPage-SortBtn" class="admweb-v2-SortBtn">細肩帶/細頸背心<i
+                class="icons-line icon-arrow-right-01"></i></span>
+          </p>
+        </li>
+
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>商品簡介</p> <span class="pic-quantity">0/60</span>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <div style="width: 100%;height: 120px;background: #F3F2F7;"></div>
+          <p class="pic-red-text-restrict">字數不能超過60個字</p>
+          <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+        </li>
+
+      <!-- 商品描述-->
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>商品描述</p> <span class="pic-quantity">0/60</span>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <div style="width: 100%;height: 120px;background: #F3F2F7;"></div>
+          <p class="pic-red-text-restrict">字數不能超過60個字</p>
+          <p class="pic-text-warn">※請勿使用&()=;’”<>\等特殊符號，避免提交後賣場無法使用。</p>
+        </li>
+
+      <!-- 商品影片-->
+        <li class="admweb-v2-edit-name">
+          <p>商品影片</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入Youtube連結">
+        </li>
+      </ul>
+
+    </div>
+
+
+    <!-- 點擊 商品分類 -->
+    <div id="NewPageSort-1"  class="pic-scroll admweb-v2-PageSort" style="display: none;">
+   
+      <div class="admweb-v2-NewPage" >
+        <!--選單-->
+        <div class="pic-common-navbarbox">
+          <div class="swiper-container pic-navbar" id="pic-navbar">
+            <div class="swiper-wrapper pic-nav-list">
+              <div class="swiper-slide pic-nav-a selected" navid="0"><span>女生衣著</span></div>
+            </div>
+          </div>
+        </div>
+        <!--選單 end-->
+
+        <ul class="admweb-v2-NewPageSort">
+          <li class="admweb-v2-NewProduct-title active">
+            <h2 class="admweb-v2-SettingsTitle">女生衣著</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">男生衣著</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">美妝保養</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">保健</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+        </ul>
+      </div>
+
+      <div id="NewPageSort-2" class="admweb-v2-NewPage" style="display: none;">
+        <!--選單-->
+        <div class="pic-common-navbarbox">
+          <div class="swiper-container pic-navbar" id="pic-navbar">
+            <div class="swiper-wrapper pic-nav-list">
+              <div class="swiper-slide pic-nav-a " navid="0"><span>女生衣著</span></div>
+              <div class="swiper-slide pic-nav-a selected" navid="1"><span>上衣</span></div>
+
+            </div>
+          </div>
+        </div>
+        <!--選單 end-->
+
+        <ul class="admweb-v2-NewPageSort">
+          <li class="admweb-v2-NewProduct-title active">
+            <h2 class="admweb-v2-SettingsTitle">女生衣著</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">男生衣著</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">美妝保養</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">保健</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+        </ul>
+
+      </div>
+
+      <div id="NewPageSort-3" class="admweb-v2-NewPage" style="display: none;">
+        <!--選單-->
+        <div class="pic-common-navbarbox">
+          <div class="swiper-container pic-navbar" id="pic-navbar">
+            <div class="swiper-wrapper pic-nav-list">
+              <div class="swiper-slide pic-nav-a " navid="0"><span>女生衣著</span></div>
+              <div class="swiper-slide pic-nav-a" navid="1"><span>上衣</span></div>
+              <div class="swiper-slide pic-nav-a  selected" navid="2"><span>請選擇</span></div>
+            </div>
+          </div>
+        </div>
+        <!--選單 end-->
+
+        <ul class="admweb-v2-NewPageSort">
+          <li class="admweb-v2-NewProduct-title active">
+            <h2 class="admweb-v2-SettingsTitle">女生衣著</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">男生衣著</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">美妝保養</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+          <li class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle">保健</h2>
+            <i class="icons-line icon-arrow-right-01"></i>
+          </li>
+        </ul>
+
+
+      </div>
+      <div class="pic-btn-footer pic-icon-margin-r">
+        <a class="pic-btn-newstore-100 pic-BgText-color-white-green iopen-icon-green-close pic-margin-r5" href="javascript:void(0);">取消</a>
+        <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">確認</a>
+        <!-- 灰綠二選一 -->
+        <!-- <a class="pic-btn-newstore-100 pic-BgText-color-gray pic-icon-white-check" href="javascript:void(0);">確認</a> -->
+    </div>
+
+
+    </div>
+    <!------------------------------------ 基本設定 End -------------------------------------->
+
+
+    <!------------------------------------ 銷售設定 Start -------------------------------------->
+    <div class="admweb-v2-settings-frame pic-margin-10">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-percent"></i>銷售設定</h2>
+        <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+      </div>
+
+      <!---************* 選擇:一般商品 (預設) Start *************--->
+      <!-- 溫層設定 -->
+      <ul class="admweb-v2-outside-white-box">
+        <!-- WindowClose() -->
+        <li class="admweb-v2-edit-name">
+          <a id="admweb-v2-SetName-1" class="pic-flex-center-between pic-width-100">
+            <span><span class="pic-text-red">*</span>溫層設定</span>
+            <span class="admweb-v2-SortBtn">常溫<i class="icons-line icon-arrow-right-01"></i></span>
+          </a>
+        </li>
+
+        <li class="admweb-v2-edit-name">
+          <a id="admweb-v2-SetName-2" class="pic-flex-center-between pic-width-100">
+            <span><span class="pic-text-red">*</span>商品類別</span>
+            <span class="admweb-v2-SortBtn">一般商品<i class="icons-line icon-arrow-right-01"></i></span>
+          </a>
+        </li>
+        
+
+        <li class="admweb-v2-edit-name">
+          <a id="admweb-v2-SetName-3" class="pic-flex-center-between pic-width-100">
+            <span><span class="pic-text-red">*</span>商品銷售時間</span>
+            <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+          </a>
+        </li>
+
+        <li class="admweb-v2-edit-name">
+          <a id="" class="admweb-v2-SetName-4 pic-flex-center-between pic-width-100">
+            <span>商品規格</span>
+            <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+          </a>
+        </li>
+
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>商品庫存</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品庫存">
+        </li>
+
+        <li class="admweb-v2-edit-name">
+          <p><span class="pic-text-red">*</span>商品售價</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品售價">
+        </li>
+
+        <li class="admweb-v2-edit-name">
+          <p>商品定價</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品定價">
+        </li>
+        <li class="admweb-v2-edit-name">
+          <p>商品成本</p>
+        </li>
+        <li class="admweb-v2-content-enter">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品成本">
+        </li>
+
+
+      <!---************* 選擇:一般商品 (預設) End  *************--->
+
+
+    <!---************* 選擇:團購商品 出現欄位 End Start *************--->
+
+      <!-- WindowClose() -->
+      <li class="admweb-v2-edit-name">
+        <a id="admweb-v2-SetName-9" class="pic-flex-center-between pic-width-100">
+          <span><span class="pic-text-red">*</span>團購分潤設定</span>
+          <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+        </a>
+      </li>
+
+      <li class="admweb-v2-edit-name">
+        <p><span class="pic-text-red">*</span>最低成團購買量</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入最低成團購買量">
+      </li>
+
+      <li class="admweb-v2-edit-name">
+        <a id="" class="admweb-v2-SetName-4 pic-flex-center-between pic-width-100">
+          <span>團購商品規格</span>
+          <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+        </a>
+      </li>
+
+      <li class="admweb-v2-edit-name">
+        <p><span class="pic-text-red">*</span>團購商品庫存</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入團購商品庫存">
+      </li>
+
+      <li class="admweb-v2-edit-name">
+        <p>商品團購價</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品團購價">
+      </li>
+      <li class="admweb-v2-edit-name">
+        <p>團購商品成本</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入團購商品成本">
+      </li>
+
+      <!---************* 選擇:團購商品 出現欄位 End  *************--->
+
+          <!---************* 選擇:拼團商品 出現欄位 End Start *************--->
+
+      <li class="admweb-v2-edit-name">
+        <a id="" class="admweb-v2-SetName-4 pic-flex-center-between pic-width-100">
+          <span>拼團商品規格</span>
+          <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+        </a>
+      </li>
+
+      <li class="admweb-v2-edit-name">
+        <p><span class="pic-text-red">*</span>拼團商品庫存</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入拼團商品庫存">
+      </li>
+
+      <li class="admweb-v2-edit-name">
+        <p><span class="pic-text-red">*</span>商品拼團價</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品拼團價">
+      </li>
+      <li class="admweb-v2-edit-name">
+        <p>拼團商品定價</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入拼團商品定價">
+      </li>
+      <li class="admweb-v2-edit-name">
+        <p>拼團商品成本</p>
+      </li>
+      <li class="admweb-v2-content-enter">
+        <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入拼團商品成本">
+      </li>
+    </ul>
+
+      <!---************* 選擇:拼團商品 出現欄位 End  *************--->
+
+      <!---************* 視窗 出現欄位 Strat  *************--->
+
+      <div id="admweb-v2-phone-GeneralWindow" class="admweb-v2-phone-RadioBox admweb-v2-phone-WindowBox" style="display:none;">
+        <input type="hidden" id="pic-add_store_type" value="">
+        <div id="admweb-v2-TemperatureSetting" class="admweb-v2-phone-RadioFrame" style="display: none;">
+          <h3>設定商品溫層</h3>
+          <div class="admweb-v2-label-green">
+            <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId1-1"name="radioname-1" value="1" checked>
+            <div class="admweb-v2-label-check-green"></div>
+            <label class="admweb-v2-label-green" for="radioId1-1">常溫</label>
+          </div>
+
+          <div class="admweb-v2-label-green">
+            <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId2-1" name="radioname-1" value="1">
+            <div class="admweb-v2-label-check-green"></div>
+            <label class="admweb-v2-label-green" for="radioId2-1">冷藏</label>
+          </div>
+          
+          <div class="admweb-v2-label-green">
+            <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId3-1" name="radioname-1" value="2">
+            <div class="admweb-v2-label-check-green"></div>
+            <label class="admweb-v2-label-green" for="radioId3-1">冷凍</label>
+          </div>
+        </div>
+
+        <div id="admweb-v2-Categories" class="admweb-v2-phone-RadioFrame" style="display: none;">
+          <h3>設定商品類別</h3>
+          <div class="admweb-v2-label-green">
+            <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId1-2" checked
+              name="radioname-2" value="1">
+            <div class="admweb-v2-label-check-green"></div>
+            <label class="admweb-v2-label-green" for="radioId1-2">一般商品</label>
+          </div>
+
+          <div class="admweb-v2-label-green">
+            <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId2-2" name="radioname-2"
+              value="1">
+            <div class="admweb-v2-label-check-green"></div>
+            <label class="admweb-v2-label-green" for="radioId2-2">團購商品</label>
+          </div>
+
+          <div class="admweb-v2-label-green">
+            <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId3-2" name="radioname-2"
+              value="1">
+            <div class="admweb-v2-label-check-green"></div>
+            <label class="admweb-v2-label-green" for="radioId3-2">拚購商品</label>
+          </div>
+        </div>
+
+        <div id="admweb-v2-SalesTime" class="pic-margin-lr10" style="display: none;">
+          <h3>設定商品銷售時間</h3>
+          <div class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+            <span class="admweb-v2-StartName">活動時間(起)</span>
+            <div class="admweb-v2-input-date-content">
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+              </span>
+
+              <select class="pic-text-lnput iopen-text-lnput-style">
+                <option value="請選擇">00</option>
+                <option value="請選擇">請選擇</option>
+              </select>
+              <div class="admweb-v2-DateNotation">:</div>
+              <select class="pic-text-lnput iopen-text-lnput-style">
+                <option value="請選擇">00</option>
+                <option value="請選擇">請選擇</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admweb-v2-content-enter admweb-v2-input-date pic-margin-b5">
+            <span class="admweb-v2-StartName">活動時間(迄)</span>
+            <div class="admweb-v2-input-date-content">
+              <span class="admweb-v2-DateBox iopen-icon-date pic-margin-r5">
+                <input name="CgdmStartDatetime" class="pic-text-lnput" type="text" value="2023/01/04">
+              </span>
+
+              <select class="pic-text-lnput iopen-text-lnput-style">
+                <option value="請選擇">00</option>
+                <option value="請選擇">請選擇</option>
+              </select>
+              <div class="admweb-v2-DateNotation">:</div>
+              <select class="pic-text-lnput iopen-text-lnput-style">
+                <option value="請選擇">00</option>
+                <option value="請選擇">請選擇</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="pic-confirm-box pic-flex-center pic-icon-margin-r pic-line-light15">
+          <a onclick="WindowClose()" class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check"
+            href="javascript:void(0);">確認</a>
+        </div>
+      </div>
+      <div class="pic-window-bg pic-window-bg-newstore" style="display:none;"></div>
+      <!---************* 視窗 出現欄位 End  *************  "--->
+
+ <!---************* 點擊 出現新頁面 Strat  *************--->
+      <!-- 團購 -->
+      <div id="admweb-v2-GroupBuy" class="admweb-v2-PageSort" style="display: none;">
+        <div class="admweb-v2-SpecificationPage">
+          <div class="admweb-v2-specification">
+            <ul class="pic-green-list">
+              <li class="pic-green-list-title">團購分潤設定</li>
+              <li class="pic-text-warn">※當商品被設定為團購商品後，不可同時作為一般商品進行銷售。</li>
+                <li class="pic-text-warn">※您可以在此設定團主之團購分潤級距。</li>
+            </ul>
+            <div class="admweb-v2-GroupBuy">
+              <div class="admweb-v2-share-profit">
+                <div id="admweb-v2-ShareProfit" class="admweb-v2-ShareProfit-title"><span>分潤方式</span><span class="pic-text-lnput"> 分潤金 (%)</span></div>
+            
+              <div class="pic-window-list" style="display: none;">
+                <div class="pic-radio-list-store">
+                  <input class="pic-rdobutton-radio" type="radio" id="radioIdStore1" name="store_type" value="0" checked="checked">
+                  <label class=" pic-rdobutton-label-2 pic-text-green" for="radioIdStore1">分潤金(%)</label>
+              </div>
+                <div class="pic-radio-list-store">
+                    <input class="pic-rdobutton-radio" type="radio" id="radioIdStore2" name="store_type" value="1">
+                    <label class=" pic-rdobutton-label-2" for="radioIdStore2">OP點數(點)</label>
+                </div>
+                <div class="pic-radio-list-store">
+                    <input class="pic-rdobutton-radio" type="radio" id="radioIdStore3" name="store_type" value="1">
+                    <label class="pic-rdobutton-label-2" for="radioIdStore3">免運券(張)</label>
+                </div>
+                <div class="pic-radio-list-store">
+                  <input class="pic-rdobutton-radio" type="radio" id="radioIdStore4" name="store_type" value="1">
+                  <label class="pic-rdobutton-label-2" for="radioIdStore4">本商品(件)</label>
+              </div>
+            </div>
+              </div>
+              <div class="admweb-v2-content-enter">
+                <table>
+                  <tbody>
+                    <tr class="admweb-v2-table">
+                    <th>單品累積數量</th>
+                    <th>分潤金 (%)</th>
+                  </tr>
+                  <tr class="admweb-v2-table">
+                    <td class="pic-flex-center"><span class="admweb-v2-num-green pic-margin-r15">1</span><input type="text" class="pic-text-lnput pic-lnput-error" style="width: 55%;" placeholder="1" disabled><span class="pic-margin-l5">個以上</span></td>
+                    <td><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="" style="width: 100%;">點</span></td>
+                  </tr>
+  
+                  <tr class="admweb-v2-table">
+                    <td class="pic-flex-center"><span class="admweb-v2-num-green pic-margin-r15">2</span><input type="text" class="pic-text-lnput" style="width:55%;" placeholder=""><span class="pic-margin-l5">個以上</span></td>
+                    <td><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="" style="width:100%;">點</span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="4" class="pic-margin-t10 pic-icon-margin-r">
+                        <a class="iopen-icon-green-add pic-bg-green-10" href="javascript:void(0)">新增分潤級距</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            <div class="admweb-v2-content-enter">
+              <table>
+                <tbody>
+                  <tr class="admweb-v2-table">
+                  <th>單品累積數量</th>
+                  <th>分潤金 (%)</th>
+                  <th>編輯</th>
+                </tr>
+                <tr class="admweb-v2-table">
+                  <td class="pic-flex-center"><span class="admweb-v2-num-green pic-margin-r15">1</span><input type="text" class="pic-text-lnput pic-lnput-error" style="width: 55%;margin-right: 2px;" placeholder="1" disabled><span class="">個以上</span></td>
+                  <td><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="" style="width: 70%;">點</span></td>
+                  <td><a class="admweb-v2-BtnRed-delete pic-BgText-color-red" href="javascript:void(0);"><i class="icons-line icon-line-ashbin"></i>刪除
+                  </a></td>
+                </tr>
+                <tr class="admweb-v2-table">
+                  <td class="pic-flex-center"><span class="admweb-v2-num-green pic-margin-r15">2</span><input type="text" class="pic-text-lnput" style="width:55%;margin-right: 2px;" placeholder=""><span class="">個以上</span></td>
+                  <td><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="" style="width:70%;">點</span></td>
+                  <td><a class="admweb-v2-BtnRed-delete pic-BgText-color-red" href="javascript:void(0);"><i class="icons-line icon-line-ashbin"></i>刪除
+                  </a></td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="pic-margin-t10 pic-icon-margin-r">
+                      <a class="iopen-icon-green-add pic-bg-green-10" href="javascript:void(0)">新增分潤級距</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            </div>
+  
+          </div>
+        </div>
+  
+        <div class="pic-btn-footer pic-icon-margin-r">
+          <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">儲存</a>
+        </div>
+      </div>
+
+      <!-- 點擊商品規格 -->
+      <!-- <div id="SpecificationPage-1" class="admweb-v2-PageSort" style="display: none;">
+        <div class="admweb-v2-SpecificationPage">
+          <div class="admweb-v2-specification">
+            <ul class="pic-green-list">
+              <li class="pic-green-list-title">新增商品規格</li>
+              <li class="pic-text-warn">※請依商品實際金額填寫，遺失毀損將依此金額理賠。</li>
+            </ul>
+            <div class="admweb-v2-specification-frame pic-margin-10">
+              <h3>規格 <span class="admweb-v2-num-green">1</span></h3>
+              <p class="admweb-v2-specification-name pic-margin-b5">規格名稱</p>
+              <input type="text" class="pic-text-lnput pic-lnput-enter pic-margin-b15" placeholder="例如：顏色">
+              <p class="admweb-v2-specification-name pic-margin-b5">規格選項</p>
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="例如：顏色">
+
+              <div class="admweb-v2-specification-add">
+                <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="例如：顏色">
+                <a class="admweb-v2-BtnRed-delete pic-BgText-color-red" href="javascript:void(0);"><i
+                    class="icons-line icon-line-ashbin"></i>刪除
+                </a>
+              </div>
+              <div class="admweb-v2-specification-add">
+                <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="例如：顏色">
+                <a class="admweb-v2-BtnRed-delete pic-BgText-color-red" href="javascript:void(0);"><i
+                    class="icons-line icon-line-ashbin"></i>刪除</a>
+              </div>
+
+              <div class="admweb-v2-specification-AddImgBox">
+                <div class="admweb-v2-specification-images">
+                  <div class="admweb-v2-specification-AddImg">
+                    <img src="https://picsum.photos/70/70/?random=10">
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i
+                        class="icons-line icon-line-edit"></i></a>
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-red" href="#"><i
+                        class="icons-line icon-line-ashbin"></i></a>
+                  </div>
+                  <a href="#" class="admweb-v2-specification-reduce">黃色</a>
+                </div>
+
+                <div class="admweb-v2-specification-images">
+                  <div class="admweb-v2-specification-AddImg">
+                    <a class="admweb-v2-specification-AddImg-box" href="#">
+                      <span class="iopen-icon-black-add"></span>
+                      加入圖片
+                    </a>
+                  </div>
+                  <a href="#" class="admweb-v2-specification-reduce">深灰色</a>
+                </div>
+              </div>
+            </div>
+            <div class="admweb-v2-specification-frame pic-margin-10">
+              <h3>規格 <span class="admweb-v2-num-green">2</span></h3>
+              <p class="admweb-v2-specification-name pic-margin-b5">規格名稱</p>
+              <input type="text" class="pic-text-lnput pic-lnput-enter pic-margin-b15" placeholder="例如：顏色">
+              <p class="admweb-v2-specification-name pic-margin-b5">規格選項</p>
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="例如：顏色">
+
+              <div class="admweb-v2-specification-add">
+                <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="例如：顏色">
+                <a class="admweb-v2-BtnRed-delete pic-BgText-color-red" href="javascript:void(0);"><i
+                    class="icons-line icon-line-ashbin"></i>刪除
+                </a>
+              </div>
+              <div class="admweb-v2-specification-add">
+                <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="例如：顏色">
+                <a class="admweb-v2-BtnRed-delete pic-BgText-color-red" href="javascript:void(0);"><i
+                    class="icons-line icon-line-ashbin"></i>刪除</a>
+              </div>
+
+              <div class="admweb-v2-specification-AddImgBox">
+                <div class="admweb-v2-specification-images">
+                  <div class="admweb-v2-specification-AddImg">
+                    <img src="https://picsum.photos/70/70/?random=10">
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i
+                        class="icons-line icon-line-edit"></i></a>
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-red" href="#"><i
+                        class="icons-line icon-line-ashbin"></i></a>
+                  </div>
+                  <a href="#" class="admweb-v2-specification-reduce">黃色</a>
+                </div>
+
+                <div class="admweb-v2-specification-images">
+                  <div class="admweb-v2-specification-AddImg">
+                    <a class="admweb-v2-specification-AddImg-box" href="#">
+                      <span class="iopen-icon-black-add"></span>
+                      加入圖片
+                    </a>
+                  </div>
+                  <a href="#" class="admweb-v2-specification-reduce">深灰色</a>
+                </div>
+              </div>
+            </div>
+            <div class="pic-margin-lr5">
+              <a class="admweb-v2-AddPd-GreenBtn iopen-icon-green-add pic-bg-green-10"
+                href="javascript:void(0)">新增商品規格</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pic-btn-footer pic-icon-margin-r">
+          <a class="pic-btn-newstore-100 pic-BgText-color-gray" href="javascript:void(0);">下一步：設定規格資訊<i class="icons-line icon-arrow-right-01"></i></a>
+          <a id="SpecificationPage-Next" class="pic-btn-newstore-100 pic-BgText-color-green" href="javascript:void(0);">下一步：設定規格資訊<i class="icons-line icon-arrow-right-01"></i></a>
+        </div>
+
+
+      </div> -->
+      
+      <!-- 0222 調整 Start-->
+      <div id="SpecificationPage-1" class="admweb-v2-PageSort" style="">
+        <div class="admweb-v2-SpecificationPage">
+          <div class="admweb-v2-specification">
+            <ul class="pic-green-list">
+              <li class="pic-green-list-title">新增商品規格</li>
+              <li class="pic-text-warn">※請依商品實際金額填寫，遺失毀損將依此金額理賠。</li>
+            </ul>
+            <div class="admweb-v2-specification-frame pic-margin-10">
+              <h3>規格 <span class="admweb-v2-num-green">1</span></h3>
+              <p class="admweb-v2-specification-name pic-margin-b5">規格名稱</p>
+              <input type="text" class="pic-text-lnput pic-lnput-enter pic-margin-b15" placeholder="例如：顏色">
+              <p class="admweb-v2-specification-name pic-margin-b5">規格選項</p>
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="例如：顏色">
+              <div class="admweb-v2-Label-box ">
+                <div class="admweb-v2-LabelBtn-green"><input type="text" class="" placeholder=""><a class="" href="#"><i class="icons-line icon-line-X"></i></a></div>
+                <div class="admweb-v2-LabelBtn-green"><input type="text" class="" placeholder="請輸入選項名稱"><a class="" href="#"><i class="icons-line icon-line-X"></i></a></div>
+                <div class="admweb-v2-LabelBtn-green"><input type="text" class="" placeholder="請輸入選項名稱"><a class="" href="#"><i class="icons-line icon-line-X"></i></a></div>
+                <div class="admweb-v2-LabelBtn-green"><input type="text" class="" placeholder="請輸入選項名稱"><a class="" href="#"><i class="icons-line icon-line-X"></i></a></div>
+                <div class="admweb-v2-LabelBtn-green"><input type="text" class="" placeholder="請輸入選項名稱"><a class="" href="#"><i class="icons-line icon-line-X"></i></a></div>
+                <a class="admweb-v2-sm-btn pic-BgText-color-green" href="#"><i class="icons-line icon-line-add"></i>新增選項</a>
+              </div>
+              <a class="pic-btn-newstore-100 pic-BgText-color-red pic-margin-tm5" href="javascript:void(0);"><i class="icons-line icon-line-ashbin pic-margin-r5"></i>全部規格</a>
+
+              <div class="admweb-v2-specification-AddImgBox">
+                <div class="admweb-v2-specification-images">
+                  <div class="admweb-v2-specification-AddImg">
+                    <img src="https://picsum.photos/70/70/?random=10">
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i
+                        class="icons-line icon-line-edit"></i></a>
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-red" href="#"><i
+                        class="icons-line icon-line-ashbin"></i></a>
+                  </div>
+                  <a href="#" class="admweb-v2-specification-reduce">-</a>
+                </div>
+
+                <div class="admweb-v2-specification-images">
+                  <div class="admweb-v2-specification-AddImg">
+                    <img src="https://picsum.photos/70/70/?random=10">
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-green" href="#"><i
+                        class="icons-line icon-line-edit"></i></a>
+                    <a class="admweb-v2-ImgEditBtn pic-BgText-color-red" href="#"><i
+                        class="icons-line icon-line-ashbin"></i></a>
+                  </div>
+                  <a href="#" class="admweb-v2-specification-reduce">-</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pic-margin-lr5">
+              <a class="admweb-v2-AddPd-GreenBtn iopen-icon-green-add pic-bg-green-10"
+                href="javascript:void(0)">新增商品規格</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pic-btn-footer pic-icon-margin-r">
+          <!-- 灰色與綠色狀態 -->
+          <!-- <a class="pic-btn-newstore-100 pic-BgText-color-gray" href="javascript:void(0);">下一步：設定規格資訊<i class="icons-line icon-arrow-right-01"></i></a> -->
+          <a id="SpecificationPage-Next" class="pic-btn-newstore-100 pic-BgText-color-green" href="javascript:void(0);">下一步：設定規格資訊<i class="icons-line icon-arrow-right-01"></i></a>
+        </div>
+      </div>
+
+      <!-- 0222 調整 END-->
+
+      <!--點擊商品規格 下一頁 style="display: none;"-->
+      <div id="SpecificationPage-2" class="admweb-v2-PageSort-next"style="display: none;" >
+        <div class="admweb-v2-SpecificationPage">
+          <div class="admweb-v2-specification">
+            <ul class="pic-green-list">
+              <li class="pic-green-list-title">設定規格資訊</li>
+              <li class="pic-text-warn">※為所有規格設定各自的價格及庫存等商品資訊。</li>
+            </ul>
+            <div class="admweb-v2-specification-frame pic-margin-10">
+              <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-home-bag"></i>批次更新規格資訊</h2>
+                <div class="pic-icon-black-arrows-rotate-up pic_margin-r5"></div>
+              </div>
+
+              <div class="admweb-v2-specification-content pic-margin-t10">
+                <table class="pic-table admweb-v2-specification-One-table" style="margin-bottom: 0px;">
+                  <tr>
+                    <td class="pic-td-title" colspan="2">銷售</td>
+                    <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                        class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                    <td class="pic-td-title">定價</td>
+                    <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                        class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  </tr>
+                  <tr>
+                    <td class="pic-td-title" colspan="2">成本</td>
+                    <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                        class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                    <td class="pic-td-title">庫存</td>
+                    <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                        class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  </tr>
+                </table>
+
+                <table class="pic-table admweb-v2-specification-Two-table">
+                  <tr>
+                    <td class="pic-td-title">預計出貨天數</td>
+                    <td class="pic-td-material"><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="">天</span></td>
+                  </tr>
+                </table>
+                <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">全部套用</a>
+              </div>
+            </div>
+
+            <div class="admweb-v2-specification-frame pic-margin-10">
+              <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><img src="https://picsum.photos/300/200/?random=10"> 顏色：黃色</h2>
+                <div class="pic-icon-black-arrows-rotate-up pic_margin-r5"></div>
+              </div>
+              <div class="admweb-v2-specification-content pic-margin-t10">
+              <table class="pic-table admweb-v2-specification-One-table">
+                <tr>
+                  <td class="pic-td-title" colspan="2">銷售</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  <td class="pic-td-title">定價</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                </tr>
+                <tr>
+                  <td class="pic-td-title" colspan="2">成本</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  <td class="pic-td-title">庫存</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                </tr>
+
+              </table>
+
+              <table class="pic-table admweb-v2-specification-Two-table">
+                <tr>
+                  <td class="pic-td-title" colspan="3">預計出貨天數</td>
+                  <td class="pic-td-material" colspan="2"><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="">天</span></td>
+                </tr>
+                <tr>
+                  <td class="pic-td-title" colspan="3">商品原始貨號</td>
+                  <td class="pic-td-material" colspan="2"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder=""></td>
+                </tr>
+              </table>
+
+            </div>
+            </div>
+
+            <div class="admweb-v2-specification-frame pic-margin-10">
+              <div class="admweb-v2-NewProduct-title">
+                <h2 class="admweb-v2-SettingsTitle"><img src="https://picsum.photos/300/200/?random=10"> 顏色：黃色</h2>
+                <div class="pic-icon-black-arrows-rotate-up pic_margin-r5"></div>
+              </div>
+              <div class="admweb-v2-specification-content pic-margin-t10">
+              <table class="pic-table admweb-v2-specification-One-table">
+                <tr>
+                  <td class="pic-td-title" colspan="2">銷售</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text" class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  <td class="pic-td-title">定價</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text" class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                </tr>
+                <tr>
+                  <td class="pic-td-title" colspan="2">成本</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text" class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  <td class="pic-td-title">庫存</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                </tr>
+              </table>
+              <table class="pic-table admweb-v2-specification-Two-table">
+                <tr>
+                  <td class="pic-td-title" colspan="3">預計出貨天數</td>
+                  <td class="pic-td-material" colspan="2"><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="">天</span></td>
+                </tr>
+                <tr>
+                  <td class="pic-td-title" colspan="3">商品原始貨號</td>
+                  <td class="pic-td-material" colspan="2"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder=""></td>
+                </tr>
+              </table>
+
+              <table class="pic-table admweb-v2-specification-One-table">
+                <tr>
+                  <td class="pic-td-title" colspan="2">尺寸</td>
+                  <td class="pic-td-material" colspan="3">M</td>
+                </tr>
+                <tr>
+                  <td class="pic-td-title" colspan="2">銷售</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  <td class="pic-td-title">定價</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                </tr>
+                <tr>
+                  <td class="pic-td-title" colspan="2">成本</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                  <td class="pic-td-title">庫存</td>
+                  <td class="pic-td-material admweb-v2-input-NT"><input type="text"
+                      class="pic-text-lnput pic-lnput-enter" placeholder=""></td>
+                </tr>
+              </table>
+
+              <table class="pic-table admweb-v2-specification-Two-table">
+              <tr>
+                <td class="pic-td-title" colspan="3">預計出貨天數</td>
+                <td class="pic-td-material" colspan="2"><span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-margin-r5" placeholder="">天</span></td>
+              </tr>
+              <tr>
+                <td class="pic-td-title" colspan="3">商品原始貨號</td>
+                <td class="pic-td-material" colspan="2"><input type="text" class="pic-text-lnput pic-margin-r5"placeholder=""></td>
+              </tr>
+            </table>
+            </div>
+            </div>
+
+            <div class="pic-margin-lr5">
+              <a class="admweb-v2-AddPd-GreenBtn iopen-icon-green-add pic-bg-green-10"
+                href="javascript:void(0)">新增商品規格</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pic-btn-footer pic-icon-margin-r">
+          <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">儲存</a>
+        </div>
+
+
+      </div>
+ <!---************* 點擊 出現新頁面 End  *************--->
+
+    </div>
+    <!------------------------------------ 銷售設定 End -------------------------------------->
+
+    <!------------------------------------ 運費設定 Start -------------------------------------->
+    <div class="admweb-v2-SetFreight admweb-v2-settings-frame pic-margin-10">
+      <div class="admweb-v2-NewProduct-title">
+        <h2 class="admweb-v2-SettingsTitle"> <i class="icons-line icon-line-truck"></i>運費設定</h2>
+        <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+      </div>
+      <!-- 運費設定-->
+      <ul class="admweb-v2-outside-white-box">
+        <li class="admweb-v2-edit-name">
+          <p>商品重量</p>
+        </li>
+            <!-- 0222 調整 start-->
+        <li class="admweb-v2-content-enter admweb-v2-input-g">
+          <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品重量">
+        </li>
+            <!-- 0222 調整 end-->
+
+        <li class="admweb-v2-edit-name">
+          <a id="admweb-v2-SetName-5" class="pic-flex-center-between pic-width-100">
+            <span><span class="pic-text-red">*</span>商品材積</span>
+            <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+          </a>
+        </li>
+
+        <li class="admweb-v2-edit-name">
+          <a id="admweb-v2-SetName-6" class="pic-flex-center-between pic-width-100">
+            <span><span class="pic-text-red">*</span>運送方式設定</span>
+            <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+          </a>
+        </li>
+
+      </ul>
+
+
+
+      <!-- 點擊 材積 -->
+      <div id="admweb-v2-SetFreight"
+        class="admweb-v2-phone-RadioBox admweb-v2-phone-SetFreight-WindowBox admweb-v2-phone-WindowBox"
+        style="display: none;">
+        <h3>設定包裹材積</h3>
+        <div class="pic-margin-lr10">
+          <div class="admweb-v2-content-enter pic-margin-b5">
+            <span class="admweb-v2-StartName">長度</span>
+            <div class="admweb-v2-input-date-content  admweb-v2-input-cm">
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入此商品包裹之長度">
+            </div>
+          </div>
+
+          <div class="admweb-v2-content-enter pic-margin-b5">
+            <span class="admweb-v2-StartName">寬度</span>
+            <div class="admweb-v2-input-date-content  admweb-v2-input-cm">
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入此商品包裹之寬度">
+            </div>
+          </div>
+
+          <div class="admweb-v2-content-enter pic-margin-b5">
+            <span class="admweb-v2-StartName">高度</span>
+            <div class="admweb-v2-input-date-content  admweb-v2-input-cm">
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入此商品包裹之高度">
+            </div>
+          </div>
+          <p class="pic-text-warn pic-margin-b5">※系統計算材積重為長*寬*高/6000(小數點以下三位數)。</p>
+          <div class="admweb-v2-content-enter pic-margin-b5">
+            <span class="admweb-v2-StartName" style="width: 15%;">材積重</span>
+            <div class="admweb-v2-input-date-content  admweb-v2-input-kg">
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入此商品包裹之高度">
+            </div>
+          </div>
+
+        </div>
+        <div class="pic-confirm-box pic-flex-center pic-icon-margin-r pic-line-light15">
+          <a onclick="WindowClose()" class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check"
+            href="javascript:void(0);">確認</a>
+        </div>
+      </div>
+
+            <!--點擊 運送方式設定  跳出頁面  -->
+            <div id="admweb-v2-ShippingMethod" class="admweb-v2-PageSort-next" style="display: none;">
+              <div class="admweb-v2-SpecificationPage">
+                <div class="admweb-v2-specification">
+                  <ul>
+                    <li class="admweb-v2-content-enter pic-margin-tm5">
+                      <div class="admweb-v2-checkbox-name pic-margin-b10">
+                        <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_1">
+                        <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_1"></label>
+                          <!-- 0222 調整 start-->
+                          
+                          <p><span class="admweb-v2-ShippingMethod">711常溫店取付款</span></p>
+                          <!-- 0222 調整 end-->
+                      </div>
+                      <div class="admweb-v2-checkbox-name pic-margin-b10">
+                        <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_2">
+                        <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_2"></label>
+                          <!-- 0222 調整 start-->
+                          <p><span class="admweb-v2-ShippingMethod">711常溫店取不付款</span></p>
+                          <!-- 0222 調整 end-->
+                      </div>
+                      <div class="admweb-v2-checkbox-name pic-margin-b10">
+                        <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_3">
+                        <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_3"></label>
+                          <!-- 0222 調整 start-->
+                          <p><span class="admweb-v2-ShippingMethod">黑貓常溫宅配付款</span></p>
+                          <!-- 0222 調整 end-->
+                      </div>
+                      <div class="admweb-v2-checkbox-name ">
+                        <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_4">
+                        <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_4"></label>
+                          <!-- 0222 調整 start-->
+    
+                          <p><span class="admweb-v2-ShippingMethod">黑貓常溫宅配不付款</span></p>
+                          <!-- 0222 調整 end-->
+                      </div>
+                    </li>
+                  </ul>
+      
+                </div>
+              </div>
+      
+              <div class="pic-btn-footer pic-icon-margin-r">
+                <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">儲存</a>
+              </div>
+            </div>
+    </div>
+    <!------------------------------------ 運費設定 End -------------------------------------->
+
+        <!------------------------------------ 其他設定 Start -------------------------------------->
+        <div class="admweb-v2-OtherSettings admweb-v2-settings-frame pic-margin-10">
+          <div class="admweb-v2-NewProduct-title">
+            <h2 class="admweb-v2-SettingsTitle"><i class="icons-line icon-line-dot"></i>其他設定</h2>
+            <span class="pic-icon-black-arrows-rotate-up pic_margin-r5"></span>
+          </div>
+    
+          <ul class="admweb-v2-outside-white-box">
+            <li class="admweb-v2-edit-name">
+              <p>預計出貨天數</p>
+            </li>
+            <li class="admweb-v2-content-enter">
+              <span class="pic-flex-center"><input type="text" class="pic-text-lnput pic-lnput-enter pic-margin-r5" placeholder="請輸入預計出貨天數">天</span>
+            </li>
+
+            <li class="admweb-v2-edit-name">
+              <p>商品原始貨號</p>
+            </li>
+            <li class="admweb-v2-content-enter">
+              <input type="text" class="pic-text-lnput pic-lnput-enter" placeholder="請輸入商品原始貨號">
+            </li>
+
+            <li class="admweb-v2-edit-name">
+              <a id="admweb-v2-SetName-7" class="pic-flex-center-between pic-width-100">
+                <span>稅別</span>
+                <span class="admweb-v2-SortBtn">應稅<i class="icons-line icon-arrow-right-01"></i></span>
+              </a>
+            </li>
+
+            <li class="admweb-v2-edit-name">
+              <a id="" class="pic-flex-center-between pic-width-100">
+                <span>商品標籤</span>
+                <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+              </a>
+            </li>
+
+            <li class="admweb-v2-edit-name">
+              <p>18禁商品</p>
+              <div class="admweb-v2-content-enter admweb-v2-form-poke-box">
+                <div class="admweb-v2-form-poke  admweb-v2-form-switch">
+                  <input class="admweb-v2-form-input-poke" type="checkbox" role="switch">
+                </div>
+              </div>
+            </li>
+
+            <li class="admweb-v2-edit-name pic-flex-center-column">
+              <div class="pic-flex-align-items pic-width-100">
+                <p>是否為隱形商品</p>
+                <div class="admweb-v2-content-enter admweb-v2-form-poke-box">
+                  <div class="admweb-v2-form-poke  admweb-v2-form-switch">
+                    <input class="admweb-v2-form-input-poke" type="checkbox" role="switch">
+                  </div>
+                </div>
+              </div>
+              
+              <p class="pic-text-warn">1.商品將不會顯示於商城與商店，僅可透過連結讓消費者進行瀏覽及購買。</p>
+              <p class="pic-text-warn">2.商品須設定為隱形商品，該商品才可參與隱形賣場活動。</p>
+            </li>
+
+            <li class="admweb-v2-edit-name">
+              <a id="admweb-v2-SetName-8" class="pic-flex-center-between pic-width-100">
+                <span>商品運送及退貨詳情</span>
+                <span class="admweb-v2-SortBtn"><i class="icons-line icon-arrow-right-01"></i></span>
+              </a>
+            </li>
+    
+          </ul>
+    
+    
+            <!--點擊 商品運送及退貨詳情  跳出頁面  -->
+            <div id="admweb-v2-ProductDetails" class="admweb-v2-PageSort-next" style="display: none;" >
+              <div class="admweb-v2-SpecificationPage">
+                <div class="admweb-v2-specification">
+                      這裡放文字編輯器區
+                </div>
+              </div>
+      
+              <div class="pic-btn-footer pic-icon-margin-r">
+                <a class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">儲存</a>
+              </div>
+            </div>
+
+            <!-- 視窗 -->
+
+            <div id="admweb-v2-tax" class="admweb-v2-phone-RadioBox admweb-v2-phone-WindowBox" style="display: none;">
+              <input type="hidden" id="pic-add_store_type" value="">
+              <h3>設定商品稅別</h3>
+              <div id="admweb-v2-TemperatureSetting" class="admweb-v2-phone-RadioFrame" style="">
+                <div class="admweb-v2-label-green">
+                  <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId1-4" checked="" name="radioname-2" value="1">
+                  <div class="admweb-v2-label-check-green"></div>
+                  <label class="admweb-v2-label-green" for="radioId1-4">應稅</label>
+                </div>
+                <div class="admweb-v2-label-green">
+                  <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId2-5" name="radioname-2" value="2">
+                  <div class="admweb-v2-label-check-green"></div>
+                  <label class="admweb-v2-label-green" for="radioId2-5">免稅</label>
+                </div>
+                <div class="admweb-v2-label-green">
+                  <input class="admweb-v2-radio-green pic-add_store_type" type="radio" id="radioId2-6" name="radioname-2" value="2">
+                  <div class="admweb-v2-label-check-green"></div>
+                  <label class="admweb-v2-label-green" for="radioId2-6">零稅</label>
+                </div>
+              </div>
+      
+              <div class="pic-confirm-box pic-flex-center pic-icon-margin-r pic-line-light15">
+                <a onclick="WindowClose()" class="pic-btn-newstore-100 pic-BgText-color-green pic-icon-white-check" href="javascript:void(0);">確認送出</a>
+              </div>
+            </div>
+    
+        </div>
+        <!------------------------------------ 其他設定 End -------------------------------------->
+
+        <!------------------------------------ 底部按鈕 Start -------------------------------------->
+        <div class="admweb-v2-settings-BottomBtn">
+          <div class="admweb-v2-I-Btn pic-confirm-box pic-flex-center pic-line-light15">
+            <!-- 灰色 按鈕字 -->
+            <!-- <a class="admweb-v2-I-Btn pic-BgText-color-gray pic-margin-r5"href="javascript:void(0);" ><i class="icons-line icon-line-X"></i>取消</a>
+            <a class="admweb-v2-I-Btn pic-BgText-color-gray pic-margin-r5"href="javascript:void(0);"><i class="icons-line icon-line-fire-2"></i>儲存並下架</a> -->
+            <a class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5"href="javascript:void(0);" ><i class="icons-line icon-line-X"></i>取消</a>
+            <a class="admweb-v2-I-Btn pic-BgText-color-white-green pic-margin-r5"href="javascript:void(0);"><i class="icons-line icon-line-fire-2"></i>儲存並下架</a>
+            <a class="admweb-v2-I-Btn pic-BgText-color-green pic-margin-r5" href="javascript:void(0);"><i class="icons-line icon-line-ArrowParper"></i>儲存並上架</a>
+            <a class="admweb-v2-I-Btn pic-BgText-color-green" href="javascript:void(0);"><i class="icons-line icon-line-eye"></i></a>
+          </div>
+        </div>
+        <!------------------------------------ 底部按鈕 End -------------------------------------->
+  </div>
+</div>
+</div>
+
+
+<script>
+
+  // $(function () {
+  //   var $switch = $('.admweb-v2-NewPageSort li');
+  //   $($switch.eq(0).addClass('active').find('li'));
+  //   $switch.click(function () {
+  //     $(this).addClass('active').siblings('.active').removeClass('active');
+  //   });
+  // });
+
+  // $("#pic-btn-newstore").click(function () {
+  //       $(".admweb-v2-phone-RadioBox").slideDown();
+  //       $(".pic-window-bg-newstore").show();
+  //   })
+
+  $(".admweb-v2-NewProduct-title").click(function () {
+		$(this).find(".pic-icon-black-arrows-rotate-up").toggleClass("pic-arrows-rotate");
+    $(this).next("ul").slideToggle();
+    $(this).next(".admweb-v2-specification-content").slideToggle();
+	})
+
+  $("#admweb-v2-NewPage-SortBtn").click(function () {
+    $("#NewPageSort-1").show();
+  })
+  $("#NewPageSort-1 .admweb-v2-NewPageSort").click(function () {
+    $("#NewPageSort-2").show();
+  })
+
+  $("#NewPageSort-2 .admweb-v2-NewPageSort").click(function () {
+    $("#NewPageSort-3").show();
+  })
+// 下一步：設定規格資訊
+  $("#SpecificationPage-Next").click(function () {
+    $("#SpecificationPage-2").show();
+  })
+  // 團購
+  $("#admweb-v2-ShareProfit").click(function () {
+      $('.admweb-v2-GroupBuy .pic-window-list').toggle()
+	})
+
+  function WindowClose() {
+    $(".admweb-v2-phone-RadioBox").slideUp();
+    $(".pic-window-bg-newstore").hide();
+  }
+
+  function WindowOpen() {
+    $(".admweb-v2-phone-RadioBox").slideDown();
+    $(".pic-window-bg-newstore").show();
+  }
+
+  // 分類點擊
+  $("#admweb-v2-SetName-1").click(function () {
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-Categories").hide();
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-SalesTime").hide();
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-TemperatureSetting").show();
+    $("#admweb-v2-phone-GeneralWindow").slideDown();
+    $(".pic-window-bg-newstore").show();
+    $("#admweb-v2-SetFreight").hide();
+  })
+  $("#admweb-v2-SetName-2").click(function () {
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-Categories").show();
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-TemperatureSetting").hide();
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-SalesTime").hide();
+    $("#admweb-v2-phone-GeneralWindow").slideDown();
+    $(".pic-window-bg-newstore").show();
+    $("#admweb-v2-SetFreight").hide();
+  })
+  $("#admweb-v2-SetName-3").click(function () {
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-Categories").hide();
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-SalesTime").show();
+    $("#admweb-v2-phone-GeneralWindow #admweb-v2-TemperatureSetting").hide();
+    $("#admweb-v2-phone-GeneralWindow").slideDown();
+    $(".pic-window-bg-newstore").show();
+    $("#admweb-v2-SetFreight").hide();
+  })
+  $(".admweb-v2-SetName-4").click(function () {
+    $("#SpecificationPage-1").show();
+  })
+
+  $("#admweb-v2-SetName-5").click(function () {
+    $("#admweb-v2-SetFreight").slideDown();
+    $(".pic-window-bg-newstore").show();
+  })
+
+  $("#admweb-v2-SetName-6").click(function () {
+    $("#admweb-v2-ShippingMethod").show();
+  })
+
+  $("#admweb-v2-SetName-7").click(function () {
+    $("#admweb-v2-tax").slideDown();
+    $(".pic-window-bg-newstore").show();
+  })
+
+  $("#admweb-v2-SetName-8").click(function () {
+    $("#admweb-v2-ProductDetails").show();
+  })
+
+  $("#admweb-v2-SetName-9").click(function () {
+    $("#admweb-v2-GroupBuy").show();
+  })
+
+
+
+</script>

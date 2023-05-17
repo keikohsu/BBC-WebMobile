@@ -1,0 +1,338 @@
+<style>
+  .admweb-v2-orderlist__progress___mobile{ justify-content: center;}
+</style>
+<div class="admweb-v2-orderlist-header">
+  <div class="admweb-v2-orderlist-header-actions">
+    <button onclick="history.back()">
+      <i class="icons-line icon-arrow-left-01"></i>
+    </button>
+    <button onclick="toggleMenuHandler()">
+      <i class="icons-line icon-line-hamburger"></i>
+    </button>
+  </div>
+  <h2 class="admweb-v2-orderlist-header-title">退貨宅回申請</h2>
+  <span></span>
+</div>
+<div class="pic-default pic-flex admweb-v2-order_detail">
+  <div class="admweb-v2-seller-front-left-box">
+    {{include file="admweb_2/admweb.main_menu.htm"}}
+  </div>
+  <div class="admweb-v2-orderlist__inner pic-text-gray-100">
+    <!-- 訂單資訊 -->
+    <div class="admweb-v2-order_detail__content">
+      <section class="admweb-v2-order_detail__card" data-folder-container>
+        <div class="admweb-v2-order_detail__card--title">
+          <h3>
+            <i class="icons-line icon-line-paper-text pic-margin-r5"></i
+            >訂單資訊
+          </h3>
+          <button
+            data-folder-btn
+            class="
+              admweb-v2-order_detail__card-folder-btn
+              admweb-v2-md-visibility--none
+            "
+          >
+            <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <div data-folder-target>
+          <div class="pic-padding-t10">
+            <span class="admweb-v2-orderlist__badge--normal">常溫</span>
+            <!-- list bottom -->
+            <dl
+              class="admweb-v2-order_detail__order-info"
+              style="--custom-grid-width: 84px"
+            >
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">訂單編號</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  500000011
+                  <span class="pic-text-green pic-font-size-12">取消訂單</span>
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">取款方式</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  取貨付款
+                  <span class="pic-text-red pic-margin-l5 pic-font-size-12"
+                    >(尚未付款)</span
+                  >
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">訂單時間</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  2022/09/06 20:04:18
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">訂購人姓名</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  王*明
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">訂單金額</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  <span class="pic-text-green">$1,500</span>
+                </dd>
+              </div>
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">訂購人手機</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  0912345678
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+      <section
+        class="admweb-v2-order_detail__card"
+        data-folder-container
+        id="return-package-info"
+      >
+        <div class="admweb-v2-order_detail__card--title">
+          <h3>
+            <i class="icons-line icon-line-paper-text pic-margin-r5"></i
+            >退貨包裹宅配領回申請資訊
+          </h3>
+          <button
+            data-folder-btn
+            class="
+              admweb-v2-md-visibility--none
+              admweb-v2-order_detail__card-folder-btn
+            "
+          >
+            <i class="icons-line icon-arrow-down-01"></i>
+          </button>
+        </div>
+        <div data-folder-target>
+          <div>
+            <div
+              class="admweb-v2-orderlist__progress-container"
+              data-folder-container
+            >
+              <button
+                class="
+                  pic-bg-green-5 pic-text-green
+                  admweb-v2-orderlist__progress-btn
+                "
+                data-folder-btn
+              >
+                申請宅回狀態：待申請<i
+                  class="icons-line icon-arrow-down-01"
+                ></i>
+              </button>
+              <!-- 進度 -->
+              <div
+                class="admweb-v2-orderlist__progress-outer"
+                data-folder-target
+              >
+                <div class="admweb-v2-orderlist__progress admweb-v2-orderlist__progress___mobile">
+                  <!-- 進度具備處理時間時class加上admweb-v2-orderlist__progress-item--success -->
+                  <div
+                    class="
+                      admweb-v2-orderlist__progress-item
+                      admweb-v2-orderlist__progress-item--success
+                    "
+                  >
+                    <span class="admweb-v2-orderlist__progress-circle"></span>
+                    <p class="admweb-v2-orderlist__progress-text">待申請</p>
+                    <span class="admweb-v2-orderlist__progress-time"
+                      >09/06 20:04</span
+                    >
+                  </div>
+                  <div class="admweb-v2-orderlist__progress-item">
+                    <span class="admweb-v2-orderlist__progress-circle"></span>
+                    <p class="admweb-v2-orderlist__progress-text">通知宅配</p>
+                    <span class="admweb-v2-orderlist__progress-time"></span>
+                  </div>
+                  <div class="admweb-v2-orderlist__progress-item">
+                    <span class="admweb-v2-orderlist__progress-circle"></span>
+                    <p class="admweb-v2-orderlist__progress-text">已領回</p>
+                    <span class="admweb-v2-orderlist__progress-time"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <dl style="--custom-grid-width: 96px">
+              <div class="admweb-v2-order_detail__info-desc">
+                <dt class="admweb-v2-order_detail__info-desc-dt">申請截止日</dt>
+                <dd class="admweb-v2-order_detail__info-desc-dd">
+                  2022/10/20 23:59:59
+                </dd>
+              </div>
+            </dl>
+            <form action="">
+              <div class="">
+                <div class="pic-flex-center-between">
+                  <label class="admweb-v2-order_detail-label"
+                    ><span class="pic-GeneralStore-red">*</span
+                    >收件人姓名</label
+                  >
+                </div>
+                <input class="pic-text-lnput" placeholder="請輸入收件人姓名" />
+              </div>
+              <div class="">
+                <div class="pic-flex-center-between">
+                  <label class="admweb-v2-order_detail-label"
+                    ><span class="pic-GeneralStore-red">*</span
+                    >收件人電話</label
+                  >
+                </div>
+                <input class="pic-text-lnput" placeholder="請輸入收件人電話" />
+              </div>
+              <div class="">
+                <div class="pic-flex-center-between">
+                  <label class="admweb-v2-order_detail-label"
+                    ><span class="pic-GeneralStore-red">*</span>宅配地址</label
+                  >
+                </div>
+                <div class="admweb-v2-order_detail__return_backage-address">
+                  <input class="pic-text-lnput" placeholder="郵遞區號" />
+                  <select class="pic-text-lnput pic-text-lnput-style">
+                    <option>選擇縣市</option>
+                    <option value="台北市">台北市</option>
+                    <option value="新北市">新北市</option>
+                  </select>
+                  <select class="pic-text-lnput pic-text-lnput-style">
+                    <option>選擇區</option>
+                  </select>
+                </div>
+                <input
+                  class="
+                    pic-text-lnput
+                    admweb-v2-order_detail__return_backage-road
+                  "
+                  placeholder="請輸入地址"
+                />
+                <p class="pic-text-red pic-margin-t10 pic-font-size-12">
+                  ※包裹無法配送至7-11門市，請勿填寫7-11門市地址！
+                </p>
+                <p class="pic-text-red pic-font-size-12">
+                  ※收件地址(需有完整縣市區)，否則無法配送！
+                  Ex：114台北市內湖區陽光街246號6樓
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- 置底按鈕-->
+    <div class="admweb-v2-order_detail__action">
+      <button
+        class="
+          admweb-v2-order_detail__action-btn
+          admweb-v2-orderlist__action-row_btn
+        "
+      >
+        <i class="icons-line icon-line-paper-text"></i> 列印本頁
+      </button>
+      <button
+        class="
+          admweb-v2-order_detail__action-btn
+          admweb-v2-orderlist__action-row_btn
+        "
+      >
+        <i class="icons-line icon-line-paper-text"></i> 送出申請
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    hideMobileLayout();
+    getPcSideMenuWidth();
+  })();
+  function getPcSideMenuWidth() {
+    const pcSidMenuEle = document.querySelector(
+      '.admweb-v2-seller-front-left-box'
+    );
+    pcSidMenuEle
+      .closest('.admweb-v2-order_detail')
+      .style.setProperty('--side-menu-width', pcSidMenuEle.clientWidth + 'px');
+  }
+  function toggleMenuHandler() {
+    document
+      .querySelector('.admweb-v2-seller-front-left-box')
+      .classList.toggle('pic-phone-open-menu');
+    const hamBtn = document
+      .querySelectorAll('.admweb-v2-orderlist-header-actions button')[1]
+      .querySelector('i');
+    if (hamBtn.classList.contains('icon-arrow-left-01')) {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'block';
+    } else {
+      document.querySelectorAll(
+        '.admweb-v2-orderlist-header-actions button'
+      )[0].style.display = 'none';
+    }
+    hamBtn.classList.toggle('icon-arrow-left-01');
+  }
+  function hideMobileLayout() {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.querySelector(
+        '.admweb-v2-list-header-in-fixbottom'
+      ).style.display = 'none';
+      document.querySelector('.admweb-v2-list-header').style.display = 'none';
+    }
+  }
+
+  // 收合展開 start
+  const toggleBtns = document.querySelectorAll('[data-folder-btn]');
+  toggleBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+      toggleFolderHandler(button);
+    });
+  });
+
+  function toggleFolderHandler(button) {
+    const targetEle = button
+      .closest('[data-folder-container]')
+      .querySelector('[data-folder-target]');
+    const targetStyle = targetEle.style;
+    const eleHeight = targetEle.children[0].clientHeight;
+    const defaultFolded = targetEle.dataset.folded;
+    const toFold =
+      !defaultFolded ||
+      defaultFolded === 'false' ||
+      targetStyle.height === `${eleHeight}px`;
+    const param = { toFold, targetEle, button, eleHeight };
+    updateOuterFolderContainer(param);
+    updateFolderTarget(param);
+  }
+  function updateOuterFolderContainer({
+    toFold,
+    targetEle,
+    button,
+    eleHeight
+  }) {
+    const rootTargetEle = button
+      .closest('section[data-folder-container]')
+      .querySelector('[data-folder-target]');
+    const height = rootTargetEle.children[0].clientHeight;
+    console.log(rootTargetEle.children[0]);
+    const differBtn = rootTargetEle !== targetEle;
+    if (toFold && differBtn) {
+      rootTargetEle.style.height = height - eleHeight + 'px';
+    } else if (differBtn) {
+      rootTargetEle.style.height = height + eleHeight + 'px';
+    }
+  }
+  function updateFolderTarget({ toFold, targetEle, button, eleHeight }) {
+    if (toFold) {
+      targetEle.style.height = '0';
+      button.querySelector('i').classList = 'icons-line icon-arrow-down-01';
+      targetEle.dataset.folded = true;
+    } else {
+      targetEle.style.height = `${eleHeight}px`;
+      button.querySelector('i').classList = 'icons-line icon-arrow-top-01';
+      targetEle.dataset.folded = false;
+    }
+  }
+</script>
