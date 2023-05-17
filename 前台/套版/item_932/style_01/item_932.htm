@@ -1,0 +1,472 @@
+{{getItemContent wpitem_uid=$m_arrPageItem.wpitem_uid}}
+{{getItemProduct932 wpitem_uid=$m_arrPageItem.wpitem_uid
+                limit=$m_arrPageItem.wpitem_prod_count
+                prod_is_search=1
+                prod_is_marketing=0
+                prod_in_stock=0}}
+{{if $smarty.now|date_format:'%Y-%m-%d %H:%M'<$m_arrWebsitePageItemContent[0].wpicon_c1}}
+{{if !$mobileDeviceDirected}}
+<div class="iopen-shop-item-box iopen-shop-item-mb it932-default it932_{{$m_arrPageItem.wpitem_uid}}">
+  <div class="iopen-shop-item-content it932-item-content01">
+    <!--banner-->
+    <a {{if $m_arrWebsitePageItemContent[0].wpicon_url}}href="{{$m_arrWebsitePageItemContent[0].wpicon_url}}"{{/if}} target="{{$m_arrWebsitePageItemContent[0].wpicon_target}}">
+    <div class="it932-banner-box01" style="background:url({{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_image}}) no-repeat center center; background-size:cover;">
+    <div style="background:url(css/images/pic/lightning.gif) no-repeat left top; background-size:140px; width:100%; height:590px; padding:100px 20px;">
+    <h2 style="color:{{$m_arrWebsitePageItemContent[0].wpicon_c3}};">{{$m_arrWebsitePageItemContent[0].wpicon_title}}</h2>
+    <h4>限時搶購</h4> 
+    <div><span class="clock01"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>:<span>&nbsp;</span><span>&nbsp;</span>:<span>&nbsp;</span><span>&nbsp;</span></span></div>
+    <h3 style="color:{{$m_arrWebsitePageItemContent[0].wpicon_c3}};">{{$m_arrWebsitePageItemContent[0].wpicon_subtitle}}</h3>
+    </div>
+    </div>
+    </a>
+    <!--banner end-->
+    <!--商品-->
+    <div class="it932-product-box01" style="background:{{$m_arrWebsitePageItemContent[0].wpicon_c2}};">
+    <ul class="it932-carousel-box01 owl-carousel">
+    {{foreach from=$m_arrWebsitePageItemProduct item=m_arrProduct key=prod_num}}
+      {{if $prod_num%8==0}}
+      <li>
+        <ul class="it932-content01">
+      {{/if}}
+            <li>
+                <div class="pic-shop-pds-default01">
+                    <div class="pic-shop-pds-imgbox {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}pic-shop-pds-stock-block{{/if}}">
+                        {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}
+                        <div class="pic-shop-pds-stock" onclick="window.location.href='{{$m_arrProduct.product_detail_url}}';"><span>補貨中</span></div>
+                        {{/if}}
+                        {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}
+                        {{getProdDiscountNumber selling_price=$m_arrProduct.selling_price prod_sticker_price=$m_arrProduct.prod_sticker_price}}
+                        <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">{{$discount_num}}</span><span>折</span></div>
+                        {{/if}}
+                        <a href="{{$m_arrProduct.product_detail_url}}" title="{{$m_arrProduct.prod_name}}">
+                            <img src="{{$m_arrProduct.prod_file_url}}" alt="{{$m_arrProduct.prod_name}}">
+                        </a>
+                    </div>
+                    <div class="pic-shop-pds-infobox">
+                        <h2><a href="{{$m_arrProduct.product_detail_url}}">{{$m_arrProduct.prod_name}}</a></h2>
+                        <div class="pic-shop-pds-bottom">
+                            <div class="pic-shop-pds-price">
+                                <ul>
+                                    <li class="pic-shop-pds-price_01"> {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}${{$m_arrProduct.prod_sticker_price|number_format:0}}{{/if}}</li>
+                                    <li class="pic-shop-pds-price_02"><span>$</span>{{$m_arrProduct.selling_price|number_format:0}}</li>
+                                </ul>
+                            </div>
+                            <div class="pic-shop-pds-btn">
+                                <div class="pic-shop-pds-addlist addlist_{{$m_arrProduct.prod_uid}}{{prodInTraceListClass class='active' prod_uid=$m_arrProduct.prod_uid}}"><a href="javascript:void(0);" title="加入追蹤清單" onclick="add2traceBBC('{{$m_arrProduct.prod_uid}}','{{$m_arrProduct.prod_no}}','{{$m_arrProduct.selling_price}}')" style="visibility:hidden">加入追蹤清單</a></div>
+                                {{if $m_arrProduct.prod_market_sdate <= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_market_edate >= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_marketing}}
+                                {{if $m_arrProduct.webMarketing || $m_arrProduct.discount_range_setting.methods}}
+                                <div class="pic-shop-pds-addcart"><a class="cart_light_box" href="#marketing_{{$m_arrProduct.prod_uid}}" title="加入購物車" style="visibility:hidden">加入購物車</a></div><!---九大行銷--->
+                                {{elseif $m_arrProduct.prod_limit_sale == '0' AND $m_arrProduct.prod_shopping_cart_mode == '1'}}
+                                <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="直接購買" onclick="buyNowBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}')" style="visibility:hidden">直接購買</a></div>
+                                {{elseif $m_arrProduct.prod_limit_sale == '0'}}
+                                <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車" onclick="goCartMainBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}',{{if $m_arrProduct.prod_limit_buy>0 OR $m_arrProduct.prod_limit_buy_alltime>0}}'1'{{else}}'0'{{/if}})" style="visibility:hidden">加入購物車</a></div>
+                                {{/if}}
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{*九大行銷 light box *}}
+                {{if $m_arrProduct.webMarketing || $m_arrProduct.discount_range_setting.methods}}
+                <div class="setP_stagingBoxIn jooshop_addcar_box" id="marketing_{{$m_arrProduct.prod_uid}}" style="display: none;">
+                    <div class="addcar_box">
+                        {{if !$mobileDeviceDirected}}
+                        <div class="addcar_top">此商品適用下列優惠，請點選連結至活動頁選購</div>
+                        {{/if}}
+
+                        {{if $m_arrProduct.discount_range_setting.methods}}
+                        <div class="addcar_box_deta jooshop_btn_color">
+                            <p>
+                                <span class="highlight_cheap">{{$m_arrProduct.discount_range_setting.best_methods.discount_pct}}折</span>
+                                此商品 最低價{{$m_arrProduct.discount_range_setting.best_methods.price_per}}元起
+                            </p>
+                            <a href="{{$m_arrProduct.prod_url}}">前往商品頁</a>
+                        </div>
+                        {{/if}}
+                        {{foreach from=$m_arrProduct.webMarketing item=arrMkt}}
+                        <div class="addcar_box_deta jooshop_btn_color"><p>{{$arrMkt.wmkt_title}}</p><a
+                                href="../{{$m_arrProduct.web_byeurl}}/index.php?action=website_marketing&wmkt_ou={{$arrMkt.wmkt_uid}}">{{$lang.root.product_detail.5}}<!--前往活動頁--></a>
+                        </div>
+                        {{/foreach}}
+                    </div>
+                    {{if $m_arrProduct.prod_limit_sale!=1}}
+                    <div class="tbs_seemore jooshop_btn_color">
+                        <a href="javascript:void(0);" onclick="javascript:closeBoxBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}','{{$m_arrProduct.prod_shopping_cart_mode}}',{{if $m_arrProduct.prod_limit_buy>0 OR $m_arrProduct.prod_limit_buy_alltime>0}}'1'{{else}}'0'{{/if}});">不需優惠，直接加入購物車</a>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+            </li>
+      {{if $prod_num%8==7}}
+        </ul>
+      </li>
+      {{/if}}
+    {{/foreach}}
+    {{if $m_arrWebsitePageItemProduct|@count %8 != 7}}
+        </ul>
+      </li>
+    {{/if}}
+    </ul>
+    </div>
+    <!--商品 end-->
+  </div>
+</div>
+{{else}}
+<div class="iopen-shop-item-box iopen-shop-item-mb it932-default it932_{{$m_arrPageItem.wpitem_uid}}">
+  <div class="iopen-shop-item-content it932-item-content01-m">
+  <div class="it932-banner-box01" style="background:url({{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_image}}) no-repeat center center; background-size:cover;">
+  <div style="background:url(css/images/pic/lightning.gif) no-repeat 5px top; background-size:26px; width:100%; height:208px; padding:5px 15px; position:relative;">
+    <h4>限時搶購</h4> 
+    <div class="it932-clock"><span class="clock01" style="font-size: 1.4rem;"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>:<span>&nbsp;</span><span>&nbsp;</span>:<span>&nbsp;</span><span>&nbsp;</span></span></div>
+    <div class="it932-content02">
+    <ul class="it932-carousel-box01 owl-carousel">
+      {{foreach from=$m_arrWebsitePageItemProduct item=m_arrProduct}}
+          <li>
+            <div class="pic-shop-pds-default01 pic-shop-932-s2">
+                <div class="pic-shop-pds-imgbox {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}pic-shop-pds-stock-block{{/if}}">
+                    {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}
+                    <div class="pic-shop-pds-stock" onclick="window.location.href='{{$m_arrProduct.product_detail_url}}';"><span>補貨中</span></div>
+                    {{/if}}
+                    {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}
+                    {{getProdDiscountNumber selling_price=$m_arrProduct.selling_price prod_sticker_price=$m_arrProduct.prod_sticker_price}}
+                    <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">{{$discount_num}}</span><span>折</span></div>
+                    {{/if}}
+                    <a href="{{$m_arrProduct.product_detail_url}}" title="{{$m_arrProduct.prod_name}}"><img src="{{$m_arrSystem.uploads_product_url}}{{$m_arrProduct.prod_file_1}}" alt="{{$m_arrProduct.prod_name}}"></a>
+                </div>
+                <div class="pic-shop-pds-infobox">
+                    <h2><a href="{{$m_arrProduct.product_detail_url}}">{{$m_arrProduct.prod_name}}</a></h2>
+                    <div class="pic-shop-pds-bottom">
+                        <div class="pic-shop-pds-price">
+                            <ul>
+                                <li class="pic-shop-pds-price_01"> {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}${{$m_arrProduct.prod_sticker_price|number_format:0}}{{/if}}</li>
+                                <li class="pic-shop-pds-price_02"><span>$</span>{{$m_arrProduct.selling_price|number_format:0}}</li>
+                            </ul>
+                        </div>
+                        <div class="pic-shop-pds-btn">
+                            <div class="pic-shop-pds-addlist addlist_{{$m_arrProduct.prod_uid}}{{prodInTraceListClass class='active' prod_uid=$m_arrProduct.prod_uid}}"><a href="javascript:void(0);" title="加入追蹤清單" onclick="add2traceBBC('{{$m_arrProduct.prod_uid}}','{{$m_arrProduct.prod_no}}','{{$m_arrProduct.selling_price}}')" style="visibility:hidden">加入追蹤清單</a></div>
+                            {{if $m_arrProduct.prod_market_sdate <= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_market_edate >= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_marketing}}
+                            {{if $m_arrProduct.webMarketing || $m_arrProduct.discount_range_setting.methods}}
+                            <div class="pic-shop-pds-addcart"><a class="cart_light_box" href="#marketing_{{$m_arrProduct.prod_uid}}" title="加入購物車" style="visibility:hidden">加入購物車</a></div><!---九大行銷--->
+                            {{elseif $m_arrProduct.prod_limit_sale == '0' AND $m_arrProduct.prod_shopping_cart_mode == '1'}}
+                            <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="直接購買" onclick="buyNowBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}')" style="visibility:hidden">直接購買</a></div>
+                            {{elseif $m_arrProduct.prod_limit_sale == '0'}}
+                            <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車" onclick="goCartMainBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}',{{if $m_arrProduct.prod_limit_buy>0 OR $m_arrProduct.prod_limit_buy_alltime>0}}'1'{{else}}'0'{{/if}})" style="visibility:hidden">加入購物車</a></div>
+                            {{/if}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+      {{/foreach}}
+    </ul>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+<style>
+.it932-item-content01-m{ display:block;}
+.it932-item-content01-m .it932-banner-box01{ width:100%; height:273px; padding:0;}
+.it932-item-content01-m .it932-product-box{ width:100%;}
+.it932-item-content01-m .it932-banner-box01 h4{ font-size:27px; line-height:27px; text-align:left; padding:5px 0; color:#fff; margin-bottom:5px; font-weight:bold;text-shadow: 1px 1px 2px #000;}
+.it932-clock{ position:absolute; right:15px; top:10px; text-align:center;}
+</style> 
+{{/if}}
+{{/if}}
+<style>
+.pic-shop-932-s2{ min-width:92px;}
+.it932-item-content01{ display:flex;}
+.it932-item-content01 .it932-banner-box01{ width:360px; height:590px; padding:60px 0px; text-align:center;}
+.it932-item-content01 .it932-banner-box01 h2{ font-size:28px; line-height:46px; height:46px; overflow:hidden; color:#fff;margin:0 auto; margin-bottom:15px;background: rgba(0, 0, 0, 0.5);border-radius: 50px; width:90%;text-overflow:ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical; padding:0 5px; }
+.it932-item-content01 .it932-banner-box01 h3{ font-size:20px; line-height:25px; overflow:hidden; color:#fff; font-weight:normal;margin:15px auto;text-overflow:ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;width:90%; text-align:left; padding-left:40px;}
+.it932-item-content01 .it932-banner-box01 h4{ font-size:80px; line-height:80px; overflow:hidden; color:#fff; font-weight:normal;margin-bottom:15px; font-weight:bold;text-shadow: 1px 1px 2px #000;}
+.it932-item-content01 .it932-product-box01{width:calc(100% - 360px); padding:10px; background:#fff;}
+.it932-item-content01 .owl-carousel .owl-nav .owl-prev, .it932-item-content01 .owl-carousel .owl-nav .owl-next{ top:85%;}
+.it932-item-content01 .owl-carousel .owl-nav .owl-prev{left:-160px;}
+.it932-item-content01 .owl-carousel .owl-nav .owl-next{left:-100px; right:inherit;}
+.it932-content01{display:flex;flex-wrap:wrap;}
+.it932-content01 > li{ width:25%; padding:10px 20px;}
+.it932-content02{ width:100%;background: #FFFFFF;border-radius: 10px 10px 0px 0px; padding:10px 0 10px 10px;}
+.clock01 {
+    white-space: nowrap;
+	position:relative;
+	font-family:monaco,consolas,"courier new",monospace;
+	line-height:1.375;
+	font-size: 1.8rem;
+}
+
+/*.clock01:before,*/
+/*.clock01:after {*/
+/*	position:absolute;*/
+/*	top:0;*/
+/*	bottom:0;*/
+/*	content:':';*/
+/*	z-index:2;*/
+/*	line-height:1.15;*/
+/*	color:#fff;*/
+/*}*/
+
+.clock01:before {
+	left:2.825em;
+}
+
+.clock01:after {
+	right:2.825em;
+}
+
+.clock01 span {
+	position:relative;
+	display:inline-block;
+	padding:0 .4em;
+	margin:0 .06125em;
+	z-index:1;
+
+	-webkit-transform:perspective(750);
+	-moz-transform:perspective(750);
+	-ms-transform:perspective(750);
+	transform:perspective(750);
+
+	-webkit-transform-style:preserve-3d;
+	-moz-transform-style:preserve-3d;
+	-ms-transform-style:preserve-3d;
+	transform-style:preserve-3d;
+}
+
+.clock01 span:first-child {
+	margin-left:0;
+}
+
+.clock01 span:last-child {
+	margin-right:0;
+}
+
+/*.clock01 span:nth-child(2),*/
+/*.clock01 span:nth-child(4) {*/
+/*	margin-right:.3em;*/
+/*}*/
+
+/*.clock01 span:nth-child(3),*/
+/*.clock01 span:nth-child(5) {*/
+/*	margin-left:.3em;*/
+/*}*/
+
+.clock01 span:before,
+.clock01 span:after {
+	position:absolute;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	color:#000;
+	text-shadow:0 1px 0 #000;
+	background:#fff;
+	border-radius:.3em;
+	outline:1px solid transparent; /* fix jagged edges in ff */
+
+	-webkit-backface-visibility:hidden;
+	-moz-backface-visibility:hidden;
+	-ms-backface-visibility:hidden;
+	backface-visibility:hidden;
+
+	-webkit-transition:-webkit-transform .75s, opacity .75s;
+	-moz-transition:-moz-transform .75s, opacity .75s;
+	-ms-transition:-ms-transform .75s, opacity .75s;
+	transition:transform .75s, opacity .75s;
+}
+
+.clock01 span:before {
+	opacity:1;
+	z-index:1;
+	content:attr(data-old);
+
+	-webkit-transform-origin:0 0;
+	-moz-transform-origin:0 0;
+	-ms-transform-origin:0 0;
+	transform-origin:0 0;
+
+	-webkit-transform:translate3d(0,0,0) rotateX(0);
+	-moz-transform:translate3d(0,0,0) rotateX(0);
+	-ms-transform:translate3d(0,0,0) rotateX(0);
+	transform:translate3d(0,0,0) rotateX(0);
+}
+
+.clock01 span:after {
+	opacity:0;
+	z-index:2;
+	content:attr(data-now);
+
+	-webkit-transform-origin:0 100%;
+	-moz-transform-origin:0 100%;
+	-ms-transform-origin:0 100%;
+	transform-origin:0 100%;
+
+	-webkit-transform:translate3d(0,-102.5%,0) rotateX(90deg);
+	-moz-transform:translate3d(0,-102.5%,0) rotateX(90deg);
+	-ms-transform:translate3d(0,-102.5%,0) rotateX(90deg);
+	transform:translate3d(0,-102.5%,0) rotateX(90deg);
+}
+
+.clock01 .flip:before {
+	opacity:0;
+	-webkit-transform:translate3d(0,102.5%,0) rotateX(-90deg);
+	-moz-transform:translate3d(0,102.5%,0) rotateX(-90deg);
+	-ms-transform:translate3d(0,102.5%,0) rotateX(-90deg);
+	transform:translate3d(0,102.5%,0) rotateX(-90deg);
+}
+
+.clock01 .flip:after {
+	opacity:1;
+	-webkit-transform:translate3d(0,0,0) rotateX(0);
+	-moz-transform:translate3d(0,0,0) rotateX(0);
+	-ms-transform:translate3d(0,0,0) rotateX(0);
+	transform:translate3d(0,0,0) rotateX(0);
+}
+
+</style>
+<script>
+  /* 電腦 */
+  {{if !$mobileDeviceDirected}}
+  $('.iopen-shop-item-content .it932-carousel-box01').owlCarousel({
+      loop:true,
+      margin:15,
+      nav:true,
+      dots:false,
+      responsive:{
+          0:{
+              items:1
+          },
+          1000:{
+              items:1
+          }
+      }
+  });
+  {{else}}
+  /* 手機 */
+  $('.iopen-shop-item-content .it932-carousel-box01').owlCarousel({
+      loop:true,
+      margin:15,
+      nav:false,
+      dots:false,
+      autoplay:true,
+      autoplayTimeout:6500,
+      autoplayHoverPause:true,
+      responsive:{
+          0:{
+              items:2.5
+          },
+          420:{
+              items:3.5
+          },
+          1000:{
+              items:3.5
+          }
+      }
+  });
+  {{/if}}
+
+  {{if !$mobileDeviceDirected}}
+  $("a.cart_light_box").fancybox({
+      width	    : 600,
+      fitToView	: false,
+      autoSize	: false,
+      title		: false
+  });
+  {{/if}}
+
+var Clock = (function(){
+
+	var exports = function(element) {
+		this._element = element;
+		// var html = '';
+		// for (var i=0;i<6;i++) {
+		// 	html += '<span>&nbsp;</span>';
+		// }
+		// this._element.innerHTML = html;
+		this._slots = this._element.getElementsByTagName('span');
+		this._tick();
+	};
+
+	exports.prototype = {
+
+		_tick:function() {
+            var time = new Date();
+            var end_time = new Date('{{$m_arrWebsitePageItemContent[0].wpicon_c1}}:00');
+            var itime = Math.abs(end_time-time)
+            var hours = Math.floor(itime / 3600000);
+            var minutes = Math.floor((itime % 3600000) / 60000);
+            var seconds = Math.floor((itime % 60000) / 1000);
+            if((end_time-time)<0) {
+                $('.it932_{{$m_arrPageItem.wpitem_uid}}').hide().parents('.C_Box').hide();
+                $('.it932_{{$m_arrPageItem.wpitem_uid}}').hide().prev().hide();
+            }
+            else {
+                this._update(hours + this._pad(minutes) + this._pad(seconds));
+                var self = this;
+                setTimeout(function () {
+                    self._tick();
+                }, 1000);
+            }
+		},
+
+		_pad:function(value) {
+			return ('0' + value).slice(-2);
+		},
+
+		_update:function(timeString) {
+			var i=0,l=this._slots.length,value,slot,now;
+            if(parseInt(timeString) < 9999999){
+                this._slots[0].style.display = 'none';
+                timeString = '0' + timeString;
+                i=1;
+            }
+            if(parseInt(timeString) < 999999){
+                this._slots[1].style.display = 'none';
+                timeString = '0' + timeString;
+                i=2;
+            }
+            if(parseInt(timeString) < 99999){timeString = '0' + timeString;}
+			for (;i<l;i++) {
+
+				value = timeString.charAt(i);
+				slot = this._slots[i];
+				now = slot.dataset.now;
+
+				if (!now) {
+					slot.dataset.now = value;
+					slot.dataset.old = value;
+					continue;
+				}
+
+				if (now !== value) {
+					this._flip(slot,value);
+				}
+			}
+		},
+
+		_flip:function(slot,value) {
+
+			// setup new state
+			slot.classList.remove('flip');
+			slot.dataset.old = slot.dataset.now;
+			slot.dataset.now = value;
+
+			// force dom reflow
+			slot.offsetLeft;
+
+			// start flippin
+			slot.classList.add('flip');
+
+		}
+
+	};
+
+	return exports;
+}());
+
+var i=0,clocks = document.querySelectorAll('.clock01'),l=clocks.length;
+for (;i<l;i++) {
+	new Clock(clocks[i]);
+}
+
+</script>

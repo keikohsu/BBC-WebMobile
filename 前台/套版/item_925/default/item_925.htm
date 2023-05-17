@@ -1,0 +1,317 @@
+<style>
+
+.FOR_MAIN{width: 100%;}
+/* 改輪播勿放公版 */
+.iopen-carousel-box .owl-dots{position: absolute;display: block;width: 100%;top: 294px;}
+.iopen-carousel-box .owl-theme .owl-dots .owl-dot span{width: 20px;height: 3px; border-radius: 0px;background: #fff;}
+.iopen-carousel-box .nav-btn.prev-slide {top: -221px;left:20px;}
+.iopen-carousel-box .nav-btn.next-slide{top: -221px;right:20px;}
+.iopen-carousel-box .owl-carousel .owl-nav.disabled{display:block;position: relative;}
+/* 改輪播勿放公版  END*/
+.it925-carousel-box.iopen-carousel-box .owl-carousel .owl-nav.disabled{width: 1040px; margin:0 auto;}
+.it925-carousel-box{position: relative;display: flex;justify-content: center;}
+.it925-carousel-box .it925-carousel-style-1{position: relative;    margin-bottom: 14px;}
+.it925-carousel-box .it925-carousel-style-1  .it925-bn-carousel{width: 100%;height:390px;}
+.it925-carousel-box .it925-carousel-style-1  .it925-bn-carousel img,.it925-carousel-style-1  .it925-bn-carousel video,.it925-carousel-style-1  .it925-bn-carousel iframe{width: 1040px;height:390px;object-fit: cover; }
+
+.it925-carousel-box .active.center .it925-bn-carousel img{width: 1040px;height: 390px;margin: auto;}
+/* .it925-carousel-box .active.center div{width: 1040px;} */
+.it925-carousel-box .it925-bn-carousel::after{display: inline-block;background: rgba(0, 0, 0, 0.3);content: "";position: absolute;width: 100%;height: 390px;z-index: 999;top: 0;left: 0;}
+.it925-carousel-box .active.center .it925-bn-carousel::after{display: inline-block;background: #000;content: "";position: absolute;width: 100%;height: 390px;z-index: 999;top: 0;opacity: 0;}
+.it925-carousel-box .it925-text{padding: 15px 20px;background: #fff;width: 580px;top: 323px; z-index: 99;margin:0 auto;position: absolute;text-align: center;}
+.it925-carousel-box .it925-text h1{font-size: 22px;margin-bottom: 8px;font-weight: 400;line-height: 28px;color: #000;}
+.it925-carousel-box .it925-text p{font-size: 14px;line-height: 20px;}
+
+@media screen and (max-width: 768px){
+  .it925-carousel-box{flex-direction: column;}
+  .it925-carousel-box .it925-text{width: 100%;padding:15px 20px 15px 20px;}
+  .iopen-carousel-box .owl-carousel .owl-nav.disabled{height:0px;}
+  .it925-carousel-box .it925-carousel-style-1  .it925-bn-carousel img,.it925-carousel-style-1  .it925-bn-carousel video,.it925-carousel-style-1  .it925-bn-carousel iframe{height: 138.75px;}
+  .it925-carousel-box .it925-bn-carousel::after{height: 139px;}
+  .it925-carousel-box .active.center .it925-bn-carousel::after{height: 100%;}
+  .it925-carousel-box .it925-carousel-style-1 .it925-bn-carousel{height: 139px;display: inline;}
+  .it925-carousel-box .it925-carousel-style-1 {position: relative;margin-bottom: 0px;}
+  .it925-carousel-box .active.center .it925-bn-carousel img { width: 100%;height: 139px;margin: auto;}
+  .it925-carousel-box.iopen-carousel-box .owl-carousel .owl-nav.disabled{width: auto;margin: auto;}
+  .it925-carousel-box .it925-text{position: static;}
+  .owl-carousel .owl-dots.disabled, .owl-carousel .owl-nav.disabled{display: block;}
+
+  /* 改輪播勿放公版 */ 
+  .iopen-carousel-box .owl-dots{top: 109px;}
+  .iopen-carousel-box .nav-btn.prev-slide {top:-92px;left: 9%;}
+  .iopen-carousel-box .nav-btn.next-slide{top:-92px;right: 9%;}
+  /* 改輪播勿放公版  END*/
+}
+@media screen and (min-width: 2040px){
+    .it925-carousel-box .active.center .it925-bn-carousel img {width:100%;}
+    .iopen-carousel-box .nav-btn.next-slide{right: -3%;}
+.iopen-carousel-box .nav-btn.prev-slide{left: -3%;}
+}
+</style>
+
+{{if $m_arrWebsitePageItemContent|@count>0}}
+<div class="it925-default iopen-Set-Space it925_{{$m_arrPageItem.wpitem_uid}}">
+    <div class="it925-carousel-box iopen-carousel-box">
+        <div class="it925-carousel-style-1 owl-carousel owl-theme">
+            {{foreach from=$m_arrWebsitePageItemContent item=it925}}
+            {{if $smarty.now|date_format:'%Y/%m/%d %H:%M:%S'>$it925.wpicon_c1 && $smarty.now|date_format:'%Y/%m/%d %H:%M:%S'<$it925.wpicon_c2}}
+            {{if $it925.wpicon_c3 == 'async' || ($it925.wpicon_c3 == 'web' && !$mobileDeviceDirected) || ($it925.wpicon_c3 == 'mobile' && $mobileDeviceDirected)}}
+            {{if $it925.wpicon_image}}
+            <div>
+                {{if $it925.wpicon_url}}
+                <a href="{{$it925.wpicon_url}}" target="{{$it925.wpicon_target}}" class="it925-bn-carousel item"><img src="{{$sys_arrWebsite.uploads_url}}{{$it925.wpicon_image}}"></a>
+                {{else}}
+                <span class="it925-bn-carousel item"><img src="{{$sys_arrWebsite.uploads_url}}{{$it925.wpicon_image}}"></span>
+                {{/if}}
+                <input class="title" type="hidden" value="{{$it925.wpicon_title}}">
+                <input class="subtitle" type="hidden" value="{{$it925.wpicon_subtitle}}">
+            </div>
+            {{elseif $it925.wpicon_c0}}
+            <div>
+                <iframe width="100%" height="100%" id="player_{{$it925.wpicon_uid}}" data-src="{{$it925.wpicon_c0}}?enablejsapi=1" frameborder="0" allowfullscreen class="it925-bn-carousel item it925-video"></iframe>
+                <input class="title" type="hidden" value="{{$it925.wpicon_title}}">
+                <input class="subtitle" type="hidden" value="{{$it925.wpicon_subtitle}}">
+            </div>
+            {{/if}}
+            {{/if}}
+            {{/if}}
+            {{/foreach}}
+        </div>
+        <div class="it925-text">
+            <h1 class="pic-OneRow-simplify"></h1>
+            <p class="pic-OneRow-simplify-2"></p>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{assign var="wpitem_owl_setting" value=$m_arrPageItem.wpitem_owl_setting|json_decode:true}}
+<script>
+    var loop = "{{$m_arrWebsitePageItemContent|@count}}" > 1 ? true : false;
+    var nav = ("{{$wpitem_owl_setting.owl_switch_temp}}" == "arrow" || "{{$wpitem_owl_setting.owl_switch_temp}}" == "both") ? true : false;
+    var dots = ("{{$wpitem_owl_setting.owl_switch_temp}}" =="dot" || "{{$wpitem_owl_setting.owl_switch_temp}}" == "both") ? true : false;
+    var autoplay_status = "{{$wpitem_owl_setting.owl_auto_switch}}"=="1" ? true : false;
+    var autoplayTimeout_value = "{{$wpitem_owl_setting.wpitem_loop_speed}}" ? parseInt("{{$wpitem_owl_setting.wpitem_loop_speed}}") * 1000 : 0;
+    nav = "{{$m_arrWebsitePageItemContent|@count}}" > 1 ? nav : false;
+    dots = "{{$m_arrWebsitePageItemContent|@count}}" > 1 ? dots : false;
+
+    $('.it925-carousel-style-1.owl-carousel').owlCarousel({
+        loop:loop,
+        margin:20,
+        nav:nav,
+        dots:true,
+        autoplay:autoplay_status,
+        autoplayTimeout:autoplayTimeout_value,
+        center: true,
+        responsive: {
+            0: {
+                items: 1.1,
+                margin: 0,
+            }, 1000: {
+                items: 1.25,
+                margin: 0,
+            }, 1326: {
+                items: 1.27,
+                margin: 0,
+            }, 1327: {
+                items: 1.28,
+                margin: 0,
+            }, 1364: {
+                items: 1.4,
+                margin: 0,
+            }, 1366: {
+                items: 1.31,
+                margin: 0,
+            },1386: {
+                items: 1.32,
+                margin: 0,
+            },1390: {
+                items: 1.35,
+                margin: 0,
+            },1410: {
+                items: 1.38,
+                margin: 0,
+            },1440: {
+                items: 1.4,
+                margin: 0,
+            },1450: {
+                items: 1.4,
+                margin: 0,
+            },1478: {
+                items: 1.4,
+                margin: 0,
+            },1479: {
+                items: 1.45,
+                margin: 0,
+            },1467: {
+                items: 1.55,
+                margin: 0,
+            },1530: {
+                items: 1.4,
+                margin: 0,
+            },1536: {
+                items: 1.46,
+                margin: 0,
+            },1547: {
+                items: 1.47,
+                margin: 0,
+            },1555: {
+                items: 1.50,
+                margin: 0,
+            },1558: {
+                items: 1.52,
+                margin: 0,
+            },1612: {
+                items: 1.56,
+                margin: 0,
+            },1615: {
+                items: 1.54,
+                margin: 0,
+            },1632: {
+                items: 1.56,
+                margin: 0,
+            },1634: {
+                items: 1.57,
+                margin: 0,
+            },1640: {
+                items: 1.56,
+                margin: 0,
+            },1648: {
+                items: 1.57,
+                margin: 0,
+            },1655: {
+                items: 1.61,
+                margin: 0,
+            },1660: {
+                items: 1.6,
+                margin: 0,
+            },1678: {
+                items: 1.62,
+                margin: 0,
+            },1680: {
+                items: 1.6,
+                margin: 0,
+            },1694: {
+                items: 1.62,
+                margin: 0,
+            }, 1700: {
+                items: 1.64,
+                margin: 0,
+            }, 1741: {
+                items: 1.66,
+                margin: 0,
+            }, 1742: {
+                items: 1.66,
+                margin: 0,
+            },1753: {
+                items: 1.68,
+                margin: 0,
+            },1759: {
+                items: 1.68,
+                margin: 0,
+            },1760: {
+                items: 1.68,
+                margin: 0,
+            },1762: {
+                items: 1.68,
+                margin: 0,
+            }, 1768: {
+                items: 1.7,
+                margin: 0,
+            }, 1787: {
+                items: 1.71,
+                margin: 0,
+            }, 1792: {
+                items: 1.71,
+                margin: 0,
+            }, 1798: {
+                items: 1.72,
+                margin: 0,
+            }, 1800: {
+                items: 1.8,
+                margin: 0,
+            },1840: {
+                items: 1.84,
+                margin: 0,
+            },1846: {
+                items: 1.79,
+                margin: 0,
+            }, 1855: {
+                items: 1.8,
+                margin: 0,
+            },1905: {
+                items:1.82,
+                margin: 0,
+            },1915: {
+                items:1.84,
+                margin: 0,
+            },1920: {
+                items:1.9,
+                margin: 0,
+            },2019: {
+                items:1.98,
+                margin: 0,
+            },2040: {
+                items:1.98,
+                margin: 0,
+            }
+        },
+        navText: ["<i class='nav-btn prev-slide'></i>", "<i class='nav-btn next-slide'></i>"],
+        onInitialized: function() {
+            $(".it925_{{$m_arrPageItem.wpitem_uid}}").find('.pic-OneRow-simplify').text($(this.$element).find('.owl-item.active.center').find('.title').val());
+            $(".it925_{{$m_arrPageItem.wpitem_uid}}").find('.pic-OneRow-simplify-2').text($(this.$element).find('.owl-item.active.center').find('.subtitle').val());
+        }
+    }).on('changed.owl.carousel', function (event) {
+        setTimeout(function () {
+            $(".it925_{{$m_arrPageItem.wpitem_uid}}").find('.pic-OneRow-simplify').text($(event.target).find('.owl-item.active.center').find('.title').val());
+            $(".it925_{{$m_arrPageItem.wpitem_uid}}").find('.pic-OneRow-simplify-2').text($(event.target).find('.owl-item.active.center').find('.subtitle').val());
+        }, 5)
+    })
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    function onYouTubeIframeAPIReady() {
+        var player;
+        $(".it925-video").each(function () {
+            player = new YT.Player($(this).attr('id'),{
+                events:{
+                    onStateChange: function (event){
+                        if(event.target.getPlayerState() == 1) {
+                            $('.it925-carousel-style-1.owl-carousel').trigger('stop.owl.autoplay');
+                        } else {
+                            if(autoplay_status)
+                                $('.it925-carousel-style-1.owl-carousel').trigger('play.owl.autoplay');
+                        }
+                    }
+                }
+            });
+        })
+    }
+
+    $(function() {
+        var i = 0;
+        $(".it925-video").each(function (){
+            video_href = $(this).attr('data-src')
+            if (/facebook|fb/.test(video_href)){
+                video_href = "https://www.facebook.com/plugins/video.php?href="+video_href+"&show_text=false&appId&width=1000&height=390";
+                $(this).attr('src', video_href);
+            } else {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:v\/|watch\?v=|embed\/)?([a-zA-Z0-9_-]{11})(&\S+)?/gi;
+                const match = video_href.match(regex);
+                if(match) {
+                    const videoId = match[0].replace(regex, '$1');
+                    video_href = 'https://www.youtube.com/embed/' + videoId + "?autoplay=1&enablejsapi=1";
+                }
+                $(this).attr('src', video_href);
+            }
+        })
+
+        $(".it925_{{$m_arrPageItem.wpitem_uid}}").find('.it925-video').each(function (){
+            $(this).attr('id',$(this).attr('id')+'_'+i);
+            i++;
+        })
+    })
+
+</script>

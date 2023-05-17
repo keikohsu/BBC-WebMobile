@@ -1,0 +1,462 @@
+<style>
+    /* 電腦版 */
+    .it928-default .it928-container{ width: 100%; max-width: 1200px;padding: 10px;font-weight: 400;color:var(--pic-color-grey-100);display: flex;margin: 0 auto;}
+    .it928-default .it928-left .it928-category li{line-height: 20px;}
+    .it928-default .it928-category-content-sort3 > ul > li > a{ padding:10px 0;}
+
+    /* 分類原始樣式 */
+    .it928-default .it928-left .it928-category-title-box,
+    .it928-default .it928-left .it928-category div.it928-category-sm-2{ background:#fff;}/* 所有分類&第一層 */
+    .it928-default .it928-left .it928-category .it928-category-sm-3{background: #f1f1f1;}/* 第二層 */
+    .it928-default .it928-category li.it928-category-sm-3+div.it928-category-content.child li{background: #fafafa;}/* 第三層 */ 
+
+    /* 分類選取變色 依序為所有商,分類第一層,第二層,第三層*/
+    .it928-default .it928-left .it928-category-title-box.active,
+    .it928-default .it928-left .it928-category div.it928-category-sm-2.activation,
+    .it928-default .it928-left .it928-category .it928-category-sm-3.activation,
+    .it928-default .it928-left .it928-category li.it928-category-sm-3+div.it928-category-content.child li.activation{ background:var(--pic-light-orange-10);}
+    
+    .it928-category-sm-2,.it928-category-sm-3 { display: flex;justify-content: space-between; }
+    .it928-left .it928-category .it928-category-sm-2,.it928-left .it928-category .it928-category-sm-3{ padding: 10px;}
+    .it928-left .it928-category .it928-category-sm-3 a{ margin-left: 9px;}
+    .it928-category-content a{ margin-left: 38px;} 
+    .it928-left .it928-category li a{ display: block;color: var(--pic-color-grey-100);font-size: 16px;}
+
+    .it928-left{ width: 25%; padding: 10px;}
+    .it928-left .it928-category-title-box{padding: 10px;}
+    .it928-left .it928-category-title{ display: flex; justify-content: space-between; align-items: center; position: relative; padding:0; font-size: 16px;}
+    .it928-left h2{ font-weight: 400; font-size: 22px; line-height: 28px; margin-bottom: 17px;}
+    /* 右邊 */
+    .it928-right .it928-arrows-down::after{display: inline-block;content: '';background: url(css/images/bbc/Icon-arrows-down-array.svg) no-repeat; height: 11px; width: 13px;margin-left: 5px;transition: 0.3s;}
+    .it928-right{width: 75%;display: flex; flex-direction: column;}
+    .it928-right .it928-sequence li.active .it928-arrows-down::after{display: inline-block;content: '';background: url(css/images/bbc/Icon-arrows-UpWhite-array.svg) no-repeat;height: 11px;width: 13px;margin-left: 5px;transition: 0.3s;}
+    .it928-right .it928-sequence li.active .it928-arrows-up::after{display: inline-block;content: '';background: url(css/images/bbc/Icon-arrows-UpWhite-array.svg) no-repeat;transform: rotate(180deg);height: 11px;width: 13px;margin-left: 5px;transition: 0.3s;}
+    .it928-right .it928-commodity > li{ float: left; width: 25%; min-width: 220px;margin:0;padding: 0 12px;margin-bottom: 10px;}
+    .it928-sequence{display: flex; background:var(--pic-color-grey-5);width: 100%;height: 56px;}
+    
+    .it928-right .it928-sequence li{display: flex;align-items: center;justify-content: center;width: auto; background: #fff; margin: 8px 5px;}
+    .it928-right .it928-sequence li.active{background: #000000;color: #fff;}
+    .it928-right .it928-sequence li.active a{color: #fff;}
+    .it928-right .it928-sequence li a{color:var(--pic-color-grey-100);padding:0px 15px;font-size: 14px;}
+    .it928-right li.it928-sequence-title{ background: #fff0;width: 46px;font-weight: 400;}
+    .it928-right li.it928-sequence-title.active{background: var(--pic-color-grey-5);color: var(--pic-color-grey-100);}
+    
+    .it928-arrows-down-1 .icon-line-Arrow-Downward1{display: inline;}
+    .it928-arrows-down-1 .icon-line-arrow-top{display: none;}
+    .it928-arrows-up-1 .icon-line-Arrow-Downward1{display: none;}
+    .it928-arrows-up-1 .icon-line-arrow-top{display: inline;}
+
+    /* 手機版 */
+    @media screen and (max-width:768px){
+      .it928-right li.it928-sequence-title,.it928-left h2,.it928-category-btn{display: none;}
+      /* 分類 */
+      .it928-default .it928-container {flex-direction: column;padding: 0px;}
+      .it928-left{width: 100%; padding:0;}
+      .it928-left .it928-category{display: flex;overflow-x: scroll;width: 100%;white-space: nowrap;border-top: 1px solid #EAEAEA; border-bottom: 1px solid #EAEAEA;margin-top: 5px;font-size: 16px;}
+      .it928-left .it928-category li{margin: auto;padding: 10px 2.5px;}
+      .it928-left .it928-category li a,.it928-left .it928-category li{background: #F8F8F8; font-size: 16px;padding: 8px; margin: 2.5px;;border-radius: 5px;}
+      .it928-left .it928-category li.active{background: #000;color: #fff;font-size: 16px;padding: 8px;text-decoration: none;}
+      .it928-left .it928-category li.active a{background: #000;color: #fff;font-size: 16px;padding: 8px;}
+      .it928-left .it928-category::-webkit-scrollbar{display: none;}
+    
+      /* 排序 */
+      .it928-right .it928-arrows-down::after{margin-left: 4px;}
+      .it928-right{width: 100%;}
+      .it928-right .it928-sequence{background: #fff;}
+      .it928-right .it928-sequence li{border-bottom: 1px solid #EAEAEA;margin:0px;width: 100%;height: 36px;}
+      .it928-right .it928-sequence li.active{background: #fff; border-bottom: 2px #000 solid;}
+      .it928-right .it928-sequence li.active .it928-arrows-down::after{display: inline-block;content: '';background: url(css/images/bbc/Icon-arrows-up-array.svg) no-repeat;height: 11px;width: 13px;margin-left: 5px;transition: 0.3s}
+      .it928-right .it928-sequence li.active .it928-arrows-up::after{display: inline-block;content: '';background: url(css/images/bbc/Icon-arrows-up-array.svg) no-repeat;transform: rotate(180deg);height: 11px;width: 13px;margin-left: 5px;transition: 0.3s;}
+      .it928-right .it928-sequence li.active a{color: #000;}
+      .it928-right .it928-sequence li a{color:var(--pic-color-grey-100);padding: 0px 0px;font-size: 14px;}
+      .it928-right .it928-commodity{padding: 0 10px;}
+      .it928-right .it928-commodity > li{width: 50%;   margin:5px auto; padding:0 10px;  min-width: auto;}
+    }
+</style>
+
+<div class="pic-default it928-default">
+    <div class="it928-container">
+        <!-- 分類 -->
+        <div class="it928-left">
+            <h2>分類</h2>
+            <div id="pic-list-1" class="it928-category-btn it928-category-title-box {{if $smarty.get.prod_sort_ou==''}}active{{/if}}" uid="0">
+                <a class="it928-category-title" onclick='javascript:location.href="index.php?action={{if $smarty.get.action}}{{$smarty.get.action}}{{else}}index{{/if}}";' style="cursor: pointer;">
+                    <div class="pic-flex-align-items">所有商品</div>
+                </a>
+            </div>
+            <div >
+                {{if !$mobileDeviceDirected}}
+                <ul class="it928-category child">
+                    {{foreach from=$it928_arrProdSort key=type_1 item=sort_1}}
+                    {{*第一層*}}
+                    <li class="it928-category-list">
+                        <div class="it928-category-container">
+                            <div uid="{{$sort_1.main.prod_sort_uid}}" class="it928-category-sm-2 {{if $sort_1.main.prod_sort_uid==$smarty.get.prod_sort_ou}} prod_sort_active {{/if}}">
+                                <a href="index.php?action={{if $smarty.get.action}}{{$smarty.get.action}}{{else}}index{{/if}}&prod_sort_ou={{$sort_1.main.prod_sort_uid}}">{{$sort_1.main.prod_sort_name}}</a>
+                                {{if $sort_1.child|@count > 0}}
+                                <span class="pic-icon-black-arrows-rotate-right puid" uid="{{$sort_1.main.prod_sort_uid}}"></span>
+                                {{/if}}
+                            </div>
+                            {{if $sort_1.child|@count > 0}}
+                            {{*第二層*}}
+                            <ul data-puid="{{$sort_1.main.prod_sort_uid}}" class="it928-category child" style="display: none;">
+                                {{foreach from=$sort_1.child key=key_2 item=sort_2}}
+                                <li uid="{{$sort_2.main.prod_sort_uid}}" class="it928-category-sm-3 {{if $sort_2.main.prod_sort_uid==$smarty.get.prod_sort_ou}} prod_sort_active {{/if}}">
+                                    <a href="index.php?action={{if $smarty.get.action}}{{$smarty.get.action}}{{else}}index{{/if}}&prod_sort_ou={{$sort_2.main.prod_sort_uid}}">{{$sort_2.main.prod_sort_name}}</a>
+                                    {{if $sort_2.child|@count > 0}}
+                                    <span class="pic-icon-black-arrows-rotate-right puid" uid="{{$sort_2.main.prod_sort_uid}}"></span>
+                                    {{/if}}    
+                                </li>
+                                {{if $sort_2.child|@count > 0}}
+                                {{*第三層*}}
+                                <div data-puid="{{$sort_2.main.prod_sort_uid}}" class="it928-category-content child it928-category-content-sort3" style="display: none;">
+                                    <ul>
+                                        {{foreach from=$sort_2.child key=key_3 item=sort_3}}
+                                        <li class="{{if $sort_3.main.prod_sort_uid==$smarty.get.prod_sort_ou}} prod_sort_active {{/if}}">
+                                            <a href="index.php?action={{if $smarty.get.action}}{{$smarty.get.action}}{{else}}index{{/if}}&prod_sort_ou={{$sort_3.main.prod_sort_uid}}">{{$sort_3.main.prod_sort_name}}</a>
+                                        </li>
+                                        {{/foreach}}
+                                    </ul>
+                                </div>
+                                {{/if}}
+                                {{/foreach}}
+                            </ul>
+                            {{/if}}
+                        </div>
+                    </li>
+                    {{/foreach}}
+                </ul>
+                {{else}}
+                <ul class="it928-category it928-category-phone">
+                    <li class="{{if $smarty.get.prod_sort_ou==''}}active{{/if}}" onclick='javascript:location.href="index.php?action={{if $smarty.get.action}}{{$smarty.get.action}}{{else}}index{{/if}}";'>所有商品</li>
+                    {{foreach from=$it928_arrProdSort key=type_1 item=sort_1}}
+                    <li uid="{{$sort_1.main.prod_sort_uid}}" class="{{if $sort_1.main.prod_sort_uid==$smarty.get.prod_sort_ou}}active{{/if}}" 
+                        onclick='javascript:location.href="index.php?action={{if $smarty.get.action}}{{$smarty.get.action}}{{else}}index{{/if}}&prod_sort_ou={{$sort_1.main.prod_sort_uid}}";'>
+                        {{$sort_1.main.prod_sort_name}}
+                    </li>
+                    {{/foreach}}
+                </ul>
+                {{/if}}
+
+            </div>
+        </div>
+        <!-- 商品 -->
+        <div class="it928-right">
+            <!-- 商品排序 -->
+            <ul class="it928-sequence">
+                <li class="it928-sequence-title">排序</li>
+                <li class="{{if $smarty.get.order=='prod_view_count' || ($smarty.get.order=='' && $smarty.get.by=='')}}active{{/if}}">
+                    <a class="sort"
+                        href="{{$m_inURL}}&order=prod_view_count&by=" data-by="{{if ($smarty.get.order=='prod_view_count' && $smarty.get.by=='DESC') || ($smarty.get.order=='' && $smarty.get.by=='')}}ASC{{else}}DESC{{/if}}">
+                        人氣 
+                        <i class="icons-line icon-line-Arrow-Downward1 {{if $smarty.get.by=='ASC' && $smarty.get.order=='prod_view_count'}}icon-line-arrow-top{{/if}}"></i>
+                    </a>
+                </li>
+                <li class="{{if $smarty.get.order=='prod_sales_count'}}active{{/if}}">
+                    <a class="sort"
+                        href="{{$m_inURL}}&order=prod_sales_count&by=" data-by="{{if $smarty.get.order=='prod_sales_count' && $smarty.get.by=='DESC'}}ASC{{else}}DESC{{/if}}">
+                        銷量
+                        <i class="icons-line icon-line-Arrow-Downward1 {{if $smarty.get.by=='ASC' && $smarty.get.order=='prod_sales_count'}}icon-line-arrow-top{{/if}}"></i>
+                    </a>
+                </li>
+                <li class="{{if $smarty.get.order=='prod_market_sdate'}}active{{/if}}">
+                    <a class="sort"
+                        href="{{$m_inURL}}&order=prod_market_sdate&by=" data-by="{{if $smarty.get.order=='prod_market_sdate' && $smarty.get.by=='DESC'}}ASC{{else}}DESC{{/if}}">
+                        新上市
+                        <i class="icons-line icon-line-Arrow-Downward1 {{if $smarty.get.by=='ASC' && $smarty.get.order=='prod_market_sdate'}}icon-line-arrow-top{{/if}}"></i>
+                    </a>
+                </li>
+                <li class="{{if $smarty.get.order=='selling_price'}}active{{/if}}">
+                    <a class="sort"
+                        href="{{$m_inURL}}&order=selling_price&by=" data-by="{{if $smarty.get.order=='selling_price' && $smarty.get.by=='DESC'}}ASC{{else}}DESC{{/if}}">
+                        價錢
+                        <i class="icons-line icon-line-Arrow-Downward1 {{if $smarty.get.by=='ASC' && $smarty.get.order=='selling_price'}}icon-line-arrow-top{{/if}}"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- 商品列表 -->
+            <ul id="product_ul" class="it928-commodity pic-margin-t25">
+                {{section name=i loop=$it928_arrProduct}}
+                <li>
+                    {{assign var=tpl_prod_no value=$it928_arrProduct[i].prod_no}}
+                    {{include file=$m_arrPageItem.wpitem_prod_temp|string_format:'product_temp/%s'}}
+                </li>
+                {{/section}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+// art
+$(".it928-category-title").click(function () {
+	$(this).find(".pic-icon-black-arrows-rotate-right").toggleClass("pic-arrows-rotate");
+	$(this).next(".it928-category").slideToggle();
+  })
+
+  $(".it928-category-sm-2 .pic-icon-black-arrows-rotate-right").click(function () {
+    $(this).find(".pic-icon-black-arrows-rotate-right").toggleClass("pic-arrows-rotate");
+  })
+
+  $(".it928-category-sm-3 .pic-icon-black-arrows-rotate-right").click(function () {
+    $(this).find(".pic-icon-black-arrows-rotate-right").toggleClass("pic-arrows-rotate");
+    $(this).next(".it928-category-content").slideToggle();
+  })
+</script>
+
+<script>
+    // 分類目錄 點擊 展開/收合 子分類
+    $('li span.puid').click(function(){
+        var puid = $(this).attr('uid');
+        $(`[data-puid=${puid}]`).slideToggle();
+        $(this).toggleClass("pic-arrows-rotate");
+    });
+
+    // 分類目錄 定位目前分類
+    var active_sort = $('.prod_sort_active');
+    // highlight 選中的分類
+    active_sort.addClass('activation');
+    active_sort.parents('.child').each(function (idx, ele) {
+        var puid = $(ele).data('puid');
+        if($(`[uid=${puid}]`).length>0){
+            p_ele = $(`[uid=${puid}]`)[0];
+            $(p_ele).addClass('prod_sort_active');
+        }
+    });
+    
+    // 將目前分類的上層分類展開
+    for (var i = 0; i < ($('.prod_sort_active').length-1); i++) {
+        const ele = $('.prod_sort_active')[i];
+        $(ele).children('span').click();
+    }
+
+    // 排序按鈕 重組url
+    $(".it928-sequence li a.sort").click(function (e) {
+        var url = $(this).attr('href')+$(this).data('by')+'&prod_sort_ou='+'{{$smarty.get.prod_sort_ou}}';
+        $(this).attr('href',url)
+    })
+
+    function more_product(){
+        var data = {
+            myAct: 'MORE_PRODUCT',
+            start: start,
+            {{$nocsrfTokenId}}:'{{$nocsrfToken}}'
+        };
+        $.ajax({
+            type: "post",
+            url: "",
+            data: data,
+            dataType: "json",
+            success: function (re) {
+                // console.log('more_product','success',re)
+                $.each(re, function (idx, val) { 
+                    var htm = get_product_htm(val);
+                    $('#product_ul').append(`${htm}`);
+                }); 
+            },
+            error: function (re) {
+                console.log('more_product','error',re)    
+            }
+        });
+    }
+
+    // 轉換千分位
+    function number_comma(num){
+        if(typeof num != 'string')
+            num = String(num);
+
+        var str = '';
+        for (var i = num.length- 1, j = 1; i >= 0; i--, j++){  
+            if (j%3 == 0 && i != 0){ 
+                str = ',' + num[i] + str; 
+                continue; 
+            }  
+            str = num[i] + str;
+        }  
+        return str;
+    }
+
+    // 組合 ajax load 的 product item html
+    function get_product_htm(prod){
+        var pic_pds_imgbox = '<div class="pic-shop-pds-imgbox">';
+        var pic_pds_stock = '';
+        var pic_pds_discount_tag = '';
+        var pic_pds_btn = '';
+        var trace_active = '';
+        var price_01 = '';
+        var addcart = '';
+        var addcar_top = '';
+        var addcar_box_deta = '';
+        var limit_buy_pa = (prod.prod_limit_buy>0 || prod.prod_limit_buy_alltime>0)? "1" : "0";
+        var now = new Date();
+
+        // 檢查庫存 缺貨才顯示
+        if((prod.prod_stock-prod.prod_safety_stock)<=0){
+            pic_pds_imgbox = '<div class="pic-shop-pds-imgbox pic-shop-pds-stock-block">';
+            pic_pds_stock = `<a href="${prod.prod_url}"><div class="pic-shop-pds-stock"><span>補貨中</span></div></a>`;
+        }
+
+        // 檢查折扣
+        var selling_price = parseInt(prod.selling_price)
+        var prod_sticker_price = parseInt(prod.prod_sticker_price)
+        if( selling_price < prod_sticker_price){
+            var discount_num = Math.round(selling_price*100/prod_sticker_price);
+            if(discount_num%10 == 0) discount_num = discount_num/10;
+
+            pic_pds_discount_tag = `<div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">${discount_num}</span><span>折</span></div>`;
+        }
+
+        // 顯示原價
+        if( selling_price < prod_sticker_price){
+            var discount_num = Math.round(selling_price*100/prod_sticker_price);
+            if(discount_num%10 == 0) discount_num = discount_num/10;
+
+            pic_pds_discount_tag = `<div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">${discount_num}</span><span>折</span></div>`;
+            price_01 = `<li class="pic-shop-pds-price_01">$${number_comma(prod.prod_sticker_price)}</li>`;
+        }else{
+            price_01 = `<li class="pic-shop-pds-price_01"></li>`;
+        }
+
+        var prod_market_sdate = new Date(prod.prod_market_sdate);
+        var prod_market_edate = new Date(prod.prod_market_edate);
+
+        if(prod.trace_uid!=null) trace_active = " active";
+        
+        if((prod.prod_stock-prod.prod_safety_stock)==0){ // 無庫存不顯示購物車icon
+                addcart = '';
+        }else if(prod_market_sdate <= now && prod_market_edate >=now && prod.prod_marketing!=''){ // 商品可銷售 且在銷售時間內
+            // 九大行銷
+            if((prod.webMarketing.length != 0) || (prod.discount_range_setting.length != 0 && prod.discount_range_setting.methods)){
+                //  || prod.discount_range_setting.methods){
+                addcart = `<div class="pic-shop-pds-addcart"><a class="cart_light_box" href="#marketing_${prod.prod_uid}" title="加入購物車">加入購物車</a></div>`;
+                addcar_top= `<div class="addcar_top">此商品適用下列優惠，請點選連結至活動頁選購</div>`;
+            }else if(prod.prod_limit_sale == '0' && prod.prod_shopping_cart_mode == '1'){
+                addcart = `<div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="直接購買" onclick="buyNowBBC('${prod.prod_no}','{{$sys_arrWebsite.web_byeurl}}')">直接購買</a></div>`;
+            }else if(prod.prod_limit_sale == '0'){
+                addcart = `<div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車" onclick="goCartMainBBC('${prod.prod_no}','{{$sys_arrWebsite.web_byeurl}}',${limit_buy_pa})">加入購物車</a></div>`;
+            }
+        }
+            
+        pic_pds_btn =`
+        <div class="pic-shop-pds-btn">
+            <div class="pic-shop-pds-addlist addlist_${prod.prod_uid}${trace_active}"><a href="javascript:void(0);" title="加入追蹤清單" onclick="add2traceBBC('${prod.prod_uid}','${prod.prod_no}','${prod.selling_price}')">加入追蹤清單</a></div>
+            ${addcart}
+        </div>`;
+
+        var htm = 
+        `<li><div class="pic-shop-pds-default01">
+            ${pic_pds_imgbox}
+                ${pic_pds_stock}
+                ${pic_pds_discount_tag}
+                <a href="${prod.prod_url}" title="${prod.prod_name}"><img src="${prod.prod_file}" alt="${prod.prod_name}"></a>
+            </div>
+            <div class="pic-shop-pds-infobox">
+                <h2><a href="${prod.prod_url}">${prod.prod_name}</a></h2>
+                <div class="pic-shop-pds-bottom">
+                    <div class="pic-shop-pds-price">
+                        <ul>
+                            ${price_01}
+                            <li class="pic-shop-pds-price_02"><span>$</span>${number_comma(prod.selling_price)}</li>
+                        </ul>                        
+                    </div>
+                    <div class="pic-shop-pds-btn">
+                        ${pic_pds_btn}
+                    </div> 
+                </div> 
+            </div>
+        </div></li>`;
+
+        {{if !$mobileDeviceDirected}}{{*手機版無此版位*}}
+        // 組合九大行銷 light box
+        if(prod.discount_range_setting !==undefined && prod.discount_range_setting.length>0 && prod.discount_range_setting.methods){
+            addcar_box_deta = `
+            <div class="addcar_box_deta jooshop_btn_color">
+                <p><span class="highlight_cheap">${prod.discount_range_setting.best_methods.discount_pct}折</span>
+                    此商品 最低價${prod.discount_range_setting.best_methods.price_per}元起</p>
+                <a href="${prod.prod_url}">前往商品頁</a>
+            </div>
+            `;
+        }
+
+        // 九大行銷 light box
+        if((prod.webMarketing.length != 0) || (prod.discount_range_setting.length != 0 && prod.discount_range_setting.methods)){
+
+            htm += `
+            <div class="setP_stagingBoxIn jooshop_addcar_box" id="marketing_${prod.prod_uid}" style="display: none;">
+                <div class="addcar_box">${addcar_top}${addcar_box_deta}`;
+            
+            for (var i = 0; i < prod.webMarketing.length; i++) {
+                const arrMkt = prod.webMarketing[i];
+                htm += `
+                <div class="addcar_box_deta jooshop_btn_color"><p>${arrMkt.wmkt_title}</p>
+                    <a href="../{{$sys_arrWebsite.web_byeurl}}/index.php?action=website_marketing&wmkt_ou=${arrMkt.wmkt_uid}">
+                    {{$lang.root.product_detail.5}}<!--前往活動頁--></a></div>`;
+            }
+            htm += `</div>`;
+            
+            if(prod.prod_limit_sale!=1){
+                htm += `
+                <div class="tbs_seemore jooshop_btn_color">
+                    <a href="javascript:void(0);"
+                    onclick="javascript:closeBoxBBC('${prod.prod_no}','{{$sys_arrWebsite.web_byeurl}}','${prod.prod_shopping_cart_mode}}',${limit_buy_pa});">
+                    不需優惠，直接加入購物車</a>
+                    </div>`;
+            }
+
+            htm += `</div>`;
+        }
+        {{/if}}
+
+        return htm;
+    }
+
+    // 離開網頁前 => 清除本頁session
+    window.addEventListener('beforeunload', function (event) {
+        $.ajax({
+            type: "POST",
+            url: "",
+            async: true,
+            data: {
+                myAct: 'CLEAR_IT928',
+                {{$nocsrfTokenId}}:'{{$nocsrfToken}}'
+            },
+            dataType: "json",
+            success: function (re) {
+                // console.log('CLEAR_IT928','success',re)   
+            },
+            error: function (re) {
+                // console.log('CLEAR_IT928','error',re)    
+            }
+        });
+    });
+
+    var start = {{$it928_limit}};
+    const limit = {{$it928_limit}};
+
+	// 偵測滑動 Ajax讀圖片
+	$(window).load(function () {
+        var win_h = $(window).height();
+        var prod_ul_h = $('#product_ul>li').last().offset().top + $('#product_ul>li').last().height() - $('#product_ul>li').first().offset().top
+        var prod_ul_bottom = $('#product_ul>li').last().offset().top + $('#product_ul>li').last().height()
+
+        $(document).scroll(function () { 
+			var body_top = 0;
+			if (typeof window.pageYOffset != "undefined") {
+				body_top = window.pageYOffset;		
+			} else if (typeof document.compatMode != "undefined"
+						&& document.compatMode != "BackCompat") {
+				body_top = document.documentElement.scrollTop;
+			} else if (typeof document.body != "undefined") {
+				body_top = document.body.scrollTop;
+			}
+
+			delta = prod_ul_bottom - (body_top + win_h) ;
+			
+            if(delta <0){
+                more_product();
+                start += limit;
+                prod_ul_bottom = $('#product_ul>li').last().offset().top + $('#product_ul>li').last().height();
+			}
+		});
+	});
+</script>

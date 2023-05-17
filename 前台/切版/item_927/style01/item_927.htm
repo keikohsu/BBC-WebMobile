@@ -1,0 +1,278 @@
+<style>
+    /* ============== BBC店家元件 會連動請勿任意變更(START)============== */
+    .iopen-shop-item-mb{ margin-bottom: 20px;}
+    .iopen-shop-item-box{ width: 100%;}
+    .iopen-shop-item-title{ width: 100%; max-width: 1200px;}
+    .iopen-shop-item-title h3{ position: relative; font-size: 22px; font-weight: 600; color: var(--pic-color-grey-100); line-height: 24px; text-align: left; padding-left: 16px;}
+    .iopen-shop-item-title h3::before{ position: absolute; left: 0; top: 0; display: block; content:''; width: 6px; height: 24px; border-radius: 3px; background: var(--pic-orange);}
+    .iopen-shop-item-content{ max-width: 1200px; margin: 0 auto;}
+    .iopen-shop-item-content .owl-carousel{ position: relative;}
+    .iopen-shop-item-content .owl-carousel .owl-nav .owl-prev,
+    .iopen-shop-item-content .owl-carousel .owl-nav .owl-next{ position: absolute; top: 50%; border-radius: 1px; margin-top: -25px; display: block; width: 50px;  height: 50px; text-indent: -9999px;}
+    .iopen-shop-item-content .owl-carousel .owl-nav .owl-next { right: -25px; background: url(css/images/pic/pic-owl-next.svg) top no-repeat; background-size: 50px;}
+    .iopen-shop-item-content .owl-carousel .owl-nav .owl-prev { left: -25px; background: url(css/images/pic/pic-owl-prev.svg) top no-repeat;  background-size: 50px;}
+    .iopen-shop-item-content .owl-carousel .owl-nav .owl-next:hover { background: url(css/images/pic/pic-owl-next.svg) bottom no-repeat; background-size: 50px;}
+    .iopen-shop-item-content .owl-carousel .owl-nav .owl-prev:hover { background: url(css/images/pic/pic-owl-prev.svg) bottom no-repeat;  background-size: 50px;}
+    
+    
+    /* 店家基本商品樣式01 */
+    .pic-shop-pds-default01{ width: 100%; max-width: 270px; min-width: 100px; margin: 0 auto;}
+    .pic-shop-pds-default01 .pic-shop-pds-imgbox{ width: 100%; position: relative; overflow: hidden;}
+    .pic-shop-pds-default01 .pic-shop-pds-imgbox:hover .pic-shop-pds-btn{ opacity: 1;}
+    .pic-shop-pds-default01 .pic-shop-pds-imgbox a{ display: block; width: 100%; height : auto; overflow: hidden;}
+    .pic-shop-pds-default01 .pic-shop-pds-imgbox a img{ display: block; max-width: 100%; width: 100%; height: auto;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-bottom{ display: flex; align-items: center; justify-content: space-between;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox h2{ margin: 5px 0;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox h2 a{ font-size: 14px; line-height: 20px; color: var(--pic-color-grey-100); height: 40px; font-weight: 500; overflow : hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-price ul { display: block;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-price .pic-shop-pds-price_01{ font-size: 12px; line-height: 16px; color: var(--pic-color-grey-40); text-decoration: line-through;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-price .pic-shop-pds-price_02{ font-size: 20px; line-height: 25px; color: var(--pic-red); font-weight: bold;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-price .pic-shop-pds-price_02 span{ font-size: 12px; font-weight: 600;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn{ display: flex; justify-content: space-between; width: 58px; height: 24px;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn a{ display: block; width: 24px; height: 24px; text-indent: -9999px;} 
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn .pic-shop-pds-addlist a{ background: url(css/images/bbc/Icon-commodity-heart.svg) left top no-repeat; background-size: 24px;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn .pic-shop-pds-addcart a{ background: url(css/images/bbc/Icon-commodity-cart.svg) left top no-repeat; background-size: 24px;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn .pic-shop-pds-addlist a:hover{ background: url(css/images/bbc/Icon-commodity-heart.svg) left -24px no-repeat; background-size: 24px;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn .pic-shop-pds-addcart a:hover{ background: url(css/images/bbc/Icon-commodity-cart.svg) left -24px no-repeat; background-size: 24px;}
+    .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn .pic-shop-pds-addlist.active a{ background: url(css/images/bbc/Icon-commodity-heart.svg) left -24px no-repeat; background-size: 24px;}
+    
+    /* 補貨中+折扣旗幟 */
+    .pic-shop-pds-default01 .pic-shop-pds-stock-block{ position: relative;}
+    .pic-shop-pds-default01 .pic-shop-pds-stock-block .pic-shop-pds-stock{ position: absolute; top: 0; left: 0; z-index: 9; width: 100%; height: 100%; background: rgba(47,47,47,0.5); display: flex; justify-content: center; align-items: center;}
+    .pic-shop-pds-default01 .pic-shop-pds-stock-block .pic-shop-pds-stock span{ color: #fff; font-weight: bold; font-size: 20px;}
+    .pic-shop-pds-default01 .pic-shop-pds-stock-block .pic-shop-pds-btn{ display: none!important;}
+    .pic-shop-pds-default01 .pic_pds_discount_tag{ position: absolute; top: 0; left: 0; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 36px; height: 30px; font-size: 12px; line-height: 1.6; color: #fff; background: #ee2625; border-radius: 0;}
+    .pic-shop-pds-default01 .pic_pds_discount_tag:after{ content: ''; width: 0px; height: 0px;  border-color: #ee2625 transparent transparent transparent; border-style: solid solid solid solid;  border-width: 12px 18px 0px 18px;  position: absolute; top: 30px;}
+    .pic-shop-pds-default01 span.pic_pds_discount_number{ position: relative; top: 6px;}
+    
+    
+    @media screen and (max-width: 768px){
+      .pic-shop-pds-default01 .pic-shop-pds-infobox .pic-shop-pds-btn{ display: none;}
+    }
+    
+    /* ============== BBC店家元件 會連動請勿任意變更(END)============== */
+    
+    .it927-style01 .it927-item-content > ul{ width: 100%;}
+    .it927-style01 .it927-item-content > ul > li{ float: left; display: block; width:calc(100%/5); padding:0 10px 10px 10px;}
+    
+    @media screen and (max-width: 768px){
+      .it927-style01 .it927-item-content > ul > li{ width:calc(100%/2);}
+    }
+    
+    </style>
+    
+    
+    <div class="iopen-shop-item-box iopen-shop-item-mb it927-style01">
+      <div class="iopen-shop-item-content it927-item-content">
+        <ul class="clearfix">
+          <li>
+              <!--01 缺貨-->
+              <div class="pic-shop-pds-default01">
+                  <div class="pic-shop-pds-imgbox pic-shop-pds-stock-block" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                      <div class="pic-shop-pds-stock"><span>補貨中</span></div><!-- 缺貨才要顯示 -->
+                      <!-- <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> --> <!-- 折扣才要顯示 -->                                                                          
+                      <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=1" alt="商品名稱"></a>
+                  </div>
+                  <div class="pic-shop-pds-infobox">
+                      <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                      <div class="pic-shop-pds-bottom">
+                          <div class="pic-shop-pds-price">
+                              <ul>
+                                  <li class="pic-shop-pds-price_01">$100000</li>
+                                  <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                              </ul>
+                          </div>
+                          <div class="pic-shop-pds-btn">
+                            <div class="pic-shop-pds-addlist"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                            <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                          </div>
+                    </div>
+                  </div>
+              </div>
+              <!--01(END)-->
+          </li>
+          <li>
+            <!--01 一般狀態-->
+            <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  <!-- <div class="pic-shop-pds-stock"><span>補貨中</span></div>缺貨才要顯示 -->
+                  <!-- <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> --> <!-- 折扣才要顯示 -->                                                                          
+                  <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=2" alt="商品名稱"></a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01">$100000</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                        <div class="pic-shop-pds-addlist"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                      </div>
+                </div>
+              </div>
+          </div>
+          <!--01(END)-->
+          </li>
+          <li>
+            <!--01 已收藏-->
+            <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  <!-- <div class="pic-shop-pds-stock"><span>補貨中</span></div>缺貨才要顯示 -->
+                  <!-- <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> --> <!-- 折扣才要顯示 -->                                                                          
+                  <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=3" alt="商品名稱"></a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01">$100000</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                        <div class="pic-shop-pds-addlist active"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                      </div>
+                </div>
+              </div>
+          </div>
+          <!--01(END)-->
+          </li>
+          <li>
+            <!--01 折扣-->
+            <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  <!-- <div class="pic-shop-pds-stock"><span>補貨中</span></div>缺貨才要顯示 -->
+                  <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> <!-- 折扣才要顯示 -->                                                                          
+                  <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=4" alt="商品名稱"></a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01">$100000</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                        <div class="pic-shop-pds-addlist"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                      </div>
+                </div>
+              </div>
+          </div>
+          <!--01(END)-->
+          </li>
+          <li>
+            <!--01 一般狀態-->
+            <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  <!-- <div class="pic-shop-pds-stock"><span>補貨中</span></div>缺貨才要顯示 -->
+                  <!-- <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> --> <!-- 折扣才要顯示 -->                                                                          
+                  <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=5" alt="商品名稱"></a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01">$100000</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                        <div class="pic-shop-pds-addlist"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                      </div>
+                </div>
+              </div>
+          </div>
+          <!--01(END)-->
+          </li>
+          <li>
+            <!--01 一般狀態-->
+            <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  <!-- <div class="pic-shop-pds-stock"><span>補貨中</span></div>缺貨才要顯示 -->
+                  <!-- <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> --> <!-- 折扣才要顯示 -->                                                                          
+                  <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=6" alt="商品名稱"></a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01">$100000</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                        <div class="pic-shop-pds-addlist"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                      </div>
+                </div>
+              </div>
+          </div>
+          <!--01(END)-->
+          </li>
+          <li>
+            <!--01 一般狀態-->
+            <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  <!-- <div class="pic-shop-pds-stock"><span>補貨中</span></div>缺貨才要顯示 -->
+                  <!-- <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> --> <!-- 折扣才要顯示 -->                                                                          
+                  <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=7" alt="商品名稱"></a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01">$100000</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                        <div class="pic-shop-pds-addlist"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                      </div>
+                </div>
+              </div>
+          </div>
+          <!--01(END)-->
+          </li>
+          <li>
+            <!--01 一般狀態-->
+            <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox" style="border-radius: 10px;"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  <!-- <div class="pic-shop-pds-stock"><span>補貨中</span></div>缺貨才要顯示 -->
+                  <!-- <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">75</span><span>折</span></div> --> <!-- 折扣才要顯示 -->                                                                          
+                  <a href="#" title="商品名稱"><img src="https://picsum.photos/220/220/?random=8" alt="商品名稱"></a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="#">商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱商品名稱</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01">$100000</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>1999</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                        <div class="pic-shop-pds-addlist"><a href="javascript:void(0);" title="加入追蹤清單">加入追蹤清單</a></div> <!--已追蹤增加class name active-->
+                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車">加入購物車</a></div>
+                      </div>
+                </div>
+              </div>
+          </div>
+          <!--01(END)-->
+          </li>
+        </ul>
+      </div>
+    </div>

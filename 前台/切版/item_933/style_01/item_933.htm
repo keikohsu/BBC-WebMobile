@@ -1,0 +1,522 @@
+<style>
+    /* 共用 */
+    .it933-content{justify-content: center;}
+    .it933-style-01 {
+        width: 100%;
+    }
+
+    .it933-style-01-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .it933-style-01-content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        padding: 20px 10px;
+    }
+
+    .it933-style-01 .fancybox-type-iframe .fancybox-inner {
+        width: 800px !important;
+        height: 485px !important;
+    }
+
+    .it933-style-01-box iframe {
+        border-radius: 20px;
+        width: 100%;
+        height: 315px;
+    }
+
+    .it933-style-01-box img.it933-style-01-ImgSize {
+        display: block;
+        width: 100%;
+        width: 738.69px;
+        height: 415.82px;
+        object-fit: cover;
+    }
+
+    /* .it933-style-01-single-image::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        background: url(css/images/bbc/it933-play.svg) center no-repeat;
+        background-size: 45px;
+        border-radius: 20px;
+    } */
+
+    .it933-style-01-box:hover iframe:after {
+        width: 100px;
+        background: red;
+    }
+
+    .it933-style-01-box p {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 0px 20px;
+
+    }
+
+    .it933-style-01-box h2 {
+        font-size: 22px;
+        line-height: 28px;
+        color: var(--pic-color-grey-100);
+        margin:0 20px ;
+    }
+
+    .it933-style-01-film {
+        position: relative;
+    }
+
+    .it933-style-01-single-image img {
+        border-radius: 20px;
+    }
+
+    .it933-style-01-BoxStyleText-2 {
+        margin-left: 20px;
+    }
+
+    .it933-style-01-BoxStyle-row .it933-style-01-BoxStyleText-2 {
+        margin-left: 0px;
+    }
+
+    .it933-style-01-box-row .it933-style-01-BoxStyleText-2 .pic-OneRow-simplify {
+        -webkit-line-clamp: 2;
+    }
+
+    /* 1 */
+    .it933-style-01-item-1{width: 738.69px;height: 446px;margin:10px auto;}
+    .it933-style-01 .it933-style-01-item-1 .it933-style-01-box {position: absolute;
+        bottom: 32px;
+        width: 100%;
+        background: #F8F8F8;
+    }
+    .it933-style-01 .it933-style-01-item-1 .it933-style-01-box.it933-style-01-text{background: rgba(255, 255, 255, 0.9);border-radius: 10px;box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);position: absolute;width: 612px;height: 99px;padding: 10px 0;left: 3%;bottom:-14px;}
+    /* .it933-style-01 .it933-style-01-item-1 .it933-style-01-box.it933-style-01-text::after{
+        content: "";
+        position: absolute;
+        width: 70px;
+        height: 100%;
+        right: -10%;
+        top: 0;
+        z-index: 2;
+        background: url(css/images/bbc/it933-play.svg) center no-repeat;
+        background-size: 45px;
+        border-radius: 20px;
+    } */
+    .it933-style-01-PlayImg{position:absolute ;width: 70px;height: 70px;top:15px;right: -85px;}
+
+    /* 2 */
+    .it933-style-01-content.it933-style-01-style-2{flex-direction: row;}
+    .it933-style-01-style-2.it933-style-01-box img.it933-style-01-ImgSize{width: 635.69px;}
+    
+
+    /* .it933-style-01-item-2 {width: 738.69px;height: 446px; margin: 10px auto;} */
+    .it933-style-02 .it933-style-01-box img.it933-style-01-ImgSize{width: 564px;height: 318px;}
+    .it933-style-02{height: 619px;}
+    .it933-style-02 .it933-style-01-box.it933-style-01-text{background: rgba(255, 255, 255, 0.9);border-radius: 10px;box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);position: absolute;width: 448px;height: 99px;padding: 10px 0;left: 8%;bottom: -30px;}
+    .it933-style-02 .it933-style-01-content:nth-child(2){top: -104px;}
+
+
+    /* 3 */
+    .it933-style-03 .it933-style-01-box img.it933-style-01-ImgSize{width: 370px;height: 208.62px;}
+    .it933-style-03 .it933-style-01-box.it933-style-01-text{background: rgba(255, 255, 255, 0.9);border-radius: 10px;box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.20);position: absolute;width: 261px;height: 99px;padding: 10px 0;left: 8%;bottom: -30px;}
+    .it933-style-03 .it933-style-01-content:nth-child(2){top: -1px;}
+    .it933-content.it933-style-03{height: 366px;padding: 20px 10px 50px 10px;}
+
+    .it933-style-03 .it933-style-01-PlayImg{width: 69px;height: 70px;right: -85px;}
+    /* .it933-style-03 .it933-style-01-PlayImg img{width: 70px;height: 70px;box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);} */
+
+    @media screen and (max-width: 768px) {
+       .it933-style-01 .fancybox-type-iframe .fancybox-inner {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+
+        /* 共用 */
+        .it933-style-01-content {
+            padding: 10px;
+        }
+
+        .it933-style-01-box iframe {
+            border-radius: 20px;
+            width: 100%;
+            height: 208px;
+        }
+
+        .it933-style-01-box h2 {
+            font-size: 22px;
+            line-height: 28px;
+            color: var(--pic-color-grey-100);
+        }
+
+        .it933-style-01-box button.ytp-large-play-button {
+            display: none !important;
+        }
+
+        .it933-style-01-BoxStyleText-2 .pic-margin-tm10 {
+            margin: 0px 0;
+            margin-bottom: 2px;
+        }
+
+        .it933-style-01-BoxStyleText-2 .pic-OneRow-simplify {
+            -webkit-line-clamp: 2;
+        }
+
+        .it933-style-01-box p {
+            margin-bottom: 0px;
+        }
+
+        .it933-style-01-box h2 {
+            line-height: 22px;
+            height: 22px;
+        }
+
+
+        .it933-style-01-content .it933-style-01-box-row .it933-style-01-BoxStyle-2 img {
+            width: 180px;
+            height: 101.49px;
+        }
+
+        /* 1 */
+        .it933-style-01-box img.it933-style-01-ImgSize{height: 100%;}
+        .it933-style-01-item-1{width:100%;    height: 253px;margin:10px auto;}
+        .it933-style-01 .it933-style-01-item-1 .it933-style-01-box.it933-style-01-text{width: 100%;width: 261px;}
+        .it933-style-01 .it933-style-01-item-1 .it933-style-01-box{height: 208.62px;}
+        .it933-style-01-content.it933-style-01-item-1 {
+            display: flex;
+            align-items: center;
+            background: #F8F8F8;
+            flex-direction: column;
+        }
+
+        .it933-style-01-item-1 .it933-style-01-box {
+            width: 100%;
+        }
+
+        .it933-style-01-item-1 .it933-style-01-single-image img {
+            width: 100%;
+        }
+
+        .it933-style-01-item-1 .it933-style-01-single-image::after {
+            max-width: 370px;
+            width: 100%;
+            height: 209px;
+        }
+        .it933-style-02 .it933-style-01-box.it933-style-01-text{width: 303px;}
+
+        /* 2 */
+        .it933-style-02{justify-content: flex-start;}
+        .it933-style-02 .it933-style-01-box img.it933-style-01-ImgSize{width: 393px;height: 223px;}
+        .it933-style-02 .it933-style-01-content:nth-child(2){top: 58px;}
+        .it933-style-01-PlayImg{width: 50px;height: 50px;right: -56px;top: 33px;}
+        .it933-style-01-PlayImg img{width: 50px;height: 50px;}
+        .it933-content.it933-style-03{height: 100%;height: 848px;justify-content: space-between;}
+        
+
+    }
+</style>
+
+{{getItemContent wpitem_uid=$m_arrPageItem.wpitem_uid}}
+{{assign var=page_item_count value=$m_arrWebsitePageItemContent|@count}}
+{{if $page_item_count>0}}
+<!-- iopen-Set-Space 間距控制 -->
+<div class="it933-style-01 pic-default iopen-Set-Space">
+    <div class="it933-style-01-container">
+        {{if $page_item_count == 1}}
+        <!-- {{if $m_arrPageItem.wpitem_name_display}}<h1>{{$in_wpitemName}}</h1>{{/if}} -->
+        <div class="it933-style-01-content it933-style-01-item-1" style="background: #{{$m_arrPageItem.wpitem_color}};">
+
+            <div class="it933-style-01-box it933-style-01-film">
+                <a class="it933-style-01-single-image fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                    title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                    <img class="it933-style-01-ImgSize"
+                        src="{{if $m_arrWebsitePageItemContent[0].wpicon_f0}}{{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_f0}}{{/if}}">
+                    <iframe data-src="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}" frameborder="0" allowfullscreen
+                        style="display:none;"></iframe>
+                </a>
+            </div>
+
+            <div class="it933-style-01-box it933-style-01-text">
+                <p class="pic-OneRow-simplify-2">{{$m_arrWebsitePageItemContent[0].wpicon_article}}</p>
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">{{$m_arrWebsitePageItemContent[0].wpicon_title}}</h2>
+                <a class="it933-style-01-single-image it933-style-01-PlayImg fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                    title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                    <img src="css/images/bbc/it933-play.svg" alt="">
+                </a>
+            </div>
+
+        </div>
+
+        
+        {{elseif $page_item_count == 2}}
+        <!-- {{if $m_arrPageItem.wpitem_name_display}}<h1>{{$in_wpitemName}}</h1>{{/if}} -->
+        <div class="it933-content it933-style-02" style="background: #{{$m_arrPageItem.wpitem_color}};">
+
+            <div class="it933-style-01-content" style="background: #{{$m_arrPageItem.wpitem_color}};">
+                <div class="it933-style-01-box it933-style-01-film">
+                    <a class="it933-style-01-single-image fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                        title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                        <img class="it933-style-01-ImgSize"
+                            src="{{if $m_arrWebsitePageItemContent[0].wpicon_f0}}{{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_f0}}{{/if}}">
+                        <iframe data-src="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}" frameborder="0" allowfullscreen
+                            style="display:none;"></iframe>
+                    </a>
+                </div>
+    
+                <div class="it933-style-01-box it933-style-01-text">
+                    <p class="pic-OneRow-simplify-2">{{$m_arrWebsitePageItemContent[0].wpicon_article}}</p>
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">{{$m_arrWebsitePageItemContent[0].wpicon_title}}</h2>
+                    <a class="it933-style-01-single-image it933-style-01-PlayImg fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                        title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                        <img src="css/images/bbc/it933-play.svg" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="it933-style-01-content" style="background: #{{$m_arrPageItem.wpitem_color}};">
+                <div class="it933-style-01-box it933-style-01-film">
+                    <a class="it933-style-01-single-image fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                        title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                        <img class="it933-style-01-ImgSize"
+                            src="{{if $m_arrWebsitePageItemContent[0].wpicon_f0}}{{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_f0}}{{/if}}">
+                        <iframe data-src="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}" frameborder="0" allowfullscreen
+                            style="display:none;"></iframe>
+                    </a>
+                </div>
+    
+                <div class="it933-style-01-box it933-style-01-text">
+                    <p class="pic-OneRow-simplify-2">{{$m_arrWebsitePageItemContent[0].wpicon_article}}</p>
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">{{$m_arrWebsitePageItemContent[0].wpicon_title}}</h2>
+                    <a class="it933-style-01-single-image it933-style-01-PlayImg fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                        title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                        <img src="css/images/bbc/it933-play.svg" alt="">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+        {{elseif $page_item_count == 3}}
+        <div class="it933-content it933-style-03" style="background: #{{$m_arrPageItem.wpitem_color}};">
+
+            <div class="it933-style-01-content" style="background: #{{$m_arrPageItem.wpitem_color}};">
+                <div class="it933-style-01-box it933-style-01-film">
+                    <a class="it933-style-01-single-image fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                        title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                        <img class="it933-style-01-ImgSize"
+                            src="{{if $m_arrWebsitePageItemContent[0].wpicon_f0}}{{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_f0}}{{/if}}">
+                        <iframe data-src="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}" frameborder="0" allowfullscreen
+                            style="display:none;"></iframe>
+                    </a>
+                </div>
+    
+                <div class="it933-style-01-box it933-style-01-text">
+                    <p class="pic-OneRow-simplify-2">{{$m_arrWebsitePageItemContent[0].wpicon_article}}</p>
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">{{$m_arrWebsitePageItemContent[0].wpicon_title}}</h2>
+                    <a class="it933-style-01-single-image it933-style-01-PlayImg fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                        title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                        <img src="css/images/bbc/it933-play.svg" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="it933-style-01-style-6 it931-carousel-box">
+                <div class="it933-style-01-content" style="background: #{{$m_arrPageItem.wpitem_color}};">
+                    <div class="it933-style-01-box it933-style-01-film">
+                        <a class="it933-style-01-single-image fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                            title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                            <img class="it933-style-01-ImgSize"
+                                src="{{if $m_arrWebsitePageItemContent[0].wpicon_f0}}{{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_f0}}{{/if}}">
+                            <iframe data-src="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}" frameborder="0" allowfullscreen
+                                style="display:none;"></iframe>
+                        </a>
+                    </div>
+        
+                    <div class="it933-style-01-box it933-style-01-text">
+                        <p class="pic-OneRow-simplify-2">{{$m_arrWebsitePageItemContent[0].wpicon_article}}</p>
+                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">{{$m_arrWebsitePageItemContent[0].wpicon_title}}</h2>
+                        <a class="it933-style-01-single-image it933-style-01-PlayImg fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                            title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                            <img src="css/images/bbc/it933-play.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="it933-style-01-content" style="background: #{{$m_arrPageItem.wpitem_color}};">
+                    <div class="it933-style-01-box it933-style-01-film">
+                        <a class="it933-style-01-single-image fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                            title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                            <img class="it933-style-01-ImgSize"
+                                src="{{if $m_arrWebsitePageItemContent[0].wpicon_f0}}{{$sys_webImageUrl}}{{$m_arrWebsitePageItemContent[0].wpicon_f0}}{{/if}}">
+                            <iframe data-src="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}" frameborder="0" allowfullscreen
+                                style="display:none;"></iframe>
+                        </a>
+                    </div>
+        
+                    <div class="it933-style-01-box it933-style-01-text">
+                        <p class="pic-OneRow-simplify-2">{{$m_arrWebsitePageItemContent[0].wpicon_article}}</p>
+                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">{{$m_arrWebsitePageItemContent[0].wpicon_title}}</h2>
+                        <a class="it933-style-01-single-image it933-style-01-PlayImg fancybox.iframe" href="{{$m_arrWebsitePageItemContent[0].wpicon_c0}}"
+                            title="{{$m_arrWebsitePageItemContent[0].wpicon_title}}">
+                            <img src="css/images/bbc/it933-play.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        {{/if}}
+    </div>
+</div>
+{{/if}}
+
+
+<script>
+    $('.it933-style-01-style-6.it931-carousel-box').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: false,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1.3
+            },
+            1000: {
+                items: 1.3
+            }
+        }
+    });
+
+    $('.it933-style-01-style-7 .it931-carousel-box').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: false,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1.3
+            },
+            1000: {
+                items: 1.3
+            }
+        }
+    });
+
+    $('.it933-style-01-style-8 .it931-carousel-box').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: false,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1.3
+            },
+            1000: {
+                items: 1.3
+            }
+        }
+    });
+
+    $('.it933-style-01-style-9 .it931-carousel-box').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: false,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1.3
+            },
+            1000: {
+                items: 1.3
+            }
+        }
+    });
+
+    $('.it933-style-01-style-10 .it931-carousel-box').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: false,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1.3
+            },
+            1000: {
+                items: 1.3
+            }
+        }
+    });
+
+
+    $(document).ready(function () {
+
+        /* This is basic - uses default settings */
+
+        $("a.it933-style-01-single-image").fancybox();
+
+        /* Using custom settings */
+
+        $("a#inline").fancybox({
+            'hideOnContentClick': true
+        });
+
+        /* Apply fancybox to multiple items */
+
+        $("a.group").fancybox({
+            'transitionIn': 'elastic',
+            'transitionOut': 'elastic',
+            'speedIn': 600,
+            'speedOut': 200,
+            'overlayShow': false,
+            'showNavArrows': true
+        });
+
+        $(".it933-style-01").find("iframe").each(function () {
+            video_href = $(this).attr('data-src');
+            if (/facebook|fb/.test(video_href)) {
+                let video_h = $(this).siblings('img').height();
+                let video_w = $(this).siblings('img').width();
+                $(this).parents('.it933-style-01-film').height(video_h).width(video_w);
+                $(this).height(video_h).width(video_w).show().siblings('img').remove();
+                video_href = "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(video_href) + "&show_text=false&appIdd&width=" + video_w + "&height=" + video_h;
+            } else {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:v\/|watch\?v=|embed\/)?([a-zA-Z0-9_-]{11})(&\S+)?/gi;
+                const match = video_href.match(regex);
+                if (match) {
+                    const videoId = match[0].replace(regex, '$1');
+                    video_href = 'https://www.youtube.com/embed/' + videoId;
+                }
+            }
+            $(this).attr('src', video_href);
+            $(this).parents('.it933-style-01-single-image').attr('href', video_href);
+        })
+
+        $("img").each(function () {
+            if (!$(this).attr('src')) {
+                const regex = /(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:v\/|watch\?v=|embed\/)?([a-zA-Z0-9_-]{11})(&\S+)?/gi;
+                const video_href = $(this).parents('.it933-style-01-single-image').attr('href');
+                const match = video_href.match(regex);
+                if (match) {
+                    const videoId = match[0].replace(regex, '$1');
+                    $(this).attr('src', 'https://img.youtube.com/vi/' + videoId + '/0.jpg')
+                }
+            }
+        })
+    });
+
+</script>

@@ -1,0 +1,81 @@
+<style>
+
+    .FOR_MAIN{width: 100%;}
+    /* 改輪播勿放公版 */
+    .iopen-carousel-box .owl-dots{position: absolute;display: block;width: 100%;top: 294px;}
+    .iopen-carousel-box .owl-theme .owl-dots .owl-dot span{width: 20px;height: 3px; border-radius: 10px;}
+    .iopen-carousel-box .nav-btn.prev-slide {top: -221px;left: 12.5%;}
+    .iopen-carousel-box .nav-btn.next-slide{top: -221px;right: 11.5%;}
+    .iopen-carousel-box .owl-carousel .owl-nav.disabled{display:block;position: relative;    height: 0;}
+    /* 改輪播勿放公版  END*/
+    
+    .it925-carousel-box{position: relative;display: flex;justify-content: center;}
+    .it925-carousel-box .it925-carousel-style-1{position: relative;}
+    .it925-carousel-box .it925-carousel-style-1  .it925-bn-carousel{width: 100%;height:390px;}
+    .it925-carousel-box .it925-carousel-style-1  .it925-bn-carousel img,.it925-carousel-style-1  .it925-bn-carousel video,.it925-carousel-style-1  .it925-bn-carousel iframe{width: 100%;height:390px;object-fit: cover; }
+    
+    .it925-carousel-box .it925-bn-carousel::after{display: inline-block;background: rgba(0, 0, 0, 0.3);content: "";position: absolute;width: 100%;height: 390px;z-index: 999;top: 0;left: 0;}
+    .it925-carousel-box .active.center .it925-bn-carousel::after{display: inline-block;background: #000;content: "";position: absolute;width: 100%;height: 390px;z-index: 999;top: 0;opacity: 0;}
+    .it925-carousel-box .it925-text{padding: 15px 20px;background: #fff;width: 580px;top: 323px; z-index: 99;margin:0 auto;position: absolute;}
+    .it925-carousel-box .it925-text h1{font-size: 22px;margin-bottom: 8px;font-weight: 400;line-height: 28px;color: #000;}
+    .it925-carousel-box .it925-text p{font-size: 14px;line-height: 20px;}
+    @media screen and (max-width: 1024px){
+      .iopen-carousel-box .nav-btn.prev-slide {left: 7%;}
+      .iopen-carousel-box .nav-btn.next-slide{right: 7%;}
+    }
+    @media screen and (max-width: 768px){
+      .it925-carousel-box{flex-direction: column;}
+      .it925-carousel-box .it925-text{width: 100%;}
+      .it925-carousel-box .it925-carousel-style-1 .it925-bn-carousel{height: 139px;}
+      .it925-carousel-box .it925-text{    position: static;}
+    
+      /* 改輪播勿放公版 */ 
+      .iopen-carousel-box .owl-dots{top: 104px;}
+      .iopen-carousel-box .nav-btn.prev-slide {top:-92px;left: 9%;}
+      .iopen-carousel-box .nav-btn.next-slide{top:-92px;right: 9%;}
+      /* 改輪播勿放公版  END*/
+    }
+    </style>
+    
+    
+    <div class="it925-default iopen-Set-Space">
+    <div class="it925-carousel-box iopen-carousel-box">
+      <div class="it925-carousel-style-1  owl-carousel owl-theme">
+        <div class="it925-bn-carousel item">
+          <video autoplay="" loop="" muted="" playsinline="">
+            <source src="https://boring-ptolemy-3939a8.netlify.app/720_NS.mp4" type="video/mp4">
+        </video>
+        </div>
+        <div class="it925-bn-carousel item">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/YpGjaJ1ettI?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="it925-bn-carousel item">
+        <img src="https://picsum.photos/1920/720/?random=5">
+        </div>
+        </div>
+          <div class="it925-text">
+            <h1 class="pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題主標題主標題主標題</h1>
+            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+          </div>
+    </div>
+    </div>
+    
+    
+    <script>
+      $('.it925-carousel-style-1.owl-carousel').owlCarousel({
+        center: true,
+        responsive:{
+          0:{
+            items:1.1,
+            margin:0
+          },1000:{
+            items:1.3,
+            margin:0
+          }
+        },
+        loop:true,
+        margin:20,
+          navText: ["<i class='nav-btn prev-slide'></i>", "<i class='nav-btn next-slide'></i>"],
+          
+      })
+      </script>

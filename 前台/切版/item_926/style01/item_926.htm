@@ -1,0 +1,400 @@
+<style>
+    /* 926 商品頁籤式輪播 */
+    .it926-style-01 {position:relative;}
+    {{if !$mobileDeviceDirected}}
+    .it926-style-01 .tabTit { top: 0; margin: 0 auto 10px auto; padding: 0; height: auto; bottom: initial; position: relative; padding-bottom: 2px; text-align: left; width:100%; display: -ms-box; display:-moz-webkit-flex; display: -webkit-flex; display: flex; background-color: #fff; -ms-flex-wrap: wrap; -moz-flex-wrap: wrap; -webkit-flex-wrap: wrap; flex-wrap: wrap;}
+    .it926-style-01 .tabTit .swiper-pagination-bullet { opacity: 0.85; width: calc((100% / 4) - 2px); height: auto; text-align: center; line-height: 22px; font-size: 17px;background: #fff; color: #ACACAC; flex: 1; position:relative; padding:5px 11.5px; font-weight: 500; border-right: 1px solid #fff;border-radius: 0px;border-bottom: #ACACAC 2px solid;}
+    .it926-style-01 .tabTit .swiper-pagination-bullet:not(:last-of-type){border-right: solid 1px #fff;} 
+    .it926-style-01 .tabTit .swiper-pagination-bullet.swiper-pagination-bullet-active { opacity:1; color: #000;background: #fff; font-weight: 500; line-height: 22px; font-size: 17px; padding:5px 11.5px; border-radius: 0px;border-bottom: #000 2px solid;}
+    .it926-style-01 .swiper-container-horizontal>.swiper-pagination-bullets, .it926-style-01 .swiper-pagination-custom, .swiper-pagination-fraction{margin: 0;}
+    .it926-style-01 .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{margin:0 0px;}
+    .it926-style-01 .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet:first-of-type{margin:0 0px 0 0;}
+    .it926-style-01 .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet:last-of-type{margin:0 0 0 0px;}
+    .it926-style-01 .swiper-container .it926-product_bg{position:absolute;bottom:0;left:0;max-width:100%; width:100%; height:calc(100% - 45px);opacity:.12; -moz-border-radius: 0 0 10px 10px; -ms-border-radius: 0 0 10px 10px; -o-border-radius: 0 0 10px 10px; -webkit-border-radius: 0 0 10px 10px; border-radius: 0 0 10px 10px;}
+    .it926-style-01 .swiper-container .swiper-wrapper{height:auto !important;}
+    
+    .it926-style-01 .swiper-slide{display: -ms-box; display:-moz-webkit-flex; display: -webkit-flex; display: flex; -ms-flex-wrap: wrap; -moz-flex-wrap: wrap; -webkit-flex-wrap: wrap; flex-wrap: wrap;padding: 20px 0;}
+    .it926-style-01 .swiper-container-autoheight, .it926-style-01 .swiper-container-autoheight .swiper-slide{height:auto !important;}
+    .it926-style-01 .it926-item{ position: relative; width: 23.3%;text-align: left; margin-bottom: 20px;margin:0 10px 10px 10px;}
+    .it926-style-01 .it926-item .it926-iteminner { -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-img{max-width:100%; width:100%; height:auto;overflow: hidden;padding: 10px;text-align: center;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-img > a,.it926-style-01 .it926-item .it926-iteminner .it926-img > a > img{max-width:100%; width:100%; height:auto;display: block;vertical-align: top;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-namebox {padding-bottom:5px;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-namebox .it926-name{padding:0 10px;height:32px;overflow: hidden; text-overflow: ellipsis; display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-namebox .it926-name a{ display: block;line-height: 16px;text-decoration: none;color:#2e3a58;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-pricebox{border-bottom: 1px solid #f4f4f4;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-pricebox .it926-price{display: -ms-box; display:-moz-webkit-flex; display: -webkit-flex; display: flex;-ms-flex-pack: center;-webkit-justify-content: center;justify-content: center;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-pricebox .it926-price{flex:1;font-size:25px;color:#d41e8f;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-pricebox .it926-price li{vertical-align: bottom;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-pricebox .it926-price .it926-price_original{color:#bbb;text-decoration: line-through;font-size: 15px; line-height: 30px; vertical-align: bottom; padding-right: 5px;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-btnbox{display: -ms-box; display:-moz-webkit-flex; display: -webkit-flex; display: flex;-ms-flex-pack: center;-webkit-justify-content: center;justify-content: center;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-btnbox li{flex:1;text-align: center;}
+    .it926-style-01 .it926-item .it926-iteminner .it926-btnbox li a{display: block; max-width:100%; width:100%; height:auto; line-height: 30px;text-decoration: none;color:#6a6a6a;}
+    .it926-style-01 .swiper-button{width: 54px; height: 56px; position: absolute; color: transparent !important; top: 50%; }
+    .it926-style-01 .swiper-button-next{right: -70px; background: url(images/it719_leftright-arrow.svg) right center no-repeat; background-size: 108px; z-index: 999;}
+    .it926-style-01 .swiper-button-prev{left: -70px; background: url(images/it719_leftright-arrow.svg) left center no-repeat; background-size: 108px; z-index: 999;}
+    .it926-style-01 .swiper-pagination-bullet {border-radius: 0;}
+    .it926-style-01 .iopen-mall-item-title{display: none;}
+    @media screen and (max-width: 1339px) {
+        .it926-style-01 .swiper-button {display:none !important;}
+    }
+    @media screen and (max-width: 996px) {
+        .it926-style-01 {padding: 0px;}
+        .it926-style-01 .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet { flex: 0 50%; border-radius: 0px !important;}
+        .it926-style-01 .tabTit .swiper-pagination-bullet{border-right: solid 1px #fff !important;border-left: solid 1px #fff !important;border-bottom: solid 2px #fff !important;}
+    }
+    {{else}}
+    .it926-style-01 .tabTit{width:100%; display: -ms-box; display:-moz-webkit-flex; display: -webkit-flex; display: flex; background-color: #fff; -ms-flex-wrap: wrap; -moz-flex-wrap: wrap; -webkit-flex-wrap: wrap; flex-wrap: wrap; list-style-type:none;border-left: solid 2px #fff;border-right: solid 2px #fff;}
+    .it926-style-01 .tabTit .it926-sort-title{flex: 0 48.5%; border-bottom: solid 1px #fff;border-top: solid 1px #fff; opacity: 0.85;}
+    .it926-style-01 .tabTit .it926-sort-title.it926-sort-title-active{ opacity: 1;}
+    .it926-style-01 .tabTit .it926-sort-title:nth-child(even){border-left: solid 1px #fff;}
+    .it926-style-01 .tabTit .it926-sort-title:nth-child(odd){border-right: solid 1px #fff;}
+    .it926-style-01 .tabTit .it926-sort-title a{ text-align: center; line-height: 22px; font-size: 15px; color: #fff;padding: 8px; font-weight: 500; display: block;}
+    .it926-style-01 .it926-sort-box{ padding: 10px 0 10px 0;}
+    .it926-style-01 .it926-product_bg{position: absolute; bottom: 0; left: 0; max-width: 100%; width: 100%; height: 245px; opacity: .12;}
+    .it926-style-01 .tabTit .swiper-pagination-bullet.swiper-pagination-bullet-active { opacity:1; color: #000;background: #fff; font-weight: 500; line-height: 22px; font-size: 17px; padding:5px 11.5px; border-radius: 0px;border: #000 1px solid;}
+    .it926-style-01 .tabTit .swiper-pagination-bullet.swiper-pagination-bullet{margin: 5px 0;color: #000;background: #fff; font-weight: 500; line-height: 22px; font-size: 17px; padding:5px 11.5px; border-radius: 0px;border: #000 1px solid;}
+    @media screen and (max-width:960px) {
+        .it926-style-01 .iopen-mall-item-title h3{ margin-left: 10px;display: none;}
+    }
+    .it926-style-01 .tabTit { top: 0; margin: 0 auto 10px auto; padding: 0; height: auto; bottom: initial; position: relative; padding-bottom: 2px; text-align: left; width:100%; display: -ms-box; display:-moz-webkit-flex; display: -webkit-flex; display: flex; background-color: #fff; -ms-flex-wrap: wrap; -moz-flex-wrap: wrap; -webkit-flex-wrap: wrap; flex-wrap: wrap;}
+    .it926-style-01 .tabTit .swiper-pagination-bullet { opacity: 0.85; width:45%; height: auto; text-align: center; line-height: 22px; font-size: 17px; color: #fff; position:relative; padding: 11.5px; font-weight: 500; border-right: 1px solid #fff;}
+    .it926-style-01 .tabTit .swiper-pagination-bullet.swiper-pagination-bullet {color: #000; font-weight: 500; line-height: 22px; font-size: 17px; padding:5px 11.5px; border-radius: 0px;}
+    .it926-style-01 .swiper-container-horizontal>.swiper-pagination-bullets, .it926-style-01 .swiper-pagination-custom, .swiper-pagination-fraction{margin: 0;}
+    .it926-style-01 .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{margin:2.5px;}
+
+    .it926-style-01 .swiper-container .it926-product_bg{position:absolute;bottom:0;left:0;max-width:100%; width:100%; height:calc(100% - 45px);opacity:.12; -moz-border-radius: 0 0 10px 10px; -ms-border-radius: 0 0 10px 10px; -o-border-radius: 0 0 10px 10px; -webkit-border-radius: 0 0 10px 10px; border-radius: 0 0 10px 10px;}
+    .it926-style-01 .swiper-container .swiper-wrapper{height:auto !important;}
+
+    .it926-style-01 .swiper-slide{display: block;}
+    .it926-style-01 .swiper-container-autoheight, .it926-style-01 .swiper-container-autoheight .swiper-slide{height:auto !important;}
+    .it926-style-01 .it926-sort-box > div{ padding: 10px 0 10px 10px;}
+    .it926-style-01 .owl-carousel .owl-dots.disabled,.it926-style-01 .owl-carousel .owl-nav.disabled{ display: none!important;}
+
+    {{/if}}
+</style>
+    
+    {{getItemContent926 wpitem_uid=$m_arrPageItem.wpitem_uid limit=$m_arrPageItem.wpitem_prod_count}}
+    <div class="iopen-mall-item-box iopen-mall-item-mb it926-style-01 it926-{{$m_arrPageItem.wpitem_uid}}">
+        <div class="iopen-mall-item-title pic-margin-b5">
+            {{if $m_arrPageItem.wpitem_name_display}}<h3>{{$in_wpitemName}}</h3>{{/if}}
+        </div>
+        <!-- 電腦版 -->
+        {{if !$mobileDeviceDirected}}
+        <div class="swiper-container swiper-container_{{$m_arrPageItem.wpitem_uid}}">
+            <div class="tabTit swiper-pagination tabTit_0 swiper-pagination-clickable swiper-pagination-bullets"></div>
+            <div class="swiper-wrapper">
+                {{foreach from=$m_arrWPIC key=k item=page_item_content}}
+                {{if $page_item_content.products|@count>0}}
+                <ul class="swiper-slide product_list clearfix">
+                    {{if $m_arrPageItem.wpitem_prod_col == 1}}
+                    {{assign var='prod_width' value=100}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 2}}
+                    {{assign var='prod_width' value=48.3}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 3}}
+                    {{assign var='prod_width' value=31.6}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 4}}
+                    {{assign var='prod_width' value=23.3}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 5}}
+                    {{assign var='prod_width' value=18.32}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 6}}
+                    {{assign var='prod_width' value=15}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 7}}
+                    {{assign var='prod_width' value=12.6}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 8}}
+                    {{assign var='prod_width' value=10.8}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 9}}
+                    {{assign var='prod_width' value=9.4}}
+                    {{elseif $m_arrPageItem.wpitem_prod_col == 10}}
+                    {{assign var='prod_width' value=8.3}}
+                    {{/if}}
+                    {{foreach from=$page_item_content.products key=i item=m_arrProduct}}
+                    <li class="it926-item it926-item_{{$m_arrPageItem.wpitem_uid}}" style="width:{{$prod_width}}%;">
+                        <div class="pic-shop-pds-default01">
+                            <div class="pic-shop-pds-imgbox {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}pic-shop-pds-stock-block{{/if}}">
+                                {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}
+                                <a href="{{$m_arrProduct.product_detail_url}}"><div class="pic-shop-pds-stock" onclick="window.location.href='{{$m_arrProduct.product_detail_url}}';"><span>補貨中</span></div></a>
+                                {{/if}}
+                                {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}
+                                {{getProdDiscountNumber selling_price=$m_arrProduct.selling_price prod_sticker_price=$m_arrProduct.prod_sticker_price}}
+                                <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">{{$discount_num}}</span><span>折</span></div>
+                                {{/if}}
+                                <a href="{{$m_arrProduct.product_detail_url}}" title="{{$m_arrProduct.prod_name}}">
+                                    <img src="{{$m_arrProduct.prod_file_url}}" alt="{{$m_arrProduct.prod_name}}">
+                                </a>
+                            </div>
+                            <div class="pic-shop-pds-infobox">
+                                <h2><a href="{{$m_arrProduct.product_detail_url}}">{{$m_arrProduct.prod_name}}</a></h2>
+                                <div class="pic-shop-pds-bottom">
+                                    <div class="pic-shop-pds-price">
+                                        <ul>
+                                            
+                                            <li class="pic-shop-pds-price_01">{{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}${{$m_arrProduct.prod_sticker_price|number_format:0}}{{/if}}</li>
+                                            
+                                            <li class="pic-shop-pds-price_02"><span>$</span>{{$m_arrProduct.selling_price|number_format:0}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pic-shop-pds-btn">
+                                        <div class="pic-shop-pds-addlist addlist_{{$m_arrProduct.prod_uid}}{{prodInTraceListClass class='active' prod_uid=$m_arrProduct.prod_uid}}"><a href="javascript:void(0);" title="加入追蹤清單" onclick="add2traceBBC('{{$m_arrProduct.prod_uid}}','{{$m_arrProduct.prod_no}}','{{$m_arrProduct.selling_price}}')">加入追蹤清單</a></div>
+                                        {{if $m_arrProduct.prod_market_sdate <= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_market_edate >= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_marketing}}
+                                        {{if $m_arrProduct.webMarketing || $m_arrProduct.discount_range_setting.methods}}
+                                        <div class="pic-shop-pds-addcart"><a class="cart_light_box" href="#marketing_{{$m_arrProduct.prod_uid}}" title="加入購物車">加入購物車</a></div><!---九大行銷--->
+                                        {{elseif $m_arrProduct.prod_limit_sale == '0' AND $m_arrProduct.prod_shopping_cart_mode == '1'}}
+                                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="直接購買" onclick="buyNowBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}')">直接購買</a></div>
+                                        {{elseif $m_arrProduct.prod_limit_sale == '0'}}
+                                        <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車" onclick="goCartMainBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}',{{if $m_arrProduct.prod_limit_buy>0 OR $m_arrProduct.prod_limit_buy_alltime>0}}'1'{{else}}'0'{{/if}})">加入購物車</a></div>
+                                        {{/if}}
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    {{/foreach}}
+                </ul>
+                {{foreach from=$page_item_content.products item=m_arrProduct key=p}}
+                {{*九大行銷 light box *}}
+                {{if $m_arrProduct.webMarketing || $m_arrProduct.discount_range_setting.methods}}
+                <div class="setP_stagingBoxIn jooshop_addcar_box" id="marketing_{{$m_arrProduct.prod_uid}}" style="display: none;">
+                    <div class="addcar_box">
+                        {{if !$mobileDeviceDirected}}
+                        <div class="addcar_top">此商品適用下列優惠，請點選連結至活動頁選購</div>
+                        {{/if}}
+
+                        {{if $m_arrProduct.discount_range_setting.methods}}
+                        <div class="addcar_box_deta jooshop_btn_color">
+                            <p>
+                                <span class="highlight_cheap">{{$m_arrProduct.discount_range_setting.best_methods.discount_pct}}折</span>
+                                此商品 最低價{{$m_arrProduct.discount_range_setting.best_methods.price_per}}元起
+                            </p>
+                            <a href="{{$m_arrProduct.product_detail_url}}">前往商品頁</a>
+                        </div>
+                        {{/if}}
+                        {{foreach from=$m_arrProduct.webMarketing item=arrMkt}}
+                        <div class="addcar_box_deta jooshop_btn_color"><p>{{$arrMkt.wmkt_title}}</p><a
+                                href="../{{$m_arrProduct.web_byeurl}}/index.php?action=website_marketing&wmkt_ou={{$arrMkt.wmkt_uid}}">{{$lang.root.product_detail.5}}<!--前往活動頁--></a>
+                        </div>
+                        {{/foreach}}
+                    </div>
+                    {{if $m_arrProduct.prod_limit_sale!=1}}
+                    <div class="tbs_seemore jooshop_btn_color">
+                        <a href="javascript:void(0);"
+                           onclick="javascript:closeBoxBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}','{{$m_arrProduct.prod_shopping_cart_mode}}',{{if $m_arrProduct.prod_limit_buy>0 OR $m_arrProduct.prod_limit_buy_alltime>0}}'1'{{else}}'0'{{/if}});">不需優惠，直接加入購物車</a>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+                {{/foreach}}
+                {{/if}}
+                {{/foreach}}
+            </div>
+            <!--<div class="swiper-button swiper-button-next"></div>-->
+            <!--<div class="swiper-button swiper-button-prev"></div>-->
+            <div class="it926-product_bg" style="background-color: #{{$m_arrPageItem.wpitem_color}};"></div>
+        </div>
+        {{else}}
+        <div class="swiper-container swiper-container_{{$m_arrPageItem.wpitem_uid}}">
+        <!-- 手機版 -->
+        <div class="tabTit swiper-pagination tabTit_0 swiper-pagination-clickable swiper-pagination-bullets">
+            {{foreach from=$m_arrWPIC key=sort_no item=page_item_content}}
+            {{if $page_item_content.products|@count>0}}
+            <li class="it926-sort-title" data-num="{{$sort_no}}">
+                <a href="{{if $m_arrWPIC}}#it926-sort-item-{{$sort_no}}{{/if}}">{{$page_item_content.wpicon_title}}</a>
+            </li>
+            {{/if}}
+            {{/foreach}}
+        </div>
+        <div class="it926-sort-box swiper-wrapper">
+            {{foreach from=$m_arrWPIC key=sort_no item=page_item_content}}
+            {{if $page_item_content.products|@count>0}}
+            <div class="swiper-slide it926-carousel-box owl-carousel {{if $page_item_content.products|@count<4}}it926-noloop{{else}}it926-loop{{/if}}" data-num="{{$sort_no}}">
+                {{assign var=prod_count value=0}}
+                {{foreach from=$page_item_content.products key=i item=m_arrProduct}}
+                <div class="product_list  it926-item_{{$m_arrPageItem.wpitem_uid}}">
+                    <div class="pic-shop-pds-default01">
+                        <div class="pic-shop-pds-imgbox {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}pic-shop-pds-stock-block{{/if}}">
+                            {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}
+                            <a href="{{$m_arrProduct.prod_url}}"><div class="pic-shop-pds-stock" onclick="window.location.href='{{$m_arrProduct.product_detail_url}}';"><span>補貨中</span></div></a>
+                            {{/if}}
+                            {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}
+                            {{getProdDiscountNumber selling_price=$m_arrProduct.selling_price prod_sticker_price=$m_arrProduct.prod_sticker_price}}
+                            <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">{{$discount_num}}</span><span>折</span></div>
+                            {{/if}}
+                            <a href="{{$m_arrProduct.product_detail_url}}" title="商品名稱">
+                                <img src="{{$m_arrProduct.prod_file_url}}" alt="商品名稱">
+                            </a>
+                        </div>
+                        <div class="pic-shop-pds-infobox">
+                            <h2><a href="{{$m_arrProduct.product_detail_url}}">{{$m_arrProduct.prod_name}}</a></h2>
+                            <div class="pic-shop-pds-price">
+                                <ul>
+                                    <li class="pic-shop-pds-price_01">{{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}${{$m_arrProduct.prod_sticker_price|number_format:0}}{{/if}}</li>
+                                    
+                                    <li class="pic-shop-pds-price_02"><span>$</span>{{$m_arrProduct.selling_price|number_format:0}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/foreach}}
+            </div>
+            {{/if}}
+            {{/foreach}}
+        </div>
+        <div class="it926-product_bg" style="background-color: #{{$m_arrPageItem.wpitem_color}};"></div>
+        </div>
+        {{/if}}
+    </div>
+    
+    <script>
+    {{if !$mobileDeviceDirected}}
+    
+        var menu = [];
+        {{foreach from=$m_arrWPIC key=k item=page_item_content}}
+            {{if $page_item_content.style != 'mobile'}}
+                menu.push("{{$page_item_content.wpicon_title}}");
+            {{/if}}
+        {{/foreach}}
+    
+        if(menu.length == 0){
+            $(".it926-style-01").hide()
+    
+        }else if(menu.length == 1){
+            $(".swiper-button").hide();
+        }
+    
+        var swiper = new Swiper('.it926-style-01 .swiper-container', {
+            autoHeight: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                renderBullet: function (index, className) {
+                return '<div class="' + className + '">' + (menu[index]) + '</div>';
+                }
+            },
+            simulateTouch: false
+        });
+    
+        $(document).ready(function() {
+            var style = $('<style>.it926-{{$m_arrPageItem.wpitem_uid}} .swiper-pagination-bullet-active:after { border-color: ' + '#{{$m_arrPageItem.wpitem_color}}' +' transparent transparent transparent;; }</style>');
+            $(".it926-{{$m_arrPageItem.wpitem_uid}} .swiper-pagination-bullet-active")
+                .css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"}).append(style)
+                .siblings().css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+        });
+    
+        $(".it926-{{$m_arrPageItem.wpitem_uid}} .swiper-pagination-bullet").click(function() {
+            if ($(this).hasClass('swiper-pagination-bullet-active')) {
+                $(this).css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+                $(this).siblings().css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+            } else {
+                $(this).css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+                $(this).siblings().css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+            }
+        });
+    
+        $(".it926-{{$m_arrPageItem.wpitem_uid}} .swiper-button-next").click(function() {
+            $(this).siblings('.tabTit').children('.swiper-pagination-bullet').siblings().css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+            $(this).siblings('.tabTit').children('.swiper-pagination-bullet-active').css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+        });
+    
+        $(".it926-{{$m_arrPageItem.wpitem_uid}} .swiper-button-prev").click(function() {
+            $(this).siblings('.tabTit').children('.swiper-pagination-bullet').siblings().css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+            $(this).siblings('.tabTit').children('.swiper-pagination-bullet-active').css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+        });
+    
+    {{else}}
+            var menu = [];
+            {{foreach from=$m_arrWPIC key=k item=page_item_content}}
+                {{if $page_item_content.style != 'mobile'}}
+                menu.push("{{$page_item_content.wpicon_title}}");
+                {{/if}}
+            {{/foreach}}
+
+            if(menu.length == 0){
+                $(".it926-style-01").hide()
+
+            }else if(menu.length == 1){
+                $(".swiper-button").hide();
+            }
+
+            var swiper = new Swiper('.it926-style-01 .swiper-container', {
+                autoHeight: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                        return '<div class="it926-sort-title ' + className + '">' + (menu[index]) + '</div>';
+                    }
+                },
+                simulateTouch: false,
+                noSwipingClass: 'swiper-slide'
+            });
+
+        $(document).ready(function() {
+            $(".it926-{{$m_arrPageItem.wpitem_uid}} .it926-sort-title").css({"background-color":"#{{$m_arrPageItem.wpitem_color}}"});
+            OwlTwo();
+        });
+
+        function OwlTwo(){
+            $('.it926-{{$m_arrPageItem.wpitem_uid}} .it926-carousel-box.it926-loop').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:false,
+                dots:false,
+                responsive:{
+                    0:{
+                        items:2.5
+                    },
+                    420:{
+                        items:3.5
+                    },
+                    1000:{
+                        items:3.5
+                    }
+                }
+            });
+
+            $('.it926-{{$m_arrPageItem.wpitem_uid}} .it926-carousel-box.it926-noloop').owlCarousel({
+                loop:false,
+                margin:10,
+                nav:false,
+                dots:false,
+                responsive:{
+                    0:{
+                        items:2.5
+                    },
+                    420:{
+                        items:3.5
+                    },
+                    1000:{
+                        items:3.5
+                    }
+                }
+            });
+        }
+
+        $(function(){
+            // $('.it926-sort-box .it926-carousel-box:first-of-type').show().siblings().hide();
+            $('.it926-sort-title:first-of-type').css("opacity","1")
+            var $li = $('.tabTit > .it926-sort-title');
+            $li.click(function(){
+                // let num = $(this).attr('data-num');
+                // $('.it926-carousel-box[data-num="'+ num +'"]').show().siblings().hide();
+                // OwlTwo();
+                $(this).css("opacity","1");
+                $(this).siblings().css("opacity","");
+            });
+        });
+    
+    {{/if}}
+
+    if($('.it926-item_{{$m_arrPageItem.wpitem_uid}}').length == 0){
+        $('.it926-{{$m_arrPageItem.wpitem_uid}}').hide().parents('.C_Box').hide();
+        $('.it926-{{$m_arrPageItem.wpitem_uid}}').hide().prev().prev().hide();
+    }
+    </script>

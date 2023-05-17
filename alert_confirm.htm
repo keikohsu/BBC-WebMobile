@@ -1,0 +1,151 @@
+<style>
+    /* 動畫 */
+    .pic-window-bg .pic-window-animation-start{transform: translateY(-45px); transition: transform .3s ease-out;opacity: 0;}
+    .pic-window-bg.pic-window-animation .pic-window{transform: translateY(0px);opacity: 1;display: block;}
+
+    /* 視窗按鈕調整 */
+    .pic-window-bg .pic-window {max-width: 350px;}
+    .pic-window-bg .pic-window p{margin-bottom:0;}
+    .pic-window-button-box .confirm_cancel{width: 100%;}
+    .pic-window-button-box .jooshop_btn_color{width: 100%;}
+    .pic-window-button-box .jooshop_btn_color > .pic-window-button-TwoBtn-l:hover,
+    .pic-window-button-box .jooshop_btn_color > .pic-window-button-TwoBtn-l:hover{border-radius: 0 0 0px 10px;}
+    .pic-window-button-box .jooshop_btn_color > .pic-window-button-TwoBtn-r:hover,
+    .pic-window-button-box .jooshop_btn_color > .pic-window-button-TwoBtn-r:hover{border-radius: 0 0 10px 0px;}
+
+    @media screen and (max-width: 768px){.pic-window-bg .pic-window {max-width: 100%;}}
+
+    /* alert視窗背景調整 */
+    {{if $sys_msg_custom_white_bg}}
+    #alert {background-color:#fff;}
+    {{/if}}
+</style>
+
+
+{{*自訂 alert confirm*}}
+<!-- Alert -->
+<div class="admweb-v2-BackstageAlert alertaconfirm_mask pic-window-bg" id="alert" style="display:none;">
+    <div class="alertaconfirm_box pic-window pic-window-animation-start">
+        <p class="alert_text" id="alert_text">
+        </p>
+        <div class="jooshop_btn_color alert_btnbox pic-window-button-box">
+            <a class="alertbtn border_zero pic-window-button-OneBtn pic-BgText-color-green" id="alert_close" href="javascript: void(0);">確認</a>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm -->
+<div class="admweb-v2-BackstageAlert alertaconfirm_mask  pic-window-bg" id="confirm" style="display:none;">
+    <div class="alertaconfirm_box pic-window pic-window-animation-start">
+        <div class="alert_text pic-window-marge-box pic-text-center" id="confirm_text">
+        </div>
+        <ul class="confirm_btnbox pic-window-button-box">
+            <li class="confirm_cancel">
+                <a class="confirm_button pic-window-button-TwoBtn pic-BgText-color-white-green pic-window-button-TwoBtn-l" href="javascript: void(0);" value="0">取消</a>
+            </li>
+            <li class="jooshop_btn_color">
+                <a class="border_zero confirm_button pic-window-button-TwoBtn pic-BgText-color-green pic-window-button-TwoBtn-r" href="javascript: void(0);" value="1">確定</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    const whitelist_tag = ['TEXT','P','SPAN','BR','I','DIV','H1','H2','H3','H4',''];
+
+    function alert(msg)
+    {
+        $("#alert_text").html('');
+
+        // 改寫 for 源碼掃描
+        if(typeof msg == 'string' && (msg.indexOf('<br/>') >= 0 || msg.indexOf('<br>') >= 0)){
+            var splits;
+            if(msg.indexOf('<br/>') >= 0)
+            splits = msg.split('<br/>');
+            else
+            splits = msg.split('<br>');
+
+            for (let i = 0; i < splits.length; i++) {
+                const txt = splits[i];
+                let txt_node = document.createTextNode(txt);
+                document.getElementById("alert_text").appendChild(txt_node);
+
+                if(i != (splits.length-1))
+                document.getElementById("alert_text").appendChild(document.createElement("br"));
+            }   
+        }else if(typeof msg == 'string' && (msg.indexOf('<br') >= 0 || msg.indexOf('</') >= 0)){
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(msg, 'text/html');
+            var content = doc.body.children;
+                        
+            for (const i of content) {
+                let idx = whitelist_tag.indexOf(i.tagName);
+                let ele = document.createElement(i.tagName);
+
+                ele.textContent = i.textContent;
+                document.getElementById("alert_text").append(ele);
+            } 
+        }else{
+            $("#alert_text").text(msg);
+        }
+        $("#alert").show().addClass('pic-window-animation');
+
+        var Deferred = $.Deferred();  //建立Deferred物件
+        $("#alert_close").on("click", function () {
+            Deferred.resolve();
+            $("#alert").removeClass('pic-window-animation').hide();
+        });
+
+        return Deferred.promise();
+    }
+
+    function confirm(msg)
+    {
+        $("#confirm_text").html('');
+
+        // 改寫 for 源碼掃描
+        if(typeof msg == 'string' && (msg.indexOf('<br/>') >= 0 || msg.indexOf('<br>') >= 0)){
+            var splits;
+            if(msg.indexOf('<br/>') >= 0)
+            splits = msg.split('<br/>');
+            else
+            splits = msg.split('<br>');
+
+            for (let i = 0; i < splits.length; i++) {
+                const txt = splits[i];
+                let txt_node = document.createTextNode(txt);
+                document.getElementById("confirm_text").appendChild(txt_node);
+
+                if(i != (splits.length-1))
+                document.getElementById("confirm_text").appendChild(document.createElement("br"));
+            }
+        }else if(typeof msg == 'string' && (msg.indexOf('<br') >= 0 || msg.indexOf('</') >= 0)){
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(msg, 'text/html');
+            var content = doc.body.children;
+
+            for (const i of content) {
+                let idx = whitelist_tag.indexOf(i.tagName);
+                let ele = document.createElement(i.tagName);
+
+                ele.textContent = i.textContent;
+                document.getElementById("confirm_text").append(ele);
+            }
+        }else{
+            $("#confirm_text").text(msg);
+        }
+        $("#confirm").show().addClass('pic-window-animation');
+
+        var Deferred = $.Deferred();  //建立Deferred物件
+        $(".confirm_button").on("click", function () {
+            $("#confirm").removeClass('pic-window-animation').hide();
+            if ($(this).attr("value") == '1')
+                Deferred.resolve();
+            else
+                Deferred.reject();
+            $("#confirm").hide();
+        });
+
+        return Deferred.promise();
+    }
+</script>
+{{*自訂 alert confirm*}}

@@ -1,0 +1,155 @@
+
+
+<div id="admweb-v2-ProductWindow" class="pic-window-bg" style="display: none;">
+  <div class="admweb-v2-window-container admweb-v2-EventMerchandise-window">
+      <h2>
+          <i class="icons-line icon-line-box-product pic-margin-r5">
+          </i>選擇商品<a class="pic-window-close" onclick="close_add_product_box()"></a>
+      </h2>
+
+      <div class="admweb-v2-window-content-scroll pic-margin-t10">
+          <table class="admweb-v2-orderlist__table">
+              <thead>
+                  <tr class="admweb-v2-orderlist__table--head">
+                      <th>
+                          <div class="admweb-v2-EventMerchandise-checkbox-box">
+                              <div class="admweb-v2-checkbox-name pic-margin-r10">
+                                  <input type="checkbox" class="admweb-v2-ckbutton-green-checkbox" id="ckbutton-id_all">
+                                  <label class="admweb-v2-ckbutton-green-label" for="ckbutton-id_all"></label>
+                              </div>
+                              <p class="pic-width-100">商品</p>
+                          </div>
+                      </th>
+                      <th>規格</th>
+                      <th>價格</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- 商品列表 -->
+              </tbody>
+          </table>
+      </div>    
+
+      <div class="pic-confirm-box pic-flex-center pic-line-light15">
+          <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-white-green pic-margin-r5" href="javascript:close_add_product_box();">
+              <i class="icons-line icon-line-X"></i>取消</a>
+          <a class="admweb-v2-I-Btn pic-width-100 pic-BgText-color-green pic-margin-l5" href="javascript:confirm_product_checked();">
+              <i class="icons-line icon-line-tick"></i>確認</a>
+      </div>
+  </div>
+</div>
+
+<script>
+  const tb = $("#admweb-v2-ProductWindow tbody");
+
+  function open_add_product_box() {
+      $("#admweb-v2-ProductWindow").show();
+  }
+  
+  function close_add_product_box() {
+      $("#admweb-v2-ProductWindow").hide()
+      $("#admweb-v2-ProductWindow input[type=checkbox]").each(function() {
+          $(this).prop("checked", false);
+      });
+  }    
+
+  // {{*本頁載入同時 去api取回符合 prod_category!=5 !=6, prod_display!=0 的商品清單*}}   
+  $(document).ready(function () {
+      var obj_wmkt_prod, arr_wmkt_prod, checked_prod_uid=[];
+      get_all_products();
+  });
+
+  $(window).on('beforeunload', function(){
+      sessionStorage.removeItem('checked_prod_uid')
+  });
+
+  function get_all_products(){1
+      $.ajax({
+          type: "post",
+          url: "{{$sys_arrWebsite.website_url}}api/api.product.php", // 要另外寫成api
+          async: false,
+          data: {
+              myAct: 'GET_WMKT_PRODUCT',
+              web_uid: {{$sys_arrWebsite.web_uid}},
+              prod_category: 1,
+          },
+          dataType: "json",
+          success: function (re) {
+              console.log('get_all_products','suc',re)
+              if(re.msg=='OK'){
+                  obj_wmkt_prod = re.obj; 
+                  arr_wmkt_prod = re.arr; 
+                  arr_wmkt_prod.forEach(e => {
+                      lightbox_prod_html(e);                        
+                  });
+              }
+          },
+          error: function (re) {
+              console.log('get_all_products','err',re)
+          }
+      });
+  }
+  
+  function lightbox_prod_html(e){
+      if(e.prod_color_name=='' && e.prod_size=='') prod_spec = ' - ';
+      else if(e.prod_color_name!='' && e.prod_size!='') prod_spec = e.prod_color_name + ',' + e.prod_size;
+      else prod_spec = e.prod_color_name + e.prod_size;
+      let htm = `<tr class="admweb-v2-orderlist__table--tr">
+          <td>
+              <div class="admweb-v2-checkbox-name pic-margin-r10">
+                  <input type="checkbox" name='prod_uid' class="admweb-v2-ckbutton-green-checkbox" id="prod_${e.prod_uid}">
+                  <label class="admweb-v2-ckbutton-green-label" for="prod_${e.prod_uid}"></label>
+              </div>
+              ${e.prod_name}
+          </td>
+          <td>${prod_spec}</td>
+          <td>$${e.prod_selling_price}</td>
+      </tr>`;
+      tb.append(htm);
+  }
+
+  $('#ckbutton-id_all').click(function (e) { 
+      if($(this).prop("checked")) {
+          $("#admweb-v2-ProductWindow input[type=checkbox]").each(function() {
+              $(this).prop("checked", true);
+          });
+      } else {
+          $("#admweb-v2-ProductWindow input[type=checkbox]").each(function() {
+              $(this).prop("checked", false);
+          });
+      }
+  });
+
+  function confirm_product_checked(){
+      let checked_prod_uid = [];
+      
+      $("#admweb-v2-ProductWindow input[type=checkbox][name=prod_uid]:checked").each(function() {
+          var prod_uid = $(this).attr('id').substr(5);
+          checked_prod_uid.push(prod_uid);
+      });
+      
+      checked_prod_uid = JSON.stringify(checked_prod_uid);
+      sessionStorage.setItem('checked_prod_uid', checked_prod_uid);
+      $("#admweb-v2-ProductWindow").hide()
+  }
+
+  //{{********** 以下這段是用來取出被選中的商品 **********}}  
+  //{{********** 關閉選擇商品的lihgtbox 後 **********}}  
+  //{{********** checked_prod_uid 即為選中的商品prod_uid, wmkt_prod_checked 即為選中的商品 **********}}  
+  //{{********** 請將以下程式寫在嵌入本檔案的程式中 並依照需求修改 **********}}  
+  {{*
+      var wmkt_prod_checked = [];
+      const intersectionObserver = new IntersectionObserver((entries) => {        
+          if(entries[0].intersectionRatio <= 0){
+              checked_prod_uid = JSON.parse(sessionStorage.getItem('checked_prod_uid'));
+              sessionStorage.removeItem('checked_prod_uid')
+              checked_prod_uid.forEach(ele => {
+                  wmkt_prod_checked[ele] = obj_wmkt_prod[ele]
+              });
+          }
+      });
+      intersectionObserver.observe(document.querySelector('#admweb-v2-ProductWindow'));
+  *}}
+</script>
+
+

@@ -1,0 +1,149 @@
+<style>
+
+.it931-default{ max-width: 1200px; margin:0px auto 20px auto;}
+.it931-default .it931-item-content > ul{ padding:15px 10px;}
+.it931-default .iopen-shop-item-content .owl-carousel .owl-nav .owl-prev,.it931-default .iopen-shop-item-content .owl-carousel .owl-nav .owl-next
+{display: none;}
+
+.it931-default .it931-title-box{ width: 100%; height: 110px; position: relative; overflow: hidden; display: flex; align-items: center; padding: 15px 25px;}
+.it931-default .it931-title-box .it931-title-word{ font-size: 28px; line-height: 34px; color: #fff; position: relative;z-index: 2;}
+.it931-default .it931-title-box .it931-title-bg::before{ content: ''; display: block; width: 100%; height: 100vh; position: absolute; left: 0; left:0; background: rgba(0,0,0,.2); z-index: 1;}
+.it931-default .it931-title-box .it931-title-bg{ position: absolute; left: 0; top: 0; width: 100%; height: 100vh; overflow: hidden; background-size: contain; -webkit-filter:blur(2px);}
+
+.it931-default .it931-item-content > ul > li{ float: left; display: block; width:calc(100%/4); padding:0 10px 10px 10px;}
+
+</style>
+
+{{getItemProduct wpitem_uid=$m_arrPageItem.wpitem_uid prod_in_stock='0' prod_marketing='0' prod_is_search='1'}}
+{{assign var="page_item_prod_count" value=$m_arrWebsitePageItemProduct|@count}}
+{{if $page_item_prod_count>0}}
+<div class="iopen-shop-item-box iopen-shop-item-mb it931-default" style="background: #fff;">
+  <div class="iopen-shop-item-content it931-item-content">
+    <div class="it931-title-box">
+      <h3 class="it931-title-word">{{if $m_arrPageItem.wpitem_name_display}}{{$in_wpitemName}}{{/if}}</h3>
+      {{if $m_arrPageItem.wpitem_pic1}}
+      <div class="it931-title-bg" style="background-image: url('{{$sys_webImageUrl}}{{$m_arrPageItem.wpitem_pic1}}');"></div>
+      {{/if}}
+    </div>
+    {{if !$mobileDeviceDirected}}
+    {{assign var='prod_count' value=$m_arrPageItem.wpitem_prod_col|default:4}}
+    <ul class="clearfix">
+    {{else}}
+    {{assign var='prod_count' value='1'}}
+    <ul class="it931-carousel-box owl-carousel">
+    {{/if}}
+      {{foreach from=$m_arrWebsitePageItemProduct item=m_arrProduct}}
+      <li style="width:{{math equation='100/x' x=$prod_count}}%;">
+          <div class="pic-shop-pds-default01">
+              <div class="pic-shop-pds-imgbox {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}pic-shop-pds-stock-block{{/if}}"><!--缺貨時增加class name pic-shop-pds-stock-block-->
+                  {{if ($m_arrProduct.prod_stock-$m_arrProduct.prod_safety_stock)<=0}}
+                  <div class="pic-shop-pds-stock" onclick="window.location.href='{{$m_arrProduct.product_detail_url}}';"><span>補貨中</span></div>
+                  {{/if}}
+                  {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}
+                  {{getProdDiscountNumber selling_price=$m_arrProduct.selling_price prod_sticker_price=$m_arrProduct.prod_sticker_price}}
+                  <div class="pic_pds_discount_tag"><span class="pic_pds_discount_number">{{$discount_num}}</span><span>折</span></div>
+                  {{/if}}
+                  <a href="{{$m_arrProduct.product_detail_url}}" title="{{$m_arrProduct.prod_name}}">
+                      <img src="{{$m_arrProduct.prod_file_url}}" alt="{{$m_arrProduct.prod_name}}">
+                  </a>
+              </div>
+              <div class="pic-shop-pds-infobox">
+                  <h2><a href="{{$m_arrProduct.product_detail_url}}">{{$m_arrProduct.prod_name}}</a></h2>
+                  <div class="pic-shop-pds-bottom">
+                      <div class="pic-shop-pds-price">
+                          <ul>
+                              <li class="pic-shop-pds-price_01"> {{if $m_arrProduct.selling_price < $m_arrProduct.prod_sticker_price}}${{$m_arrProduct.prod_sticker_price|number_format:0}}{{/if}}</li>
+                              <li class="pic-shop-pds-price_02"><span>$</span>{{$m_arrProduct.selling_price|number_format:0}}</li>
+                          </ul>
+                      </div>
+                      <div class="pic-shop-pds-btn">
+                          <div class="pic-shop-pds-addlist addlist_{{$m_arrProduct.prod_uid}}{{prodInTraceListClass class='active' prod_uid=$m_arrProduct.prod_uid}}"><a href="javascript:void(0);" title="加入追蹤清單" onclick="add2traceBBC('{{$m_arrProduct.prod_uid}}','{{$m_arrProduct.prod_no}}','{{$m_arrProduct.selling_price}}')">加入追蹤清單</a></div>
+                          {{if $m_arrProduct.prod_market_sdate <= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_market_edate >= ($smarty.now|date_format:"%Y-%m-%d %H:%M:%S") AND $m_arrProduct.prod_marketing}}
+                          {{if $m_arrProduct.webMarketing || $m_arrProduct.discount_range_setting.methods}}
+                          <div class="pic-shop-pds-addcart"><a class="cart_light_box" href="#marketing_{{$m_arrProduct.prod_uid}}" title="加入購物車">加入購物車</a></div><!---九大行銷--->
+                          {{elseif $m_arrProduct.prod_limit_sale == '0' AND $m_arrProduct.prod_shopping_cart_mode == '1'}}
+                          <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="直接購買" onclick="buyNowBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}')">直接購買</a></div>
+                          {{elseif $m_arrProduct.prod_limit_sale == '0'}}
+                          <div class="pic-shop-pds-addcart"><a href="javascript:void(0);" title="加入購物車" onclick="goCartMainBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}',{{if $m_arrProduct.prod_limit_buy>0 OR $m_arrProduct.prod_limit_buy_alltime>0}}'1'{{else}}'0'{{/if}})">加入購物車</a></div>
+                          {{/if}}
+                          {{/if}}
+                      </div>
+                </div>
+              </div>
+          </div>
+      </li>
+        {{if !$mobileDeviceDirected}}
+            {{*九大行銷 light box *}}
+            {{if $m_arrProduct.webMarketing || $m_arrProduct.discount_range_setting.methods}}
+            <div class="setP_stagingBoxIn jooshop_addcar_box" id="marketing_{{$m_arrProduct.prod_uid}}" style="display: none;">
+                <div class="addcar_box">
+                    {{if !$mobileDeviceDirected}}
+                    <div class="addcar_top">此商品適用下列優惠，請點選連結至活動頁選購</div>
+                    {{/if}}
+
+                    {{if $m_arrProduct.discount_range_setting.methods}}
+                    <div class="addcar_box_deta jooshop_btn_color">
+                        <p>
+                            <span class="highlight_cheap">{{$m_arrProduct.discount_range_setting.best_methods.discount_pct}}折</span>
+                            此商品 最低價{{$m_arrProduct.discount_range_setting.best_methods.price_per}}元起
+                        </p>
+                        <a href="{{$m_arrProduct.prod_url}}">前往商品頁</a>
+                    </div>
+                    {{/if}}
+                    {{foreach from=$m_arrProduct.webMarketing item=arrMkt}}
+                    <div class="addcar_box_deta jooshop_btn_color"><p>{{$arrMkt.wmkt_title}}</p><a
+                            href="../{{$m_arrProduct.web_byeurl}}/index.php?action=website_marketing&wmkt_ou={{$arrMkt.wmkt_uid}}">{{$lang.root.product_detail.5}}<!--前往活動頁--></a>
+                    </div>
+                    {{/foreach}}
+                </div>
+                {{if $m_arrProduct.prod_limit_sale!=1}}
+                <div class="tbs_seemore jooshop_btn_color">
+                    <a href="javascript:void(0);"
+                       onclick="javascript:closeBoxBBC('{{$m_arrProduct.prod_no}}','{{$m_arrProduct.web_byeurl}}','{{$m_arrProduct.prod_shopping_cart_mode}}',{{if $m_arrProduct.prod_limit_buy>0 OR $m_arrProduct.prod_limit_buy_alltime>0}}'1'{{else}}'0'{{/if}});">不需優惠，直接加入購物車</a>
+                </div>
+                {{/if}}
+            </div>
+            {{/if}}
+        {{/if}}
+      {{/foreach}}
+    </ul>
+  </div>
+</div>
+{{/if}}
+
+<script>
+
+  {{if $mobileDeviceDirected}}
+  /* 手機 */
+  $('.it931-default .iopen-shop-item-content .it931-carousel-box').owlCarousel({
+      loop:true,
+      margin:15,
+      nav:false,
+      dots:false,
+      autoplay:true,
+      autoplayTimeout:6500,
+      autoplayHoverPause:true,
+      responsive:{
+          0:{
+              items:2.5
+          },
+          420:{
+              items:3.5
+          },
+          1000:{
+              items:3.5
+          }
+      }
+  });
+  {{/if}}
+
+  {{if !$mobileDeviceDirected}}
+  $(".it931-default a.cart_light_box").fancybox({
+      width	    : 600,
+      fitToView	: false,
+      autoSize	: false,
+      title		: false
+  });
+  {{/if}}
+
+</script>

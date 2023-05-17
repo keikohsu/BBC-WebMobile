@@ -1,0 +1,1680 @@
+<style>
+    /* 共用 */
+.it933-default{width: 100%;}
+.it933-container{max-width: 1200px;}
+.it933-content{display: flex;align-items: center;padding: 20px 10px;}
+ .fancybox-type-iframe .fancybox-inner{width: 800px !important;height: 485px !important;}
+
+.it933-box iframe{border-radius: 20px;width:100%; height:315px;}
+.it933-box img{ display: block;width: 100%; height:315px;object-fit: cover;}
+.it933-single-image::after {content: "";position: absolute;width:100%; height:100%;left: 0;top: 0;z-index: 2;background:url(css/images/bbc/it933-play.svg) center no-repeat;background-size: 45px;border-radius: 20px;}
+.it933-box:hover iframe:after{width: 100px; background: red;}
+.it933-box p{font-size: 14px;}
+.it933-box h2{font-size: 22px;line-height: 28px;color: var(--pic-color-grey-100);}
+.it933-film{position: relative;}
+.it933-single-image img{border-radius: 20px;}
+.it933-BoxStyleText-2{margin-left: 20px;}
+.it933-BoxStyle-row .it933-BoxStyleText-2{margin-left:0px;}
+.it933-box-row .it933-BoxStyleText-2 .pic-OneRow-simplify{-webkit-line-clamp:2;}
+
+/* 1 */
+.it933-style-1 .it933-box{width: calc(100%/2); margin: 0 38px;}
+
+/* 2 */
+.it933-style-2 .it933-box{width: calc(100%/2);margin: 0 15px;}
+
+/* 3 */
+.it933-style-3 .it933-box{width: calc(100%/3);margin: 0 15px;}
+.it933-style-3 .it933-box iframe,.it933-style-3 .it933-box img{height: 214px;}
+
+/* 4 */
+.it933-style-4 .it933-box{width: 100%;margin: 0 15px;}
+.it933-style-4 .it933-box iframe,.it933-style-4 .it933-box img{height: 215px;}
+.it933-content .it933-box-row iframe{width:60%;height: 134px;margin-right:20px;}
+.it933-content .it933-box-row .it933-BoxStyle-2 img{width: 237px;height: 134px;}
+.it933-box-row{height: 100%;margin-left: 10px;}
+.it933-box-row .it933-BoxStyle-2{display: flex;margin-bottom:15px;margin-left:0px;}
+
+/* 5 */
+.it933-style-5.it933-content{padding: 20px 20px 5px 20px;}
+.it933-style-5 .it933-box iframe,.it933-style-5 .it933-box img{height: 213px}
+.it933-style-5 .it933-box-row{margin-left: 30px;}
+.it933-style-5 .it933-box-row .it933-box  iframe{height: 133.47px;}
+
+/* 7 */
+.it933-style-7 .it933-box-row{display: flex;width:100%;margin-left: 0px;}
+.it933-style-7 .it933-box-row{margin-bottom: 15px;}
+.it933-style-7 .it933-box-row:last-child{margin-bottom:0px;}
+.it933-style-7.it933-content .it933-box-row .it933-BoxStyle-2 img{width: 175px;}
+.it933-style-7 .it933-content-left .it933-box iframe,.it933-style-7 .it933-content-left .it933-box img{margin-right: 0px;height: 106px;}
+.it933-style-7 .it933-box-row .it933-BoxStyle-2{    flex-direction: column;}
+.it933-style-7 .it933-box iframe,.it933-style-7 .it933-box img{width: 100%;    height: 344px;}
+.it933-style-7 .it933-box{width: 50%;margin: 0 10px;}
+.it933-style-7 .it933-content-left .it933-BoxStyleText-2{margin-left: 0px;}
+.it933-style-7 .it933-content-left .it933-BoxStyleText-2 h2{font-size: 17px;line-height: 22px;}
+.it933-style-7.it933-content .it933-content-left{width: 50%;}
+
+
+/* 8 */
+.it933-style-8 .it933-box-row{display: flex;width:100%;margin-left: 0px;}
+.it933-style-8 .it933-box-row-style-8{flex-direction: column;width: 50%;}
+.it933-style-8 .it933-box-row-style-8 .it933-box{display: flex;width:100%;margin-bottom: 10px;}
+.it933-style-8 .it933-box-row-style-8 .it933-box:last-child{margin-bottom: 0px;}
+.it933-style-8 .it933-box-row:last-child{margin-bottom:0px;}
+.it933-style-8.it933-content .it933-box-row .it933-BoxStyle-2 img{width: 100%;height: 106px;}
+.it933-style-8 .it933-box-row .it933-BoxStyle-2{ flex-direction: column;margin: 10px;}
+.it933-style-8 .it933-box iframe,.it933-style-8 .it933-box img{width: 100%;}
+.it933-style-8 .it933-box{width:calc(100%/3);}
+ .it933-box-row-style-8 .it933-style-8 .it933-box img{width: 380px;height: 214px;}
+.it933-style-8 .it933-box-row-style-8 .it933-box img{width: 380px;height: 214px;}
+
+.it933-style-8.it933-content .it933-content-left{width: 50%;}
+.it933-style-8.it933-content .it933-content-left .it933-BoxStyleText-2{margin-left:0px; }
+.it933-style-8.it933-content .it933-content-left h2{font-size: 17px;line-height: 22px;}
+.it933-style-8.it933-content .it933-content-left .it933-box-row{margin-bottom: 15px;}
+.it933-style-8.it933-content .it933-content-left .it933-box-row:last-child{margin-bottom:0px;}
+
+.it933-style-8.it933-content .it933-box-row iframe{width: 188px;height: 106px;}
+.it933-style-8.it933-content .it933-box-row.it933-box-row-style-8 iframe{width: 380px;height: 214px;}
+.it933-box-text-style-8{width: 30%;display: flex;flex-direction: column;justify-content: center;margin-left:20px;}
+.it933-box-row-style-8 .it933-box-text-style-8 .pic-OneRow-simplify{-webkit-line-clamp: 2;}
+.it933-style-8 .it933-box-row .it933-BoxStyle-2{    margin-bottom: 0px;}
+
+/* 9 */
+.it933-style-9 .it933-box{width:calc(100%/3);}
+.it933-style-9 .it933-box-row{display: flex;flex-wrap: wrap;}
+.it933-style-9 .it933-BoxStyleText-2{margin-right: 20px;}
+
+/* 10 */
+.it933-style-10 .it933-box{width: calc(100%/2 - 10px);margin: 5px;}
+.it933-style-10 .it933-box-row{ display: flex;flex-wrap: wrap;}
+.it933-style-10 .it933-BoxStyleText-2{margin-right: 20px;}
+.it933-style-10 .it933-box h2{font-size: 17px;line-height: 22px;}
+.it933-style-10.it933-content .it933-box-row-style-10 iframe{width: 237px;height: 134px;}
+.it933-style-10 .it933-BoxStyle-2 iframe,.it933-style-10 .it933-BoxStyle-2 img{width: 237px;height: 134px;}
+.it933-style-10.it933-content .it933-box-row.it933-box-row-style-10 .it933-BoxStyle-2 img{width: 100%;height: 106px;}
+.it933-style-10.it933-content .it933-box-row .it933-BoxStyle-2 img{width: 237px;height: 133.47px;}
+.it933-style-10 .it933-box-row{width: 65%;}
+.it933-style-10.it933-content .it933-box-row-style-10{width:35%;}
+
+.it933-box-row.it933-box-row-style-10 .it933-BoxStyle-2{flex-direction: column;}
+@media screen and (max-width: 768px){
+    .fancybox-type-iframe .fancybox-inner{width:100%!important;height: 485px !important;}
+     /* 共用 */
+    .it933-content{padding: 10px;}
+    .it933-box iframe{border-radius: 20px;width:100%; height:208px;}
+    .it933-box h2{font-size: 22px;line-height: 28px;color: var(--pic-color-grey-100);}
+    .it933-box p{margin-bottom: 10px;}
+    .it933-box button.ytp-large-play-button{display: none !important;}
+    .it933-BoxStyleText-2 .pic-margin-tm10{margin:0px 0;margin-bottom: 2px;}
+    .it933-BoxStyleText-2 .pic-OneRow-simplify{-webkit-line-clamp:2;}
+    .it933-box p{margin-bottom:0px;}
+    .it933-box h2{line-height: 22px;}
+    .it933-box img{height: 238px;}
+
+    .it933-content .it933-box-row .it933-BoxStyle-2 img{width: 180px;height: 101.49px;}
+    /* 1 */
+    .it933-content.it933-style-1{display: flex;align-items: center;background: #F8F8F8;flex-direction: column;}
+    .it933-style-1 .it933-box{width: 100%;}
+    .it933-style-1 .it933-single-image img{width: 100%;height: 208.37px;}
+    .it933-style-1 .it933-single-image::after{max-width: 370px;width:100%;height: 209px;}
+    /* 2 */
+    .it933-style-2 .it933-box img{max-width: 370px;width:100%;height: 209px;}
+    .it933-style-2 .it933-box.it933-BoxStyle-2 img{max-width: 180px;width:100%;height:102px;}
+    .it933-BoxStyle-2 img{width: 180px;height: 102px;}
+    .it933-style-2 .it933-box,.it933-style-3 .it933-box{width:100%;margin-bottom: 10px;}
+    .it933-content{flex-direction: column;}
+
+    .it933-BoxStyle-2{display: flex;align-items: center;}
+    .it933-content .it933-BoxStyle-2 iframe{width: 50%;height: 102px;}
+    .it933-BoxStyle-2 .it933-BoxStyleText-2{width: 50%;margin-left:10px;}
+    .it933-BoxStyle-2 .it933-BoxStyleText-2 h2{font-size: 17px;}
+    .it933-BoxStyle-2 .it933-BoxStyleText-2 p{font-size: 14px;}
+
+    /* 3 */
+    .it933-style-3 .it933-box{margin-bottom: 10px;}
+    .it933-style-3 .it933-BoxStyle-2 img{width: 180px;height: 102px;}
+
+    /* 4 */
+    .it933-style-4.it933-content{ flex-direction: inherit;flex-wrap: wrap;}
+    .it933-style-4 .it933-box {width: calc(100%/2 - 10px);}
+    .it933-box-row{height: 100%;margin-left: 0px;}
+    .it933-style-4 .it933-box{margin: 0 5px;margin-bottom: 15px;}
+    .it933-style-4 .it933-box img{max-width: 180px;width: 100%;height: 102px;}
+    .it933-style-4 .it933-box h2{font-size: 17px;}
+    .it933-style-4 .it933-BoxStyleText-2{margin-left: 0px;}
+
+    /* 5 */
+    .it933-style-5 .it933-box-row{margin-left: 0px;}
+    .it933-style-5 .it933-box img{width: 180px;height: 101.49px;}
+    .it933-style-5 .it933-BoxStyle-row{margin-bottom: 15px;}
+    .it933-style-5 .it933-box:nth-child(odd){flex-direction: row-reverse;}
+    .it933-style-5 .it933-box.it933-BoxStyle-row{flex-direction: row;}
+    .it933-style-5 .it933-box-row .it933-box iframe{height: 102px;}
+
+    /* 6 */
+    .it933-style-6{padding-left: 10px;}
+    .it933-style-6 .it933-BoxStyle-2 img{ width: 150px;height: 85px;}
+
+    /* 7 */
+    .it933-content.it933-style-7{flex-direction: column-reverse;}
+    .it933-style-7 .it933-box{width: 100%;margin:0;margin-bottom: 10px;}
+    .it933-content.it933-style-7 .it933-content-left{width: 100%;}
+    .it933-style-7 .it933-box-row{flex-direction: column;}
+    .it933-style-7 .it933-box-row .it933-BoxStyle-2{flex-direction: row;}
+    .it933-style-7.it933-content .it933-box-row .it933-BoxStyle-2 img{width: 150px;height: 85px;}
+    .it933-style-7 .it933-box img{width: 100%;max-width: 370px;height: 208.37px;}
+    .it933-style-7 .it933-content-left .it933-BoxStyleText-2{margin-left: 10px;}
+    
+    /* 8 */
+    .it933-content.it933-style-8{flex-direction: column-reverse;}
+    .it933-style-8 .it933-box{width: 100%;margin:0;margin-bottom: 10px;}
+    .it933-content.it933-style-8 .it933-content-left{width: 100%;}
+    .it933-style-8 .it933-box-row{flex-direction: column;}
+    .it933-style-8 .it933-box-row .it933-BoxStyle-2{flex-direction: row;margin: 0px;}
+    .it933-style-8.it933-content .it933-box-row img{width: 150px;height: 85px;}
+    .it933-style-8 .it933-ph-carousel-8 img{width: 100%;height: 158px;max-width: 300px;}
+    .it933-style-8.it933-content .it933-box-row .it933-BoxStyle-2 img{width: 150px;height: 85px;}
+    .it933-style-8.it933-content .it933-content-left .it933-BoxStyleText-2{margin-left: 10px;}
+
+    /* 9 */
+    .it933-content.it933-style-9{flex-direction: column-reverse;}
+    .it933-style-9 .it933-box{width: 100%;margin:0;margin-bottom: 10px;}
+    .it933-content.it933-style-9 .it933-content-left{width: 100%;}
+    .it933-style-9 .it933-box-row{flex-direction: column;}
+    .it933-style-9 .it933-box-row .it933-BoxStyle-2{flex-direction: row;}
+    .it933-style-9.it933-content .it933-box-row img{width: 150px;height: 85px;}
+    .it933-style-9 .it933-ph-carousel-8 img{width: 100%;height: 158px;max-width: 300px;}
+    .it933-style-9 .it933-BoxStyleText-2 {margin-right: 0px;}
+
+    /* 10 */
+    .it933-style-10 .it933-box img{max-width: 370px;width: 100%;height: 208.37px;}
+    .it933-content.it933-style-10{flex-direction: column-reverse;}
+    .it933-style-10 .it933-box{width: 100%;margin:0;margin-bottom: 10px;}
+    .it933-content.it933-style-10 .it933-content-left{width: 100%;}
+    .it933-style-10 .it933-box-row{flex-direction: column;}
+    .it933-style-10 .it933-box-row .it933-BoxStyle-2{flex-direction: row;}
+    .it933-style-10 .it933-box-row {width: 100%;}
+    .it933-style-10.it933-content .it933-box-row .it933-BoxStyle-2 img{width: 150px;height: 85px;}
+    .it933-style-10 .it933-BoxStyleText-2{margin-right: 0px;}
+
+    
+}
+
+
+</style>
+<!-- iopen-Set-Space 間距控制 -->
+<div class="it933-default pic-default iopen-Set-Space">
+
+<div class="it933-container">
+    <!-- 1 -->
+    <h1>1</h1>
+
+
+    <div class="it933-content it933-style-1" style="background: #F8F8F8;">                         
+            <div class="it933-box it933-text">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題mmn</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        
+            <div class="it933-box it933-film">
+        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+            <img src="https://picsum.photos/300/200/?random=10">
+            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+        </a>
+    
+            </div>
+
+    </div>
+
+    <!-- 2 -->
+    <h1>2</h1>
+    <div class="it933-content it933-style-2" style="background: #F8F8F8;">
+        
+        <div class="it933-box it933-text">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+        </div>
+    
+        <div class="it933-box it933-text  it933-BoxStyle-2">
+            <div class=" it933-film">
+            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                <img src="https://picsum.photos/300/200/?random=10">
+                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+            </a>
+        </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 3 -->
+    <h1>3</h1>
+    <div class="it933-content it933-style-3" style="background: #F8F8F8;">
+        <div class="it933-box it933-text">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+        </div>
+
+        <div class="it933-box it933-text it933-BoxStyle-2">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+        <div class="it933-box it933-text it933-BoxStyle-2">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4 -->
+    <h1>4</h1>
+    {{if !$mobileDeviceDirected}}
+    <div class="it933-content it933-style-4" style="background:  #F8F8F8;">
+        <div class="it933-box it933-text">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+        </div>
+
+        <div class="it933-box it933-text it933-BoxStyle-2">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+
+        <div class="it933-box-row">
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+    
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <div class="it933-content it933-style-4" style="background:  #F8F8F8;">
+        <div class="it933-box it933-text">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI">
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen="" style="display:none;" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+        <div class="it933-box it933-text">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI">
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen="" style="display:none;" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+
+        <div class="it933-box it933-text">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI">
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen="" style="display:none;" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+        <div class="it933-box it933-text">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI">
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen="" style="display:none;" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <!-- 5 -->
+    <h1>5</h1>
+      <div class="it933-content it933-style-5" style="background: #F8F8F8;">
+        <!-- 一個 -->
+        <div class="it933-box it933-text it933-BoxStyle-2 it933-BoxStyle-row">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+<!-- 上下兩個一起 -->
+        <div class="it933-box-row">
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+    
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+        </div>
+<!-- 上下兩個一起 -->
+        <div class="it933-box-row">
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+    
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 6 -->
+    <h1>6</h1>
+    {{if !$mobileDeviceDirected}}
+<div class="it933-content it933-style-6" style="background: #F8F8F8;">
+    <div class="it933-box-row">
+        <div class="it933-box it933-text it933-BoxStyle-2">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">1主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+    
+        <div class="it933-box it933-text it933-BoxStyle-2">
+            <div class=" it933-film">
+                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                    <img src="https://picsum.photos/300/200/?random=10">
+                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                </a>
+            </div>
+            <div class="it933-BoxStyleText-2">
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">2主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+        </div>
+    </div>
+      <!-- 上下兩個一起 -->
+              <div class="it933-box-row">
+                  <div class="it933-box it933-text it933-BoxStyle-2">
+                    <div class=" it933-film">
+                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                            <img src="https://picsum.photos/300/200/?random=10">
+                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                        </a>
+                    </div>
+                      <div class="it933-BoxStyleText-2">
+                          <h2 class="pic-margin-tm10 pic-OneRow-simplify">3主標題主標題主標題主標題主標題主標題主標題</h2>
+                          <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                          說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                      </div>
+                  </div>
+          
+                  <div class="it933-box it933-text it933-BoxStyle-2">
+                    <div class=" it933-film">
+                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                            <img src="https://picsum.photos/300/200/?random=10">
+                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                        </a>
+                    </div>
+                      <div class="it933-BoxStyleText-2">
+                          <h2 class="pic-margin-tm10 pic-OneRow-simplify">4主標題主標題主標題主標題主標題主標題主標題</h2>
+                          <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                          說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                      </div>
+                  </div>
+              </div>
+      <!-- 上下兩個一起 -->
+              <div class="it933-box-row">
+                  <div class="it933-box it933-text it933-BoxStyle-2">
+                    <div class=" it933-film">
+                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                            <img src="https://picsum.photos/300/200/?random=10">
+                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                        </a>
+                    </div>
+                      <div class="it933-BoxStyleText-2">
+                          <h2 class="pic-margin-tm10 pic-OneRow-simplify">5主標題主標題主標題主標題主標題主標題主標題</h2>
+                          <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                          說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                      </div>
+                  </div>
+          
+                  <div class="it933-box it933-text it933-BoxStyle-2">
+                    <div class=" it933-film">
+                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                            <img src="https://picsum.photos/300/200/?random=10">
+                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                        </a>
+                    </div>
+                      <div class="it933-BoxStyleText-2">
+                          <h2 class="pic-margin-tm10 pic-OneRow-simplify">6主標題主標題主標題主標題主標題主標題主標題</h2>
+                          <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                          說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                      </div>
+                  </div>
+              </div>
+</div>
+    {{else}}
+    <div class="it933-style-6 it931-carousel-box owl-carousel owl-theme">
+        <div class="it933-box-row">
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">1主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+        
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">2主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+
+            <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">3主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+        </div>
+
+            <div class="it933-box-row">
+                <div class="it933-box it933-text it933-BoxStyle-2">
+                    <div class=" it933-film">
+                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                            <img src="https://picsum.photos/300/200/?random=10">
+                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                        </a>
+                    </div>
+                        <div class="it933-BoxStyleText-2">
+                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">4主標題主標題主標題主標題主標題主標題主標題</h2>
+                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+             <div class="it933-box it933-text it933-BoxStyle-2">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                    <div class="it933-BoxStyleText-2">
+                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">5主標題主標題主標題主標題主標題主標題主標題</h2>
+                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+            </div>
+              
+                <div class="it933-box it933-text it933-BoxStyle-2">
+                    <div class=" it933-film">
+                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                            <img src="https://picsum.photos/300/200/?random=10">
+                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                        </a>
+                    </div>
+                    <div class="it933-BoxStyleText-2">
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">6主標題主標題主標題主標題主標題主標題主標題</h2>
+                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                    </div>
+                </div>
+            </div>
+       </div>
+    {{/if}}
+
+        <!-- 7 -->
+        <h1>7</h1>
+
+        {{if !$mobileDeviceDirected}}
+        <div class="it933-content it933-style-7" style="background:  #F8F8F8;">
+            <div class="it933-content-left">
+                <div class="it933-box-row">
+                    <div class="it933-box it933-text it933-BoxStyle-2">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-BoxStyleText-2">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+            
+                    <div class="it933-box it933-text it933-BoxStyle-2">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-BoxStyleText-2">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+    
+                    <div class="it933-box it933-text it933-BoxStyle-2">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI">
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-BoxStyleText-2">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="it933-box-row">
+                    <div class="it933-box it933-text it933-BoxStyle-2">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-BoxStyleText-2">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+            
+                    <div class="it933-box it933-text it933-BoxStyle-2">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-BoxStyleText-2">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+    
+                    <div class="it933-box it933-text it933-BoxStyle-2">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-BoxStyleText-2">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="it933-box it933-text">
+                <div class=" it933-film">
+                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                    </a>
+                </div>
+                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+            </div>
+    
+        </div>
+            {{else}}
+        <div class="it933-content it933-style-7" style="background:  #F8F8F8;">
+                <div class="it933-content-left it931-carousel-box owl-carousel owl-theme">
+                    <div class="it933-box-row  item">
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+                
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+        
+                    </div>
+        
+                    <div class="it933-box-row item">
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+                
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+    
+    
+                <div class="it933-box it933-text">
+                    <div class=" it933-film">
+                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                            <img src="https://picsum.photos/300/200/?random=10">
+                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                        </a>
+                    </div>
+                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                </div>
+        
+        </div>
+        {{/if}}
+
+                <!-- 8 互換左右 -->
+                <h1>8</h1>
+
+                {{if !$mobileDeviceDirected}}
+                <div class="it933-content it933-style-8" style="background:  #F8F8F8;">
+
+                <div class="it933-box-row it933-box-row-style-8">
+                    <div class="it933-box it933-text">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-box-text-style-8">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+
+                    <div class="it933-box it933-text">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <div class="it933-box-text-style-8">
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+                </div>  
+
+                    <div class="it933-content-left">
+                        <div class="it933-box-row">
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                    
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+            
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="it933-box-row">
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                    
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+            
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{else}}
+                <div class="it933-content it933-style-8" style="background:  #F8F8F8;">
+
+                        <div class="it933-content-left it931-carousel-box owl-carousel owl-theme">
+                            <div class="it933-box-row  item"> 
+                                <div class="it933-box it933-text it933-BoxStyle-2">
+                                    <div class=" it933-film">
+                                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                            <img src="https://picsum.photos/300/200/?random=10">
+                                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                        </a>
+                                    </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="it933-box-row  item"> 
+                                <div class="it933-box it933-text it933-BoxStyle-2">
+                                    <div class=" it933-film">
+                                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                            <img src="https://picsum.photos/300/200/?random=10">
+                                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                        </a>
+                                    </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="it933-box-row  item"> 
+                                <div class="it933-box it933-text it933-BoxStyle-2">
+                                    <div class=" it933-film">
+                                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                            <img src="https://picsum.photos/300/200/?random=10">
+                                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                        </a>
+                                    </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="it933-box-row  item"> 
+                                <div class="it933-box it933-text it933-BoxStyle-2">
+                                    <div class=" it933-film">
+                                        <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                            <img src="https://picsum.photos/300/200/?random=10">
+                                            <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                        </a>
+                                    </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                           
+                        </div>
+                        <div class="it931-carousel-box owl-carousel owl-theme">
+                        <div class="it933-box it933-text it933-ph-carousel-8">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                            <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                            說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+
+
+                <!-- 9 -->
+                <h1>9</h1>
+                {{if !$mobileDeviceDirected}}
+                <div class="it933-content it933-style-9" style="background:  #F8F8F8;">
+                    <div class="it933-box-row">
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                        
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                        
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                        
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+                {{else}}
+
+                <div class="it933-content it933-style-9" style="background:  #F8F8F8;">
+
+                    <div class="it933-content-left it931-carousel-box owl-carousel owl-theme">
+                    <div class="it933-box-row  item">
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+                
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+        
+                    </div>
+
+
+                    <div class="it933-box-row  item">
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+                
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                            <div class="it933-BoxStyleText-2">
+                                <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                            </div>
+                        </div>
+        
+                    </div>
+            
+                       
+                    </div>
+                    <div class="it931-carousel-box owl-carousel owl-theme">
+                    <div class="it933-box it933-text it933-ph-carousel-8">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                    </div>
+                </div>
+                </div>
+                {{/if}}
+
+                <!-- 10 -->
+                <h1>10</h1>
+                {{if !$mobileDeviceDirected}}
+                <div class="it933-content it933-style-10" style="background:  #F8F8F8;">
+                    <div class="it933-box-row it933-box-row-style-10">
+
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                        </div>
+                    
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                        </div>
+            
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                        </div>
+
+                        <div class="it933-box it933-text it933-BoxStyle-2">
+                            <div class=" it933-film">
+                                <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                    <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                </a>
+                            </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="it933-box-row">
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                        
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                        
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                    <div class="it933-BoxStyleText-2">
+                                        <h2 class="pic-margin-tm10 pic-OneRow-simplify-2">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+
+                {{else}}
+                <div class="it933-content it933-style-10" style="background:  #F8F8F8;">
+                    <div class="it933-content-left it931-carousel-box owl-carousel owl-theme">
+                        <div class="it933-box-row  item">
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                    
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+            
+                        </div>
+            
+                        <div class="it933-box-row item">
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                    
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+                            <div class="it933-box it933-text it933-BoxStyle-2">
+                                <div class=" it933-film">
+                                    <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                        <img src="https://picsum.photos/300/200/?random=10">
+                                        <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                                    </a>
+                                </div>
+                                <div class="it933-BoxStyleText-2">
+                                    <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                                    <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                                    說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                                </div>
+                            </div>
+            
+                        </div>
+                    </div>
+        
+        
+                    <div class="it933-box it933-text">
+                        <div class=" it933-film">
+                            <a class="it933-single-image fancybox.iframe" href="https://www.youtube.com/embed/YpGjaJ1ettI" >
+                                <img src="https://picsum.photos/300/200/?random=10">
+                                <iframe src="https://www.youtube.com/embed/YpGjaJ1ettI" frameborder="0" allowfullscreen style="display:none;"></iframe>
+                            </a>
+                        </div>
+                        <h2 class="pic-margin-tm10 pic-OneRow-simplify">主標題主標題主標題主標題主標題主標題主標題</h2>
+                        <p class="pic-OneRow-simplify-2">說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字
+                        說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字說明文字</p>
+                    </div>
+            
+            </div>
+                {{/if}}
+</div>
+
+</div>
+
+
+
+<script>
+        $('.it933-style-6.it931-carousel-box').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        dots:true,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1.3
+            },
+            1000:{
+                items:1.3
+            }
+        }
+    });
+
+    $('.it933-style-7 .it931-carousel-box').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        dots:true,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1.3
+            },
+            1000:{
+                items:1.3
+            }
+        }
+    });
+
+    $('.it933-style-8 .it931-carousel-box').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        dots:true,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1.3
+            },
+            1000:{
+                items:1.3
+            }
+        }
+    });
+
+    $('.it933-style-9 .it931-carousel-box').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        dots:true,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1.3
+            },
+            1000:{
+                items:1.3
+            }
+        }
+    });
+
+
+    $('.it933-style-10 .it931-carousel-box').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        dots:true,
+        autoplayHoverPause:true,
+        responsive:{
+            0:{
+                items:1.3
+            },
+            1000:{
+                items:1.3
+            }
+        }
+    });
+
+
+
+$(document).ready(function() {
+
+/* This is basic - uses default settings */
+
+$("a.it933-single-image").fancybox();
+
+/* Using custom settings */
+
+$("a#inline").fancybox({
+    'hideOnContentClick': true
+});
+
+/* Apply fancybox to multiple items */
+
+$("a.group").fancybox({
+    'transitionIn'	:	'elastic',
+    'transitionOut'	:	'elastic',
+    'speedIn'		:	600, 
+    'speedOut'		:	200, 
+    'overlayShow'	:	false,
+    'showNavArrows':true
+});
+
+});
+</script>

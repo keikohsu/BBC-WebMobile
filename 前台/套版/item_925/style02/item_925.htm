@@ -1,0 +1,205 @@
+<style>
+  .it925-style02-container{max-width: 1200px;margin: auto;}
+  .it925-style02-carousel-1 .item { color: #fff; border-radius: 3px; text-align: center;}
+  .it925-style02-carousel-2 .item {padding: 10px 0px;margin: 5px;color: #fff;border-radius: 3px;text-align: center;cursor: pointer;width: 110px !important;margin: auto;}
+  .it925-style02-carousel-2 .item h1 {font-size: 18px;}
+  .it925-style02-container .owl-theme .owl-nav [class*="owl-"] {transition: all 0.3s ease;}
+
+  /* 改 01*/
+  .it925-style02-carousel-1.owl-theme {position: relative;}
+  .it925-style02-carousel-1.owl-theme .owl-next,
+  .it925-style02-carousel-1.owl-theme .owl-prev {width: 22px;height: 40px;margin-top: -20px;position: absolute;top: 50%;}
+  .it925-style02-carousel-1.owl-theme .owl-prev {left: 10px;}
+  .it925-style02-carousel-1.owl-theme .owl-next {right: 10px;}
+  .it925-style02-carousel-1 img{object-fit: cover;}
+  /* 改 02*/
+  .it925-style02-container{position: relative;}
+  .it925-style02-container .owl-carousel-box-2{backdrop-filter: blur(7.5px);width: 100%;position: relative; z-index: 9; bottom: 100px;padding: 9px 0;border-top: 1px solid #ECECEC;}
+  .it925-style02-carousel-2 { max-width: 699px;margin: auto;backdrop-filter: blur(7.5px);}
+  .it925-style02-carousel-2.owl-theme .owl-nav [class*=owl-]{ background: transparent; color: #fff;    font-size: 18px;    font-weight: bold;}
+  .it925-style02-carousel-2 img{width: 110px !important;height: 62px;border-radius: 10px; object-fit: cover;}
+  .it925-style02-carousel-2 .owl-item.active{width: 133px !important;}
+  .it925-style02-carousel-2.owl-carousel .owl-stage-outer{margin: 0 auto;  max-width: 665px;}
+  .it925-style02-carousel-2.owl-carousel .owl-stage-outer .owl-stage{width: 857px !important;}
+  .it925-style02-carousel-2.owl-theme .owl-nav{display: none;}
+  .it925-style02-title{position: absolute;font-size: 60px;color: #000;font-weight: 400;left: 30px; bottom: 202px;}
+  .it925-style02-content{position: absolute;     line-height: 30px; width: 254px;font-size: 30px;font-weight: 400;bottom: 143px;color: #000;left: 30px;overflow: hidden;display: -webkit-box; text-overflow: ellipsis; -webkit-line-clamp:1;  -webkit-box-orient: vertical; white-space: normal;}
+  .it925-style02-carousel-2.owl-theme .owl-nav{display: block !important;}
+  .it925-style02-container .owl-carousel .owl-nav button.owl-next,.it925-style02-container .owl-carousel .owl-nav button.owl-prev,.it925-style02-container .owl-carousel button.owl-dot{    text-indent: initial !important;    height: 20px;}
+  .it925-style02-container .it925-style02-carousel-2.owl-carousel .owl-nav button.owl-prev{position: absolute;height: 20px;top: 31px;left:-12px;}
+  .it925-style02-container .it925-style02-carousel-2.owl-carousel .owl-nav button.owl-next{position: absolute;top: 31px;right: -12px;}
+
+  @media screen and (max-width:1024px){
+      .it925-style02-carousel-2.owl-carousel .owl-stage-outer {margin: 0 250px;}
+      .it925-style02-carousel-2.owl-carousel .owl-nav button.owl-next{top: 40px;right: 222px;}
+      .it925-style02-carousel-2.owl-carousel .owl-nav button.owl-prev{top: 40px;left: 222px;}
+  }
+  @media screen and (max-width: 768px){
+    .it925-style02-container .owl-carousel .owl-nav button.owl-next, .it925-style02-container .owl-carousel .owl-nav button.owl-prev{display: none;}
+      /* 2 */
+      .it925-style02-container{height: auto;}
+      .it925-style02-container .owl-carousel-box-2{bottom: 0px; padding: 0px 0;}
+      .it925-style02-carousel-2{bottom: 0;background: linear-gradient(0deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01)), linear-gradient(360deg, rgba(0, 0, 0, 0.4158) 0%, rgba(0, 0, 0, 0) 41.78%);    backdrop-filter: blur(0px);}
+      .it925-style02-carousel-2 img{border-radius: 5px;}
+      .it925-style02-carousel-2.owl-carousel .owl-stage-outer {margin: 0 7px;}
+      .it925-style02-carousel-2.owl-theme .owl-nav [class*=owl-]{display: none;}
+      .it925-style02-carousel-2 .item{width: 84.08px !important;}
+      .it925-style02-carousel-2 img{width: 84.08px !important;height: 48.18px;}
+      .it925-style02-carousel-2 .owl-item.active{width: 101px !important;}
+  
+      .it925-style02-title{font-size: 20px;left: 19px;bottom: 30px;;}
+      .it925-style02-content{width: 168px;font-size: 14px;left: 20px;bottom: 3px;}
+  }
+  @media screen and (max-width: 400px){
+      .it925-style02-carousel-2.owl-carousel .owl-stage-outer { margin: 0 13px;}
+      .it925-style02-carousel-2 .owl-item.active {width: 90px !important;}
+  }
+  @media screen and (max-width: 375px){
+      .it925-style02-carousel-2.owl-carousel .owl-stage-outer { margin: 0 9px;}
+  }
+    </style>
+
+<!--電腦版圖片尺寸1366X512 手機版圖片尺寸 390X200 -->
+<div class="it925-style02-container">
+    <div id="sync1" class="it925-style02-carousel-1 owl-carousel owl-theme">
+      <div class="item">
+          <h2 class="it925-style02-title">主標1</h2>
+          <span class="it925-style02-content">副標題副標題副標題副標題副標題</span>
+          <img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252">
+        </div>
+      <div class="item">
+        <h2 class="it925-style02-title">主標1</h2>
+        <span class="it925-style02-content">副標題副標題副標題副標題副標題</span>
+        <img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252">
+    </div>
+      <div class="item">
+        <h2 class="it925-style02-title">主標1</h2>
+        <span class="it925-style02-content">副標題副標題副標題副標題副標題</span>
+        <img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252">
+    </div>
+      <div class="item">
+        <h2 class="it925-style02-title">主標1</h2>
+        <span class="it925-style02-content">副標題副標題副標題副標題副標題</span>
+        <img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252">
+    </div>
+    <div class="item">
+        <h2 class="it925-style02-title">主標1</h2>
+        <span class="it925-style02-content">副標題副標題副標題副標題副標題</span>
+        <img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252">
+    </div>
+    <div class="item">
+        <h2 class="it925-style02-title">主標1</h2>
+        <span class="it925-style02-content">副標題副標題副標題副標題副標題</span>
+        <img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252">
+    </div>
+    </div>
+
+    
+    
+<div class="owl-carousel-box-2">
+    <div id="sync2" class="it925-style02-carousel-2 owl-carousel owl-theme">
+            <div class="item"><img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252"></div>
+            <div class="item"><img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252"></div>
+            <div class="item"><img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252"></div>
+            <div class="item"><img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252"></div>
+            <div class="item"><img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252"></div>
+            <div class="item"><img src="https://image.bbc.dev.ewebs.tw/website/uploads/website_7/zh-tw/wpicon_img_3436.jpg?hash=83252"></div>
+            
+        </div>
+    </div>
+
+</div>
+
+  <script>
+$(document).ready(function () {
+  var sync1 = $("#sync1");
+  var sync2 = $("#sync2");
+  var slidesPerPage = 5; //globaly define number of elements per page
+  var syncedSecondary = true;
+
+  sync1
+    .owlCarousel({
+      items: 1,
+      slideSpeed: 2000,
+      nav: false,
+      autoplay: true,
+      dots: false,
+      loop: true
+    })
+    .on("changed.owl.carousel", syncPosition);
+
+  sync2
+    .on("initialized.owl.carousel", function () {
+      sync2.find(".owl-item").eq(0).addClass("current");
+    })
+    .owlCarousel({
+    //   items: slidesPerPage,
+      dots: false,
+      nav: true,
+      smartSpeed: 200,
+      slideSpeed: 500,
+      slideBy: slidesPerPage,
+      responsiveRefreshRate: 100,
+      navText: ['<i class="icons-line icon-arrow-left-01"></i>',
+        '<i class="icons-line icon-arrow-right-01"></i>'],
+      responsive: {
+            0: {
+                items:4,
+                nav: false,
+            },1024: {
+                items:5,
+                nav: false,
+            }
+        }
+    })
+    .on("changed.owl.carousel", syncPosition2);
+
+  function syncPosition(el) {
+    //if you set loop to false, you have to restore this next line
+    //var current = el.item.index;
+
+    //if you disable loop you have to comment this block
+    var count = el.item.count - 1;
+    var current = Math.round(el.item.index - el.item.count / 2 - 0.5);
+
+    if (current < 0) {
+      current = count;
+    }
+    if (current > count) {
+      current = 0;
+    }
+
+    //end block
+
+    sync2
+      .find(".owl-item")
+      .removeClass("current")
+      .eq(current)
+      .addClass("current");
+    var onscreen = sync2.find(".owl-item.active").length - 1;
+    var start = sync2.find(".owl-item.active").first().index();
+    var end = sync2.find(".owl-item.active").last().index();
+
+    if (current > end) {
+      sync2.data("owl.carousel").to(current, 100, true);
+    }
+    if (current < start) {
+      sync2.data("owl.carousel").to(current - onscreen, 100, true);
+    }
+  }
+
+  function syncPosition2(el) {
+    if (syncedSecondary) {
+      var number = el.item.index;
+      sync1.data("owl.carousel").to(number, 100, true);
+    }
+  }
+
+  sync2.on("click", ".owl-item", function (e) {
+    e.preventDefault();
+    var number = $(this).index();
+    sync1.data("owl.carousel").to(number, 300, true);
+  });
+});
+
+  </script>
